@@ -1,0 +1,209 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../model/notificationModel.dart';
+import '../model/uploadDesignDataModel.dart';
+
+class uploadDesignTypeController extends GetxController {
+  int selectedDesignTypeindex = 0;
+  int selectedHouseType = 0;
+
+  static int imgCount = 14;
+
+  List<String?> ExteriorImageUrl = List<String?>.filled(3, null);
+
+  List<String?> FloorImageUrl = List<String?>.filled(3, null);
+
+  List<String?> planingImageUrl = List<String?>.filled(3, null);
+
+  List<XFile?> exteriorImgs = List<XFile?>.filled(3, null);
+
+  List<XFile?> floorImgs = List<XFile?>.filled(3, null);
+
+  List<XFile?> planningImgs = List<XFile?>.filled(3, null);
+  List<XFile?> structureImgs = List<XFile?>.filled(3, null);
+  List<XFile?> elevationImgs = List<XFile?>.filled(3, null);
+
+  // String ExteriorImageUrl = '';
+
+  changeoption(index) {
+    selectedDesignTypeindex = index;
+
+    refresh();
+  }
+
+  changeHouseType(index) {
+    selectedHouseType = index;
+
+    refresh();
+  }
+
+  fetchExteriorImg(buttonIndex, context) async {
+    // showDialog(
+    //     barrierDismissible: true,
+    //     context: context,
+    //     builder: (context) {
+    //       return Center(child: const CircularProgressIndicator());
+    //     });
+    final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;
+    exteriorImgs[buttonIndex] =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectoryImages = referenceRoot.child(
+        'Architect/Designs/${FirebaseAuth.instance.currentUser!.uid}/Exterior_photos/');
+    Reference referenceImageToUpload =
+        referenceDirectoryImages.child(uniqueProductImageName.toString());
+    // log(uniqueProductImageName.toString());
+    if (exteriorImgs[buttonIndex] == null) {
+      return;
+    }
+    try {
+      await referenceImageToUpload
+          .putFile(File(exteriorImgs[buttonIndex]!.path));
+
+      ExteriorImageUrl[buttonIndex] =
+          await referenceImageToUpload.getDownloadURL();
+      // log(useridProofimg);
+    } catch (e) {
+      // log(e.toString());
+      if (kDebugMode) {}
+    }
+    refresh();
+  }
+
+  fetchFloorImg(buttonIndex) async {
+    final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;
+    floorImgs[buttonIndex] =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectoryImages = referenceRoot.child(
+        'Architect/Designs/${FirebaseAuth.instance.currentUser!.uid}/floor_photos/');
+    Reference referenceImageToUpload =
+        referenceDirectoryImages.child(uniqueProductImageName.toString());
+    // log(uniqueProductImageName.toString());
+    if (floorImgs[buttonIndex] == null) {
+      return;
+    }
+    try {
+      await referenceImageToUpload.putFile(File(floorImgs[buttonIndex]!.path));
+      FloorImageUrl[buttonIndex] =
+          await referenceImageToUpload.getDownloadURL();
+      // log(useridProofimg);
+    } catch (e) {
+      // log(e.toString());
+      if (kDebugMode) {}
+    }
+    refresh();
+  }
+
+  fetchPlanningImg(buttonIndex) async {
+    final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;
+    planningImgs[buttonIndex] =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectoryImages = referenceRoot.child(
+        'Architect/Designs/${FirebaseAuth.instance.currentUser!.uid}/Exterior_photos/');
+    Reference referenceImageToUpload =
+        referenceDirectoryImages.child(uniqueProductImageName.toString());
+    // log(uniqueProductImageName.toString());
+    if (planningImgs[buttonIndex] == null) {
+      return;
+    }
+    try {
+      await referenceImageToUpload
+          .putFile(File(planningImgs[buttonIndex]!.path));
+      planingImageUrl[buttonIndex] =
+          await referenceImageToUpload.getDownloadURL();
+      // log(useridProofimg);
+    } catch (e) {
+      // log(e.toString());
+      if (kDebugMode) {}
+    }
+    refresh();
+  }
+
+  uploadDesignData(
+    String uploadedUserUid,
+    String projectDetails,
+    String imageOneurl,
+    String imageTwourl,
+    String imageThreeurl,
+    String designType,
+    String houseFacing,
+    String houseFloors,
+    String houseType,
+    Map houseArea,
+    String accordingtoVastu,
+    String estimatedConstructionCost,
+    String aproximateConstructionCost,
+    String floorfileimageOneurl,
+    String floorfileimageTwourl,
+    String floorfileimageThreeurl,
+    String basementimageOneurl,
+    String groundimageTwourl,
+    String firstimageThreeurl,
+    String designprice,
+    String shortdescription,
+    String architectName,
+  ) async {
+    final docUrl =
+        FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
+
+    final designData = designDataModel(
+      designprice: designprice,
+      shortdescription: shortdescription,
+      floorfileimageOneurl: floorfileimageOneurl,
+      floorfileimageThreeurl: floorfileimageThreeurl,
+      floorfileimageTwourl: floorfileimageTwourl,
+      workingBasementimageOneurl: basementimageOneurl,
+      workingfirstimageThreeurl: firstimageThreeurl,
+      workinggroundimageTwourl: groundimageTwourl,
+      uid: docUrl.id,
+      sortId: DateTime.now().millisecondsSinceEpoch,
+      uploadedUserUid: uploadedUserUid,
+      projectDetails: projectDetails,
+      imageOneurl: imageOneurl,
+      imageTwourl: imageTwourl,
+      imageThreeurl: imageThreeurl,
+      designType: designType,
+      houseFacing: houseFacing,
+      houseFloors: houseFloors,
+      houseType: houseType,
+      houseArea: houseArea,
+      accordingtoVastu: accordingtoVastu,
+      estimatedConstructionCost: estimatedConstructionCost,
+      aproximateConstructionCost: aproximateConstructionCost,
+      postedDate: DateTime.now(),
+      visitors: 0,
+      uploadedBy: architectName,
+    );
+
+    final json = designData.toJson();
+
+    await docUrl.set(json);
+
+    final docNotifcaton =
+        FirebaseFirestore.instance.collection('Notifications').doc();
+
+    final notificationData = notificationModel(
+        time: DateTime.now(),
+        imgUrl: floorfileimageOneurl,
+        title: '${architectName} Added New Design',
+        sortid: DateTime.now().millisecondsSinceEpoch,
+        uid: docUrl.id);
+    await docNotifcaton.set(notificationData.toJson());
+
+    await FirebaseFirestore.instance
+        .collection("ArchitectData")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({
+      'myDesigns': FieldValue.arrayUnion([designData.toJson()])
+    });
+    refresh();
+  }
+}

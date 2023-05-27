@@ -7,8 +7,6 @@ import 'package:dmh_architect/model/uploadDesignDataModel.dart';
 import '../../../Constants/constants.dart';
 import '../../productview/productview.dart';
 
-
-
 class designlistview extends StatelessWidget {
   designlistview(
       {super.key, required this.screenwidth, required this.streamQuery});
@@ -49,7 +47,6 @@ class designlistview extends StatelessWidget {
                         }
                     );
                     print(data.uid);
-
                     Get.to(() => ProductView(
                         DesignData: data,
                       ));

@@ -19,6 +19,7 @@ class ProductView extends StatefulWidget {
   State<ProductView> createState() => _ProductViewState();
 }
 
+
 class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {

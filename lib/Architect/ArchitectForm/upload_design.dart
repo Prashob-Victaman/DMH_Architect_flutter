@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/ArchitectMyDesign.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +25,7 @@ class _UploadDesignState extends State<UploadDesign> {
 
   final formKey1 = GlobalKey<FormState>();
 
-  int planningGridCount = 0;
+  int planningGridCount = 1;
   int structureGridCount = 0;
   int elevationGridCount = 0;
   int selectedHouseFloor = 0;
@@ -39,6 +40,9 @@ class _UploadDesignState extends State<UploadDesign> {
   final TextEditingController shortDescriptionController =
       TextEditingController();
 
+  final TextEditingController planingFileNameController =
+      TextEditingController();
+
   final TextEditingController accordingVastuController =
       TextEditingController();
   final TextEditingController approximateCostController =
@@ -49,6 +53,17 @@ class _UploadDesignState extends State<UploadDesign> {
       TextEditingController();
   final TextEditingController planningFirstFloorController =
       TextEditingController();
+
+  final List planingFileNameControllerList = [TextEditingController()];
+  final List planingFilePriceControllerList = [TextEditingController()];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // getController.planingImageCountIncrease();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -284,117 +299,116 @@ class _UploadDesignState extends State<UploadDesign> {
                 ),
               ),
 
-
-
               FloorDetails(),
-
 
               heigh20,
               const Text(
-                'Add Working details',
+                'Add Working files details',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
               ),
               heigh10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // const Text(
-                  //   'Planning',
-                  //   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-                  // ),
-                  // SizedBox(
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: Colors.redAccent,
-                  //       shape: const StadiumBorder(),
-                  //     ),
-                  //     onPressed: () {
-                  //       setState(() {
-                  //         planningGridCount += 1;
-                  //       });
-                  //     },
-                  //     child: Row(
-                  //       children: [
-                  //         Text('Add', style: normal14),
-                  //         width10,
-                  //         Icon(
-                  //           Icons.add,
-                  //           size: 20.sp,
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
+                  const Text(
+                    'Planning',
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.redAccent,
+                        shape: const StadiumBorder(),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          planningGridCount += 1;
+                          planingFileNameControllerList
+                              .add(TextEditingController());
+                          planingFilePriceControllerList
+                              .add(TextEditingController());
+
+                          //getController.planingImageCountIncrease();
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Text('Add', style: normal14),
+                          width10,
+                          Icon(
+                            Icons.add,
+                            size: 20.sp,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              heigh10,
+
               GetBuilder<uploadDesignTypeController>(builder: (context) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () => getController.fetchPlanningImg(0),
-                          child:
-                              customUploadButton(getController.planningImgs[0]),
-                        ),
-                        heigh5,
-                        const Text('Basement'),
-                        heigh5,
-                        SizedBox(
-                          width: 115.sp,
-                          height: 35.sp,
-                          child: Center(
-                            child: TextField(
-                              controller: planingBasementController,
-                              decoration: customInputDecoration('₹0.0'),
+                return SizedBox(
+                  child: GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, childAspectRatio: 0.65.sp),
+                      physics: ScrollPhysics(),
+                      itemCount: planningGridCount,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () =>
+                                      getController.fetchPlanningImg(index),
+                                  child: customUploadButton(
+                                      getController.planningImgs[index]),
+                                ),
+                                heigh5,
+                                SizedBox(
+                                  width: 115.sp,
+                                  height: 35.sp,
+                                  child: Center(
+                                    child: TextFormField(
+                                      controller:
+                                          planingFileNameControllerList[index],
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter File name';
+                                        }
+                                        return null;
+                                      },
+                                      decoration:
+                                          customInputDecoration('File name'),
+                                    ),
+                                  ),
+                                ),
+                                heigh5,
+                                SizedBox(
+                                  width: 115.sp,
+                                  height: 35.sp,
+                                  child: Center(
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Please enter Estimated cost';
+                                        }
+                                        return null;
+                                      },
+                                      controller:
+                                          planingFilePriceControllerList[index],
+                                      decoration: customInputDecoration('₹0.0'),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () => getController.fetchPlanningImg(1),
-                          child:
-                              customUploadButton(getController.planningImgs[1]),
-                        ),
-                        heigh5,
-                        const Text('Ground Floor'),
-                        heigh5,
-                        SizedBox(
-                          width: 115.sp,
-                          height: 35.sp,
-                          child: TextField(
-                            controller: planningGroundController,
-                            decoration: customInputDecoration('₹0.0'),
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () => getController.fetchPlanningImg(2),
-                          child:
-                              customUploadButton(getController.planningImgs[2]),
-                        ),
-                        heigh5,
-                        const Text('First Floor'),
-                        heigh5,
-                        SizedBox(
-                          width: 115.sp,
-                          height: 35.sp,
-                          child: TextField(
-                            controller: planningFirstFloorController,
-                            decoration: customInputDecoration('₹0.0'),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                          ],
+                        );
+                      }),
                 );
               }),
               heigh10,
@@ -696,7 +710,6 @@ class _UploadDesignState extends State<UploadDesign> {
               //           );
               //         }),
               // heigh20,
-              
 
               GestureDetector(
                 child: SizedBox(
@@ -710,6 +723,24 @@ class _UploadDesignState extends State<UploadDesign> {
                     onPressed: () async {
                       final form1 = formKey1.currentState;
                       if (form1!.validate()) {
+
+                        List planingImageUrl =[];
+                        for (var element in getController.planingImageUrl) {
+                          if(element!=null){
+                            planingImageUrl.add(element);
+                          }
+                        }
+
+                        List planingFileNameList = [];
+                        planingFileNameControllerList.forEach((element) {
+                          planingFileNameList.add(element.text);
+                        });
+
+                        List planingFilePriceList = [];
+                        planingFilePriceControllerList.forEach((element) {
+                          planingFilePriceList.add(element.text);
+                        });
+
                         var userdata = await FirebaseFirestore.instance
                             .collection('ArchitectData')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -749,22 +780,19 @@ class _UploadDesignState extends State<UploadDesign> {
                             getController.FloorImageUrl[0]!,
                             getController.FloorImageUrl[1]!,
                             getController.FloorImageUrl[2]!,
-                            getController.planingImageUrl[0]!,
-                            getController.planingImageUrl[1]!,
-                            getController.planingImageUrl[2]!,
                             designpriceController.text,
                             shortDescriptionController.text,
-                            userdata['name']);
+                            userdata['name'],
+                            planingImageUrl,
+                            planingFileNameList,
+                            planingFilePriceList);
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  Architectbottomnavigationbar(
-                                      selectedindex: 0)),
+                              builder: (context) => ArchitectMyDesign()),
                         );
                       }
                     },
-
                     child: const Text('Upload'),
                   ),
                 ),
@@ -776,7 +804,6 @@ class _UploadDesignState extends State<UploadDesign> {
       ),
     );
   }
-
   customTail(screenWidth, text, color) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.sp),

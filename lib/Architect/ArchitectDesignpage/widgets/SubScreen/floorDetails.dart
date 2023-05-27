@@ -53,6 +53,7 @@ class _FloorDetailsState extends State<FloorDetails> {
               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
             ),
             Spacer(),
+
             // IconButton(
             //     onPressed: () {
             //       if (getxcontroller.numberOfFloors != 1) {
@@ -70,6 +71,7 @@ class _FloorDetailsState extends State<FloorDetails> {
             //       setState(() {});
             //     },
             //     icon: const Icon(Icons.add_box_rounded)),
+
           ],
         ),
         heigh20,

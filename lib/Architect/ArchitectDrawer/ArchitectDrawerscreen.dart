@@ -8,6 +8,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../Constants/constants.dart';
 import '../../controller/drawercontroller.dart';
+import '../ArchitectProfile/ArchitectMyDesign.dart';
 import '../notification/notification.dart';
 
 class ArchitectDrawerscreen extends StatelessWidget {
@@ -104,15 +105,18 @@ class ArchitectDrawerscreen extends StatelessWidget {
               padding: EdgeInsets.only(left: 20.0.w, top: 20.w),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Icon(Icons.account_circle_rounded),
-                      width10,
-                      Text(
-                        'My Designs',
-                        style: normal16,
-                      )
-                    ],
+                  GestureDetector(
+                      onTap: () => Get.to(() => ArchitectMyDesign()),
+                    child: Row(
+                      children: [
+                        Icon(Icons.account_circle_rounded),
+                        width10,
+                        Text(
+                          'My Designs',
+                          style: normal16,
+                        )
+                      ],
+                    ),
                   ),
                   heigh20,
                   Row(

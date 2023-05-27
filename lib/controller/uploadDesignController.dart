@@ -19,13 +19,13 @@ class uploadDesignTypeController extends GetxController {
 
   List<String?> FloorImageUrl = List<String?>.filled(3, null);
 
-  List<String?> planingImageUrl = List<String?>.filled(3, null);
+  List<String?> planingImageUrl = List<String?>.filled(6, null);
 
   List<XFile?> exteriorImgs = List<XFile?>.filled(3, null);
 
   List<XFile?> floorImgs = List<XFile?>.filled(3, null);
 
-  List<XFile?> planningImgs = List<XFile?>.filled(3, null);
+  List<XFile?> planningImgs = List<XFile?>.filled(6, null);
   List<XFile?> structureImgs = List<XFile?>.filled(3, null);
   List<XFile?> elevationImgs = List<XFile?>.filled(3, null);
 
@@ -33,7 +33,6 @@ class uploadDesignTypeController extends GetxController {
 
   changeoption(index) {
     selectedDesignTypeindex = index;
-
     refresh();
   }
 
@@ -42,6 +41,7 @@ class uploadDesignTypeController extends GetxController {
 
     refresh();
   }
+
 
   fetchExteriorImg(buttonIndex, context) async {
     // showDialog(
@@ -144,12 +144,13 @@ class uploadDesignTypeController extends GetxController {
     String floorfileimageOneurl,
     String floorfileimageTwourl,
     String floorfileimageThreeurl,
-    String basementimageOneurl,
-    String groundimageTwourl,
-    String firstimageThreeurl,
     String designprice,
     String shortdescription,
     String architectName,
+      List planingFileUrlList,
+      List planingFileNameList,
+      List planingFilePriceList,
+
   ) async {
     final docUrl =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
@@ -160,9 +161,6 @@ class uploadDesignTypeController extends GetxController {
       floorfileimageOneurl: floorfileimageOneurl,
       floorfileimageThreeurl: floorfileimageThreeurl,
       floorfileimageTwourl: floorfileimageTwourl,
-      workingBasementimageOneurl: basementimageOneurl,
-      workingfirstimageThreeurl: firstimageThreeurl,
-      workinggroundimageTwourl: groundimageTwourl,
       uid: docUrl.id,
       sortId: DateTime.now().millisecondsSinceEpoch,
       uploadedUserUid: uploadedUserUid,
@@ -181,6 +179,9 @@ class uploadDesignTypeController extends GetxController {
       postedDate: DateTime.now(),
       visitors: 0,
       uploadedBy: architectName,
+        planingFileUrlList:planingFileUrlList,
+      planingFileNameList: planingFileNameList,
+      planingFilePriceList:planingFilePriceList
     );
 
     final json = designData.toJson();

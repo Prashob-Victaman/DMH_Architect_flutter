@@ -19,14 +19,15 @@ class designDataModel {
   String floorfileimageOneurl;
   String floorfileimageTwourl;
   String floorfileimageThreeurl;
-  String workingBasementimageOneurl;
-  String workinggroundimageTwourl;
-  String workingfirstimageThreeurl;
+
   String designprice;
   String shortdescription;
   String uploadedBy;
+  List planingFileNameList;
+  List planingFilePriceList;
+  List planingFileUrlList;
 
-  
+
   designDataModel({
     this.uid = '',
     required this.shortdescription,
@@ -50,10 +51,11 @@ class designDataModel {
     required this.floorfileimageOneurl,
     required this.floorfileimageTwourl,
     required this.floorfileimageThreeurl,
-    required this.workingBasementimageOneurl,
-    required this.workinggroundimageTwourl,
-    required this.workingfirstimageThreeurl,
-    required this.uploadedBy
+
+    required this.uploadedBy,
+    required this.planingFileNameList,
+    required this.planingFilePriceList,
+    required this.planingFileUrlList
   });
 
   Map<String, dynamic> toJson() => {
@@ -77,12 +79,12 @@ class designDataModel {
         'floorfileimageOneurl': floorfileimageOneurl,
         'floorfileimageTwourl': floorfileimageTwourl,
         'floorfileimageThreeurl': floorfileimageThreeurl,
-        'workingBasementimageOneurl': workingBasementimageOneurl,
-        'workinggroundimageTwourl': workinggroundimageTwourl,
-        'workingfirstimageThreeurl': workingfirstimageThreeurl,
         'designprice': designprice,
         'shortdescription': shortdescription,
-        'uploadedBy':uploadedBy
+        'uploadedBy':uploadedBy,
+    'planingFileUrlList':planingFileUrlList,
+    'planingFileNameList':planingFileNameList,
+    'planingFilePriceList':planingFilePriceList
       };
 
   factory designDataModel.fromJson(json) => designDataModel(
@@ -106,12 +108,12 @@ class designDataModel {
         floorfileimageOneurl: json['floorfileimageOneurl'],
         floorfileimageTwourl: json['floorfileimageTwourl'],
         floorfileimageThreeurl: json['floorfileimageThreeurl'],
-        workingBasementimageOneurl: json['workingBasementimageOneurl'],
-        workinggroundimageTwourl: json['workinggroundimageTwourl'],
-        workingfirstimageThreeurl: json['workingfirstimageThreeurl'],
+
         designprice: json['designprice'],
         shortdescription: json['shortdescription'],
-        uploadedBy:json['uploadedBy']
-
+        uploadedBy:json['uploadedBy'],
+      planingFileUrlList:json['planingFileUrlList'],
+      planingFilePriceList:json['planingFilePriceList'],
+      planingFileNameList:json['planingFileNameList']
       );
 }

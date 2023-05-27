@@ -45,80 +45,42 @@ class ProductCarouselslider extends StatelessWidget {
                     fit: BoxFit.cover)),
           ),
         ),
-        DesignData.workingBasementimageOneurl != null
-            ? Padding(
-                padding: EdgeInsets.all(10.w),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              DesignData.workingBasementimageOneurl),
-                          fit: BoxFit.cover)),
-                  height: 180.w,
-                ),
-              )
-            : Padding(
-                padding: EdgeInsets.all(10.w),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      image: DecorationImage(
-                          image: NetworkImage(DesignData.imageOneurl),
-                          fit: BoxFit.cover)),
-                  height: 180.w,
-                ),
-              ),
-        DesignData.workinggroundimageTwourl != null
-            ? Padding(
-                padding: EdgeInsets.all(10.w),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      image: DecorationImage(
-                          image:
-                              NetworkImage(DesignData.workinggroundimageTwourl),
-                          fit: BoxFit.cover)),
-                  height: 180.w,
-                ),
-              )
-            : Padding(
-                padding: EdgeInsets.all(10.w),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      image: DecorationImage(
-                          image: NetworkImage(DesignData.imageTwourl),
-                          fit: BoxFit.cover)),
-                  height: 180.w,
-                ),
-              ),
-        DesignData.workinggroundimageTwourl != null
-            ? Padding(
-                padding: EdgeInsets.all(10.w),
-                child: Container(
-                  height: 180.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              DesignData.workingfirstimageThreeurl),
-                          fit: BoxFit.cover)),
-                ),
-              )
-            : Padding(
-                padding: EdgeInsets.all(10.w),
-                child: Container(
-                  height: 180.w,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      image: DecorationImage(
-                          image: NetworkImage(DesignData.imageThreeurl),
-                          fit: BoxFit.cover)),
-                ),
-              ),
-      ],
 
+
+        Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.w),
+                image: DecorationImage(
+                    image: NetworkImage(DesignData.floorfileimageOneurl),
+                    fit: BoxFit.cover)),
+            height: 180.w,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.w),
+                image: DecorationImage(
+                    image: NetworkImage(DesignData.floorfileimageTwourl),
+                    fit: BoxFit.cover)),
+            height: 180.w,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.w),
+          child: Container(
+            height: 180.w,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.w),
+                image: DecorationImage(
+                    image: NetworkImage(DesignData.floorfileimageThreeurl),
+                    fit: BoxFit.cover)),
+          ),
+        ),
+      ],
       //Slider Container properties
       options: CarouselOptions(
         pageSnapping: true,
@@ -134,3 +96,5 @@ class ProductCarouselslider extends StatelessWidget {
     );
   }
 }
+
+

@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../Constants/constants.dart';
 import '../../controller/CustomDesignController.dart';
-import '../../model/recievedesignDataFromAdmin.dart';
 
 class GetDesign extends StatefulWidget {
   GetDesign({Key? key, required this.DesignData}) : super(key: key);
@@ -25,6 +24,7 @@ class _GetDesignState extends State<GetDesign> {
 
   @override
   void initState() {
+    super.initState();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);

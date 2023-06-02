@@ -1,3 +1,4 @@
+import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -355,9 +356,9 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                                   townController.text,
                                   pincodeController.text,
                                   selectedState);
-                              Get.off(() => Architectbottomnavigationbar(
-                                    selectedindex: 0,
-                                  ));
+                              Get.off(() =>ServiceRateUpdated()
+                              
+                              );
                             }
                           },
                           child: Text('Next', style: normal14),

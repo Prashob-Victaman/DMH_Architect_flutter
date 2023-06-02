@@ -26,6 +26,8 @@ class _ServiceRateState extends State<ServiceRate> {
     'Walkthrough Video(Interior & Exterior)',
     'Electricals',
     'Plumbing',
+        'Site Supervision',
+
   ];
 
   int count = 1;
@@ -187,7 +189,7 @@ class _ServiceRateState extends State<ServiceRate> {
                 separatorBuilder: (context, index) {
                   return heigh10;
                 },
-                itemCount: count)
+                itemCount: 10)
           ],
         ),
       ),

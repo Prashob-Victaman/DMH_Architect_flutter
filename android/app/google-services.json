@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:506559895239:android:4acbde64eca7ee9e3910e2",
         "android_client_info": {
-          "package_name": "com.example.design_my_house_admin"
+          "package_name": "com.victaman.DMH_Architect"
         }
       },
       "oauth_client": [
@@ -38,7 +38,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:506559895239:android:ac9655b79cf588773910e2",
         "android_client_info": {
-          "package_name": "com.example.dmh_architect"
+          "package_name": "com.victaman.DMH_Architect"
         }
       },
       "oauth_client": [
@@ -46,7 +46,7 @@
           "client_id": "506559895239-bk2h64b9mu3093lm0vv3lmf8oit4va5q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.dmh_architect",
+            "package_name": "com.victaman.DMH_Architect",
             "certificate_hash": "16cc17b354cb5d1172391cce6722fa5d15065364"
           }
         },

@@ -165,7 +165,7 @@ deatilscustomInputDecoration(String hint) {
 
 customInputDecoration(String hint) {
   return InputDecoration(
-    contentPadding: EdgeInsets.only(left: 10.w),
+    contentPadding: EdgeInsets.only(left: 10.w, right: 5.w),
     fillColor: kredcolor,
     hintText: hint,
     hintStyle: TextStyle(
@@ -186,17 +186,18 @@ customInputDecoration(String hint) {
 
 customBoxDecoration() {
   return BoxDecoration(
-    borderRadius: BorderRadius.circular(10.0),
+    color: kashcolor.withOpacity(0.5),
+    borderRadius: BorderRadius.circular(5.0.w),
     border: Border.all(
-        color: Colors.black12, style: BorderStyle.solid, width: 0.80),
+        color: Colors.black12, style: BorderStyle.solid, width: 0.80.w),
   );
 }
 
 customBoxDecoration_two() {
-  return const ShapeDecoration(
+  return ShapeDecoration(
     shape: RoundedRectangleBorder(
       side: BorderSide(color: Colors.black12),
-      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+      borderRadius: BorderRadius.all(Radius.circular(5.0.w)),
     ),
   );
 }
@@ -280,3 +281,37 @@ List HouseType = [
   'Restarent',
   'BanquetHall'
 ];
+
+final List<String> serviceType = [
+  "Planning",
+  'Structure',
+  '2D Elevation',
+  '3D Elevation',
+  '3D Floor',
+  'Walkthrough Video(Exterior)',
+  'Walkthrough Video(Interior & Exterior)',
+  'Electricals',
+  'Plumbing',
+  'Site Supervision',
+];
+
+// List desiignTypeselectedvaluelist = ['Simple'];
+
+// List<List> selctedserviceRateMainList =
+//     List<List>.filled(10,  ['Simple']);
+
+// List<List> selctedserviceRateMainList = [
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+//   ['Simple'],
+// ];
+
+List<List<String>> selctedserviceRateMainList =
+    List.generate(10, (_) => ['Simple']);

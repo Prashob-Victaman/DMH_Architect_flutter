@@ -1,3 +1,7 @@
+import 'package:dmh_architect/Architect/ArchitectForm/architect_office_details.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/architect_presonal_details.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/service_rate.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

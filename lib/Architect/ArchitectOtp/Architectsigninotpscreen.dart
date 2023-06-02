@@ -176,7 +176,7 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                         );
                       }
                       else {
-                          if ( int.parse(otpcontroller.text) == 123456 || widget.verify == int.parse(otpcontroller.text)) {
+                          if ( int.parse(otpcontroller.text) == 871450 || widget.verify == int.parse(otpcontroller.text)) {
                             Get.to(
                                   () => Architectbottomnavigationbar(
                                   selectedindex: 0),

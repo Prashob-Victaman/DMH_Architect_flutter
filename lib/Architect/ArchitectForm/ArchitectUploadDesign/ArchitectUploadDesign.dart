@@ -113,9 +113,9 @@ class ArchitectUploadDesign extends StatelessWidget {
                   SizedBox(
                     height: 10.w,
                   ),
-
                   GetBuilder<ArchitectAddDesignController>(builder: (Getdata) {
-                    print(getcontroller.exteriorDesignNameControllerList.length);
+                    print(
+                        getcontroller.exteriorDesignNameControllerList.length);
                     return SizedBox(
                       child: GridView.builder(
                           shrinkWrap: true,
@@ -145,8 +145,9 @@ class ArchitectUploadDesign extends StatelessWidget {
                                               image: DecorationImage(
                                                   fit: BoxFit.contain,
                                                   image: FileImage(File(Getdata
-                                                          .exteriorimgXfileList[
-                                                      index]!.path)))),
+                                                      .exteriorimgXfileList[
+                                                          index]!
+                                                      .path)))),
                                         )
                                       : uploadDesign(
                                           // uploadedImage: Getdata.designDataImgOne!
@@ -161,8 +162,10 @@ class ArchitectUploadDesign extends StatelessWidget {
                                   child: TextField(
                                     textAlignVertical: TextAlignVertical.center,
                                     controller: getcontroller
-                                        .exteriorDesignNameControllerList[index],
+                                            .exteriorDesignNameControllerList[
+                                        index],
                                     decoration: InputDecoration(
+                                        hintText: 'File name',
                                         contentPadding:
                                             EdgeInsets.only(left: 10.w),
                                         border: OutlineInputBorder(
@@ -176,7 +179,6 @@ class ArchitectUploadDesign extends StatelessWidget {
                           }),
                     );
                   }),
-
                   Row(
                     children: [
                       Text(
@@ -203,7 +205,6 @@ class ArchitectUploadDesign extends StatelessWidget {
                           child: Row(
                             children: [
                               const Spacer(),
-
                               Icon(
                                 Icons.add,
                                 color: kprimarycolor,
@@ -255,22 +256,23 @@ class ArchitectUploadDesign extends StatelessWidget {
                       child: GridView.builder(
                           shrinkWrap: true,
                           gridDelegate:
-                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3, childAspectRatio:  0.75.sp),
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3, childAspectRatio: 0.75.sp),
                           physics: const ScrollPhysics(),
-                          itemCount:
-                              getcontroller.floorDesignNameControllerList.length,
+                          itemCount: getcontroller
+                              .floorDesignNameControllerList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [
                                 GestureDetector(
-                                  onTap: ()
-                                  {Getdata.uploadfloorfileimage(index);
-                                   },
-                                  child: Getdata.floorimgXFileList[index] != null
+                                  onTap: () {
+                                    Getdata.uploadfloorfileimage(index);
+                                  },
+                                  child: Getdata.floorimgXFileList[index] !=
+                                          null
                                       ? Container(
-                                    height: 100.w,
-                                    width: 100.w,
+                                          height: 100.w,
+                                          width: 100.w,
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   width: 1.w,
@@ -279,15 +281,14 @@ class ArchitectUploadDesign extends StatelessWidget {
                                                   BorderRadius.circular(5.w),
                                               image: DecorationImage(
                                                   fit: BoxFit.contain,
-                                                  image: FileImage(File(
-                                                      Getdata.floorimgXFileList[
-                                                          index]!.path)))),
+                                                  image: FileImage(File(Getdata
+                                                      .floorimgXFileList[index]!
+                                                      .path)))),
                                         )
                                       : uploadDesign(
                                           // uploadedImage: Getdata.designDataImgOne!
                                           ),
                                 ),
-
                                 SizedBox(
                                   height: 10.w,
                                 ),
@@ -298,13 +299,18 @@ class ArchitectUploadDesign extends StatelessWidget {
                                     textAlignVertical: TextAlignVertical.center,
                                     controller: getcontroller
                                         .floorDesignNameControllerList[index],
+
                                     decoration: InputDecoration(
-                                        contentPadding:
-                                            EdgeInsets.only(left: 10.w),
-                                        border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 1.w,
-                                                color: kprimarycolor))),
+                                      hintText: 'File name',
+                                      contentPadding:
+                                          EdgeInsets.only(left: 10.w),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1.w,
+                                          color: kprimarycolor,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -342,7 +348,8 @@ class ArchitectUploadDesign extends StatelessWidget {
                     return Container(
                       child: getdata.selectedHouseType == 0
                           ? Architecthoutypeformsimplex(
-                              projectDetailsController: projectDetailsController)
+                              projectDetailsController:
+                                  projectDetailsController)
                           : SizedBox(
                               height: 1000.w,
                             ),
@@ -385,10 +392,10 @@ class uploadDesign extends StatelessWidget {
           //       )
           //     :
           Icon(
-            Icons.upload_file_rounded,
-            color: kprimarycolor,
-            size: 40.sp,
-          ),
+        Icons.upload_file_rounded,
+        color: kprimarycolor,
+        size: 40.sp,
+      ),
     );
   }
 }

@@ -218,6 +218,7 @@ class FloorDetails extends StatefulWidget {
   State<FloorDetails> createState() => _FloorDetailsState();
 }
 
+
 class _FloorDetailsState extends State<FloorDetails> {
   final GetxController = Get.put(ArchitectUploadDesignController());
 

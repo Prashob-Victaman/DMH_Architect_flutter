@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,7 +31,17 @@ class uploadDesignTypeController extends GetxController {
   List<XFile?> structureImgs = List<XFile?>.filled(3, null);
   List<XFile?> elevationImgs = List<XFile?>.filled(3, null);
 
+  List<String?> exteriorimgurlList = List<String?>.filled(9, null);
+
+  List<Uint8List?> exteriorimgunit8List = List<Uint8List?>.filled(9, null);
+
+
   // String ExteriorImageUrl = '';
+
+  final exteriorDesignNameControllerList = List.generate(3, (_) => TextEditingController());
+
+  final floorDesignNameControllerList = List.generate(3, (_) => TextEditingController());
+
 
   changeoption(index) {
     selectedDesignTypeindex = index;
@@ -42,6 +54,50 @@ class uploadDesignTypeController extends GetxController {
     refresh();
   }
 
+  changetextControllercount(int value) {
+    if (value == 1) {
+      exteriorDesignNameControllerList.add(TextEditingController());
+      // exteriorimgcount + 1;
+    } else {
+      exteriorDesignNameControllerList.removeLast();
+      // exteriorimgcount - 1;
+    }
+    refresh();
+  }
+
+
+  uploadexteriorimagefileOne(buttonIndex) async {
+    final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
+
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectoryImages =
+    referenceRoot.child('adminuploadDesign/');
+    Reference referenceImageToUpload =
+    referenceDirectoryImages.child(uploadimgkey.toString());
+
+    // Uint8List uploadfile = result.files.single.bytes;
+
+    print('uploadimg file called');
+    if (result != null) {
+      exteriorimgunit8List[buttonIndex] = result.files.single.bytes;
+
+      try {
+        await referenceImageToUpload
+            .putData(exteriorimgunit8List[buttonIndex]!);
+
+        exteriorimgurlList[buttonIndex] =
+        await referenceImageToUpload.getDownloadURL();
+        print('imageurl $exteriorimgurlList[buttonIndex]');
+      } catch (e) {
+        // log(e.toString());F
+      }
+    } else {
+      // User canceled the picker
+    }
+    refresh();
+  }
 
   fetchExteriorImg(buttonIndex, context) async {
     // showDialog(
@@ -150,7 +206,7 @@ class uploadDesignTypeController extends GetxController {
       List planingFileUrlList,
       List planingFileNameList,
       List planingFilePriceList,
-
+      List floordetails,
   ) async {
     final docUrl =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
@@ -205,6 +261,87 @@ class uploadDesignTypeController extends GetxController {
         .update({
       'myDesigns': FieldValue.arrayUnion([designData.toJson()])
     });
+    refresh();
+  }
+}
+
+
+
+class UploadDesignController extends GetxController {
+  // String dropdownvalue = 'Basement';
+
+  int numberOfFloors = 1;
+//new values
+
+  List selectedFloorList = ['Basement'];
+  List roomtypeitemsvalue = ['Rooms'];
+  List roomcountvalue = ['1'];
+
+  Map groupofselectedfloolist = {};
+
+  List createdlistofitems = [];
+
+  int roomCount = 1;
+
+  //end
+
+  var dropdownditems = [
+    'Basement',
+    'Ground Floor',
+    'First Floor',
+    'Second Floor',
+    'Third Floor',
+  ];
+
+  var roomtypeitems = [
+    'Rooms',
+    'Toilets',
+    'Balcony',
+    'Garden',
+  ];
+
+  var roomcount = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+  ];
+
+  //new function
+
+  changeroomcountfunction(int count) {
+    roomCount = roomCount + count;
+    refresh();
+  }
+
+  //end Here
+  int incrementedfloorCount = 1;
+  incrementfloorcount(int floorCount) {
+    numberOfFloors = numberOfFloors + floorCount;
+    refresh();
+  }
+
+  // decrementfloorcount(int floorCount) {
+  //   incrementedfloorCount = incrementedfloorCount - floorCount;
+  //   refresh();
+  // }
+
+  // changedropdowbvalue(value) {
+  //   dropdownvalue = value;
+  //   refresh();
+  // }
+
+  roomtypevalue(value) {
+    roomtypeitemsvalue = value;
+    refresh();
+  }
+
+  changeroomcount(value) {
+    roomcountvalue = value;
     refresh();
   }
 }

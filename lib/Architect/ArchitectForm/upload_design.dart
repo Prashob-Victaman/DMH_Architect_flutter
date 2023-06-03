@@ -57,6 +57,9 @@ class _UploadDesignState extends State<UploadDesign> {
   final List planingFileNameControllerList = [TextEditingController()];
   final List planingFilePriceControllerList = [TextEditingController()];
 
+  final GetUploadController = Get.put(UploadDesignController());
+  final getcontroller = Get.put(uploadDesignTypeController());
+
 
   @override
   void initState() {
@@ -86,37 +89,155 @@ class _UploadDesignState extends State<UploadDesign> {
                     label: const Text('Back')),
               ),
               heigh10,
-              const Text(
-                'Add Your Design/Project',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              Text(
+                'Upload Property Designs',
+                style:
+                TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
               ),
-              heigh10,
-              const Text(
-                'Select exterior file/Photos of your project',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              const Divider(),
+              SizedBox(
+                height: 10.w,
               ),
-              heigh10,
-              GetBuilder<uploadDesignTypeController>(builder: (getdata) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
+              Row(
+                children: [
+                  Text(
+                    'Upload Exterior Image',
+                    style: TextStyle(
+                        fontSize: 18.sp, fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 40.w,
+                    height: 40.w,
+                    decoration: BoxDecoration(
+                        color: kprimarycolor.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(5.w)),
+                    child: GestureDetector(
                       onTap: () {
-                        getController.fetchExteriorImg(0, context);
+                        if (getController.exteriorDesignNameControllerList.length <
+                            9) {
+                          getController.changetextControllercount(1);
+                        }
                       },
-                      child: customUploadButton(getController.exteriorImgs[0]),
+                      child: Row(
+                        children: [
+                          const Spacer(),
+
+                          Icon(
+                            Icons.add,
+                            color: kprimarycolor,
+                            size: 25.w,
+                          ),
+                          const Spacer(),
+
+                        ],
+                      ),
                     ),
-                    GestureDetector(
-                      onTap: () => getController.fetchExteriorImg(1, context),
-                      child: customUploadButton(getController.exteriorImgs[1]),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 40.w,
+                    height: 40.w,
+                    decoration: BoxDecoration(
+                        color: kprimarycolor.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(5.w)),
+                    child: GestureDetector(
+                      onTap: () {
+                        if (getcontroller
+                            .exteriorDesignNameControllerList.length >
+                            3) {
+                          getcontroller.changetextControllercount(0);
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          const Spacer(),
+
+                          Icon(
+                            Icons.delete,
+                            color: kprimarycolor,
+                            size: 25.w,
+                          ),
+                          const Spacer()
+                        ],
+                      ),
                     ),
-                    GestureDetector(
-                      onTap: () => getController.fetchExteriorImg(2, context),
-                      child: customUploadButton(getController.exteriorImgs[2]),
-                    ),
-                  ],
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10.w,
+              ),
+              GetBuilder<uploadDesignTypeController>(builder: (Getdata) {
+                print(getController.exteriorDesignNameControllerList.length);
+                return SizedBox(
+                  child: GridView.builder(
+                      shrinkWrap: true,
+                      gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3, childAspectRatio: 1.6),
+                      physics: const ScrollPhysics(),
+                      itemCount: getcontroller
+                          .exteriorDesignNameControllerList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () =>
+                                  Getdata.uploadexteriorimagefileOne(index),
+                              child: Getdata.exteriorimgunit8List[index] !=
+                                  null
+                                  ? Container(
+                                height: 100.w,
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        width: 1.w,
+                                        color: kprimarycolor),
+                                    borderRadius:
+                                    BorderRadius.circular(5.w),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: MemoryImage(Getdata
+                                            .exteriorimgunit8List[
+                                        index]!))),
+                              )
+                                  : uploadDesign(
+                                // uploadedImage: Getdata.designDataImgOne!
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.w,
+                            ),
+                            SizedBox(
+                              height: 40.w,
+                              width: 390.w,
+                              child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
+                                controller: getcontroller
+                                    .exteriorDesignNameControllerList[index],
+                                decoration: InputDecoration(
+                                    contentPadding:
+                                    EdgeInsets.only(left: 10.w),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 1.w,
+                                            color: kprimarycolor))),
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
                 );
               }),
+
+              SizedBox(
+                height: 20.w,
+              ),
               heigh10,
               const Text(
                 'Select floor file/Photo of your project',
@@ -228,6 +349,7 @@ class _UploadDesignState extends State<UploadDesign> {
                     UploadDesignPartThree(
                         selectedHouseFacing: selectedHouseFacing,
                         selectedHouseFloor: selectedHouseFloor),
+
                     heigh10,
                     PlotAreaDetails(
                         plotLengthController: plotLengthController,
@@ -276,7 +398,7 @@ class _UploadDesignState extends State<UploadDesign> {
                     ),
                     heigh10,
                     const Text(
-                      'Approximate construction cost',
+                      'Approximate construction time',
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
@@ -292,14 +414,16 @@ class _UploadDesignState extends State<UploadDesign> {
                         },
                         onChanged: (value) {},
                         keyboardType: TextInputType.number,
-                        decoration: customInputDecoration('₹ 23,88,500'),
+                        decoration: customInputDecoration('days'),
                       ),
                     ),
                   ],
                 ),
               ),
+              heigh10,
 
               FloorDetails(),
+
 
               heigh20,
               const Text(
@@ -412,304 +536,6 @@ class _UploadDesignState extends State<UploadDesign> {
                 );
               }),
               heigh10,
-              // planningGridCount == 0
-              //     ? const SizedBox(
-              //         width: 0,
-              //         height: 0,
-              //       )
-              //     : GridView.builder(
-              //         shrinkWrap: true,
-              //         physics: const ScrollPhysics(),
-              //         itemCount: planningGridCount,
-              //         gridDelegate:
-              //             const SliverGridDelegateWithFixedCrossAxisCount(
-              //                 crossAxisCount: 3,
-              //                 crossAxisSpacing: 8.0,
-              //                 childAspectRatio: 0.6),
-              //         itemBuilder: (context, index) {
-              //           return Column(
-              //             children: [
-              //               customUploadButton(null),
-              //               heigh10,
-              //               SizedBox(
-              //                 width: 115.sp,
-              //                 height: 35.sp,
-              //                 child: Center(
-              //                   child: TextField(
-              //                     decoration:
-              //                         customInputDecoration('floor name'),
-              //                   ),
-              //                 ),
-              //               ),
-              //               heigh10,
-              //               SizedBox(
-              //                 width: 115.sp,
-              //                 height: 35.sp,
-              //                 child: Center(
-              //                   child: TextField(
-              //                     decoration: customInputDecoration('₹0.0'),
-              //                   ),
-              //                 ),
-              //               )
-              //             ],
-              //           );
-              //         }),
-              // heigh10,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     const Text(
-              //       'Structure',
-              //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-              //     ),
-              // SizedBox(
-              //   child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.redAccent,
-              //       shape: const StadiumBorder(),
-              //     ),
-              //     onPressed: () {
-              //       setState(() {
-              //         structureGridCount += 1;
-              //       });
-              //     },
-              //     child: Row(
-              //       children: [
-              //         Text('Add', style: normal14),
-              //         width10,
-              //         Icon(
-              //           Icons.add,
-              //           size: 20.sp,
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              //   ],
-              // ),
-              // heigh10,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Column(
-              //       children: [
-              //         customUploadButton(null),
-              //         heigh5,
-              //         const Text('Foundation Plan'),
-              //         heigh5,
-              //         SizedBox(
-              //           width: 115.sp,
-              //           height: 35.sp,
-              //           child: Center(
-              //             child: TextField(
-              //               controller: planingBasementController,
-              //               decoration: customInputDecoration('₹0.0'),
-              //             ),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //     Column(
-              //       children: [
-              //         customUploadButton(null),
-              //         heigh5,
-              //         const Text('Footing/File/Cap'),
-              //         heigh5,
-              //         SizedBox(
-              //           width: 115.sp,
-              //           height: 35.sp,
-              //           child: Center(
-              //             child: TextField(
-              //               controller: planingBasementController,
-              //               decoration: customInputDecoration('₹0.0'),
-              //             ),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //     Column(
-              //       children: [
-              //         customUploadButton(null),
-              //         heigh5,
-              //         const Text('Tie Beam Plan'),
-              //         heigh5,
-              //         SizedBox(
-              //           width: 115.sp,
-              //           height: 35.sp,
-              //           child: Center(
-              //             child: TextField(
-              //               controller: planingBasementController,
-              //               decoration: customInputDecoration('₹0.0'),
-              //             ),
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ],
-              // ),
-              // planningGridCount == 0
-              //     ? const SizedBox(
-              //         width: 0,
-              //         height: 0,
-              //       )
-              //     : GridView.builder(
-              //         shrinkWrap: true,
-              //         physics: const ScrollPhysics(),
-              //         itemCount: structureGridCount,
-              //         gridDelegate:
-              //             const SliverGridDelegateWithFixedCrossAxisCount(
-              //                 crossAxisCount: 3,
-              //                 crossAxisSpacing: 8.0,
-              //                 childAspectRatio: 0.6),
-              //         itemBuilder: (context, index) {
-              //           return Column(
-              //             children: [
-              //               customUploadButton(null),
-              //               heigh10,
-              //               SizedBox(
-              //                 width: 115.sp,
-              //                 height: 35.sp,
-              //                 child: Center(
-              //                   child: TextField(
-              //                     decoration:
-              //                         customInputDecoration('floor name'),
-              //                   ),
-              //                 ),
-              //               ),
-              //               heigh10,
-              //               SizedBox(
-              //                 width: 115.sp,
-              //                 height: 35.sp,
-              //                 child: Center(
-              //                   child: TextField(
-              //                     decoration: customInputDecoration('₹0.0'),
-              //                   ),
-              //                 ),
-              //               )
-              //             ],
-              //           );
-              //         }),
-              // heigh10,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     const Text(
-              //       '2D Elevation',
-              //       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-              //     ),
-              // SizedBox(
-              //   child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Colors.redAccent,
-              //       shape: const StadiumBorder(),
-              //     ),
-              //     onPressed: () {
-              //       setState(() {
-              //         elevationGridCount += 1;
-              //       });
-              //     },
-              //     child: Row(
-              //       children: [
-              //         Text('Add', style: normal14),
-              //         width10,
-              //         Icon(
-              //           Icons.add,
-              //           size: 20.sp,
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-              // ],
-              // ),
-              // heigh10,
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Column(
-              //       children: [
-              //         customUploadButton(null),
-              //         heigh5,
-              //         const Text('Front Side'),
-              //         heigh5,
-              //         const Text(
-              //           '65,000',
-              //           style: TextStyle(
-              //               fontSize: 14, fontWeight: FontWeight.w600),
-              //         ),
-              //       ],
-              //     ),
-              //     Column(
-              //       children: [
-              //         customUploadButton(null),
-              //         heigh5,
-              //         const Text('Left Side'),
-              //         heigh5,
-              //         const Text(
-              //           '56,888',
-              //           style: TextStyle(
-              //               fontSize: 14, fontWeight: FontWeight.w600),
-              //         ),
-              //       ],
-              //     ),
-              //     Column(
-              //       children: [
-              //         customUploadButton(null),
-              //         heigh5,
-              //         const Text('Left Side'),
-              //         heigh5,
-              //         const Text(
-              //           '67,999',
-              //           style: TextStyle(
-              //               fontSize: 14, fontWeight: FontWeight.w600),
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
-              // heigh10,
-              // elevationGridCount == 0
-              //     ? const SizedBox(
-              //         width: 0,
-              //         height: 0,
-              //       )
-              //     : GridView.builder(
-              //         shrinkWrap: true,
-              //         physics: const ScrollPhysics(),
-              //         itemCount: elevationGridCount,
-              //         gridDelegate:
-              //             const SliverGridDelegateWithFixedCrossAxisCount(
-              //                 crossAxisCount: 3,
-              //                 crossAxisSpacing: 8.0,
-              //                 childAspectRatio: 0.6),
-              //         itemBuilder: (context, index) {
-              //           return Column(
-              //             children: [
-              //               customUploadButton(null),
-              //               heigh10,
-              //               SizedBox(
-              //                 width: 115.sp,
-              //                 height: 35.sp,
-              //                 child: Center(
-              //                   child: TextField(
-              //                     decoration: customInputDecoration('Side'),
-              //                   ),
-              //                 ),
-              //               ),
-              //               heigh10,
-              //               SizedBox(
-              //                 width: 115.sp,
-              //                 height: 35.sp,
-              //                 child: Center(
-              //                   child: TextField(
-              //                     decoration: customInputDecoration('₹0.0'),
-              //                   ),
-              //                 ),
-              //               )
-              //             ],
-              //           );
-              //         }),
-              // heigh20,
 
               GestureDetector(
                 child: SizedBox(
@@ -785,7 +611,9 @@ class _UploadDesignState extends State<UploadDesign> {
                             userdata['name'],
                             planingImageUrl,
                             planingFileNameList,
-                            planingFilePriceList);
+                            planingFilePriceList,
+                            GetUploadController.createdlistofitems
+                        );
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -856,6 +684,60 @@ class _UploadDesignState extends State<UploadDesign> {
                 ),
               ],
             ),
+    );
+  }
+}
+
+
+
+
+
+
+class uploadDesign extends StatelessWidget {
+  // Uint8List uploadedImage;
+
+  uploadDesign({
+    // required this.uploadedImage,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.w,
+      width: 100.w,
+      decoration: BoxDecoration(
+          border: Border.all(width: 1.w, color: kprimarycolor),
+          borderRadius: BorderRadius.circular(5.w)),
+      child:
+      // uploadedImage!= null
+      //     ? Container(
+      //         decoration: BoxDecoration(
+      //           image: DecorationImage(
+      //             image: MemoryImage(uploadedImage),
+      //           ),
+      //         ),
+      //       )
+      //     :
+      Padding(
+        padding: EdgeInsets.only(top: 50.0.w),
+        child: Column(
+          children: [
+            Icon(
+              Icons.upload_file_rounded,
+              color: kprimarycolor,
+              size: 40.sp,
+            ),
+            SizedBox(
+              height: 10.w,
+            ),
+            Text(
+              'Upload your design',
+              style: TextStyle(fontSize: 14.sp, color: kprimarycolor),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

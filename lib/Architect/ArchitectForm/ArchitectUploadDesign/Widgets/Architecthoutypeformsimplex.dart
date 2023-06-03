@@ -422,11 +422,8 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                           null;
                                       getxcontroller.floorimgurlList[2] = null;
 
-                                      GetUploadController.createdlistofitems
-                                          .clear();
-                                      GetUploadController.createdlistofitems
-                                          .clear();
-
+                                        GetUploadController.createdlistofitems
+                                            .clear();
                                       planingFileNameList.clear();
                                       planingFilePriceList.clear();
                                       planingImageUrl.clear();

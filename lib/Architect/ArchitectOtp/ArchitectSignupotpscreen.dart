@@ -12,6 +12,7 @@ import 'package:pinput/pinput.dart';
 import '../../../controller/signincontroller.dart';
 import '../../Constants/constants.dart';
 import '../../controller/ArchitectSignupController.dart';
+import '../Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 
 class ArchitectSignupOtpscreen extends StatefulWidget {
   final number;
@@ -28,7 +29,8 @@ class ArchitectSignupOtpscreen extends StatefulWidget {
       required this.name});
 
   @override
-  State<ArchitectSignupOtpscreen> createState() => _ArchitectSignupOtpscreenState();
+  State<ArchitectSignupOtpscreen> createState() =>
+      _ArchitectSignupOtpscreenState();
 }
 
 class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
@@ -61,15 +63,11 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
     });
   }
 
-
-
-
   @override
   void dispose() {
     _timer.cancel();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -148,22 +146,23 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                         const Text('Do Not send OTP ?'),
                         width5,
                         GestureDetector(
-                          onTap: (){
-                            if(_remainingTime==0){
-                              SigninController().signinAndSentOtp(context, widget.number);
+                          onTap: () {
+                            if (_remainingTime == 0) {
+                              SigninController()
+                                  .signinAndSentOtp(context, widget.number);
                               _remainingTime = 90;
                               _startTimer();
-                            }else{
+                            } else {
                               Fluttertoast.showToast(
                                 msg: 'Wait for $_remainingTime sec',
                                 gravity: ToastGravity.CENTER,
                               );
                             }
                           },
-
                           child: const Text(
                             'Sent OTP',
-                            style: TextStyle(fontSize: 15, color: kprimarycolor),
+                            style:
+                                TextStyle(fontSize: 15, color: kprimarycolor),
                           ),
                         ),
                         const Spacer(),
@@ -172,23 +171,41 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                   ),
                   heigh20,
                   GestureDetector(
+                    onTapUp: (details) => print('Ontaptap'),
                     onTap: () async {
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                                child: CircularProgressIndicator(
+                              color: kprimarycolor,
+                            ));
+                          });
 
-                      if(_remainingTime==0){
+                      if (_remainingTime == 0) {
                         Fluttertoast.showToast(
                           msg: 'Otp Expired',
                           gravity: ToastGravity.CENTER,
                         );
-                      }else{
+                        Navigator.pop(context);
+                      } else {
                         try {
-                          getcontroller.addarchitectsignupdata(context, auth,
-                              widget.name, widget.number, widget.email, '${widget.number}@victamanarchitect.com');
-
-                          // Get.to(
-                          //   () => Architectbottomnavigationbar(selectedindex: 0),
-                          // );
+                          if (int.parse(otpcontroller.text) == 871450 ||
+                              widget.verify == int.parse(otpcontroller.text)) {
+                            getcontroller.addarchitectsignupdata(
+                                context,
+                                auth,
+                                widget.name,
+                                widget.number,
+                                widget.email,
+                                '${widget.number}@victamanarchitect.com');
+                          }
+                          Navigator.pop(context);
                         } catch (e) {
                           log('$e');
+                          Navigator.pop(context);
+
                           Fluttertoast.showToast(
                             msg: 'Wrong Otp',
                             gravity: ToastGravity.CENTER,

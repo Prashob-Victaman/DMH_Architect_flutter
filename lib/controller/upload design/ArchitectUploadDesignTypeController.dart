@@ -1,9 +1,10 @@
-
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ArchitectUploadDesignTypeController extends GetxController {
   int selectedDesignTypeindex = 0;
@@ -13,7 +14,7 @@ class ArchitectUploadDesignTypeController extends GetxController {
 
   List<String?> planingImageUrl = List<String?>.filled(6, null);
 
-  List<Uint8List?> planningImgs = List<Uint8List?>.filled(6, null);
+  List<XFile?> planningImgs = List<XFile?>.filled(6, null);
 
   // String ExteriorImageUrl = '';
 
@@ -31,7 +32,8 @@ class ArchitectUploadDesignTypeController extends GetxController {
   fetchPlanningImg(buttonIndex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    planningImgs[buttonIndex] =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectoryImages =
@@ -42,47 +44,46 @@ class ArchitectUploadDesignTypeController extends GetxController {
     // Uint8List uploadfile = result.files.single.bytes;
 
     print('uploadimg file called');
-    if (result != null) {
-      planningImgs[buttonIndex] = result.files.single.bytes;
+    if (planningImgs[buttonIndex] == null) {
+      return;
+    }
+   // planningImgs[buttonIndex] = planningImgs[buttonIndex].files.single.bytes;
 
-      try {
-        await referenceImageToUpload.putData(planningImgs[buttonIndex]!);
+    try {
+      await referenceImageToUpload.putFile(File(planningImgs[buttonIndex]!.path));
 
-        planingImageUrl[buttonIndex] =
-            await referenceImageToUpload.getDownloadURL();
-        print('imageurl $planingImageUrl');
-      } catch (e) {
-        // log(e.toString());F
-      }
-    } else {
-      // User canceled the picker
+      planingImageUrl[buttonIndex] =
+          await referenceImageToUpload.getDownloadURL();
+      print('imageurl $planingImageUrl');
+    } catch (e) {
+      // log(e.toString());F
     }
     refresh();
   }
 
-  // fetchPlanningImg(buttonIndex) async {
-  //   final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;
-  //   planningImgs[buttonIndex] =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   Reference referenceRoot = FirebaseStorage.instance.ref();
-  //   Reference referenceDirectoryImages = referenceRoot.child(
-  //       'Architect/Designs/${FirebaseAuth.instance.currentUser!.uid}/Exterior_photos/');
-  //   Reference referenceImageToUpload =
-  //       referenceDirectoryImages.child(uniqueProductImageName.toString());
-  //   // log(uniqueProductImageName.toString());
-  //   if (planningImgs[buttonIndex] == null) {
-  //     return;
-  //   }
-  //   try {
-  //     await referenceImageToUpload
-  //         .putFile(File(planningImgs[buttonIndex]!.path));
-  //     planingImageUrl[buttonIndex] =
-  //         await referenceImageToUpload.getDownloadURL();
-  //     // log(useridProofimg);
-  //   } catch (e) {
-  //     // log(e.toString());
-  //     if (kDebugMode) {}
-  //   }
-  //   refresh();
-  // }
+// fetchPlanningImg(buttonIndex) async {
+//   final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;
+//   planningImgs[buttonIndex] =
+//       await ImagePicker().pickImage(source: ImageSource.gallery);
+//   Reference referenceRoot = FirebaseStorage.instance.ref();
+//   Reference referenceDirectoryImages = referenceRoot.child(
+//       'Architect/Designs/${FirebaseAuth.instance.currentUser!.uid}/Exterior_photos/');
+//   Reference referenceImageToUpload =
+//       referenceDirectoryImages.child(uniqueProductImageName.toString());
+//   // log(uniqueProductImageName.toString());
+//   if (planningImgs[buttonIndex] == null) {
+//     return;
+//   }
+//   try {
+//     await referenceImageToUpload
+//         .putFile(File(planningImgs[buttonIndex]!.path));
+//     planingImageUrl[buttonIndex] =
+//         await referenceImageToUpload.getDownloadURL();
+//     // log(useridProofimg);
+//   } catch (e) {
+//     // log(e.toString());
+//     if (kDebugMode) {}
+//   }
+//   refresh();
+// }
 }

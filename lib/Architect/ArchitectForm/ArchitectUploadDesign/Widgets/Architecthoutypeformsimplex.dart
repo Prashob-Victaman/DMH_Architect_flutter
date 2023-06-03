@@ -403,22 +403,22 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                       getxcontroller.exteriorimgurlList[0] =
                                           null;
 
-                                      getxcontroller.exteriorimgunit8List[0] =
+                                      getxcontroller.exteriorimgXfileList[0] =
                                           null;
-                                      getxcontroller.exteriorimgunit8List[1] =
+                                      getxcontroller.exteriorimgXfileList[1] =
                                           null;
-                                      getxcontroller.exteriorimgunit8List[2] =
+                                      getxcontroller.exteriorimgXfileList[2] =
                                           null;
 
-                                      getxcontroller.floorimgunit8List[0] =
+                                      getxcontroller.floorimgXFileList[0] =
                                           null;
                                       getxcontroller.floorimgurlList[0] = null;
 
-                                      getxcontroller.floorimgunit8List[1] =
+                                      getxcontroller.floorimgXFileList[1] =
                                           null;
                                       getxcontroller.floorimgurlList[1] = null;
 
-                                      getxcontroller.floorimgunit8List[2] =
+                                      getxcontroller.floorimgXFileList[2] =
                                           null;
                                       getxcontroller.floorimgurlList[2] = null;
 

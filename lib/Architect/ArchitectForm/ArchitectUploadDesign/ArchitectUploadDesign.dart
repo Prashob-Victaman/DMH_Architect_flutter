@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -129,10 +131,10 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 GestureDetector(
                                   onTap: () =>
                                       Getdata.uploadexteriorimagefileOne(index),
-                                  child: Getdata.exteriorimgunit8List[index] !=
+                                  child: Getdata.exteriorimgXfileList[index] !=
                                           null
                                       ? Container(
-                                          height: 180.w,
+                                          height: 100.w,
                                           width: 100.w,
                                           decoration: BoxDecoration(
                                               border: Border.all(
@@ -141,10 +143,10 @@ class ArchitectUploadDesign extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(5.w),
                                               image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: MemoryImage(Getdata
-                                                          .exteriorimgunit8List[
-                                                      index]!))),
+                                                  fit: BoxFit.contain,
+                                                  image: FileImage(File(Getdata
+                                                          .exteriorimgXfileList[
+                                                      index]!.path)))),
                                         )
                                       : uploadDesign(
                                           // uploadedImage: Getdata.designDataImgOne!
@@ -262,11 +264,12 @@ class ArchitectUploadDesign extends StatelessWidget {
                             return Column(
                               children: [
                                 GestureDetector(
-                                  onTap: () =>
-                                      Getdata.uploadfloorfileimage(index),
-                                  child: Getdata.floorimgunit8List[index] != null
+                                  onTap: ()
+                                  {Getdata.uploadfloorfileimage(index);
+                                   },
+                                  child: Getdata.floorimgXFileList[index] != null
                                       ? Container(
-                                    height: 180.w,
+                                    height: 100.w,
                                     width: 100.w,
                                           decoration: BoxDecoration(
                                               border: Border.all(
@@ -275,15 +278,16 @@ class ArchitectUploadDesign extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(5.w),
                                               image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: MemoryImage(
-                                                      Getdata.floorimgunit8List[
-                                                          index]!))),
+                                                  fit: BoxFit.contain,
+                                                  image: FileImage(File(
+                                                      Getdata.floorimgXFileList[
+                                                          index]!.path)))),
                                         )
                                       : uploadDesign(
                                           // uploadedImage: Getdata.designDataImgOne!
                                           ),
                                 ),
+
                                 SizedBox(
                                   height: 10.w,
                                 ),

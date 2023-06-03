@@ -1,5 +1,7 @@
 // import 'package:design_my_house_admin/Controller/NavigationController/ArchitectAddDesignController.dart';
 // import 'package:design_my_house_admin/Controller/UploaddesignController/uploadDesignTypeController.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -209,7 +211,8 @@ customUploadButton(image, context) {
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: MemoryImage(image),
+                  image:  FileImage(File(
+                      image!.path)),
                 )),
           )
         : Column(

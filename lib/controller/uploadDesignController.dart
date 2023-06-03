@@ -134,14 +134,14 @@ class uploadDesignTypeController extends GetxController {
 
   fetchFloorImg(buttonIndex) async {
     final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;
-    floorImgs[buttonIndex] =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    floorImgs[buttonIndex] = await ImagePicker().pickImage(source: ImageSource.gallery);
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectoryImages = referenceRoot.child(
         'Architect/Designs/${FirebaseAuth.instance.currentUser!.uid}/floor_photos/');
-    Reference referenceImageToUpload =
-        referenceDirectoryImages.child(uniqueProductImageName.toString());
-    // log(uniqueProductImageName.toString());
+    Reference referenceImageToUpload = referenceDirectoryImages.child(uniqueProductImageName.toString());
+
+
+
     if (floorImgs[buttonIndex] == null) {
       return;
     }

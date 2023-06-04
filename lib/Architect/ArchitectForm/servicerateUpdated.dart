@@ -188,9 +188,9 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                         1
                                                 ? GestureDetector(
                                                     onTap: () {
-                                                      getXcontroller
-                                                          .removeserviceTypeCountfunction(
-                                                              primaryindex);
+                                                      // getXcontroller
+                                                      //     .removeserviceTypeCountfunction(
+                                                      //         primaryindex);
 
                                                       getXcontroller
                                                           .servicerateTextController[

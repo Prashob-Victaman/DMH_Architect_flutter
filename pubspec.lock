@@ -185,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: "9d6e95ec73abbd31ec54d0e0df8a961017e165aba1395e462e5b31ea0c165daf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.1"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -644,10 +652,10 @@ packages:
     dependency: "direct main"
     description:
       name: share_plus
-      sha256: b1f15232d41e9701ab2f04181f21610c36c83a12ae426b79b4bd011c567934b1
+      sha256: ed3fcea4f789ed95913328e629c0c53e69e80e08b6c24542f1b3576046c614e8
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.4"
+    version: "7.0.2"
   share_plus_platform_interface:
     dependency: transitive
     description:
@@ -717,14 +725,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
-  twilio_flutter:
-    dependency: "direct main"
-    description:
-      name: twilio_flutter
-      sha256: c81572eb5246d7f522852795f69b36817df62de4746a5e1d9af435d015e5cd25
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.9"
   typed_data:
     dependency: transitive
     description:
@@ -793,10 +793,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: a6f0236dbda0f63aa9a25ad1ff9a9d8a4eaaa5012da0dc59d21afdb1dc361ca4
+      sha256: "5a751eddf9db89b3e5f9d50c20ab8612296e4e8db69009788d6c8b060a84191c"
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.4"
+    version: "4.1.4"
   xdg_directories:
     dependency: transitive
     description:

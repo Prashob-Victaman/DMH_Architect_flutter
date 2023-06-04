@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Constants/constants.dart';
 
-class PlotAreaDetails extends StatelessWidget {
+class PlotAreaDetails extends StatefulWidget {
   final TextEditingController plotLengthController;
   final TextEditingController plotWidthController;
   final TextEditingController totalAreaController;
@@ -14,8 +14,12 @@ class PlotAreaDetails extends StatelessWidget {
     super.key,
   });
 
-  // final double screenWidth;
+  @override
+  State<PlotAreaDetails> createState() => _PlotAreaDetailsState();
+}
 
+class _PlotAreaDetailsState extends State<PlotAreaDetails> {
+  // final double screenWidth;
   @override
   Widget build(BuildContext context) {
     // final screenWidth = MediaQuery.of(context).size.width;
@@ -34,7 +38,7 @@ class PlotAreaDetails extends StatelessWidget {
             SizedBox(
                 width: 108.w,
                 child: TextFormField(
-                  controller: plotLengthController,
+                  controller: widget.plotLengthController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'enter plot length';
@@ -43,9 +47,19 @@ class PlotAreaDetails extends StatelessWidget {
                   },
                   keyboardType: TextInputType.number,
                   decoration: customInputDecoration('24'),
+                  onChanged: (value){
+                    setState(() {
+                      if(value!=''){
+                        widget.totalAreaController.text = '${int.parse(widget.plotWidthController.text)*int.parse(widget.plotLengthController.text)}';
+                      }else{
+                        widget.totalAreaController.text ='0';
+                      }
+                    });
+                  },
                 ))
           ],
         ),
+
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -57,7 +71,7 @@ class PlotAreaDetails extends StatelessWidget {
             SizedBox(
                 width: 108.w,
                 child: TextFormField(
-                  controller: plotWidthController,
+                  controller: widget.plotWidthController,
                   decoration: customInputDecoration('24'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
@@ -65,6 +79,15 @@ class PlotAreaDetails extends StatelessWidget {
                       return 'enter plot Width';
                     }
                     return null;
+                  },
+                  onChanged: (value){
+                    setState(() {
+                      if(value!=''){
+                        widget.totalAreaController.text = '${int.parse(widget.plotWidthController.text)*int.parse(widget.plotLengthController.text)}';
+                      }else{
+                        widget.totalAreaController.text ='0';
+                      }
+                    });
                   },
                 ))
           ],
@@ -77,19 +100,20 @@ class PlotAreaDetails extends StatelessWidget {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
             ),
             heigh5,
-            SizedBox(
-                width: 108.w,
-                child: TextFormField(
-                  controller: totalAreaController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'enter plot area';
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.number,
-                  decoration: customInputDecoration('24'),
-                ))
+            // SizedBox(
+            //     width: 108.w,
+            //     child: TextFormField(
+            //       controller: totalAreaController,
+            //       validator: (value) {
+            //         if (value!.isEmpty) {
+            //           return 'enter plot area';
+            //         }
+            //         return null;
+            //       },
+            //       keyboardType: TextInputType.number,
+            //       decoration: customInputDecoration('24'),
+            //     ))
+            Text(widget.totalAreaController.text==''?'0':widget.totalAreaController.text)
           ],
         )
       ],

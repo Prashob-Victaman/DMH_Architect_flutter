@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../Constants/constants.dart';
 import '../ArchitectDesignpage/designPage.dart';
-import '../ArchitectForm/upload_design.dart';
+import '../ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
 import '../ArchitectProfile/architectprofilepage.dart';
 import '../Architecthomepage/Architecthomepage.dart';
 
@@ -22,7 +22,8 @@ class _ArchitectbottomnavigationbarState
   final List<Widget> _screens = [
     ArchitecthomePage(),
     const ArchitectDesignPage(),
-    const UploadDesign(),
+    ArchitectUploadDesign(),
+    //const UploadDesign(),
      ArchitectProfilePage(),
   ];
 

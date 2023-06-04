@@ -315,3 +315,29 @@ final List<String> serviceType = [
 
 List<List<String>> selctedserviceRateMainList =
     List.generate(10, (_) => ['Simple']);
+
+Map selctedserviceRateMainListmap = {
+  "Planning": selctedserviceRateMainList[0],
+  'Structure': selctedserviceRateMainList[1],
+  '2D Elevation': selctedserviceRateMainList[2],
+  '3D Elevation': selctedserviceRateMainList[3],
+  '3D Floor': selctedserviceRateMainList[4],
+  'Walkthrough Video(Exterior)': selctedserviceRateMainList[5],
+  'Walkthrough Video(Interior & Exterior)': selctedserviceRateMainList[6],
+  'Electricals': selctedserviceRateMainList[7],
+  'Plumbing': selctedserviceRateMainList[8],
+  'Site Supervision': selctedserviceRateMainList[9],
+};
+
+Map selctedserviceRateAmounrtMainListmap = {
+  "Planning": selctedserviceRateMainList[0],
+  'Structure': selctedserviceRateMainList[1],
+  '2D Elevation': selctedserviceRateMainList[2],
+  '3D Elevation': selctedserviceRateMainList[3],
+  '3D Floor': selctedserviceRateMainList[4],
+  'Walkthrough Video(Exterior)': selctedserviceRateMainList[5],
+  'Walkthrough Video(Interior & Exterior)': selctedserviceRateMainList[6],
+  'Electricals': selctedserviceRateMainList[7],
+  'Plumbing': selctedserviceRateMainList[8],
+  'Site Supervision': selctedserviceRateMainList[9],
+};

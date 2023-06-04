@@ -57,7 +57,6 @@ class _UploadDesignState extends State<UploadDesign> {
   final List planingFileNameControllerList = [TextEditingController()];
   final List planingFilePriceControllerList = [TextEditingController()];
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -723,10 +722,9 @@ class _UploadDesignState extends State<UploadDesign> {
                     onPressed: () async {
                       final form1 = formKey1.currentState;
                       if (form1!.validate()) {
-
-                        List planingImageUrl =[];
+                        List planingImageUrl = [];
                         for (var element in getController.planingImageUrl) {
-                          if(element!=null){
+                          if (element != null) {
                             planingImageUrl.add(element);
                           }
                         }
@@ -804,6 +802,7 @@ class _UploadDesignState extends State<UploadDesign> {
       ),
     );
   }
+
   customTail(screenWidth, text, color) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.sp),

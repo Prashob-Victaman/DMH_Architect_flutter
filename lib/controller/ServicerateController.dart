@@ -1,39 +1,18 @@
 import 'package:dmh_architect/Constants/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ServicerateController extends GetxController {
-  // String selectedState = 'Karnataka';
-  // String serviceType = 'Planning';
-  // List<String> serviceTypeList = ['Planning'];
-
   final List<String> desiignType = ['Simple', "Modern", 'Classical', 'Others'];
-
-  // List<Map> serviceRateMainlist = [
-  //   {serviceType[0]: []},
-  //   {serviceType[1]: []},
-  //   {serviceType[2]: []},
-  //   {serviceType[3]: []},
-  //   {serviceType[4]: []},
-  //   {serviceType[5]: []},
-  //   {serviceType[6]: []},
-  //   {serviceType[7]: []}
-  // ];
-
-  // List<Map<String, List<dynamic>>> serviceRateMainlist = List.generate(
-  //     10,
-  //     (listindex) => {
-  //           serviceType[listindex]: [
-  //             {selctedserviceRateMainList: 'value'}
-  //           ]
-  //         });
 
   int serviceTypeCount = 1;
 
   List HousetypeServicerateList = [];
 
-  // Map? serviceTypeMap = {};
-
-  // int count = 1;
+    List<List<TextEditingController>> servicerateTextController = List.generate(
+    10,
+    (_) => [TextEditingController()],
+  );
 
   changeserviceTypeCountfunction(index) {
     selctedserviceRateMainList[index].add('Simple');

@@ -16,15 +16,10 @@ class uploadDesignTypeController extends GetxController {
   static int imgCount = 14;
 
   List<String?> ExteriorImageUrl = List<String?>.filled(3, null);
-
   List<String?> FloorImageUrl = List<String?>.filled(3, null);
-
   List<String?> planingImageUrl = List<String?>.filled(6, null);
-
   List<XFile?> exteriorImgs = List<XFile?>.filled(3, null);
-
   List<XFile?> floorImgs = List<XFile?>.filled(3, null);
-
   List<XFile?> planningImgs = List<XFile?>.filled(6, null);
   List<XFile?> structureImgs = List<XFile?>.filled(3, null);
   List<XFile?> elevationImgs = List<XFile?>.filled(3, null);
@@ -41,7 +36,6 @@ class uploadDesignTypeController extends GetxController {
 
     refresh();
   }
-
 
   fetchExteriorImg(buttonIndex, context) async {
     // showDialog(
@@ -147,42 +141,40 @@ class uploadDesignTypeController extends GetxController {
     String designprice,
     String shortdescription,
     String architectName,
-      List planingFileUrlList,
-      List planingFileNameList,
-      List planingFilePriceList,
-
+    List planingFileUrlList,
+    List planingFileNameList,
+    List planingFilePriceList,
   ) async {
     final docUrl =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
 
     final designData = designDataModel(
-      designprice: designprice,
-      shortdescription: shortdescription,
-      floorfileimageOneurl: floorfileimageOneurl,
-      floorfileimageThreeurl: floorfileimageThreeurl,
-      floorfileimageTwourl: floorfileimageTwourl,
-      uid: docUrl.id,
-      sortId: DateTime.now().millisecondsSinceEpoch,
-      uploadedUserUid: uploadedUserUid,
-      projectDetails: projectDetails,
-      imageOneurl: imageOneurl,
-      imageTwourl: imageTwourl,
-      imageThreeurl: imageThreeurl,
-      designType: designType,
-      houseFacing: houseFacing,
-      houseFloors: houseFloors,
-      houseType: houseType,
-      houseArea: houseArea,
-      accordingtoVastu: accordingtoVastu,
-      estimatedConstructionCost: estimatedConstructionCost,
-      aproximateConstructionCost: aproximateConstructionCost,
-      postedDate: DateTime.now(),
-      visitors: 0,
-      uploadedBy: architectName,
-        planingFileUrlList:planingFileUrlList,
-      planingFileNameList: planingFileNameList,
-      planingFilePriceList:planingFilePriceList
-    );
+        designprice: designprice,
+        shortdescription: shortdescription,
+        floorfileimageOneurl: floorfileimageOneurl,
+        floorfileimageThreeurl: floorfileimageThreeurl,
+        floorfileimageTwourl: floorfileimageTwourl,
+        uid: docUrl.id,
+        sortId: DateTime.now().millisecondsSinceEpoch,
+        uploadedUserUid: uploadedUserUid,
+        projectDetails: projectDetails,
+        imageOneurl: imageOneurl,
+        imageTwourl: imageTwourl,
+        imageThreeurl: imageThreeurl,
+        designType: designType,
+        houseFacing: houseFacing,
+        houseFloors: houseFloors,
+        houseType: houseType,
+        houseArea: houseArea,
+        accordingtoVastu: accordingtoVastu,
+        estimatedConstructionCost: estimatedConstructionCost,
+        aproximateConstructionCost: aproximateConstructionCost,
+        postedDate: DateTime.now(),
+        visitors: 0,
+        uploadedBy: architectName,
+        planingFileUrlList: planingFileUrlList,
+        planingFileNameList: planingFileNameList,
+        planingFilePriceList: planingFilePriceList);
 
     final json = designData.toJson();
 

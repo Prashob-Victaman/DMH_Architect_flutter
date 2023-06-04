@@ -1,16 +1,29 @@
+import 'dart:developer';
+
 import 'package:dmh_architect/controller/ServicerateController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../Constants/constants.dart';
-import '../Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 
 class ServiceRateUpdated extends StatefulWidget {
   ServiceRateUpdated({Key? key}) : super(key: key);
 
   @override
   State<ServiceRateUpdated> createState() => _ServiceRateUpdatedState();
+
+  // List servicerateTextController = [
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  //   [TextEditingController()],
+  // ];
 }
 
 class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
@@ -33,10 +46,10 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                     icon: const Icon(Icons.arrow_back),
                     label: const Text('Back')),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'Service Rate',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
@@ -45,7 +58,7 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
               heigh10,
               ListView.separated(
                   shrinkWrap: true,
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   itemBuilder: (context, primaryindex) {
                     // final indexwiseData =
                     //     getXcontroller.serviceRateMainlist[primaryindex].values;
@@ -84,7 +97,7 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                 builder: (getdata) {
                               return ListView.separated(
                                   shrinkWrap: true,
-                                  physics: ScrollPhysics(),
+                                  physics: const ScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     return Row(
                                       mainAxisAlignment:
@@ -116,6 +129,14 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                   primaryindex][index] = value!;
                                               setState(() {});
                                             },
+
+                                            // onChanged: (newValue) {
+                                            //   // Update the list value in the map when the dropdown selection changes
+                                            //   selctedserviceRateMainListmap
+                                            //       .update(serviceType[primaryindex],
+                                            //           (value) => [newValue]);
+                                            //   setState(() {});
+                                            // },
                                             isExpanded: true,
                                           ),
                                         ),
@@ -128,6 +149,9 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                               35.w,
                                           height: 40.w,
                                           child: TextField(
+                                            controller: getXcontroller
+                                                    .servicerateTextController[
+                                                primaryindex][index],
                                             keyboardType: TextInputType.number,
                                             decoration: customInputDecoration(
                                                 'Ener Amount'),
@@ -137,8 +161,17 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                             ? GestureDetector(
                                                 onTap: () {
                                                   getXcontroller
+                                                      .servicerateTextController[
+                                                          primaryindex]
+                                                      .add(
+                                                          TextEditingController());
+                                                  getXcontroller
                                                       .changeserviceTypeCountfunction(
                                                           primaryindex);
+                                                  // print(getXcontroller
+                                                  //     .servicerateTextController[
+                                                  //         primaryindex]
+                                                  //     .length);
 
                                                   // print(
                                                   //     '${selctedserviceRateMainList[primaryindex]}fggggggggggggggggggggggggg');
@@ -154,9 +187,20 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                             .length -
                                                         1
                                                 ? GestureDetector(
-                                                    onTap: () => getXcontroller
-                                                        .removeserviceTypeCountfunction(
-                                                            primaryindex),
+                                                    onTap: () {
+                                                      getXcontroller
+                                                          .removeserviceTypeCountfunction(
+                                                              primaryindex);
+
+                                                      getXcontroller
+                                                          .servicerateTextController[
+                                                              primaryindex]
+                                                          .removeLast();
+                                                      // print(getXcontroller
+                                                      //     .servicerateTextController[
+                                                      //         primaryindex]
+                                                      //     .length);
+                                                    },
                                                     child: Icon(
                                                       Icons.delete,
                                                       size: 20.sp,
@@ -200,9 +244,11 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                 const Color.fromARGB(255, 255, 90, 95)),
           ),
           onPressed: () {
-            Get.offAll(Architectbottomnavigationbar(
-              selectedindex: 0,
-            ));
+            // Get.offAll(Architectbottomnavigationbar(
+            //   selectedindex: 0,
+            // ));
+
+            log(selctedserviceRateMainListmap.toString());
           },
           child: const Text('Next'),
         ),

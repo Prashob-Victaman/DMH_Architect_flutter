@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 scaffoldBackgroundColor: kwhitecolor,
               ),
-              home: SplashScreen()
+              home: ServiceRateUpdated()
             //DesignPage()
           );
         });

@@ -27,8 +27,8 @@ class designlistview extends StatelessWidget {
           if (!snapshot.hasData) {
             return Center(
                 child: SizedBox(
-              height: 19.w,
-            ));
+                  height: 19.w,
+                ));
           }
 
           return ListView.separated(
@@ -36,21 +36,21 @@ class designlistview extends StatelessWidget {
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (context, index) {
-                final data = designDataModel
-                    .fromJson(snapshot.data!.docs[index].data());
+                final data =
+                designDataModel.fromJson(snapshot.data!.docs[index].data());
 
                 return GestureDetector(
-                  onTap: ()async {
-                    await FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc(data.uid).update(
-                        {
-                          'visitors': FieldValue.increment(1)
-                        }
-                    );
+                  onTap: () async {
+                    await FirebaseFirestore.instance
+                        .collection('DesignDataFromAdmin')
+                        .doc(data.uid)
+                        .update({'visitors': FieldValue.increment(1)});
                     print(data.uid);
+
                     Get.to(() => ProductView(
-                        DesignData: data,
-                      ));
-                    },
+                      DesignData: data,
+                    ));
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.w),
@@ -69,7 +69,8 @@ class designlistview extends StatelessWidget {
                                       topRight: Radius.circular(10.w)),
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
-                                      image: NetworkImage(data.imageOneurl)),
+                                      image: NetworkImage(
+                                          data.exteriorImageList[0])),
                                 ),
                               ),
                               Row(
@@ -81,14 +82,14 @@ class designlistview extends StatelessWidget {
                                             topLeft: Radius.circular(10.w),
                                             bottomRight: Radius.circular(10.w)),
                                         color:
-                                            Color.fromARGB(255, 255, 214, 69)),
+                                        Color.fromARGB(255, 255, 214, 69)),
                                     height: 22.w,
                                     width: (screenwidth - 30) / 2.w,
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           '${data.designType} /',

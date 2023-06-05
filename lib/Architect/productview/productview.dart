@@ -65,7 +65,7 @@ class _ProductViewState extends State<ProductView> {
                           Text(
                             '/ ${widget.DesignData.designType}',
                             style:
-                                TextStyle(fontSize: 14.sp, color: kblackcolor),
+                            TextStyle(fontSize: 14.sp, color: kblackcolor),
                           ),
                         ],
                       ),
@@ -80,21 +80,24 @@ class _ProductViewState extends State<ProductView> {
                     ],
                   ),
                 ),
+                heigh10,
+
                 ProductCarouselslider(DesignData: widget.DesignData),
+
+                heigh10,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
                             onTap: () => Get.to(() => GetDesign(
-                                  DesignData: widget.DesignData,
-                                )),
+                              DesignData: widget.DesignData,
+                            )),
                             child: Container(
                               alignment: Alignment.center,
-                              width: ((screenwidth - 30) / 2.1).w,
+                              width: (screenwidth - 40.w) / 2,
                               height: 30.w,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.w),
@@ -111,7 +114,7 @@ class _ProductViewState extends State<ProductView> {
                             onTap: () => Get.to(() => DesignThisTypeOfHouse()),
                             child: Container(
                               alignment: Alignment.center,
-                              width: ((screenwidth - 30) / 2.1).w,
+                              width: (screenwidth - 30) / 2,
                               height: 30.w,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.w),
@@ -186,9 +189,9 @@ class _ProductViewState extends State<ProductView> {
                           amount: widget.DesignData.designprice,
                           designType: widget.DesignData.designType,
                           dimensions:
-                              '${widget.DesignData.houseArea['area']} Sqft',
+                          '${widget.DesignData.houseArea['area']} Sqft',
                           houseType: widget.DesignData.houseType,
-                          imgUrl: widget.DesignData.imageOneurl,
+                          imgUrl: widget.DesignData.exteriorImageList[0],
                           ProductUid: widget.DesignData.uid,
                           userid: FirebaseAuth.instance.currentUser!.uid),
                       child: Container(
@@ -202,7 +205,7 @@ class _ProductViewState extends State<ProductView> {
                         child: Text(
                           'Add to cart',
                           style:
-                              TextStyle(fontSize: 17.sp, color: kprimarycolor),
+                          TextStyle(fontSize: 17.sp, color: kprimarycolor),
                         ),
                       ),
                     ),

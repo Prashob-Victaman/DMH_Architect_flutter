@@ -8,91 +8,67 @@ class ProductCarouselslider extends StatelessWidget {
 
   ProductCarouselslider({super.key, required this.DesignData});
 
+
+  List imageList = [];
+  List titleList = [];
+
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      items: [
-        Padding(
-          padding: EdgeInsets.all(10.w),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.w),
-                image: DecorationImage(
-                    image: NetworkImage(DesignData.imageOneurl),
-                    fit: BoxFit.cover)),
-            height: 180.w,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.w),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.w),
-                image: DecorationImage(
-                    image: NetworkImage(DesignData.imageTwourl),
-                    fit: BoxFit.cover)),
-            height: 180.w,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.w),
-          child: Container(
-            height: 180.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.w),
-                image: DecorationImage(
-                    image: NetworkImage(DesignData.imageThreeurl),
-                    fit: BoxFit.cover)),
-          ),
-        ),
+    List exteriorimageList = DesignData.exteriorImageList;
 
+    // List exteriorTitleList = DesignData.exteriorImagetitleList;
 
-        Padding(
-          padding: EdgeInsets.all(10.w),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.w),
-                image: DecorationImage(
-                    image: NetworkImage(DesignData.floorfileimageOneurl),
-                    fit: BoxFit.cover)),
-            height: 180.w,
+    imageList.addAll(DesignData.exteriorImageList);
+    titleList.addAll(DesignData.exteriorImagetitleList);
+
+    imageList.addAll(DesignData.floorImageList);
+
+    titleList.addAll(DesignData.floorImagetitleList);
+
+    print(
+        '${exteriorimageList.length} exteriorimageList ${imageList.length} imageleist');
+
+    return Center(
+      child: CarouselSlider.builder(
+        itemCount: imageList.length,
+        itemBuilder: (BuildContext context, int index, int realIndex) {
+          final image = imageList[index];
+          final text = titleList[index];
+          return buildCarouselItem(image, text);
+        },
+        options: CarouselOptions(
+          height: 205.0.w,
+          autoPlay: true,
+          aspectRatio: 16 / 9,
+          autoPlayCurve: Curves.fastOutSlowIn,
+          enableInfiniteScroll: true,
+          autoPlayAnimationDuration: Duration(milliseconds: 1000),
+          viewportFraction: 0.8,
+        ),
+      ),
+    );
+  }
+
+  Widget buildCarouselItem(String image, String text) {
+    return Column(
+      children: [
+        Container(
+          height: 180.w,
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(horizontal: 5.0.w),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.w),
+            image: DecorationImage(
+              image: NetworkImage(image),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.all(10.w),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.w),
-                image: DecorationImage(
-                    image: NetworkImage(DesignData.floorfileimageTwourl),
-                    fit: BoxFit.cover)),
-            height: 180.w,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.w),
-          child: Container(
-            height: 180.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.w),
-                image: DecorationImage(
-                    image: NetworkImage(DesignData.floorfileimageThreeurl),
-                    fit: BoxFit.cover)),
-          ),
+        Text(
+          text,
+          style: TextStyle(fontSize: 16.0.sp, color: Colors.black),
         ),
       ],
-      //Slider Container properties
-      options: CarouselOptions(
-        pageSnapping: true,
-        height: 180.0.w,
-        enlargeCenterPage: false,
-        autoPlay: true,
-        aspectRatio: 16 / 9,
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enableInfiniteScroll: true,
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
-        viewportFraction: 1,
-      ),
     );
   }
 }

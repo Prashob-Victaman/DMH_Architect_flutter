@@ -125,6 +125,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                               itemCount: getcontroller
                                   .exteriorDesignNameControllerList.length,
                               itemBuilder: (BuildContext context, int index) {
+
                                 return Column(
                                   children: [
                                     GestureDetector(
@@ -270,6 +271,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                               itemCount: getcontroller
                                   .floorDesignNameControllerList.length,
                               itemBuilder: (BuildContext context, int index) {
+
                                 return Column(
                                   children: [
                                     GestureDetector(

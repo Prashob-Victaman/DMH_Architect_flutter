@@ -1,3 +1,4 @@
+import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilewidgets.dart';
 import 'package:dmh_architect/Architect/architerctlogin/architectlogin.dart';
@@ -52,9 +53,7 @@ class ArchitectProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () => Get.to(() => ArchitectProfile(
-                
-                          )),
+                      onTap: () => Get.to(() => ArchitectProfile()),
                       child: architectprofilewidgets(
                           icon: Icon(Icons.account_circle_outlined,
                               color: kbluecolor, size: 20.w),
@@ -71,6 +70,17 @@ class ArchitectProfilePage extends StatelessWidget {
                               color: kbluecolor, size: 20.w),
                           title: 'My Designs',
                           subtitle: 'Manage your Designs',
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              size: 15.w, color: kgreycolor)),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () => Get.to(() => ProfileServiceRate()),
+                      child: architectprofilewidgets(
+                          icon: Icon(Icons.currency_rupee,
+                              color: kbluecolor, size: 20.w),
+                          title: 'Service Rates',
+                          subtitle: 'Manage your Service Rates',
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 15.w, color: kgreycolor)),
                     ),
@@ -102,7 +112,8 @@ class ArchitectProfilePage extends StatelessWidget {
                                       GestureDetector(
                                         onTap: () async {
                                           await FirebaseAuth.instance.signOut();
-                                          Get.offAll(() => ArchitectLoginScreen());
+                                          Get.offAll(
+                                              () => ArchitectLoginScreen());
                                         },
                                         child: Container(
                                           height: 30.w,

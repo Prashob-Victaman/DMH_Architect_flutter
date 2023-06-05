@@ -44,6 +44,8 @@ class Architecthoutypeformsimplex extends StatelessWidget {
   final List planingFileNameControllerList = [TextEditingController()];
   final List planingFilePriceControllerList = [TextEditingController()];
 
+  List<int> indices = [0, 1, 3, 4, 5, 6, 7, 8, 9];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -437,6 +439,18 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                   planingFileUrlList: planingImageUrl);
 
                                           // getNavigatecontroller.changeoption(1);
+
+                                          changeisloding() {
+                                            for (var i = 0; i < 10; i++) {
+                                              getxcontroller.floorisLoading[i] =
+                                                  false;
+                                              getxcontroller
+                                                  .exteriorisLoading[i] = false;
+                                            }
+                                          }
+
+                                          // getxcontroller
+                                          //     .exteriorisLoading[index] = false;
 
                                           getxcontroller.exteriorimgurlList[1] =
                                               null;

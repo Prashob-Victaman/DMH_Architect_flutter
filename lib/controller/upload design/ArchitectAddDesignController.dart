@@ -16,6 +16,7 @@ class ArchitectAddDesignController extends GetxController {
   int selectedDesignTypeCheckBox = 0;
   int selectedHouseFacingCheckbox = 0;
   int selectedHouseFloorsCheckbox = 0;
+  
 
   // bool isLoading = false;
 
@@ -37,6 +38,8 @@ class ArchitectAddDesignController extends GetxController {
   //   TextEditingController(),
   //   TextEditingController(),
   // ];
+
+
 
   changefloorisLoading(bool passedisLoading, int index) {
     floorisLoading[index] = passedisLoading;

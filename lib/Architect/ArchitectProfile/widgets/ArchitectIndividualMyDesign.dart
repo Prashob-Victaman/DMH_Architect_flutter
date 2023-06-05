@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../Constants/constants.dart';
 import '../../../model/uploadDesignDataModel.dart';
+import '../../productview/widget/productcorouselslider.dart';
 
 class ArchitectIndividualHomeDesign extends StatelessWidget {
   designDataModel designData;
@@ -36,52 +37,7 @@ class ArchitectIndividualHomeDesign extends StatelessWidget {
             ],
           ),
           heigh10,
-          Container(
-            width: Screenwwidth - 30.w,
-            height: 180.w,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7.w),
-                color: kgreycolor,
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(designData.imageOneurl))),
-          ),
-          heigh10,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                width: (Screenwwidth / 3) - 15.w,
-                height: 80.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7.w),
-                    color: kgreycolor,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(designData.imageOneurl))),
-              ),
-              Container(
-                width: (Screenwwidth / 3) - 15.w,
-                height: 80.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7.w),
-                    color: kgreycolor,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(designData.imageTwourl))),
-              ),
-              Container(
-                width: (Screenwwidth / 3) - 15.w,
-                height: 80.w,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(7.w),
-                    color: kgreycolor,
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(designData.imageThreeurl))),
-              )
-            ],
-          ),
+          ProductCarouselslider(DesignData: designData),
           heigh10,
           Text(
             '${designData.designType} ${designData.houseType}',

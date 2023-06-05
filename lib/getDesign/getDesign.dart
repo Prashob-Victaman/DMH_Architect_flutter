@@ -22,13 +22,27 @@ class _GetDesignState extends State<GetDesign> {
   double? price;
   var razorpay = Razorpay();
 
+
+  List titledata = ['Floor Plan With Column', 'Foundation and structure Plan'];
+  List subtitledata = [
+    'Basement Plan',
+    'Ground floor plan',
+    'first floor plan'
+  ];
+
+
   @override
   void initState() {
+
+
     super.initState();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+
   }
+
+
 
   // void onPause() {
   //   unregisterReceiver(
@@ -134,13 +148,8 @@ class _GetDesignState extends State<GetDesign> {
     // Do something when an external wallet was selected
   }
 
-  List titledata = ['Floor Plan With Column', 'Foundation and structure Plan'];
 
-  List subtitledata = [
-    'Basement Plan',
-    'Ground floor plan',
-    'first floor plan'
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -193,8 +202,7 @@ class _GetDesignState extends State<GetDesign> {
                             Container(
                               width: 300.w,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(10.w)),
+                                borderRadius: BorderRadius.all(Radius.circular(10.w)),
                                 color: kprimarycolor.withOpacity(0.3),
                               ),
                               child: Padding(
@@ -206,14 +214,15 @@ class _GetDesignState extends State<GetDesign> {
                                     SizedBox(
                                         width: 200.w,
                                         child: Text(
-                                          titledata[index],
+                                          widget.DesignData.planingFileNameList[index],
                                           style: TextStyle(
                                               fontSize: 16.sp,
                                               fontWeight: FontWeight.bold,
                                               color: kprimarycolor),
                                         )),
                                     Text(
-                                      'Rs. ${widget.DesignData.designprice}',
+                                      'Rs. ${widget.DesignData.planingFilePriceList[index]
+                                      }',
                                       style: TextStyle(
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.bold,
@@ -223,32 +232,32 @@ class _GetDesignState extends State<GetDesign> {
                                 ),
                               ),
                             ),
-                            Container(
-                              width: 300.w,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10.w),
-                                    bottomRight: Radius.circular(10.w)),
-                                color: kprimarycolor.withOpacity(0.1),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8.0.w, vertical: 5.w),
-                                child: ListView.separated(
-                                    shrinkWrap: true,
-                                    physics: ScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Text(subtitledata[index]);
-                                    },
-                                    separatorBuilder: (context, index) {
-                                      return Divider(
-                                        height: 5.w,
-                                        thickness: 0.5.w,
-                                      );
-                                    },
-                                    itemCount: 3),
-                              ),
-                            ),
+                            // Container(
+                            //   width: 300.w,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.only(
+                            //         bottomLeft: Radius.circular(10.w),
+                            //         bottomRight: Radius.circular(10.w)),
+                            //     color: kprimarycolor.withOpacity(0.1),
+                            //   ),
+                            //   child: Padding(
+                            //     padding: EdgeInsets.symmetric(
+                            //         horizontal: 8.0.w, vertical: 5.w),
+                            //     child: ListView.separated(
+                            //         shrinkWrap: true,
+                            //         physics: ScrollPhysics(),
+                            //         itemBuilder: (context, index) {
+                            //           return Text(subtitledata[index]);
+                            //         },
+                            //         separatorBuilder: (context, index) {
+                            //           return Divider(
+                            //             height: 5.w,
+                            //             thickness: 0.5.w,
+                            //           );
+                            //         },
+                            //         itemCount: 3),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ],
@@ -259,7 +268,8 @@ class _GetDesignState extends State<GetDesign> {
                       height: 10.w,
                     );
                   },
-                  itemCount: 2),
+                  itemCount: widget.DesignData.planingFileNameList.length
+              ),
             ],
           ),
         ),

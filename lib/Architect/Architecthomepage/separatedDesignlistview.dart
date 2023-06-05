@@ -70,7 +70,7 @@ class separateddesignlistview extends StatelessWidget {
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 image: NetworkImage(CategoryData[index]
-                                        ['imageOneurl'] ??
+                                        ['floorImageList'][0] ??
                                     'https://firebasestorage.googleapis.com/v0/b/designmyhouse-c26d9.appspot.com/o/placeholder%2Fef3-placeholder-image.jpg?alt=media&token=1369f624-05c2-409b-9961-d3112981d4c4'),
                               ),
                             ),

@@ -1,9 +1,6 @@
 class designDataModel {
   String uid;
   String uploadedUserUid;
-  String imageOneurl;
-  String imageTwourl;
-  String imageThreeurl;
   int sortId;
   String projectDetails;
   String designType;
@@ -16,81 +13,83 @@ class designDataModel {
   String aproximateConstructionCost;
   var postedDate;
   int visitors;
-  String floorfileimageOneurl;
-  String floorfileimageTwourl;
-  String floorfileimageThreeurl;
-  String designprice;
-  String shortdescription;
-  String uploadedBy;
   List planingFileNameList;
   List planingFilePriceList;
   List planingFileUrlList;
+  String designprice;
+  String shortdescription;
+  String uploadedBy;
+  List floordetails;
+  List exteriorImageList;
+  List exteriorImagetitleList;
+  List floorImageList;
+  List floorImagetitleList;
 
   designDataModel(
       {this.uid = '',
-      required this.shortdescription,
-      required this.designprice,
-      required this.sortId,
-      required this.uploadedUserUid,
-      required this.projectDetails,
-      required this.imageOneurl,
-      required this.imageTwourl,
-      required this.imageThreeurl,
-      required this.designType,
-      required this.houseFacing,
-      required this.houseFloors,
-      required this.houseType,
-      required this.houseArea,
-      required this.accordingtoVastu,
-      required this.estimatedConstructionCost,
-      required this.aproximateConstructionCost,
-      required this.postedDate,
-      required this.visitors,
-      required this.floorfileimageOneurl,
-      required this.floorfileimageTwourl,
-      required this.floorfileimageThreeurl,
-      required this.uploadedBy,
-      required this.planingFileNameList,
-      required this.planingFilePriceList,
-      required this.planingFileUrlList});
+        required this.shortdescription,
+        required this.designprice,
+        required this.floordetails,
+        required this.sortId,
+        required this.uploadedUserUid,
+        required this.projectDetails,
+        required this.exteriorImageList,
+        required this.exteriorImagetitleList,
+        required this.floorImageList,
+        required this.floorImagetitleList,
+        required this.designType,
+        required this.houseFacing,
+        required this.houseFloors,
+        required this.houseType,
+        required this.houseArea,
+        required this.accordingtoVastu,
+        required this.estimatedConstructionCost,
+        required this.aproximateConstructionCost,
+        required this.postedDate,
+        required this.visitors,
+        required this.planingFileNameList,
+        required this.planingFilePriceList,
+        required this.planingFileUrlList,
+        required this.uploadedBy});
 
   Map<String, dynamic> toJson() => {
-        'uid': uid,
-        'sortId': sortId,
-        'uploadedUserUid': uploadedUserUid,
-        'projectDetails': projectDetails,
-        'imageOneurl': imageOneurl,
-        'imageTwourl': imageTwourl,
-        'imageThreeurl': imageThreeurl,
-        'designType': designType,
-        'houseFacing': houseFacing,
-        'houseFloors': houseFloors,
-        'houseType': houseType,
-        'houseArea': houseArea,
-        'accordingtoVastu': accordingtoVastu,
-        'estimatedConstructionCost': estimatedConstructionCost,
-        'aproximateConstructionCost': aproximateConstructionCost,
-        'postedDate': postedDate,
-        'visitors': visitors,
-        'floorfileimageOneurl': floorfileimageOneurl,
-        'floorfileimageTwourl': floorfileimageTwourl,
-        'floorfileimageThreeurl': floorfileimageThreeurl,
-        'designprice': designprice,
-        'shortdescription': shortdescription,
-        'uploadedBy': uploadedBy,
-        'planingFileUrlList': planingFileUrlList,
-        'planingFileNameList': planingFileNameList,
-        'planingFilePriceList': planingFilePriceList
-      };
+    'uid': uid,
+    'sortId': sortId,
+    'floordetails': floordetails,
+    'uploadedUserUid': uploadedUserUid,
+    'projectDetails': projectDetails,
+    'exteriorImageList': exteriorImageList,
+    'exteriorImagetitleList': exteriorImagetitleList,
+    'floorImageList': floorImageList,
+    'floorImagetitleList': floorImagetitleList,
+    'designType': designType,
+    'houseFacing': houseFacing,
+    'houseFloors': houseFloors,
+    'houseType': houseType,
+    'houseArea': houseArea,
+    'accordingtoVastu': accordingtoVastu,
+    'estimatedConstructionCost': estimatedConstructionCost,
+    'aproximateConstructionCost': aproximateConstructionCost,
+    'postedDate': postedDate,
+    'visitors': visitors,
+    'planingFileNameList': planingFileNameList,
+    'planingFilePriceList': planingFilePriceList,
+    'planingFileUrlList': planingFileUrlList,
+    'designprice': designprice,
+    'shortdescription': shortdescription,
+    'uploadedBy': uploadedBy
+  };
 
   factory designDataModel.fromJson(json) => designDataModel(
       uploadedUserUid: json['uploadedUserUid'],
+      floordetails: json['floordetails'],
       sortId: json['sortId'],
       projectDetails: json['projectDetails'],
       uid: json['uid'],
-      imageOneurl: json['imageOneurl'],
-      imageTwourl: json['imageTwourl'],
-      imageThreeurl: json['imageThreeurl'],
+      exteriorImageList: json['exteriorImageList'],
+      exteriorImagetitleList: json['exteriorImagetitleList'],
+      floorImageList: json['floorImageList'],
+      floorImagetitleList: json['floorImagetitleList'],
       designType: json['designType'],
       houseFacing: json['houseFacing'],
       houseFloors: json['houseFloors'],
@@ -101,13 +100,10 @@ class designDataModel {
       aproximateConstructionCost: json['aproximateConstructionCost'],
       postedDate: json['postedDate'],
       visitors: json['visitors'],
-      floorfileimageOneurl: json['floorfileimageOneurl'],
-      floorfileimageTwourl: json['floorfileimageTwourl'],
-      floorfileimageThreeurl: json['floorfileimageThreeurl'],
+      planingFileNameList: json['planingFileNameList'],
+      planingFilePriceList: json['planingFilePriceList'],
+      planingFileUrlList: json['planingFileUrlList'],
       designprice: json['designprice'],
       shortdescription: json['shortdescription'],
-      uploadedBy: json['uploadedBy'],
-      planingFileUrlList: json['planingFileUrlList'],
-      planingFilePriceList: json['planingFilePriceList'],
-      planingFileNameList: json['planingFileNameList']);
+      uploadedBy: json['uploadedBy']);
 }

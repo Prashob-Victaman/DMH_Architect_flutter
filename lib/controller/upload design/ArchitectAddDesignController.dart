@@ -46,11 +46,10 @@ class ArchitectAddDesignController extends GetxController {
     refresh();
   }
 
-   changeexteriorisLoading(bool passedisLoading, int index) {
+  changeexteriorisLoading(bool passedisLoading, int index) {
     exteriorisLoading[index] = passedisLoading;
     refresh();
   }
-
 
   final exteriorDesignNameControllerList =
       List.generate(3, (_) => TextEditingController());
@@ -241,6 +240,13 @@ class ArchitectAddDesignController extends GetxController {
     final json = designData.toJson();
 
     await docUrl.set(json);
+
+    await FirebaseFirestore.instance
+        .collection('ArchitectData')
+        .doc(uploadedUserUid)
+        .update({
+      'myDesigns': FieldValue.arrayUnion([json])
+    });
   }
 
   buyorder(name, amount, mobilenumber, paymentmode, notes) async {

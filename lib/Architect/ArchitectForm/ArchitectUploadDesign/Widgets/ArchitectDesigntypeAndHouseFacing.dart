@@ -37,7 +37,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                   height: 10.w,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -78,12 +78,14 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             getdata.DesignTypeCheckbox(2);
                           },
                         ),
-                        Text('Others',
-                            style: TextStyle(fontSize: 16.sp))
+                        Text('Others', style: TextStyle(fontSize: 16.sp)),
                       ],
                     ),
+                    SizedBox(
+                      height: 10.w,
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           );
@@ -113,64 +115,75 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Checkbox(
-                          value: getData.selectedHouseFacingCheckbox == 0
-                              ? true
-                              : false,
-                          onChanged: (value) {
-                            getData.HouseFacingCheckbox(0);
-                          },
+                        SizedBox(
+                          width: 30.w,
+                          child: Checkbox(
+                            value: getData.selectedHouseFacingCheckbox == 0
+                                ? true
+                                : false,
+                            onChanged: (value) {
+                              getData.HouseFacingCheckbox(0);
+                            },
+                          ),
                         ),
                         Text('East', style: TextStyle(fontSize: 16.sp))
                       ],
                     ),
                     Row(
                       children: [
-                        Checkbox(
-                          value: getData.selectedHouseFacingCheckbox == 1
-                              ? true
-                              : false,
-                          onChanged: (value) {
-                            getData.HouseFacingCheckbox(1);
-                          },
+                        SizedBox(
+                          width: 30.w,
+                          child: Checkbox(
+                            value: getData.selectedHouseFacingCheckbox == 1
+                                ? true
+                                : false,
+                            onChanged: (value) {
+                              getData.HouseFacingCheckbox(1);
+                            },
+                          ),
                         ),
                         Text('West', style: TextStyle(fontSize: 16.sp))
                       ],
                     ),
                     Row(
                       children: [
-                        Checkbox(
-                          value: getData.selectedHouseFacingCheckbox == 2
-                              ? true
-                              : false,
-                          onChanged: (value) {
-                            getData.HouseFacingCheckbox(2);
-                          },
+                        SizedBox(
+                          width: 30.w,
+                          child: Checkbox(
+                            value: getData.selectedHouseFacingCheckbox == 2
+                                ? true
+                                : false,
+                            onChanged: (value) {
+                              getData.HouseFacingCheckbox(2);
+                            },
+                          ),
                         ),
                         Text('South', style: TextStyle(fontSize: 16.sp))
                       ],
                     ),
-
-                  ],
-                ),
-                Row(
-                  children: [
                     Row(
                       children: [
-                        Checkbox(
-                          value: getData.selectedHouseFacingCheckbox == 3
-                              ? true
-                              : false,
-                          onChanged: (value) {
-                            getData.HouseFacingCheckbox(3);
-                          },
+                        SizedBox(
+                          width: 30.w,
+                          child: Checkbox(
+                            value: getData.selectedHouseFacingCheckbox == 3
+                                ? true
+                                : false,
+                            onChanged: (value) {
+                              getData.HouseFacingCheckbox(3);
+                            },
+                          ),
                         ),
-                        Text('North             ',
-                            style: TextStyle(fontSize: 16.sp))
+                        Text('North', style: TextStyle(fontSize: 16.sp))
                       ],
                     ),
                   ],
-                )
+                ),
+                // Row(
+                //   children: [
+
+                //   ],
+                // )
               ],
             ),
           );

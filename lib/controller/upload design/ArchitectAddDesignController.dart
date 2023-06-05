@@ -17,6 +17,13 @@ class ArchitectAddDesignController extends GetxController {
   int selectedHouseFacingCheckbox = 0;
   int selectedHouseFloorsCheckbox = 0;
 
+  // bool isLoading = false;
+
+  // List<bool> isLoading = List<bool>.filled(9, false);
+
+  List<bool> exteriorisLoading = List.filled(9, false);
+  List<bool> floorisLoading = List.filled(9, false);
+
   List<String?> exteriorimgurlList = List<String?>.filled(9, null);
 
   List<XFile?> exteriorimgXfileList = List<XFile?>.filled(9, null);
@@ -30,6 +37,17 @@ class ArchitectAddDesignController extends GetxController {
   //   TextEditingController(),
   //   TextEditingController(),
   // ];
+
+  changefloorisLoading(bool passedisLoading, int index) {
+    floorisLoading[index] = passedisLoading;
+    refresh();
+  }
+
+   changeexteriorisLoading(bool passedisLoading, int index) {
+    exteriorisLoading[index] = passedisLoading;
+    refresh();
+  }
+
 
   final exteriorDesignNameControllerList =
       List.generate(3, (_) => TextEditingController());
@@ -103,7 +121,8 @@ class ArchitectAddDesignController extends GetxController {
   uploadexteriorimagefileOne(buttonIndex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    exteriorimgXfileList[buttonIndex] = await ImagePicker().pickImage(source: ImageSource.gallery);
+    exteriorimgXfileList[buttonIndex] =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectoryImages =
@@ -134,7 +153,8 @@ class ArchitectAddDesignController extends GetxController {
   uploadfloorfileimage(buttonindex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-     floorimgXFileList[buttonindex] = await ImagePicker().pickImage(source: ImageSource.gallery);
+    floorimgXFileList[buttonindex] =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectoryImages =
@@ -151,7 +171,8 @@ class ArchitectAddDesignController extends GetxController {
     try {
       await referenceImageToUpload
           .putFile(File(floorimgXFileList[buttonindex]!.path));
-      floorimgurlList[buttonindex] = await referenceImageToUpload.getDownloadURL();
+      floorimgurlList[buttonindex] =
+          await referenceImageToUpload.getDownloadURL();
       print('imageurl $floorimgurlList[buttonindex]');
     } catch (e) {
       // log(e.toString());F

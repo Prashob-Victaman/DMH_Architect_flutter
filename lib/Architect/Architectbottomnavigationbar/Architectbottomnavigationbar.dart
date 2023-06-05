@@ -1,3 +1,4 @@
+import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
 import 'package:flutter/material.dart';
 
 import '../../Constants/constants.dart';
@@ -23,8 +24,9 @@ class _ArchitectbottomnavigationbarState
     ArchitecthomePage(),
     const ArchitectDesignPage(),
     ArchitectUploadDesign(),
+    // ServiceRateUpdated(),
     //const UploadDesign(),
-     ArchitectProfilePage(),
+    ArchitectProfilePage(),
   ];
 
   @override

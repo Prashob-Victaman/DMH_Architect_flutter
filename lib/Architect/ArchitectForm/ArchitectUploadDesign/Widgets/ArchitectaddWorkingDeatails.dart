@@ -55,34 +55,32 @@ class _ArchitectaddWorkingDeatailsState
                 Spacer(),
                 Container(
                   alignment: Alignment.center,
-                  width: 40.w,
+                  width: 50.w,
                   height: 40.w,
                   decoration: BoxDecoration(
                       color: kprimarycolor.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(5.w)),
-                  child: GestureDetector(
-                    onTap: () {
-                      if (planningGridCount < 6) {
-                        planningGridCount += 1;
-                        widget.planingFileNameControllerList
-                            .add(TextEditingController());
-                        widget.planingFilePriceControllerList
-                            .add(TextEditingController());
-                      }
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          if (planningGridCount < 6) {
+                            planningGridCount += 1;
+                            widget.planingFileNameControllerList
+                                .add(TextEditingController());
+                            widget.planingFilePriceControllerList
+                                .add(TextEditingController());
+                          }
 
-                      setState(() {});
-                    },
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        Icon(
+                          setState(() {});
+                        },
+                        icon: Icon(
                           Icons.add,
                           color: kprimarycolor,
                           size: 25.w,
                         ),
-                        Spacer()
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -90,29 +88,23 @@ class _ArchitectaddWorkingDeatailsState
                 ),
                 Container(
                   alignment: Alignment.center,
-                  width: 40.w,
+                  width: 50.w,
                   height: 40.w,
                   decoration: BoxDecoration(
                       color: kprimarycolor.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(5.w)),
-                  child: GestureDetector(
-                    onTap: () {
+                  child: IconButton(
+                    onPressed: () {
                       if (planningGridCount > 1) {
                         planningGridCount -= 1;
                       }
 
                       setState(() {});
                     },
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        Icon(
-                          Icons.delete,
-                          color: kprimarycolor,
-                          size: 25.w,
-                        ),
-                        Spacer()
-                      ],
+                    icon: Icon(
+                      Icons.delete,
+                      color: kprimarycolor,
+                      size: 25.w,
                     ),
                   ),
                 ),
@@ -126,7 +118,7 @@ class _ArchitectaddWorkingDeatailsState
                 child: GridView.builder(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3, childAspectRatio: 0.6.sp),
+                        crossAxisCount: 3, childAspectRatio: 0.5.sp),
                     physics: const ScrollPhysics(),
                     itemCount: planningGridCount,
                     itemBuilder: (BuildContext context, int index) {
@@ -143,38 +135,51 @@ class _ArchitectaddWorkingDeatailsState
                               ),
                               heigh5,
                               SizedBox(
-                                width: 100.w,
-                                height: 35.sp,
+                                width: 115.w,
+                                // height: 35.sp,
                                 child: Center(
                                   child: TextFormField(
                                     controller: widget
                                         .planingFileNameControllerList[index],
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Please enter File name';
+                                        return 'Enter File name';
                                       }
                                       return null;
                                     },
-                                    decoration:
-                                        customInputDecoration('File name'),
+                                    decoration: InputDecoration(
+                                        hintText: 'File name',
+                                        contentPadding:
+                                            EdgeInsets.only(left: 10.w),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1.w,
+                                                color: kprimarycolor))),
                                   ),
                                 ),
                               ),
                               heigh5,
                               SizedBox(
-                                width: 100.sp,
-                                height: 35.sp,
+                                width: 115.sp,
+                                // height: 35.sp,
                                 child: Center(
                                   child: TextFormField(
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Please enter Estimated cost';
+                                        return 'Enter Estimated cost';
                                       }
                                       return null;
                                     },
                                     controller: widget
                                         .planingFilePriceControllerList[index],
-                                    decoration: customInputDecoration('₹0.0'),
+                                    decoration: InputDecoration(
+                                        hintText: 'File Amount',
+                                        contentPadding:
+                                            EdgeInsets.only(left: 10.w),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 1.w,
+                                                color: kprimarycolor))),
                                     keyboardType: TextInputType.number,
                                   ),
                                 ),
@@ -199,8 +204,8 @@ class _ArchitectaddWorkingDeatailsState
 customUploadButton(image, context) {
   return Container(
     // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
-    width: 100.w,
-    height: 100.w,
+    width: 115.w,
+    height: 90.w,
     decoration: BoxDecoration(
       border: Border.all(width: 1, color: Colors.red),
       borderRadius: const BorderRadius.all(Radius.circular(5)),
@@ -211,8 +216,7 @@ customUploadButton(image, context) {
                 borderRadius: const BorderRadius.all(Radius.circular(4)),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image:  FileImage(File(
-                      image!.path)),
+                  image: FileImage(File(image!.path)),
                 )),
           )
         : Column(
@@ -223,7 +227,6 @@ customUploadButton(image, context) {
                 color: kprimarycolor,
                 size: 40.sp,
               ),
-
               Text(
                 'Upload design',
                 style: TextStyle(fontSize: 12.0.sp, color: kprimarycolor),
@@ -232,6 +235,7 @@ customUploadButton(image, context) {
           ),
   );
 }
+
 class uploadDesign extends StatelessWidget {
   // Uint8List uploadedImage;
 

@@ -202,8 +202,6 @@
 //   }
 // }
 
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -217,7 +215,6 @@ class FloorDetails extends StatefulWidget {
   @override
   State<FloorDetails> createState() => _FloorDetailsState();
 }
-
 
 class _FloorDetailsState extends State<FloorDetails> {
   final GetxController = Get.put(ArchitectUploadDesignController());
@@ -236,56 +233,53 @@ class _FloorDetailsState extends State<FloorDetails> {
             const Spacer(),
             Container(
               alignment: Alignment.center,
-              width: 40.w,
+              width: 50.w,
               height: 40.w,
               decoration: BoxDecoration(
                   color: kprimarycolor.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(5.w)),
-              child: GestureDetector(
-                onTap: () {
-                  GetxController.incrementfloorcount(1);
-                  // GetxController.selectedFloorList.add('Basement');
-                  // GetxController.groupofselectedfloolist.clear();
-                  GetxController.groupofselectedfloolist.clear();
-                  GetxController.groupofselectedfloolist
-                      .addAll({'0': GetxController.selectedFloorList.toList()});
-                  // .add((GetxController.selectedFloorList));
+              child: SizedBox(
+                child: Center(
+                  child: IconButton(
+                    onPressed: () {
+                      GetxController.incrementfloorcount(1);
+                      // GetxController.selectedFloorList.add('Basement');
+                      // GetxController.groupofselectedfloolist.clear();
+                      GetxController.groupofselectedfloolist.clear();
+                      GetxController.groupofselectedfloolist.addAll(
+                          {'0': GetxController.selectedFloorList.toList()});
+                      // .add((GetxController.selectedFloorList));
 
-                  // GetxController.groupofselectedfloolist.clear();
+                      // GetxController.groupofselectedfloolist.clear();
 
-                  GetxController.groupofselectedfloolist.addAll(
-                      {'1': GetxController.roomtypeitemsvalue.toList()});
+                      GetxController.groupofselectedfloolist.addAll(
+                          {'1': GetxController.roomtypeitemsvalue.toList()});
 
-                  // .add((GetxController.roomtypeitemsvalue));
+                      // .add((GetxController.roomtypeitemsvalue));
 
-                  // GetxController.groupofselectedfloolist.clear();
+                      // GetxController.groupofselectedfloolist.clear();
 
-                  GetxController.groupofselectedfloolist
-                      .addAll({'2': GetxController.roomcountvalue.toList()});
-                  // .add((GetxController.roomcountvalue));
+                      GetxController.groupofselectedfloolist.addAll(
+                          {'2': GetxController.roomcountvalue.toList()});
+                      // .add((GetxController.roomcountvalue));
 
-                  //adding to final list to list
+                      //adding to final list to list
 
-                  GetxController.createdlistofitems
-                      .add(Map.from(GetxController.groupofselectedfloolist));
+                      GetxController.createdlistofitems.add(
+                          Map.from(GetxController.groupofselectedfloolist));
 
-                  print(
-                      '${GetxController.createdlistofitems}fgfffffffffffffffffffffffff');
-                  // print(GetxController.createdlistofitems);
+                      print(
+                          '${GetxController.createdlistofitems}fgfffffffffffffffffffffffff');
+                      // print(GetxController.createdlistofitems);
 
-                  setState(() {});
-                },
-                child: Row(
-                  children: [
-                    const Spacer(),
-
-                    Icon(
+                      setState(() {});
+                    },
+                    icon: Icon(
                       Icons.add_box_outlined,
                       color: kprimarycolor,
                       size: 25.w,
                     ),
-                    const Spacer()
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -294,27 +288,21 @@ class _FloorDetailsState extends State<FloorDetails> {
             ),
             Container(
               alignment: Alignment.center,
-              width: 40.w,
+              width: 50.w,
               height: 40.w,
               decoration: BoxDecoration(
                   color: kprimarycolor.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(5.w)),
-              child: GestureDetector(
-                onTap: () {
+              child: IconButton(
+                onPressed: () {
                   GetxController.incrementfloorcount(-1);
                   GetxController.createdlistofitems.removeLast();
                   setState(() {});
                 },
-                child: Row(
-                  children: [
-                    const Spacer(),
-                    Icon(
-                      Icons.delete_outlined,
-                      color: kprimarycolor,
-                      size: 25.w,
-                    ),
-                    Spacer()
-                  ],
+                icon: Icon(
+                  Icons.delete_outlined,
+                  color: kprimarycolor,
+                  size: 25.w,
                 ),
               ),
             ),
@@ -325,25 +313,25 @@ class _FloorDetailsState extends State<FloorDetails> {
         ),
         // for (int floor = 0; floor < GetxController.numberOfFloors; floor++)
         Container(
-            padding: EdgeInsets.all(10.w),
+            padding: EdgeInsets.symmetric(vertical: 10.w),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.w),
                 border: Border.all(width: 1.w, color: kgreycolor)),
             // height: 200.w,
-            width: MediaQuery.of(context).size.width-20.w,
-
-            child: GetBuilder<ArchitectUploadDesignController>(builder: (getdata) {
+            width: MediaQuery.of(context).size.width - 20.w,
+            child:
+                GetBuilder<ArchitectUploadDesignController>(builder: (getdata) {
               return Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       width10,
                       Container(
                         alignment: Alignment.center,
                         padding: EdgeInsets.only(left: 10.w),
                         height: 40.w,
-                        width: 210.w,
+                        width: 230.w,
                         decoration: BoxDecoration(
                             color: kgreycolor.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(5.w)),
@@ -355,7 +343,8 @@ class _FloorDetailsState extends State<FloorDetails> {
                               fontWeight: FontWeight.bold),
                           value: GetxController.selectedFloorList[0],
                           icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
-                          items: GetxController.dropdownditems.map((String items) {
+                          items:
+                              GetxController.dropdownditems.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(items),
@@ -371,21 +360,18 @@ class _FloorDetailsState extends State<FloorDetails> {
                           },
                         ),
                       ),
-
-
                       SizedBox(
                         width: 10.w,
                       ),
-
                       Container(
                         alignment: Alignment.center,
-                        width: 40.w,
+                        width: 45.w,
                         height: 40.w,
                         decoration: BoxDecoration(
                             color: kprimarycolor.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(5.w)),
-                        child: GestureDetector(
-                          onTap: () {
+                        child: IconButton(
+                          onPressed: () {
                             // GetxController.incrementfloorcount(1);
                             GetxController.selectedFloorList.add('Basement');
                             GetxController.roomtypeitemsvalue.add('Rooms');
@@ -398,7 +384,7 @@ class _FloorDetailsState extends State<FloorDetails> {
 
                             // print(GetxController.roomCount);
                           },
-                          child: Icon(
+                          icon: Icon(
                             Icons.add_box_outlined,
                             color: kprimarycolor,
                             size: 20.sp,
@@ -410,7 +396,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        width: 40.w,
+                        width: 45.w,
                         height: 40.w,
                         decoration: BoxDecoration(
                             color: kprimarycolor.withOpacity(0.2),
@@ -420,41 +406,44 @@ class _FloorDetailsState extends State<FloorDetails> {
                           //   GetxController.incrementfloorcount(-1);
                           //   setState(() {});
                           // },
-                          onTap: () {
-                            if (GetxController.roomCount > 1) {
-                              GetxController.changeroomcountfunction(-1);
-                              GetxController.selectedFloorList.removeLast();
+                          onTap: () {},
+                          child: IconButton(
+                            onPressed: () {
+                              if (GetxController.roomCount > 1) {
+                                GetxController.changeroomcountfunction(-1);
+                                GetxController.selectedFloorList.removeLast();
 
-                              GetxController.roomtypeitemsvalue.removeLast();
-                              GetxController.roomcountvalue.removeLast();
-                              // print(GetxController.selectedFloorList);
-                            }
-                          },
-                          child: Icon(
-                            Icons.delete_outlined,
-                            color: kprimarycolor,
-                            size: 20.sp,
+                                GetxController.roomtypeitemsvalue.removeLast();
+                                GetxController.roomcountvalue.removeLast();
+                                // print(GetxController.selectedFloorList);
+                              }
+                            },
+                            icon: Icon(
+                              Icons.delete_outlined,
+                              color: kprimarycolor,
+                              size: 20.sp,
+                            ),
                           ),
                         ),
                       ),
-
-
-
-
+                      SizedBox(
+                        width: 10.w,
+                      ),
                     ],
                   ),
                   heigh10,
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Container(
-                        width: MediaQuery.of(context).size.width - 50.w,
+                        width: MediaQuery.of(context).size.width - 40.w,
                         child: ListView.separated(
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
                             itemBuilder: (context, indexprimarylist) {
                               return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   // Basement dropdown
                                   SizedBox(
@@ -465,12 +454,14 @@ class _FloorDetailsState extends State<FloorDetails> {
 
                                   Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.only(left: 10.w),
+                                    padding: EdgeInsets.only(
+                                        left: 10.w, right: 10.w),
                                     height: 40.w,
-                                    width: 150.w,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                         color: kgreycolor.withOpacity(0.3),
-                                        borderRadius: BorderRadius.circular(5.w)),
+                                        borderRadius:
+                                            BorderRadius.circular(5.w)),
                                     child: DropdownButton(
                                       isExpanded: true,
                                       underline: const SizedBox(),
@@ -489,7 +480,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                                       }).toList(),
                                       onChanged: (newValue) {
                                         GetxController.roomtypeitemsvalue[
-                                        indexprimarylist] = newValue;
+                                            indexprimarylist] = newValue;
                                         setState(() {});
                                       },
                                     ),
@@ -497,16 +488,19 @@ class _FloorDetailsState extends State<FloorDetails> {
                                   SizedBox(
                                     width: 10.w,
                                   ),
+                                  // Spacer(),
                                   // roomcount dropdown
 
                                   Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.only(left: 10.w),
+                                    padding: EdgeInsets.only(
+                                        left: 10.w, right: 10.w),
                                     height: 40.w,
-                                    width: 150.w,
+                                    width: 160.w,
                                     decoration: BoxDecoration(
                                         color: kgreycolor.withOpacity(0.3),
-                                        borderRadius: BorderRadius.circular(5.w)),
+                                        borderRadius:
+                                            BorderRadius.circular(5.w)),
                                     child: DropdownButton(
                                       isExpanded: true,
                                       underline: const SizedBox(),
@@ -524,19 +518,18 @@ class _FloorDetailsState extends State<FloorDetails> {
                                         );
                                       }).toList(),
                                       onChanged: (newValue) {
-                                        GetxController
-                                            .roomcountvalue[indexprimarylist] =
-                                            newValue;
+                                        GetxController.roomcountvalue[
+                                            indexprimarylist] = newValue;
                                         setState(() {});
                                       },
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
+                                  // SizedBox(
+                                  //   width: 10.w,
+                                  // ),
                                   // roomcount  end dropdown
 
-                                  Spacer(),
+                                  // Spacer(),
                                 ],
                               );
                             },
@@ -547,8 +540,6 @@ class _FloorDetailsState extends State<FloorDetails> {
                             },
                             itemCount: getdata.roomCount),
                       ),
-
-
                     ],
                   ),
                 ],
@@ -556,110 +547,112 @@ class _FloorDetailsState extends State<FloorDetails> {
             })),
         heigh10,
 
-        Container(
-          child: ListView.separated(
-              shrinkWrap: true,
-              physics: ScrollPhysics(),
-              itemBuilder: (context, indexSecondarylist) {
-                // var maptolist = GetxController
-                //     .createdlistofitems[indexSecondarylist].entries
-                //     .toList();
-                // var listKey = mapEntry.key;
-                // var listItems = mapEntry.value;
-                // print(maptolist);
+        ListView.separated(
+            shrinkWrap: true,
+            physics: ScrollPhysics(),
+            itemBuilder: (context, indexSecondarylist) {
+              // var maptolist = GetxController
+              //     .createdlistofitems[indexSecondarylist].entries
+              //     .toList();
+              // var listKey = mapEntry.key;
+              // var listItems = mapEntry.value;
+              // print(maptolist);
 
-                Map Maptolist =
-                GetxController.createdlistofitems[indexSecondarylist];
+              Map Maptolist =
+                  GetxController.createdlistofitems[indexSecondarylist];
 
-                var Maptolistitem = Maptolist.entries.toList();
+              var Maptolistitem = Maptolist.entries.toList();
 
-                print('${Maptolistitem} kanhagad');
-                return Container(
-                  padding: EdgeInsets.all(15.w),
-                  // height: 50.w,
-                  width: MediaQuery.of(context).size.width - 20.w,
+              print('${Maptolistitem} kanhagad');
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.w),
                   color: kgreycolor.withOpacity(0.3),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        height: 40.w,
-                        width: 150.w,
-                        decoration: BoxDecoration(
-                            color: kgreycolor.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(5.w)),
-                        child: Text('${Maptolistitem[0].value[0]}',
-                            style: TextStyle(
-                                fontSize: 16.sp,
-                                color: kblackcolor,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      width10,
-                      SizedBox(
-                        width: 150.w,
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          itemBuilder: (context, indexthree) {
-                            var mapvaluefloor = Maptolistitem[0].value;
-                            var mapvalueroom = Maptolistitem[1].value;
-                            List mapvalueroocount = Maptolistitem[2].value;
+                ),
+                padding: EdgeInsets.all(10.w),
+                // height: 50.w,
+                width: MediaQuery.of(context).size.width - 20.w,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 40.w,
+                      width: 150.w,
+                      decoration: BoxDecoration(
+                          color: kgreycolor.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(5.w)),
+                      child: Text('${Maptolistitem[0].value[0]}',
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              color: kblackcolor,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    width10,
+                    SizedBox(
+                      width: 180.w,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        itemBuilder: (context, indexthree) {
+                          var mapvaluefloor = Maptolistitem[0].value;
+                          var mapvalueroom = Maptolistitem[1].value;
+                          List mapvalueroocount = Maptolistitem[2].value;
 
-                            return Row(
-                              children: [
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 40.w,
-                                  width: 100.w,
-                                  decoration: BoxDecoration(
-                                      color: kgreycolor.withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(5.w)),
-                                  child: Text('${mapvalueroom[indexthree]}',
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: kblackcolor,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                width10,
-                                Container(
-                                  alignment: Alignment.center,
-                                  height: 40.w,
-                                  width: 40.w,
-                                  decoration: BoxDecoration(
-                                      color: kgreycolor.withOpacity(0.3),
-                                      borderRadius: BorderRadius.circular(5.w)),
-                                  child: Text('${mapvalueroocount[indexthree]}',
-                                      style: TextStyle(
-                                          fontSize: 16.sp,
-                                          color: kblackcolor,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: 10.w,
-                            );
-                          },
-                          itemCount: Maptolistitem[0].value.length,
-                          // Maptolistitem[indexSecondarylist].value.length
-                        ),
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                alignment: Alignment.center,
+                                height: 40.w,
+                                width: 100.w,
+                                decoration: BoxDecoration(
+                                    color: kgreycolor.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(5.w)),
+                                child: Text('${mapvalueroom[indexthree]}',
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: kblackcolor,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              width10,
+                              Container(
+                                alignment: Alignment.center,
+                                height: 40.w,
+                                width: 60.w,
+                                decoration: BoxDecoration(
+                                    color: kgreycolor.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(5.w)),
+                                child: Text('${mapvalueroocount[indexthree]}',
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        color: kblackcolor,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return SizedBox(
+                            height: 10.w,
+                          );
+                        },
+                        itemCount: Maptolistitem[0].value.length,
+                        // Maptolistitem[indexSecondarylist].value.length
                       ),
-                      // Text(GetxController.createdlistofitems[indexSecondarylist]
-                      //     .toString()),
-                    ],
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return SizedBox(
-                  height: 10.w,
-                );
-              },
-              itemCount: GetxController.createdlistofitems.length),
-        ),
+                    ),
+                    // Text(GetxController.createdlistofitems[indexSecondarylist]
+                    //     .toString()),
+                  ],
+                ),
+              );
+            },
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                height: 10.w,
+              );
+            },
+            itemCount: GetxController.createdlistofitems.length),
         // Text(GetxController.createdlistofitems.length.toString())
       ],
     );

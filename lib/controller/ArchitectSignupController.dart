@@ -83,6 +83,8 @@ class ArchitectSignupController extends GetxController {
     final docuser = firebaseFirestore.collection("ArchitectData").doc(uid);
 
     final users = ArchitectsignupData(
+        serviceRateTypeList: {},
+        serviceRateamountList: {},
         sortId: DateTime.now().millisecondsSinceEpoch,
         myDesigns: [],
         gender: '',

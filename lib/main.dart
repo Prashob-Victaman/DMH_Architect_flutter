@@ -1,3 +1,6 @@
+import 'package:dmh_architect/Architect/ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
+import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'Architect/splashscreen/splashscreen.dart';
 import 'Constants/constants.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -30,10 +34,7 @@ class MyApp extends StatelessWidget {
                 fontFamily: GoogleFonts.poppins().fontFamily,
                 scaffoldBackgroundColor: kwhitecolor,
               ),
-              home: SplashScreen()
-          );
+              home: SplashScreen());
         });
   }
 }
-
-

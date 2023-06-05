@@ -9,6 +9,8 @@ class ArchitectsignupData {
   List myDesigns;
   String gender;
   int sortId;
+  Map serviceRateTypeList;
+  Map serviceRateamountList;
 
   ArchitectsignupData({
     required this.uid,
@@ -21,6 +23,8 @@ class ArchitectsignupData {
     required this.gender,
     required this.myDesigns,
     required this.sortId,
+    required this.serviceRateTypeList,
+    required this.serviceRateamountList,
   });
 
   Map<String, dynamic> toJson() => {
@@ -34,9 +38,11 @@ class ArchitectsignupData {
         'gender': gender,
         'myDesigns': myDesigns,
         'sortId': sortId,
+        'serviceRateTypeList': serviceRateTypeList,
+        'serviceRateamountList': serviceRateamountList,
       };
 
-  factory ArchitectsignupData.  fromJson(json) => ArchitectsignupData(
+  factory ArchitectsignupData.fromJson(json) => ArchitectsignupData(
         name: json['name'],
         designation: json['designation'],
         uid: json['uid'],
@@ -47,5 +53,7 @@ class ArchitectsignupData {
         gender: json['gender'],
         myDesigns: json['myDesigns'],
         sortId: json['sortId'],
+        serviceRateTypeList: json['serviceRateTypeList'],
+        serviceRateamountList: json['serviceRateamountList'],
       );
 }

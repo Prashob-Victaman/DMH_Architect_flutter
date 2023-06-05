@@ -103,6 +103,24 @@ class ArchitectformController extends GetxController {
     update();
   }
 
+  addServicerateDetails(
+    uid,
+    Map serviceType,
+    Map serviceAmount,
+  ) async {
+    await FirebaseFirestore.instance
+        .collection("ArchitectData")
+        .doc(uid)
+        .update(
+      {
+        'serviceRateTypeList': serviceType,
+        'serviceRateamountList': serviceAmount,
+      },
+    );
+
+    update();
+  }
+
   fetchRegnIdProofImg() async {
     // print('fetchidProofimg');
     final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;

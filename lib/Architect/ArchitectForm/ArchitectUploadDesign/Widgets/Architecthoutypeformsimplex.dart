@@ -15,8 +15,11 @@ import 'ArchitecthouseFloorandHouseArea.dart';
 
 class Architecthoutypeformsimplex extends StatelessWidget {
   TextEditingController projectDetailsController;
+  GlobalKey<FormState> formKey;
   Architecthoutypeformsimplex(
-      {super.key, required this.projectDetailsController});
+      {super.key,
+      required this.projectDetailsController,
+      required this.formKey});
 
   TextEditingController houseAreaLengthController = TextEditingController();
   TextEditingController houseAreawidthController = TextEditingController();
@@ -34,7 +37,6 @@ class Architecthoutypeformsimplex extends StatelessWidget {
 
   final getxcontroller = Get.put(ArchitectAddDesignController());
 
-
   final GetUploadController = Get.put(ArchitectUploadDesignController());
 
   final getController = Get.put(ArchitectUploadDesignTypeController());
@@ -44,8 +46,6 @@ class Architecthoutypeformsimplex extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Column(
       children: [
         SizedBox(
@@ -70,45 +70,59 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                 children: [
                   Text(
                     'According to Vastu (In %):',
-                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
                   SizedBox(
-                    height: 40.w,
+                    // height: 40.w,
                     width: 170.w,
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Comapany Name';
+                        }
+
+                        return null;
+                      },
                       textAlignVertical: TextAlignVertical.center,
                       controller: vastuController,
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(left: 10.w),
                           border: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(width: 1.w, color: kprimarycolor))),
+                              borderSide: BorderSide(
+                                  width: 1.w, color: kprimarycolor))),
                     ),
                   ),
                 ],
               ),
-
               heigh10,
-
               Row(
                 children: [
                   Text(
                     'Design Cost:',
-                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                    style:
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
                   SizedBox(
-                    height: 40.w,
+                    // height: 40.w,
                     width: 260.w,
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Comapany Name';
+                        }
+
+                        return null;
+                      },
                       textAlignVertical: TextAlignVertical.center,
                       controller: DesignCostController,
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(left: 10.w),
                           border: OutlineInputBorder(
-                              borderSide:
-                              BorderSide(width: 1.w, color: kprimarycolor))),
+                              borderSide: BorderSide(
+                                  width: 1.w, color: kprimarycolor))),
                     ),
                   ),
                 ],
@@ -132,9 +146,16 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                   ),
                   Spacer(),
                   SizedBox(
-                    height: 40.w,
+                    // height: 40.w,
                     width: 140.w,
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Comapany Name';
+                        }
+
+                        return null;
+                      },
                       textAlignVertical: TextAlignVertical.center,
                       controller: aproximateConstructionCostController,
                       decoration: InputDecoration(
@@ -156,9 +177,16 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                   ),
                   Spacer(),
                   SizedBox(
-                    height: 40.w,
+                    // height: 40.w,
                     width: 155.w,
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Comapany Name';
+                        }
+
+                        return null;
+                      },
                       textAlignVertical: TextAlignVertical.center,
                       controller: estimatedConstructionCostController,
                       decoration: InputDecoration(
@@ -227,255 +255,274 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                     style: TextStyle(fontSize: 16.sp, color: kprimarycolor)),
               ),
               width10,
-                GestureDetector(
+              GestureDetector(
                 onTap: () async {},
                 child: GestureDetector(
-                  onTap: () => showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        titlePadding: EdgeInsets.all(0.w),
-                        title: Container(
-                          height: 114.w,
-                          width: 282.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                  alignment: Alignment.center,
-                                  height: 84.w,
-                                  child: Text(
-                                    'Are you sure you want to Submit',
-                                    style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: kblackcolor,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              const Spacer(),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                  onTap: () {
+                    final form = formKey.currentState;
+
+                    if (form!.validate()) {
+                      form.save();
+
+                      showDialog<void>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            titlePadding: EdgeInsets.all(0.w),
+                            title: Container(
+                              height: 114.w,
+                              width: 282.w,
+                              child: Column(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      List planingImageUrl = [];
-                                      for (var element
-                                          in getController.planingImageUrl) {
-                                        if (element != null) {
-                                          planingImageUrl.add(element);
-                                        }
-                                      }
+                                  Container(
+                                      alignment: Alignment.center,
+                                      height: 84.w,
+                                      child: Text(
+                                        'Are you sure you want to Submit',
+                                        style: TextStyle(
+                                            fontSize: 16.sp,
+                                            color: kblackcolor,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                  const Spacer(),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () async {
+                                          List planingImageUrl = [];
+                                          for (var element in getController
+                                              .planingImageUrl) {
+                                            if (element != null) {
+                                              planingImageUrl.add(element);
+                                            }
+                                          }
 
-                                      List planingFileNameList = [];
-                                      planingFileNameControllerList
-                                          .forEach((element) {
-                                        planingFileNameList.add(element.text);
-                                      });
+                                          List planingFileNameList = [];
+                                          planingFileNameControllerList
+                                              .forEach((element) {
+                                            planingFileNameList
+                                                .add(element.text);
+                                          });
 
-                                      List planingFilePriceList = [];
-                                      planingFilePriceControllerList
-                                          .forEach((element) {
-                                        planingFilePriceList.add(element.text);
-                                      });
+                                          List planingFilePriceList = [];
+                                          planingFilePriceControllerList
+                                              .forEach((element) {
+                                            planingFilePriceList
+                                                .add(element.text);
+                                          });
 
-                                      List exteriorImageList = [];
-                                      for (var element in getxcontroller
-                                          .exteriorimgurlList) {
-                                        if (element != null) {
-                                          exteriorImageList.add(element);
-                                        }
-                                      }
+                                          List exteriorImageList = [];
+                                          for (var element in getxcontroller
+                                              .exteriorimgurlList) {
+                                            if (element != null) {
+                                              exteriorImageList.add(element);
+                                            }
+                                          }
 
-                                      List exteriorFileNameList = [];
-                                      getxcontroller
-                                          .exteriorDesignNameControllerList
-                                          .forEach((element) {
-                                        exteriorFileNameList.add(element.text);
-                                      });
+                                          List exteriorFileNameList = [];
+                                          getxcontroller
+                                              .exteriorDesignNameControllerList
+                                              .forEach((element) {
+                                            exteriorFileNameList
+                                                .add(element.text);
+                                          });
 
-                                      List floorimgurlnList = [];
-                                      for (var element
-                                          in getxcontroller.floorimgurlList) {
-                                        if (element != null) {
-                                          floorimgurlnList.add(element);
-                                        }
-                                      }
+                                          List floorimgurlnList = [];
+                                          for (var element in getxcontroller
+                                              .floorimgurlList) {
+                                            if (element != null) {
+                                              floorimgurlnList.add(element);
+                                            }
+                                          }
 
-                                      List floorFileNameList = [];
-                                      getxcontroller
-                                          .floorDesignNameControllerList
-                                          .forEach((element) {
-                                        floorFileNameList.add(element.text);
-                                      });
+                                          List floorFileNameList = [];
+                                          getxcontroller
+                                              .floorDesignNameControllerList
+                                              .forEach((element) {
+                                            floorFileNameList.add(element.text);
+                                          });
 
-                                      await getxcontroller
-                                          .uploadDesignDataFromAdmin(
-                                              projectCost:
-                                                  DesignCostController.text,
-                                              exteriorImageList:
-                                                  exteriorImageList,
-                                              exteriorImagetitleList:
-                                                  exteriorFileNameList,
-                                              floorImageList: floorimgurlnList,
-                                              floorImagetitleList:
-                                                  floorFileNameList,
-                                              floordetails: GetUploadController
-                                                  .createdlistofitems,
-                                              aproximateConstructionCost:
-                                                  aproximateConstructionCostController
-                                                      .text,
-                                              estimatedConstructionCost:
-                                                  estimatedConstructionCostController
-                                                      .text,
-                                              designprice:
-                                                  DesignCostController.text,
-                                              shortdescription:
-                                                  shortdescriptionController
-                                                      .text,
-                                              uploadedUserUid: FirebaseAuth
-                                                  .instance.currentUser!.uid,
-                                              adminUid: FirebaseAuth
-                                                  .instance.currentUser!.uid,
-                                              projectDetails:
-                                                  'projectDetailsController.text',
-                                              designType: getxcontroller
-                                                          .selectedDesignTypeCheckBox ==
-                                                      0
-                                                  ? 'Simple'
-                                                  : getxcontroller.selectedDesignTypeCheckBox ==
-                                                          1
-                                                      ? 'Modern'
-                                                      : 'Others',
-                                              houseFacing: getxcontroller
-                                                          .selectedHouseFacingCheckbox ==
-                                                      0
-                                                  ? 'East'
-                                                  : getxcontroller.selectedHouseFacingCheckbox ==
-                                                          1
-                                                      ? 'West'
-                                                      : getxcontroller.selectedHouseFacingCheckbox ==
-                                                              2
-                                                          ? 'South'
-                                                          : 'North',
-                                              houseFloors: getxcontroller
-                                                          .selectedHouseFloorsCheckbox ==
-                                                      0
-                                                  ? '1 Floor'
-                                                  : getxcontroller.selectedHouseFloorsCheckbox == 1
-                                                      ? '2 Floor'
-                                                      : 'Others',
-                                              houseType: getxcontroller.selectedHouseType == 0
-                                                  ? 'Simplex'
-                                                  : getxcontroller.selectedHouseType == 1
-                                                      ? 'Duplex'
-                                                      : getxcontroller.selectedHouseType == 2
-                                                          ? 'Triplex'
-                                                          : getxcontroller.selectedHouseType == 3
-                                                              ? 'Appartment'
-                                                              : getxcontroller.selectedHouseType == 4
-                                                                  ? 'Hotel'
-                                                                  : getxcontroller.selectedHouseType == 5
-                                                                      ? 'Restaurant'
-                                                                      : getxcontroller.selectedHouseType == 6
-                                                                          ? 'Botique'
-                                                                          : 'Shopping Mall',
-                                              houseArea: {
-                                                'length':
-                                                    houseAreaLengthController
-                                                        .text,
-                                                'width':
-                                                    houseAreawidthController
-                                                        .text,
-                                                'area': houseTotalAreaController
-                                                    .text,
-                                              },
-                                              accordingtoVastu: vastuController.text,
-                                              discount: discountController.text,
-                                              planingFileNameList: planingFileNameList,
-                                              planingFilePriceList: planingFilePriceList,
-                                              planingFileUrlList: planingImageUrl);
+                                          await getxcontroller
+                                              .uploadDesignDataFromAdmin(
+                                                  projectCost:
+                                                      DesignCostController.text,
+                                                  exteriorImageList:
+                                                      exteriorImageList,
+                                                  exteriorImagetitleList:
+                                                      exteriorFileNameList,
+                                                  floorImageList:
+                                                      floorimgurlnList,
+                                                  floorImagetitleList:
+                                                      floorFileNameList,
+                                                  floordetails: GetUploadController
+                                                      .createdlistofitems,
+                                                  aproximateConstructionCost:
+                                                      aproximateConstructionCostController
+                                                          .text,
+                                                  estimatedConstructionCost:
+                                                      estimatedConstructionCostController
+                                                          .text,
+                                                  designprice:
+                                                      DesignCostController.text,
+                                                  shortdescription:
+                                                      shortdescriptionController
+                                                          .text,
+                                                  uploadedUserUid: FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid,
+                                                  adminUid: FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid,
+                                                  projectDetails:
+                                                      'projectDetailsController.text',
+                                                  designType: getxcontroller
+                                                              .selectedDesignTypeCheckBox ==
+                                                          0
+                                                      ? 'Simple'
+                                                      : getxcontroller
+                                                                  .selectedDesignTypeCheckBox ==
+                                                              1
+                                                          ? 'Modern'
+                                                          : 'Others',
+                                                  houseFacing: getxcontroller
+                                                              .selectedHouseFacingCheckbox ==
+                                                          0
+                                                      ? 'East'
+                                                      : getxcontroller
+                                                                  .selectedHouseFacingCheckbox ==
+                                                              1
+                                                          ? 'West'
+                                                          : getxcontroller.selectedHouseFacingCheckbox == 2
+                                                              ? 'South'
+                                                              : 'North',
+                                                  houseFloors: getxcontroller.selectedHouseFloorsCheckbox == 0
+                                                      ? '1 Floor'
+                                                      : getxcontroller.selectedHouseFloorsCheckbox == 1
+                                                          ? '2 Floor'
+                                                          : 'Others',
+                                                  houseType: getxcontroller.selectedHouseType == 0
+                                                      ? 'Simplex'
+                                                      : getxcontroller.selectedHouseType == 1
+                                                          ? 'Duplex'
+                                                          : getxcontroller.selectedHouseType == 2
+                                                              ? 'Triplex'
+                                                              : getxcontroller.selectedHouseType == 3
+                                                                  ? 'Appartment'
+                                                                  : getxcontroller.selectedHouseType == 4
+                                                                      ? 'Hotel'
+                                                                      : getxcontroller.selectedHouseType == 5
+                                                                          ? 'Restaurant'
+                                                                          : getxcontroller.selectedHouseType == 6
+                                                                              ? 'Botique'
+                                                                              : 'Shopping Mall',
+                                                  houseArea: {
+                                                    'length':
+                                                        houseAreaLengthController
+                                                            .text,
+                                                    'width':
+                                                        houseAreawidthController
+                                                            .text,
+                                                    'area':
+                                                        houseTotalAreaController
+                                                            .text,
+                                                  },
+                                                  accordingtoVastu: vastuController.text,
+                                                  discount: discountController.text,
+                                                  planingFileNameList: planingFileNameList,
+                                                  planingFilePriceList: planingFilePriceList,
+                                                  planingFileUrlList: planingImageUrl);
 
-                                      // getNavigatecontroller.changeoption(1);
+                                          // getNavigatecontroller.changeoption(1);
 
-                                      getxcontroller.exteriorimgurlList[1] =
-                                          null;
-                                      getxcontroller.exteriorimgurlList[3] =
-                                          null;
-                                      getxcontroller.exteriorimgurlList[0] =
-                                          null;
+                                          getxcontroller.exteriorimgurlList[1] =
+                                              null;
+                                          getxcontroller.exteriorimgurlList[3] =
+                                              null;
+                                          getxcontroller.exteriorimgurlList[0] =
+                                              null;
 
-                                      getxcontroller.exteriorimgXfileList[0] =
-                                          null;
-                                      getxcontroller.exteriorimgXfileList[1] =
-                                          null;
-                                      getxcontroller.exteriorimgXfileList[2] =
-                                          null;
+                                          getxcontroller
+                                              .exteriorimgXfileList[0] = null;
+                                          getxcontroller
+                                              .exteriorimgXfileList[1] = null;
+                                          getxcontroller
+                                              .exteriorimgXfileList[2] = null;
 
-                                      getxcontroller.floorimgXFileList[0] =
-                                          null;
-                                      getxcontroller.floorimgurlList[0] = null;
+                                          getxcontroller.floorimgXFileList[0] =
+                                              null;
+                                          getxcontroller.floorimgurlList[0] =
+                                              null;
 
-                                      getxcontroller.floorimgXFileList[1] =
-                                          null;
-                                      getxcontroller.floorimgurlList[1] = null;
+                                          getxcontroller.floorimgXFileList[1] =
+                                              null;
+                                          getxcontroller.floorimgurlList[1] =
+                                              null;
 
-                                      getxcontroller.floorimgXFileList[2] =
-                                          null;
-                                      getxcontroller.floorimgurlList[2] = null;
+                                          getxcontroller.floorimgXFileList[2] =
+                                              null;
+                                          getxcontroller.floorimgurlList[2] =
+                                              null;
 
-                                        GetUploadController.createdlistofitems
-                                            .clear();
-                                      planingFileNameList.clear();
-                                      planingFilePriceList.clear();
-                                      planingImageUrl.clear();
+                                          GetUploadController.createdlistofitems
+                                              .clear();
+                                          planingFileNameList.clear();
+                                          planingFilePriceList.clear();
+                                          planingImageUrl.clear();
 
-                                      Get.back();
+                                          Get.back();
 
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(builder: (context) => Architectbottomnavigationbar(selectedindex: 0)),
-                                      // );
-                                    },
-                                    child: Container(
-                                      height: 30.w,
-                                      width: 141.w,
-                                      decoration: const BoxDecoration(
-                                          color: kprimarycolor),
-                                      child: Center(
-                                        child: Text(
-                                          'Yes',
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              color: kwhitecolor),
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(builder: (context) => Architectbottomnavigationbar(selectedindex: 0)),
+                                          // );
+                                        },
+                                        child: Container(
+                                          height: 30.w,
+                                          width: 141.w,
+                                          decoration: const BoxDecoration(
+                                              color: kprimarycolor),
+                                          child: Center(
+                                            child: Text(
+                                              'Yes',
+                                              style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                  color: kwhitecolor),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => Get.back(),
-                                    child: Container(
-                                      height: 30.w,
-                                      width: 141.w,
-                                      decoration: BoxDecoration(
-                                          color: kwhitecolor,
-                                          border:
-                                              Border.all(color: kprimarycolor)),
-                                      child: Center(
-                                          child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kprimarycolor),
-                                      )),
-                                    ),
+                                      GestureDetector(
+                                        onTap: () => Get.back(),
+                                        child: Container(
+                                          height: 30.w,
+                                          width: 141.w,
+                                          decoration: BoxDecoration(
+                                              color: kwhitecolor,
+                                              border: Border.all(
+                                                  color: kprimarycolor)),
+                                          child: Center(
+                                              child: Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: kprimarycolor),
+                                          )),
+                                        ),
+                                      )
+                                    ],
                                   )
                                 ],
-                              )
-                            ],
-                          ),
-                        ),
+                              ),
+                            ),
+                          );
+                        },
                       );
-                    },
-                  ),
+                    }
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(

@@ -113,7 +113,7 @@ class _PlotAreaDetailsState extends State<PlotAreaDetails> {
             //       keyboardType: TextInputType.number,
             //       decoration: customInputDecoration('24'),
             //     ))
-            Text(widget.totalAreaController.text==''?'0':widget.totalAreaController.text)
+            Text('${widget.totalAreaController.text==''?'0':widget.totalAreaController.text} Sqft')
           ],
         )
       ],

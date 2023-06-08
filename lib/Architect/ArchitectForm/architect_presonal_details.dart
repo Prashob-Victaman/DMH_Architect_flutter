@@ -1,4 +1,5 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:dmh_architect/controller/architectDataController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -38,9 +39,13 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
 
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
+  final dataController = Get.put(ArchitectDataController());
+
+
   @override
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
+    print(dataController.email);
 
     return Scaffold(
       body: SafeArea(
@@ -109,6 +114,7 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.w),
                       child: TextFormField(
+                        initialValue: dataController.name,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your Name';
@@ -199,6 +205,7 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
                               width: (MediaQuery.of(context).size.width / 2) -
                                   10.w,
                               child: TextFormField(
+                                initialValue: dataController.number,
                                 textAlignVertical: TextAlignVertical.bottom,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -357,6 +364,7 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.w),
                       child: TextFormField(
+                        initialValue: dataController.email,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty) {

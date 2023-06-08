@@ -1,3 +1,4 @@
+import 'package:dmh_architect/controller/architectDataController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -174,7 +175,14 @@ class ArchitectSignupPage extends StatelessWidget {
                   ),
                   heigh10,
                   GestureDetector(
-                    onTap: () => _submit(context),
+                    onTap: () {
+                      final controller = Get.put(ArchitectDataController());
+                      controller.setData(namecontroller.text,emailcontroller.text,namecontroller.text);
+
+                      print(controller.number);
+
+                      _submit(context);
+                      },
                     child: Container(
                       height: 50.w,
                       decoration: BoxDecoration(

@@ -84,7 +84,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                           ),
                           // Text('Others', style: TextStyle(fontSize: 16.sp)),
                           SizedBox(
-                            width: 70.w,
+                            width: 65.w,
                             height: 30.w,
                             child: TextField(
                                 controller: adddesignTypeController,

@@ -191,8 +191,9 @@ class _GetDesignState extends State<GetDesign> {
                             fillColor: MaterialStateProperty.all(kprimarycolor),
                             value: getcontroller.selectedFile[index],
                             onChanged: (value) {
-                              print(getcontroller.selectedFile[index]);
                               getcontroller.changeValue(index);
+                              print(getcontroller.selectedFile[index]);
+
                             },
                           );
                         }),
@@ -299,23 +300,25 @@ class _GetDesignState extends State<GetDesign> {
           //           int.parse(widget.DesignData.designprice) * 0.7)
           //       .toPrecision(1);
           // }
+          print(price);
           var userdata = await FirebaseFirestore.instance
               .collection('UserData')
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .get();
 
-          var options = {
-            'key': 'rzp_test_HWbWOKuaXLdQ8I',
-            'amount': price! * 100,
-            'name': 'Design My House',
-            'description': 'Design_My_House_Payments',
-            'timeout': 300,
-            'prefill': {
-              'contact': userdata['ProfileDetails']['8714500637'],
-              'email': userdata['email']
-            }
-          };
-          razorpay.open(options);
+          // var options = {
+          //   'key': 'rzp_test_HWbWOKuaXLdQ8I',
+          //   'amount': price! * 100,
+          //   'name': 'Design My House',
+          //   'description': 'Design_My_House_Payments',
+          //   'timeout': 300,
+          //   'prefill': {
+          //     'contact': userdata['ProfileDetails']['8714500637'],
+          //     'email': userdata['email']
+          //   }
+          // };
+          // razorpay.open(options);
+
         },
         child: Container(
           alignment: Alignment.center,

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,7 +13,7 @@ class ArchitectUploadDesignTypeController extends GetxController {
 
   List<String?> planingImageUrl = List<String?>.filled(6, null);
 
-  List<XFile?> planningImgs = List<XFile?>.filled(6, null);
+  List<FilePickerResult?> planningImgs = List<FilePickerResult?>.filled(6, null);
 
   // String ExteriorImageUrl = '';
 
@@ -30,8 +31,11 @@ class ArchitectUploadDesignTypeController extends GetxController {
   fetchPlanningImg(buttonIndex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    planningImgs[buttonIndex] =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    planningImgs[buttonIndex] = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
 
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectoryImages =
@@ -48,7 +52,7 @@ class ArchitectUploadDesignTypeController extends GetxController {
    // planningImgs[buttonIndex] = planningImgs[buttonIndex].files.single.bytes;
 
     try {
-      await referenceImageToUpload.putFile(File(planningImgs[buttonIndex]!.path));
+      await referenceImageToUpload.putFile(File(planningImgs[buttonIndex]!.paths[0]!));
 
       planingImageUrl[buttonIndex] =
           await referenceImageToUpload.getDownloadURL();
@@ -56,6 +60,7 @@ class ArchitectUploadDesignTypeController extends GetxController {
     } catch (e) {
       // log(e.toString());F
     }
+    print('done');
     refresh();
   }
 

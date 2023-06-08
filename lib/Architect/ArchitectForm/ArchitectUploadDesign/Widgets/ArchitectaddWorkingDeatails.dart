@@ -14,7 +14,8 @@ class ArchitectaddWorkingDeatails extends StatefulWidget {
   List planingFileNameControllerList;
 
   List planingFilePriceControllerList;
-    ArchitectaddWorkingDeatails(
+
+  ArchitectaddWorkingDeatails(
       {super.key,
       required this.planingFileNameControllerList,
       required this.planingFilePriceControllerList});
@@ -213,11 +214,17 @@ customUploadButton(image, context) {
     child: image != null
         ? Container(
             decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(File(image!.path)),
-                )),
+                borderRadius: BorderRadius.all(Radius.circular(4.sp)),
+                color: Colors.green),
+            // image: DecorationImage(
+            //   fit: BoxFit.cover,
+            //   image: FileImage(File(image!.path)),
+            // )),
+            child: Icon(
+              Icons.check_circle,
+              size: 60.sp,
+              color: Colors.white,
+            ),
           )
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,

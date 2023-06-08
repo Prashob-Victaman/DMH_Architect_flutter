@@ -106,8 +106,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                       ),
                       GetBuilder<ArchitectAddDesignController>(
                           builder: (Getdata) {
-                        print(getcontroller
-                            .exteriorListCount);
+                        print(getcontroller.exteriorListCount);
                         return SizedBox(
                           child: GridView.builder(
                               shrinkWrap: true,
@@ -367,12 +366,25 @@ class ArchitectUploadDesign extends StatelessWidget {
                         return Container(
                           child: getdata.selectedHouseType == 0
                               ? Architecthoutypeformsimplex(
+                                  Floor: '1 Floor',
                                   formKey: formKey,
                                   projectDetailsController:
                                       projectDetailsController)
-                              : SizedBox(
-                                  height: 1000.w,
-                                ),
+                              : getdata.selectedHouseType == 1
+                                  ? Architecthoutypeformsimplex(
+                                      Floor: '2 Floor',
+                                      formKey: formKey,
+                                      projectDetailsController:
+                                          projectDetailsController)
+                                  : getdata.selectedHouseType == 2
+                                      ? Architecthoutypeformsimplex(
+                                          Floor: '3 Floor',
+                                          formKey: formKey,
+                                          projectDetailsController:
+                                              projectDetailsController)
+                                      : SizedBox(
+                                          height: 1000.w,
+                                        ),
                         );
                       }),
                     ],

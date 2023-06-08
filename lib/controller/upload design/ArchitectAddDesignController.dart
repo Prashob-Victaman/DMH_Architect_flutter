@@ -27,6 +27,7 @@ class ArchitectAddDesignController extends GetxController {
 
   List<bool> exteriorisLoading = List.filled(9, false);
   List<bool> floorisLoading = List.filled(9, false);
+  List<bool> workingDrawingsisLoading = List.filled(6, false);
 
   List<String?> exteriorimgurlList = List<String?>.filled(9, null);
 
@@ -73,6 +74,11 @@ class ArchitectAddDesignController extends GetxController {
 
   changeexteriorisLoading(bool passedisLoading, int index) {
     exteriorisLoading[index] = passedisLoading;
+    refresh();
+  }
+
+  changeworkingDetailsisLoading(bool passedisLoading, int index) {
+    workingDrawingsisLoading[index] = passedisLoading;
     refresh();
   }
 
@@ -202,32 +208,31 @@ class ArchitectAddDesignController extends GetxController {
     refresh();
   }
 
-  Future uploadDesignDataFromAdmin({
-    required String adminUid,
-    required List floordetails,
-    required String projectDetails,
-    required String designType,
-    required String houseFacing,
-    required String houseFloors,
-    required String houseType,
-    required Map<String, String> houseArea,
-    required String accordingtoVastu,
-    required String projectCost,
-    required String discount,
-    required String shortdescription,
-    required String designprice,
-    required String uploadedUserUid,
-    required List planingFileNameList,
-    required List planingFilePriceList,
-    required List planingFileUrlList,
-    required String estimatedConstructionCost,
-    required String aproximateConstructionCost,
-    required List exteriorImageList,
-    required List exteriorImagetitleList,
-    required List floorImageList,
-    required List floorImagetitleList,
-    required String architectName
-  }) async {
+  Future uploadDesignDataFromAdmin(
+      {required String adminUid,
+      required List floordetails,
+      required String projectDetails,
+      required String designType,
+      required String houseFacing,
+      required String houseFloors,
+      required String houseType,
+      required Map<String, String> houseArea,
+      required String accordingtoVastu,
+      required String projectCost,
+      required String discount,
+      required String shortdescription,
+      required String designprice,
+      required String uploadedUserUid,
+      required List planingFileNameList,
+      required List planingFilePriceList,
+      required List planingFileUrlList,
+      required String estimatedConstructionCost,
+      required String aproximateConstructionCost,
+      required List exteriorImageList,
+      required List exteriorImagetitleList,
+      required List floorImageList,
+      required List floorImagetitleList,
+      required String architectName}) async {
     final docUrl =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
 

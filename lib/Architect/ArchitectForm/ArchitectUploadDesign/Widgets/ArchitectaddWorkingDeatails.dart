@@ -29,6 +29,8 @@ class _ArchitectaddWorkingDeatailsState
     extends State<ArchitectaddWorkingDeatails> {
   final getController = Get.put(ArchitectUploadDesignTypeController());
 
+  final getXCOntroller = Get.put(ArchitectAddDesignController());
+
   int planningGridCount = 1;
 
   @override
@@ -129,8 +131,12 @@ class _ArchitectaddWorkingDeatailsState
                           Column(
                             children: [
                               GestureDetector(
-                                onTap: () =>
-                                    getController.fetchPlanningImg(index),
+                                onTap: () {
+                                  getController.fetchPlanningImg(index);
+
+                                  getXCOntroller.changeworkingDetailsisLoading(
+                                      true, index);
+                                },
                                 child: customUploadButton(
                                     getController.planningImgs[index], context),
                               ),

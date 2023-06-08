@@ -21,10 +21,12 @@ import 'ArchitectaddWorkingDeatails.dart';
 class Architecthoutypeformsimplex extends StatelessWidget {
   TextEditingController projectDetailsController;
   GlobalKey<FormState> formKey;
+  String Floor;
   Architecthoutypeformsimplex(
       {super.key,
       required this.projectDetailsController,
-      required this.formKey});
+      required this.formKey,
+      required this.Floor});
 
   var totalArea;
 
@@ -434,11 +436,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                           : getxcontroller.selectedHouseFacingCheckbox == 2
                                                               ? 'South'
                                                               : 'North',
-                                                  houseFloors: getxcontroller.selectedHouseFloorsCheckbox == 0
-                                                      ? '1 Floor'
-                                                      : getxcontroller.selectedHouseFloorsCheckbox == 1
-                                                          ? '2 Floor'
-                                                          : 'Others',
+                                                  houseFloors: Floor,
                                                   houseType: getxcontroller.selectedHouseType == 0
                                                       ? 'Simplex'
                                                       : getxcontroller.selectedHouseType == 1

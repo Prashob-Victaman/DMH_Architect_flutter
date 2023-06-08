@@ -47,13 +47,13 @@ class ProjectDescription extends StatelessWidget {
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: '${DesignData.houseArea['length']} In',
+            subtitle: '${DesignData.houseArea['length']} st',
             title: 'House Length(Depth)',
           ),
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: '${DesignData.houseArea['width']} In',
+            subtitle: '${DesignData.houseArea['width']} st',
             title: 'House Width(Front)',
           ),
           heigh5,
@@ -65,8 +65,8 @@ class ProjectDescription extends StatelessWidget {
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: '₹ ${DesignData.estimatedConstructionCost}.00',
-            title: 'Estimated Construction Cost',
+            subtitle: '${DesignData.estimatedConstructionCost}',
+            title: 'Estimated Construction Time',
           ),
           heigh5,
           ProjectDescriptiontabs(

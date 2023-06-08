@@ -86,46 +86,46 @@ class _ProductViewState extends State<ProductView> {
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () => Get.to(() => GetDesign(
-                                  DesignData: widget.DesignData,
-                                )),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: (screenwidth - 40.w) / 2,
-                              height: 30.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.w),
-                                  color: kprimarycolor),
-                              child: Text(
-                                'Get working Drawings',
-                                style: TextStyle(
-                                    fontSize: 14.sp, color: kwhitecolor),
-                              ),
-                            ),
-                          ),
-                          width10,
-                          GestureDetector(
-                            onTap: () => Get.to(() => DesignThisTypeOfHouse()),
-                            child: Container(
-                              alignment: Alignment.center,
-                              width: (screenwidth - 30) / 2,
-                              height: 30.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.w),
-                                  color: kprimarycolor),
-                              child: Text(
-                                'Design this type house',
-                                style: TextStyle(
-                                    fontSize: 14.sp, color: kwhitecolor),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      heigh10,
+                      // Row(
+                      //   children: [
+                      //     GestureDetector(
+                      //       onTap: () => Get.to(() => GetDesign(
+                      //             DesignData: widget.DesignData,
+                      //           )),
+                      //       child: Container(
+                      //         alignment: Alignment.center,
+                      //         width: (screenwidth - 40.w) / 2,
+                      //         height: 30.w,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(5.w),
+                      //             color: kprimarycolor),
+                      //         child: Text(
+                      //           'Get working Drawings',
+                      //           style: TextStyle(
+                      //               fontSize: 14.sp, color: kwhitecolor),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     width10,
+                      //     GestureDetector(
+                      //       onTap: () => Get.to(() => DesignThisTypeOfHouse()),
+                      //       child: Container(
+                      //         alignment: Alignment.center,
+                      //         width: (screenwidth - 30) / 2,
+                      //         height: 30.w,
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(5.w),
+                      //             color: kprimarycolor),
+                      //         child: Text(
+                      //           'Design this type house',
+                      //           style: TextStyle(
+                      //               fontSize: 14.sp, color: kwhitecolor),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // heigh10,
                       ProjectDescription(DesignData: widget.DesignData),
                       // Row(
                       //   children: [

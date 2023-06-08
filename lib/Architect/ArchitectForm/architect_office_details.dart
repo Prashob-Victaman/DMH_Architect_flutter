@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
+import 'package:dmh_architect/controller/locationcontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
@@ -17,11 +21,12 @@ class ArchitectOfficeDetails extends StatefulWidget {
 }
 
 class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
-  String IdProof = 'Passport';
+  String IdProof = 'Pancard';
+
   String selectedState = 'Karnataka';
 
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController regnProofController = TextEditingController();
+  // final TextEditingController regnProofController = TextEditingController();
   final TextEditingController googleTagController = TextEditingController();
   final TextEditingController emailIdController = TextEditingController();
   final TextEditingController AdressController = TextEditingController();
@@ -33,6 +38,10 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
   final formKey = GlobalKey<FormState>();
 
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
+
+  final getlocationcontroller = Get.put(LocationController());
+
+  var adress;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +122,7 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                                 child: Icon(Icons.keyboard_arrow_down),
                               ),
                               // Array list of items
-                              items: Iditems.map((String items) {
+                              items: Idworkitems.map((String items) {
                                 return DropdownMenuItem(
                                   value: items,
                                   child: Text(items),
@@ -128,87 +137,21 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                               },
                             ),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(top: 3.w),
-                            height: 48.w,
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width * 0.22,
+                          GestureDetector(
+                            onTap: () => getController.fetchRegnIdProofImg(),
+                            child: Container(
+                              padding: EdgeInsets.only(top: 3.w),
+                              height: 48.w,
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width * 0.22,
 
-                            // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 1, color: Colors.black12),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5)),
-                            ),
-                            child: Column(
-                              children: [
-                                Icon(Icons.cloud_upload_outlined,
-                                    color: Colors.blue, size: 25.sp),
-                                Text(
-                                  'Upload',
-                                  style: TextStyle(
-                                      fontSize: 8.0.sp, color: Colors.blue),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    heigh10,
-                    Text('Google tag', style: normal14),
-                    heigh10,
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width:
-                                (MediaQuery.of(context).size.width / 1.3) - 20,
-                            child: TextFormField(
-                                controller: googleTagController,
-                                // validator: (value) {
-                                //   if (value!.isEmpty) {
-                                //     return 'Please enter google tag';
-                                //   }
-
-                                //   return null;
-                                // },
-                                decoration:
-                                    customInputDecoration('Enter google tag')),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 3.w),
-                            height: 48.w,
-                            alignment: Alignment.center,
-                            width: MediaQuery.of(context).size.width * 0.22,
-
-                            // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(width: 1, color: Colors.black12),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5)),
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.to(MyApp());
-                                // showDialog<void>(
-                                //   context: context,
-                                //   builder: (BuildContext context) {
-                                //     return AlertDialog(
-                                //       titlePadding: EdgeInsets.all(0.w),
-                                //       title: Container(
-                                //         height: 300.w,
-                                //         width: 282.w,
-                                //         child: fetchLocation(),
-                                //       ),
-                                //     );
-                                //   },
-                                // );
-                              },
+                              // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 1, color: Colors.black12),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                              ),
                               child: Column(
                                 children: [
                                   Icon(Icons.cloud_upload_outlined,
@@ -225,6 +168,63 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                         ],
                       ),
                     ),
+                    heigh10,
+                    Text('Location', style: normal14),
+                    // heigh10,
+                    GetBuilder<LocationController>(builder: (getdata) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(vertical: 5.w),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: (MediaQuery.of(context).size.width / 1.3) -
+                                  80,
+                              child: Container(
+                                child: Text(
+                                  '${getlocationcontroller.addressforform}',
+                                  style: normal15,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(top: 3.w),
+                              height: 40.w,
+                              alignment: Alignment.center,
+                              width: MediaQuery.of(context).size.width * 0.32,
+
+                              // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 1, color: Colors.black12),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(5)),
+                              ),
+                              child: GestureDetector(
+                                onTap: () {
+                                  getlocationcontroller.fetchLocationforform();
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(Icons.location_on_outlined,
+                                        color: Colors.blue, size: 20.sp),
+                                    Text(
+                                      'Fetch Location',
+                                      style: TextStyle(
+                                          fontSize: 14.0.sp,
+                                          color: Colors.blue),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
                     heigh10,
                     Text('Office Email Id', style: normal14),
                     Container(
@@ -363,17 +363,27 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
 
                             if (form!.validate()) {
                               form.save();
-                              getController.addOfficeDetails(
-                                  currentUserUid,
-                                  nameController.text,
-                                  regnProofController.text,
-                                  googleTagController.text,
-                                  emailIdController.text.trim(),
-                                  AdressController.text,
-                                  townController.text,
-                                  pincodeController.text,
-                                  selectedState);
-                              Get.off(() => ServiceRateUpdated());
+
+                              if (getController.idRegnProofimg != null) {
+                                getController.addOfficeDetails(
+                                    currentUserUid,
+                                    nameController.text,
+                                    IdProof,
+                                    GeoPoint(
+                                        getlocationcontroller.latitude
+                                            .toDouble(),
+                                        getlocationcontroller.longitude
+                                            .toDouble()),
+                                    emailIdController.text.trim(),
+                                    AdressController.text,
+                                    townController.text,
+                                    pincodeController.text,
+                                    selectedState);
+                                Get.off(() => ServiceRateUpdated());
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: 'Pls Attach Regn Proof');
+                              }
                             }
                           },
                           child: Text('Next', style: normal14),

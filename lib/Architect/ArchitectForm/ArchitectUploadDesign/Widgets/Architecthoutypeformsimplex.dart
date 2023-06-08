@@ -53,8 +53,10 @@ class Architecthoutypeformsimplex extends StatelessWidget {
 
   final getController = Get.put(ArchitectUploadDesignTypeController());
 
-  final List planingFileNameControllerList = [TextEditingController()];
-  final List planingFilePriceControllerList = [TextEditingController()];
+  final FocusNode textFocusNode = FocusNode();
+
+  // final List planingFileNameControllerList = [TextEditingController()];
+  // final List planingFilePriceControllerList = [TextEditingController()];
 
   // List<int> indices = [0, 1, 3, 4, 5, 6, 7, 8, 9];
 
@@ -62,6 +64,13 @@ class Architecthoutypeformsimplex extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(
+          height: 10.w,
+        ),
+        ArchitectaddWorkingDeatails(
+            // planingFileNameControllerList: planingFileNameControllerList,
+            // planingFilePriceControllerList: planingFilePriceControllerList
+            ),
         SizedBox(
           height: 10.w,
         ),
@@ -97,22 +106,26 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                   SizedBox(
                     // height: 40.w,
                     width: 170.w,
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter According to Vastu';
-                        }
+                    child: FocusScope(
+                      node: FocusScopeNode(),
+                      child: TextFormField(
+                        focusNode: textFocusNode,
+                        keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter According to Vastu';
+                          }
 
-                        return null;
-                      },
-                      textAlignVertical: TextAlignVertical.center,
-                      controller: vastuController,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 10.w),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1.w, color: kprimarycolor))),
+                          return null;
+                        },
+                        textAlignVertical: TextAlignVertical.center,
+                        controller: vastuController,
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 10.w),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1.w, color: kprimarycolor))),
+                      ),
                     ),
                   ),
                 ],
@@ -250,12 +263,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
         //     ],
         //   ),
         // ),
-        SizedBox(
-          height: 10.w,
-        ),
-        ArchitectaddWorkingDeatails(
-            planingFileNameControllerList: planingFileNameControllerList,
-            planingFilePriceControllerList: planingFilePriceControllerList),
+
         SizedBox(
           height: 10.w,
         ),
@@ -314,7 +322,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                       GestureDetector(
                                         onTap: () async {
                                           List planingImageUrl = [];
-                                          for (var element in getController
+                                          for (var element in getxcontroller
                                               .planingImageUrl) {
                                             if (element != null) {
                                               planingImageUrl.add(element);
@@ -322,17 +330,23 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                           }
 
                                           List planingFileNameList = [];
-                                          planingFileNameControllerList
+                                          getxcontroller
+                                              .planingFileNameControllerList
                                               .forEach((element) {
-                                            planingFileNameList
-                                                .add(element.text);
+                                            if (element.text.isNotEmpty) {
+                                              planingFileNameList
+                                                  .add(element.text);
+                                            }
                                           });
 
                                           List planingFilePriceList = [];
-                                          planingFilePriceControllerList
+                                          getxcontroller
+                                              .planingFilePriceControllerList
                                               .forEach((element) {
-                                            planingFilePriceList
-                                                .add(element.text);
+                                            if (element.text.isNotEmpty) {
+                                              planingFilePriceList
+                                                  .add(element.text);
+                                            }
                                           });
 
                                           List exteriorImageList = [];
@@ -485,15 +499,13 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                           areagecontroller.area = '';
                                           Get.back();
 
-                                          Get.off(() => ArchitectMyDesign);
-
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //       builder: (context) =>
-                                          //           Architectbottomnavigationbar(
-                                          //               selectedindex: 0)),
-                                          // );
+                                          // Get.off(() => ArchitectMyDesign);
+                                          Navigator.of(context)
+                                              .push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                Architectbottomnavigationbar(
+                                                    selectedindex: 0),
+                                          ));
                                         },
                                         child: Container(
                                           height: 30.w,

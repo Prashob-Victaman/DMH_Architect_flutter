@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -154,7 +155,7 @@ class ArchitectformController extends GetxController {
     uid,
     String officeName,
     String regnProof,
-    String googletag,
+    GeoPoint location,
     String email,
     String adress,
     String town,
@@ -169,7 +170,7 @@ class ArchitectformController extends GetxController {
         'officeName': officeName,
         'regnProof': regnProof,
         'regnProofImg': regnidProofImageUrl,
-        'googletag': googletag,
+        'googletag': location,
         'googletagfile': 'googletagfile',
         'email': email,
         'adress': adress,

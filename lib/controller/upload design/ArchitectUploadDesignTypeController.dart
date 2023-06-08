@@ -11,9 +11,7 @@ class ArchitectUploadDesignTypeController extends GetxController {
 
   static int imgCount = 14;
 
-  List<String?> planingImageUrl = List<String?>.filled(6, null);
 
-  List<FilePickerResult?> planningImgs = List<FilePickerResult?>.filled(6, null);
 
   // String ExteriorImageUrl = '';
 
@@ -28,41 +26,6 @@ class ArchitectUploadDesignTypeController extends GetxController {
     refresh();
   }
 
-  fetchPlanningImg(buttonIndex) async {
-    final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
-
-    planningImgs[buttonIndex] = await FilePicker.platform.pickFiles(
-        allowMultiple: false,
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
-    );
-
-    Reference referenceRoot = FirebaseStorage.instance.ref();
-    Reference referenceDirectoryImages =
-        referenceRoot.child('adminuploadDesign/');
-    Reference referenceImageToUpload =
-        referenceDirectoryImages.child(uploadimgkey.toString());
-
-    // Uint8List uploadfile = result.files.single.bytes;
-
-    print('uploadimg file called');
-    if (planningImgs[buttonIndex] == null) {
-      return;
-    }
-   // planningImgs[buttonIndex] = planningImgs[buttonIndex].files.single.bytes;
-
-    try {
-      await referenceImageToUpload.putFile(File(planningImgs[buttonIndex]!.paths[0]!));
-
-      planingImageUrl[buttonIndex] =
-          await referenceImageToUpload.getDownloadURL();
-      print('imageurl $planingImageUrl');
-    } catch (e) {
-      // log(e.toString());F
-    }
-    print('done');
-    refresh();
-  }
 
 // fetchPlanningImg(buttonIndex) async {
 //   final uniqueProductImageName = DateTime.now().microsecondsSinceEpoch;

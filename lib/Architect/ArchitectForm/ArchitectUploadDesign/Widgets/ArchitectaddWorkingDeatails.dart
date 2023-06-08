@@ -10,28 +10,20 @@ import '../../../../Constants/constants.dart';
 import '../../../../controller/upload design/ArchitectAddDesignController.dart';
 import '../../../../controller/upload design/ArchitectUploadDesignTypeController.dart';
 
-class ArchitectaddWorkingDeatails extends StatefulWidget {
-  List planingFileNameControllerList;
+class ArchitectaddWorkingDeatails extends StatelessWidget {
+  // List planingFileNameControllerList;
 
-  List planingFilePriceControllerList;
+  // List planingFilePriceControllerList;
 
-  ArchitectaddWorkingDeatails(
-      {super.key,
-      required this.planingFileNameControllerList,
-      required this.planingFilePriceControllerList});
+  ArchitectaddWorkingDeatails({
+    super.key,
+    // required this.planingFileNameControllerList,
+    // required this.planingFilePriceControllerList
+  });
 
-  @override
-  State<ArchitectaddWorkingDeatails> createState() =>
-      _ArchitectaddWorkingDeatailsState();
-}
-
-class _ArchitectaddWorkingDeatailsState
-    extends State<ArchitectaddWorkingDeatails> {
   final getController = Get.put(ArchitectUploadDesignTypeController());
 
   final getXCOntroller = Get.put(ArchitectAddDesignController());
-
-  int planningGridCount = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -67,15 +59,13 @@ class _ArchitectaddWorkingDeatailsState
                     children: [
                       IconButton(
                         onPressed: () {
-                          if (planningGridCount < 6) {
-                            planningGridCount += 1;
-                            widget.planingFileNameControllerList
-                                .add(TextEditingController());
-                            widget.planingFilePriceControllerList
-                                .add(TextEditingController());
+                          if (getXCOntroller.planningGridCount < 6) {
+                            getXCOntroller.addworkingDrawings(1);
+                            // planingFileNameControllerList
+                            //     .add(TextEditingController());
+                            // planingFilePriceControllerList
+                            //     .add(TextEditingController());
                           }
-
-                          setState(() {});
                         },
                         icon: Icon(
                           Icons.add,
@@ -98,11 +88,25 @@ class _ArchitectaddWorkingDeatailsState
                       borderRadius: BorderRadius.circular(5.w)),
                   child: IconButton(
                     onPressed: () {
-                      if (planningGridCount > 1) {
-                        planningGridCount -= 1;
-                      }
+                      if (getXCOntroller.planningGridCount > 1) {
+                        getXCOntroller.addworkingDrawings(0);
 
-                      setState(() {});
+                        getXCOntroller.planingFileNameControllerList[
+                                getXCOntroller.planningGridCount]
+                            .clear();
+
+                        getXCOntroller.planingFilePriceControllerList[
+                                getXCOntroller.planningGridCount]
+                            .clear();
+                        getXCOntroller.planningImgs[
+                            getXCOntroller.planningGridCount] = null;
+
+                        getXCOntroller.planingImageUrl[
+                            getXCOntroller.planningGridCount] = null;
+
+                        getXCOntroller.workingDrawingsisLoading[
+                            getXCOntroller.planningGridCount] = false;
+                      }
                     },
                     icon: Icon(
                       Icons.delete,
@@ -121,9 +125,9 @@ class _ArchitectaddWorkingDeatailsState
                 child: GridView.builder(
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3, childAspectRatio: 0.5.sp),
+                        crossAxisCount: 3, childAspectRatio: 0.56.sp),
                     physics: const ScrollPhysics(),
-                    itemCount: planningGridCount,
+                    itemCount: getXCOntroller.planningGridCount,
                     itemBuilder: (BuildContext context, int index) {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,13 +136,16 @@ class _ArchitectaddWorkingDeatailsState
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  getController.fetchPlanningImg(index);
+                                  getXCOntroller.fetchPlanningImg(index);
 
                                   getXCOntroller.changeworkingDetailsisLoading(
                                       true, index);
                                 },
                                 child: customUploadButton(
-                                    getController.planningImgs[index], context),
+                                    getXCOntroller.planningImgs[index],
+                                    context,
+                                    getXCOntroller
+                                        .workingDrawingsisLoading[index]),
                               ),
                               heigh5,
                               SizedBox(
@@ -146,7 +153,7 @@ class _ArchitectaddWorkingDeatailsState
                                 // height: 35.sp,
                                 child: Center(
                                   child: TextFormField(
-                                    controller: widget
+                                    controller: getXCOntroller
                                         .planingFileNameControllerList[index],
                                     validator: (value) {
                                       if (value!.isEmpty) {
@@ -177,7 +184,7 @@ class _ArchitectaddWorkingDeatailsState
                                       }
                                       return null;
                                     },
-                                    controller: widget
+                                    controller: getXCOntroller
                                         .planingFilePriceControllerList[index],
                                     decoration: InputDecoration(
                                         hintText: 'File Amount',
@@ -198,9 +205,6 @@ class _ArchitectaddWorkingDeatailsState
                     }),
               );
             }),
-            SizedBox(
-              height: 10.w,
-            ),
           ],
         );
       }),
@@ -208,7 +212,7 @@ class _ArchitectaddWorkingDeatailsState
   }
 }
 
-customUploadButton(image, context) {
+customUploadButton(image, context, isloading) {
   return Container(
     // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
     width: 115.w,
@@ -232,20 +236,31 @@ customUploadButton(image, context) {
               color: Colors.white,
             ),
           )
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.cloud_upload_outlined,
-                color: kprimarycolor,
-                size: 40.sp,
+        : isloading == true
+            ? Center(
+                child: SizedBox(
+                  height: 20.w,
+                  width: 20.w,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.w,
+                    color: kprimarycolor,
+                  ),
+                ),
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.cloud_upload_outlined,
+                    color: kprimarycolor,
+                    size: 40.sp,
+                  ),
+                  Text(
+                    'Upload design PDF',
+                    style: TextStyle(fontSize: 12.0.sp, color: kprimarycolor),
+                  ),
+                ],
               ),
-              Text(
-                'Upload design',
-                style: TextStyle(fontSize: 12.0.sp, color: kprimarycolor),
-              ),
-            ],
-          ),
   );
 }
 

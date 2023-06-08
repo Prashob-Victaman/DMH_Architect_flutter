@@ -1,11 +1,10 @@
+import 'package:dmh_architect/Architect/ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/architect_office_details.dart';
-import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
-import 'package:dmh_architect/Architect/productview/widget/designThisTypeofHouse.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/architect_presonal_details.dart';
 import 'package:flutter/material.dart';
 
 import '../../Constants/constants.dart';
 import '../ArchitectDesignpage/designPage.dart';
-import '../ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
 import '../ArchitectProfile/architectprofilepage.dart';
 import '../Architecthomepage/Architecthomepage.dart';
 
@@ -26,7 +25,8 @@ class _ArchitectbottomnavigationbarState
     ArchitecthomePage(),
     const ArchitectDesignPage(),
     ArchitectUploadDesign(),
-    // ArchitectOfficeDetails(),
+
+    // ArchitectPresonalDetails(),
     // ArchitectOfficeDetails(),
     // ServiceRateUpdated(),
     // DesignThisTypeOfHouse(),

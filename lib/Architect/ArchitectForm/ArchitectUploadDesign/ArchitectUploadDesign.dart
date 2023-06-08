@@ -90,6 +90,19 @@ class ArchitectUploadDesign extends StatelessWidget {
                               onPressed: () {
                                 if (getcontroller.exteriorListCount > 3) {
                                   getcontroller.changetextControllercount(0);
+                                  getcontroller.exteriorimgXfileList[
+                                      getcontroller.exteriorListCount] = null;
+
+                                  getcontroller.exteriorimgurlList[
+                                      getcontroller.exteriorListCount] = null;
+
+                                  getcontroller.exteriorisLoading[
+                                      getcontroller.exteriorListCount] = false;
+
+                                  getcontroller
+                                      .exteriorDesignNameControllerList[
+                                          getcontroller.exteriorListCount]
+                                      .clear();
                                 }
                               },
                               icon: Icon(
@@ -106,7 +119,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                       ),
                       GetBuilder<ArchitectAddDesignController>(
                           builder: (Getdata) {
-                        print(getcontroller.exteriorListCount);
+                        // print(getcontroller.exteriorListCount);
                         return SizedBox(
                           child: GridView.builder(
                               shrinkWrap: true,
@@ -231,6 +244,19 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 if (getcontroller.floorListCount > 3) {
                                   getcontroller
                                       .changefloortextControllercount(0);
+
+                                  getcontroller.floorimgXFileList[
+                                      getcontroller.floorListCount] = null;
+
+                                  getcontroller.floorimgurlList[
+                                      getcontroller.floorListCount] = null;
+
+                                  getcontroller.floorisLoading[
+                                      getcontroller.floorListCount] = false;
+
+                                  getcontroller.floorDesignNameControllerList[
+                                          getcontroller.floorListCount]
+                                      .clear();
                                 }
                               },
                               icon: Icon(

@@ -1,11 +1,10 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:dmh_architect/controller/architectDataController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
 import '../../Constants/constants.dart';
 import '../../controller/ArchitectformController.dart';
 import 'architect_office_details.dart';
@@ -40,7 +39,6 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
   final dataController = Get.put(ArchitectDataController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -364,7 +362,7 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.w),
                       child: TextFormField(
-                        initialValue: dataController.email,
+                          initialValue: dataController.email,
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -495,23 +493,28 @@ class _ArchitectPresonalDetailsState extends State<ArchitectPresonalDetails> {
                             if (form!.validate()) {
                               form.save();
 
-                              // print(
-                              //     '+${selectedCountryph.phoneCode}${phoneController.text}');
-                              getController.addPersonalDetails(
-                                currentUserUid,
-                                _role!,
-                                fullnameController.text,
-                                '+${selectedCountryph.phoneCode}${phoneController.text}',
-                                '+${selectedCountryph.phoneCode}${whatsAppNumController.text}',
-                                IdProof,
-                                emailController.text,
-                                adressController.text,
-                                townController.text,
-                                pincodeController.text,
-                                selectedState,
-                              );
+                              if (getController.idProofimg != null) {
+                                // print(
+                                //     '+${selectedCountryph.phoneCode}${phoneController.text}');
+                                getController.addPersonalDetails(
+                                  currentUserUid,
+                                  _role!,
+                                  fullnameController.text,
+                                  '+${selectedCountryph.phoneCode}${phoneController.text}',
+                                  '+${selectedCountryph.phoneCode}${whatsAppNumController.text}',
+                                  IdProof,
+                                  emailController.text,
+                                  adressController.text,
+                                  townController.text,
+                                  pincodeController.text,
+                                  selectedState,
+                                );
 
-                              Get.to(()=>ArchitectOfficeDetails());
+                                Get.to(() => ArchitectOfficeDetails());
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: 'Please Attach Id Proof');
+                              }
                             }
                           },
                           child: Text('Next', style: normal14),

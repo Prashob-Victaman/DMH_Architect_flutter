@@ -75,44 +75,44 @@ class Homepageproductview extends StatelessWidget {
                   ),
                 ),
                 productviewcorouselslider(DesignData: DesignData, index: index),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      // onTap: () => Get.to(() => GetDesign(
-                      //   DesignData: widget.DesignData,
-                      // )),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: ((screenwidth - 30) / 2.1).w,
-                        height: 30.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.w),
-                            color: kprimarycolor),
-                        child: Text(
-                          'Get working Drawings',
-                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
-                        ),
-                      ),
-                    ),
-                    width10,
-                    GestureDetector(
-                      onTap: () => Get.to(() => DesignThisTypeOfHouse()),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: ((screenwidth - 30) / 2.1).w,
-                        height: 30.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.w),
-                            color: kprimarycolor),
-                        child: Text(
-                          'Design this type house',
-                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     GestureDetector(
+                //       // onTap: () => Get.to(() => GetDesign(
+                //       //   DesignData: widget.DesignData,
+                //       // )),
+                //       child: Container(
+                //         alignment: Alignment.center,
+                //         width: ((screenwidth - 30) / 2.1).w,
+                //         height: 30.w,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(5.w),
+                //             color: kprimarycolor),
+                //         child: Text(
+                //           'Get working Drawings',
+                //           style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                //         ),
+                //       ),
+                //     ),
+                //     width10,
+                //     GestureDetector(
+                //       onTap: () => Get.to(() => DesignThisTypeOfHouse()),
+                //       child: Container(
+                //         alignment: Alignment.center,
+                //         width: ((screenwidth - 30) / 2.1).w,
+                //         height: 30.w,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(5.w),
+                //             color: kprimarycolor),
+                //         child: Text(
+                //           'Design this type house',
+                //           style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: Column(
@@ -159,87 +159,87 @@ class Homepageproductview extends StatelessWidget {
                 )
               ],
             ),
-            Positioned(
-              top: screenheight - 100.w,
-              child: Container(
-                decoration: const BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        spreadRadius: .5,
-                        blurStyle: BlurStyle.normal,
-                        color: Color.fromARGB(137, 184, 184, 184),
-                        blurRadius: 10.0,
-                        offset: Offset(0.0, 0.0))
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => getcontroller.addToCart(
-                          amount: DesignData[index]['designprice'],
-                          designType: DesignData[index]['designType'],
-                          dimensions:
-                              '${DesignData[index]['houseArea']['area']} Sqft',
-                          houseType: DesignData[index]['houseType'],
-                          imgUrl: DesignData[index]['imageOneurl'],
-                          ProductUid: DesignData[index]['uid'],
-                          userid: FirebaseAuth.instance.currentUser!.uid),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: (screenwidth) / 2,
-                        height: 60.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(10.w)),
-                            color: kwhitecolor),
-                        child: Text(
-                          'Add to cart',
-                          style:
-                              TextStyle(fontSize: 17.sp, color: kprimarycolor),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        // await FirebaseFirestore.instance
-                        //     .collection("PaymentDetails")
-                        //     .doc(
-                        //         '${DateTime.now().month}_${DateTime.now().year}')
-                        //     .update({
-                        //   'payments': FieldValue.arrayUnion([
-                        //     {
-                        //       'name': 'aa',
-                        //       'amount': 232,
-                        //       'date': Timestamp.now(),
-                        //       'transaction': 'response.paymentId',
-                        //     }
-                        //   ])
-                        // });
-                        //DesignData[index];
-                        designDataModel rd =
-                            designDataModel.fromJson(DesignData[index]);
-                        Get.to(() => GetDesign(
-                              DesignData: rd,
-                            ));
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: (screenwidth) / 2,
-                        height: 60.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.horizontal(
-                                right: Radius.circular(10.w)),
-                            color: kprimarycolor),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(fontSize: 17.sp, color: kwhitecolor),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: screenheight - 100.w,
+            //   child: Container(
+            //     decoration: const BoxDecoration(
+            //       boxShadow: <BoxShadow>[
+            //         BoxShadow(
+            //             spreadRadius: .5,
+            //             blurStyle: BlurStyle.normal,
+            //             color: Color.fromARGB(137, 184, 184, 184),
+            //             blurRadius: 10.0,
+            //             offset: Offset(0.0, 0.0))
+            //       ],
+            //     ),
+            //     child: Row(
+            //       children: [
+            //         GestureDetector(
+            //           onTap: () => getcontroller.addToCart(
+            //               amount: DesignData[index]['designprice'],
+            //               designType: DesignData[index]['designType'],
+            //               dimensions:
+            //                   '${DesignData[index]['houseArea']['area']} Sqft',
+            //               houseType: DesignData[index]['houseType'],
+            //               imgUrl: DesignData[index]['imageOneurl'],
+            //               ProductUid: DesignData[index]['uid'],
+            //               userid: FirebaseAuth.instance.currentUser!.uid),
+            //           child: Container(
+            //             alignment: Alignment.center,
+            //             width: (screenwidth) / 2,
+            //             height: 60.w,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.horizontal(
+            //                     left: Radius.circular(10.w)),
+            //                 color: kwhitecolor),
+            //             child: Text(
+            //               'Add to cart',
+            //               style:
+            //                   TextStyle(fontSize: 17.sp, color: kprimarycolor),
+            //             ),
+            //           ),
+            //         ),
+            //         GestureDetector(
+            //           onTap: () async {
+            //             // await FirebaseFirestore.instance
+            //             //     .collection("PaymentDetails")
+            //             //     .doc(
+            //             //         '${DateTime.now().month}_${DateTime.now().year}')
+            //             //     .update({
+            //             //   'payments': FieldValue.arrayUnion([
+            //             //     {
+            //             //       'name': 'aa',
+            //             //       'amount': 232,
+            //             //       'date': Timestamp.now(),
+            //             //       'transaction': 'response.paymentId',
+            //             //     }
+            //             //   ])
+            //             // });
+            //             //DesignData[index];
+            //             designDataModel rd =
+            //                 designDataModel.fromJson(DesignData[index]);
+            //             Get.to(() => GetDesign(
+            //                   DesignData: rd,
+            //                 ));
+            //           },
+            //           child: Container(
+            //             alignment: Alignment.center,
+            //             width: (screenwidth) / 2,
+            //             height: 60.w,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.horizontal(
+            //                     right: Radius.circular(10.w)),
+            //                 color: kprimarycolor),
+            //             child: Text(
+            //               'Next',
+            //               style: TextStyle(fontSize: 17.sp, color: kwhitecolor),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

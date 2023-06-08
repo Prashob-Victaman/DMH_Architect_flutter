@@ -1,3 +1,4 @@
+import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilewidgets.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
-import '../../controller/signupcontroller.dart';
 import 'ArchitectMyDesign.dart';
 import 'architectProfile.dart';
 
@@ -190,15 +190,17 @@ class ArchitectProfilePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    architectprofilewidgetdown(
-                        icon: Icon(Icons.notifications,
-                            color: kbluecolor, size: 20.w),
-                        title: 'Help & Support',
-                        trailing: Icon(
-                          Icons.arrow_forward_ios,
-                          size: 15.w,
-                          color: kgreycolor,
-                        )),
+                    GestureDetector(
+                      child: architectprofilewidgetdown(
+                          icon: Icon(Icons.notifications,
+                              color: kbluecolor, size: 20.w),
+                          title: 'Help & Support',
+                          trailing: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15.w,
+                            color: kgreycolor,
+                          )),
+                    ),
                     heigh20,
                     architectprofilewidgetdown(
                         icon: Icon(Icons.account_circle_outlined,

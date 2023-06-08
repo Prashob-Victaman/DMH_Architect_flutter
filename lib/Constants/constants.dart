@@ -240,6 +240,12 @@ final List<String> Iditems = [
   'Adhaar Card',
 ];
 
+final List<String> Idworkitems = [
+  'Pancard',
+  'GST Certificate',
+  'MSME Certificate',
+];
+
 Country selectedCountryph = Country(
   phoneCode: "91",
   countryCode: "IN",
@@ -328,5 +334,3 @@ Map selctedserviceRateMainListmap = {
   'Plumbing': selctedserviceRateMainList[8],
   'Site Supervision': selctedserviceRateMainList[9],
 };
-
-

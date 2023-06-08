@@ -21,6 +21,8 @@ class ArchitectAddDesignController extends GetxController {
   int exteriorListCount = 3;
   int floorListCount = 3;
 
+  int planningGridCount = 1;
+
   // bool isLoading = false;
 
   // List<bool> isLoading = List<bool>.filled(9, false);
@@ -43,11 +45,31 @@ class ArchitectAddDesignController extends GetxController {
   final floorDesignNameControllerList =
       List.generate(9, (_) => TextEditingController());
 
+  final planingFileNameControllerList =
+      List.generate(6, (_) => TextEditingController());
+
+  final planingFilePriceControllerList =
+      List.generate(6, (_) => TextEditingController());
+
+  List<String?> planingImageUrl = List<String?>.filled(6, null);
+
+  List<FilePickerResult?> planningImgs =
+      List<FilePickerResult?>.filled(6, null);
+
   // final List exteriorDesignNameControllerList = [
   //   TextEditingController(),
   //   TextEditingController(),
   //   TextEditingController(),
   // ];
+
+  addworkingDrawings(count) {
+    if (count == 1) {
+      planningGridCount++;
+    } else {
+      planningGridCount--;
+    }
+    refresh();
+  }
 
   clearingfields() {
     for (var i = 0; i < 9; i++) {
@@ -64,6 +86,16 @@ class ArchitectAddDesignController extends GetxController {
 
       exteriorDesignNameControllerList[i].clear();
       floorDesignNameControllerList[i].clear();
+    }
+
+    for (var i = 0; i < 6; i++) {
+      workingDrawingsisLoading[i] = false;
+      planingFileNameControllerList[i].clear();
+
+      planingFilePriceControllerList[i].clear();
+
+      planingImageUrl[i] = null;
+      planningImgs[i] = null;
     }
   }
 
@@ -130,6 +162,7 @@ class ArchitectAddDesignController extends GetxController {
 
   DesignTypeCheckbox(index) {
     selectedDesignTypeCheckBox = index;
+    // print(index);
 
     refresh();
   }
@@ -205,6 +238,43 @@ class ArchitectAddDesignController extends GetxController {
     } catch (e) {
       // log(e.toString());F
     }
+    refresh();
+  }
+
+  fetchPlanningImg(buttonIndex) async {
+    final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
+
+    planningImgs[buttonIndex] = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirectoryImages =
+        referenceRoot.child('adminuploadDesign/');
+    Reference referenceImageToUpload =
+        referenceDirectoryImages.child(uploadimgkey.toString());
+
+    // Uint8List uploadfile = result.files.single.bytes;
+
+    print('uploadimg file called');
+    if (planningImgs[buttonIndex] == null) {
+      return;
+    }
+    // planningImgs[buttonIndex] = planningImgs[buttonIndex].files.single.bytes;
+
+    try {
+      await referenceImageToUpload
+          .putFile(File(planningImgs[buttonIndex]!.paths[0]!));
+
+      planingImageUrl[buttonIndex] =
+          await referenceImageToUpload.getDownloadURL();
+      print('imageurl $planingImageUrl');
+    } catch (e) {
+      // log(e.toString());F
+    }
+    print('done');
     refresh();
   }
 

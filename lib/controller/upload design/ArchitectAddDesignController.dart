@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/model/notificationModel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,9 @@ class ArchitectAddDesignController extends GetxController {
   int selectedDesignTypeCheckBox = 0;
   int selectedHouseFacingCheckbox = 0;
   int selectedHouseFloorsCheckbox = 0;
-  
+
+  int exteriorListCount = 3;
+  int floorListCount = 3;
 
   // bool isLoading = false;
 
@@ -33,13 +36,35 @@ class ArchitectAddDesignController extends GetxController {
 
   List<XFile?> floorimgXFileList = List<XFile?>.filled(9, null);
 
+  final exteriorDesignNameControllerList =
+      List.generate(9, (_) => TextEditingController());
+
+  final floorDesignNameControllerList =
+      List.generate(9, (_) => TextEditingController());
+
   // final List exteriorDesignNameControllerList = [
   //   TextEditingController(),
   //   TextEditingController(),
   //   TextEditingController(),
   // ];
 
+  clearingfields() {
+    for (var i = 0; i < 9; i++) {
+      floorisLoading[i] = false;
 
+      exteriorisLoading[i] = false;
+      exteriorimgurlList[i] = null;
+
+      exteriorimgXfileList[i] = null;
+
+      floorimgurlList[i] = null;
+
+      floorimgXFileList[i] = null;
+
+      exteriorDesignNameControllerList[i].clear();
+      floorDesignNameControllerList[i].clear();
+    }
+  }
 
   changefloorisLoading(bool passedisLoading, int index) {
     floorisLoading[index] = passedisLoading;
@@ -50,12 +75,6 @@ class ArchitectAddDesignController extends GetxController {
     exteriorisLoading[index] = passedisLoading;
     refresh();
   }
-
-  final exteriorDesignNameControllerList =
-      List.generate(3, (_) => TextEditingController());
-
-  final floorDesignNameControllerList =
-      List.generate(3, (_) => TextEditingController());
 
   // final List floorDesignNameControllerList = [
   //   TextEditingController(),
@@ -77,21 +96,22 @@ class ArchitectAddDesignController extends GetxController {
 
   changetextControllercount(int value) {
     if (value == 1) {
-      exteriorDesignNameControllerList.add(TextEditingController());
+      exteriorListCount++;
       // exteriorimgcount + 1;
     } else {
-      exteriorDesignNameControllerList.removeLast();
+      exteriorListCount--;
       // exteriorimgcount - 1;
     }
+    print(exteriorListCount);
     refresh();
   }
 
   changefloortextControllercount(int value) {
     if (value == 1) {
-      floorDesignNameControllerList.add(TextEditingController());
+      floorListCount++;
       // floorimgcount + 1;
     } else {
-      floorDesignNameControllerList.removeLast();
+      floorListCount--;
       // exteriorimgcount - 1;
     }
     refresh();
@@ -206,13 +226,14 @@ class ArchitectAddDesignController extends GetxController {
     required List exteriorImagetitleList,
     required List floorImageList,
     required List floorImagetitleList,
+    required String architectName
   }) async {
     final docUrl =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
 
     final designData = designDataFromAdmin(
         floordetails: floordetails,
-        uploadedBy: uploadedUserUid,
+        uploadedBy: architectName,
         uid: docUrl.id,
         shortdescription: shortdescription,
         designprice: designprice,
@@ -247,6 +268,17 @@ class ArchitectAddDesignController extends GetxController {
         .update({
       'myDesigns': FieldValue.arrayUnion([json])
     });
+
+    final docNotifcaton =
+        FirebaseFirestore.instance.collection('Notifications').doc();
+    final notificationData = notificationModel(
+        time: DateTime.now(),
+        imgUrl: exteriorImageList[0],
+        title: '${architectName} Added New Design',
+        sortid: DateTime.now().millisecondsSinceEpoch,
+        uid: docUrl.id);
+
+    await docNotifcaton.set(notificationData.toJson());
   }
 
   buyorder(name, amount, mobilenumber, paymentmode, notes) async {

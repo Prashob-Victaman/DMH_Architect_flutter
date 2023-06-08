@@ -7,7 +7,9 @@ import '../../../../Constants/constants.dart';
 import '../../../../controller/upload design/ArchitectAddDesignController.dart';
 
 class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
-  const ArchitectDesigntypeAndHouseFacing({
+  TextEditingController adddesignTypeController;
+  ArchitectDesigntypeAndHouseFacing({
+    required this.adddesignTypeController,
     super.key,
   });
 
@@ -50,7 +52,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             getdata.DesignTypeCheckbox(0);
                           },
                         ),
-                        Text('Simple', style: TextStyle(fontSize: 16.sp))
+                        Text('Modern', style: TextStyle(fontSize: 16.sp))
                       ],
                     ),
                     Row(
@@ -64,23 +66,43 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             getdata.DesignTypeCheckbox(1);
                           },
                         ),
-                        Text('Modern', style: TextStyle(fontSize: 16.sp))
+                        Text('Classical', style: TextStyle(fontSize: 16.sp))
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: getdata.selectedDesignTypeCheckBox == 2
-                              ? true
-                              : false,
-                          onChanged: (value) {
-                            getdata.DesignTypeCheckbox(2);
-                          },
-                        ),
-                        Text('Others', style: TextStyle(fontSize: 16.sp)),
-                      ],
-                    ),
+                    GetBuilder<ArchitectAddDesignController>(
+                        builder: (getdata) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                            value: getdata.selectedDesignTypeCheckBox == 2
+                                ? true
+                                : false,
+                            onChanged: (value) {
+                              getdata.DesignTypeCheckbox(2);
+                            },
+                          ),
+                          // Text('Others', style: TextStyle(fontSize: 16.sp)),
+                          SizedBox(
+                            width: 70.w,
+                            height: 30.w,
+                            child: TextField(
+                                controller: adddesignTypeController,
+                                enabled: getdata.selectedDesignTypeCheckBox == 2
+                                    ? true
+                                    : false,
+                                decoration: InputDecoration(
+                                    hintText: 'Add Type',
+                                    hintStyle: normal12,
+                                    contentPadding: EdgeInsets.only(left: 10.w),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 1.w,
+                                            color: kprimarycolor)))),
+                          )
+                        ],
+                      );
+                    }),
                     SizedBox(
                       height: 10.w,
                     ),

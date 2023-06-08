@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../../Constants/constants.dart';
@@ -11,6 +12,8 @@ class DesignThisTypeOfHouse extends StatelessWidget {
 
   TextEditingController widthcontroller = TextEditingController();
   TextEditingController heightcontroller = TextEditingController();
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,72 +65,75 @@ class DesignThisTypeOfHouse extends StatelessWidget {
                 ),
                 height: 110.w,
                 width: screenWidth - 20.w,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Your average house Width ',
-                          style: bold15,
-                        ),
-                        width10,
-                        SizedBox(
-                          width: 70.w,
-                          height: 30.w,
-                          child: TextFormField(
-                            controller: widthcontroller,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter Estimated cost';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {},
-                            keyboardType: TextInputType.number,
-                            decoration: customInputDecoration('width'),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Your average house Width ',
+                            style: bold15,
                           ),
-                        ),
-                        width5,
-                        Text(
-                          'Ft.',
-                          style: bold15,
-                        )
-                      ],
-                    ),
-                    heigh10,
-                    Row(
-                      children: [
-                        Text(
-                          'Your average house Height',
-                          style: bold15,
-                        ),
-                        width10,
-                        SizedBox(
-                          width: 70.w,
-                          height: 30.w,
-                          child: TextFormField(
-                            controller: heightcontroller,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter Estimated cost';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {},
-                            keyboardType: TextInputType.number,
-                            decoration: customInputDecoration('Height'),
+                          width10,
+                          SizedBox(
+                            width: 70.w,
+                            height: 30.w,
+                            child: TextFormField(
+                              textAlignVertical: TextAlignVertical.center,
+                              controller: widthcontroller,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return '';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              decoration: errorcustomInputDecoration('width'),
+                            ),
                           ),
-                        ),
-                        width5,
-                        Text(
-                          'Ft.',
-                          style: bold15,
-                        )
-                      ],
-                    ),
-                  ],
+                          width5,
+                          Text(
+                            'Ft.',
+                            style: bold15,
+                          )
+                        ],
+                      ),
+                      heigh10,
+                      Row(
+                        children: [
+                          Text(
+                            'Your average house Height',
+                            style: bold15,
+                          ),
+                          width10,
+                          SizedBox(
+                            width: 70.w,
+                            height: 30.w,
+                            child: TextFormField(
+                              textAlignVertical: TextAlignVertical.center,
+                              controller: heightcontroller,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return '';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.number,
+                              decoration: errorcustomInputDecoration('Height'),
+                            ),
+                          ),
+                          width5,
+                          Text(
+                            'Ft.',
+                            style: bold15,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
               heigh10,
@@ -174,7 +180,8 @@ class DesignThisTypeOfHouse extends StatelessWidget {
                             Text(
                               '2. You will be paid amount after final Design Discussion',
                               style: normal12,
-                            )
+                            ),
+                            heigh10
                           ],
                         ),
                       )
@@ -190,7 +197,18 @@ class DesignThisTypeOfHouse extends StatelessWidget {
               heigh20,
               GestureDetector(
                 onTap: () {
-                  Get.to(() => ChooseArchitect());
+                  final form = formKey.currentState;
+
+                  if (form!.validate()) {
+                    form.save();
+                    Get.to(() => ChooseArchitect(
+                          area:
+                              '${(widthcontroller.text.isNotEmpty && heightcontroller.text.isNotEmpty && double.tryParse(widthcontroller.text) != null && double.tryParse(heightcontroller.text) != null) ? ((double.parse(widthcontroller.text) * double.parse(heightcontroller.text)).toStringAsFixed(2)) : '0'}',
+                        ));
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: 'Enter Your House Width & Height');
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -200,7 +218,7 @@ class DesignThisTypeOfHouse extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5.w),
                       color: kprimarycolor),
                   child: Text(
-                    'Design Our House in ${widthcontroller.text} x ${heightcontroller.text} =    Sqft Area',
+                    'Design Our House in ${widthcontroller.text} x ${heightcontroller.text} =  ${(widthcontroller.text.isNotEmpty && heightcontroller.text.isNotEmpty && double.tryParse(widthcontroller.text) != null && double.tryParse(heightcontroller.text) != null) ? ((double.parse(widthcontroller.text) * double.parse(heightcontroller.text)).toStringAsFixed(2)) : '0'} Sqft Area',
                     style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
                   ),
                 ),
@@ -210,5 +228,27 @@ class DesignThisTypeOfHouse extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  errorcustomInputDecoration(String hint) {
+    return InputDecoration(
+        errorBorder: const OutlineInputBorder(
+          borderSide:
+              BorderSide(width: 1, color: Color.fromARGB(255, 255, 0, 0)),
+        ),
+        errorStyle:
+            TextStyle(height: 0, color: Colors.transparent, fontSize: 1.sp),
+        contentPadding: EdgeInsets.symmetric(
+          // vertical: 10.0.w,
+          horizontal: 10.0.w,
+        ),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(
+            color: kprimarycolor,
+          ),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        hintText: hint,
+        hintStyle: TextStyle(fontSize: 16.sp, color: kgreycolor));
   }
 }

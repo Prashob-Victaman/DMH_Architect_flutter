@@ -83,8 +83,30 @@ class ArchitectSignupController extends GetxController {
     final docuser = firebaseFirestore.collection("ArchitectData").doc(uid);
 
     final users = ArchitectsignupData(
-        serviceRateTypeList: {},
-        serviceRateamountList: {},
+        serviceRateTypeList: {
+          "Planning": 'Simple',
+          'Structure': 'Simple',
+          '2D Elevation': 'Simple',
+          '3D Elevation': 'Simple',
+          '3D Floor': 'Simple',
+          'Walkthrough Video(Exterior)': 'Simple',
+          'Walkthrough Video(Interior & Exterior)': 'Simple',
+          'Electricals': 'Simple',
+          'Plumbing': 'Simple',
+          'Site Supervision': 'Simple'
+        },
+        serviceRateamountList: {
+          "Planning": '0',
+          'Structure': '0',
+          '2D Elevation': '0',
+          '3D Elevation': '0',
+          '3D Floor': '0',
+          'Walkthrough Video(Exterior)': '0',
+          'Walkthrough Video(Interior & Exterior)': '0',
+          'Electricals': '0',
+          'Plumbing': '0',
+          'Site Supervision': '0'
+        },
         sortId: DateTime.now().millisecondsSinceEpoch,
         myDesigns: [],
         gender: '',

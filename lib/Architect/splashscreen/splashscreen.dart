@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/Architect/architerctlogin/architectlogin.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/route_manager.dart';
-
 import '../../Constants/constants.dart';
-import '../Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -22,7 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     checkLoginData();
     // goto(context);
+    // goto(context);
     super.initState();
+    
   }
 
   checkLoginData() async {

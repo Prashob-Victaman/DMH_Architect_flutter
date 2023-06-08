@@ -43,7 +43,6 @@ class separateddesignlistview extends StatelessWidget {
                     .collection('DesignDataFromAdmin')
                     .doc(CategoryData[index]['uid'])
                     .update({'visitors': FieldValue.increment(1)});
-                // print(CategoryData[index]['uid']);
                 Get.to(
                   () => Homepageproductview(
                     index: index,
@@ -69,9 +68,11 @@ class separateddesignlistview extends StatelessWidget {
                                   topRight: Radius.circular(10.w)),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(CategoryData[index]
-                                        ['floorImageList'][0] ??
-                                    'https://firebasestorage.googleapis.com/v0/b/designmyhouse-c26d9.appspot.com/o/placeholder%2Fef3-placeholder-image.jpg?alt=media&token=1369f624-05c2-409b-9961-d3112981d4c4'),
+                                image: NetworkImage(
+
+                                    CategoryData[index]
+                                          ['exteriorImageList'][0] ??
+                                    'https://firebasestorage.googleapis.com/v0/b/designmyhouseuser.appspot.com/o/Placeholder%2Fef3-placeholder-image.jpg?alt=media&token=9e009457-de80-44b9-aa42-89b3bf2fb101&_gl=1*op8ful*_ga*MTIxMzcwMjQwOC4xNjg2MDYwMDEz*_ga_CW55HF8NVT*MTY4NjEzNTM2MS42LjEuMTY4NjEzNTkzNi4wLjAuMA..'),
                               ),
                             ),
                           ),

@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../../Constants/constants.dart';
 import '../../controller/CartController.dart';
 import '../../getDesign/getDesign.dart';
-import '../../model/recievedesignDataFromAdmin.dart';
 import '../../model/uploadDesignDataModel.dart';
 import '../productview/widget/designThisTypeofHouse.dart';
 
@@ -75,7 +74,7 @@ class Homepageproductview extends StatelessWidget {
                     ],
                   ),
                 ),
-                productviewcorouselslider(DesignData: DesignData,index: index),
+                productviewcorouselslider(DesignData: DesignData, index: index),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -92,8 +91,7 @@ class Homepageproductview extends StatelessWidget {
                             color: kprimarycolor),
                         child: Text(
                           'Get working Drawings',
-                          style: TextStyle(
-                              fontSize: 14.sp, color: kwhitecolor),
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
                         ),
                       ),
                     ),
@@ -109,8 +107,7 @@ class Homepageproductview extends StatelessWidget {
                             color: kprimarycolor),
                         child: Text(
                           'Design this type house',
-                          style: TextStyle(
-                              fontSize: 14.sp, color: kwhitecolor),
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
                         ),
                       ),
                     ),

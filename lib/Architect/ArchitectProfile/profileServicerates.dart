@@ -80,13 +80,12 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
 
                             Map serviceRateTypemap = data.serviceRateTypeList;
 
-
-                            List<MapEntry> mapEntries = serviceRateTypemap.entries.toList();
+                            List<MapEntry> mapEntries =
+                                serviceRateTypemap.entries.toList();
 
                             log(mapEntries[0].value.toString());
 
                             // List<List> serviceRateTypelist = serviceRateTypemap.map((number) => number).toList();
-
 
                             // print(serviceRateTypeList);
                             return Container(
@@ -121,9 +120,6 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                                           shrinkWrap: true,
                                           physics: const ScrollPhysics(),
                                           itemBuilder: (context, index) {
-
-
-                                            
                                             return Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment

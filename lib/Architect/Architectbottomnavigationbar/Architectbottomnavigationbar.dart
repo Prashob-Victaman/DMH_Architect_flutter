@@ -1,4 +1,6 @@
+import 'package:dmh_architect/Architect/ArchitectForm/architect_office_details.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
+import 'package:dmh_architect/Architect/productview/widget/designThisTypeofHouse.dart';
 import 'package:flutter/material.dart';
 
 import '../../Constants/constants.dart';
@@ -24,8 +26,10 @@ class _ArchitectbottomnavigationbarState
     ArchitecthomePage(),
     const ArchitectDesignPage(),
     ArchitectUploadDesign(),
+    // ArchitectOfficeDetails(),
+    // ArchitectOfficeDetails(),
     // ServiceRateUpdated(),
-    //const UploadDesign(),
+    // DesignThisTypeOfHouse(),
     ArchitectProfilePage(),
   ];
 

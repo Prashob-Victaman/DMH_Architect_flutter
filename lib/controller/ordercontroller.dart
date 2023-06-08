@@ -12,18 +12,18 @@ class OrderController extends GetxController {
     } else {
       workingdetailsbool[index] = false;
     }
-        if (seereviewsbool[index] == false) {
+    if (seereviewsbool[index] == false) {
       seereviewsbool[index] = true;
     } else {
       seereviewsbool[index] = false;
     }
-  
+
     // seereviewDetails(index);
     refresh();
   }
 
+  chooseArchitect() {}
   // seereviewDetails(index) {
-
 
   //   refresh();
   // }

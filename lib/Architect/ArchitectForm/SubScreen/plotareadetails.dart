@@ -1,25 +1,23 @@
+import 'package:dmh_architect/controller/upload%20design/AreaController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 import '../../../Constants/constants.dart';
 
-class PlotAreaDetails extends StatefulWidget {
+class PlotAreaDetails extends StatelessWidget {
   final TextEditingController plotLengthController;
   final TextEditingController plotWidthController;
-  final TextEditingController totalAreaController;
-  const PlotAreaDetails({
+  var totalArea;
+  PlotAreaDetails({
     required this.plotLengthController,
     required this.plotWidthController,
-    required this.totalAreaController,
+    required this.totalArea,
     super.key,
   });
 
-  @override
-  State<PlotAreaDetails> createState() => _PlotAreaDetailsState();
-}
-
-class _PlotAreaDetailsState extends State<PlotAreaDetails> {
   // final double screenWidth;
+  final getAreaController = Get.put(AreaController());
   @override
   Widget build(BuildContext context) {
     // final screenWidth = MediaQuery.of(context).size.width;
@@ -38,7 +36,7 @@ class _PlotAreaDetailsState extends State<PlotAreaDetails> {
             SizedBox(
                 width: 108.w,
                 child: TextFormField(
-                  controller: widget.plotLengthController,
+                  controller: plotLengthController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'enter plot length';
@@ -46,20 +44,14 @@ class _PlotAreaDetailsState extends State<PlotAreaDetails> {
                     return null;
                   },
                   keyboardType: TextInputType.number,
-                  decoration: customInputDecoration('24'),
-                  onChanged: (value){
-                    setState(() {
-                      if(value!=''){
-                        widget.totalAreaController.text = '${int.parse(widget.plotWidthController.text)*int.parse(widget.plotLengthController.text)}';
-                      }else{
-                        widget.totalAreaController.text ='0';
-                      }
-                    });
+                  decoration: customInputDecoration('In feet'),
+                  onChanged: (value) {
+                    getAreaController.height = value;
+                    getAreaController.calculatearea();
                   },
                 ))
           ],
         ),
-
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -71,8 +63,8 @@ class _PlotAreaDetailsState extends State<PlotAreaDetails> {
             SizedBox(
                 width: 108.w,
                 child: TextFormField(
-                  controller: widget.plotWidthController,
-                  decoration: customInputDecoration('24'),
+                  controller: plotWidthController,
+                  decoration: customInputDecoration('In Feet'),
                   keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -80,42 +72,29 @@ class _PlotAreaDetailsState extends State<PlotAreaDetails> {
                     }
                     return null;
                   },
-                  onChanged: (value){
-                    setState(() {
-                      if(value!=''){
-                        widget.totalAreaController.text = '${int.parse(widget.plotWidthController.text)*int.parse(widget.plotLengthController.text)}';
-                      }else{
-                        widget.totalAreaController.text ='0';
-                      }
-                    });
+                  onChanged: (value) {
+                    getAreaController.length = value;
+
+                    getAreaController.calculatearea();
+                    // print(getAreaController.area);
                   },
                 ))
           ],
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Total Area',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-            heigh5,
-            // SizedBox(
-            //     width: 108.w,
-            //     child: TextFormField(
-            //       controller: totalAreaController,
-            //       validator: (value) {
-            //         if (value!.isEmpty) {
-            //           return 'enter plot area';
-            //         }
-            //         return null;
-            //       },
-            //       keyboardType: TextInputType.number,
-            //       decoration: customInputDecoration('24'),
-            //     ))
-            Text('${widget.totalAreaController.text==''?'0':widget.totalAreaController.text} Sqft')
-          ],
-        )
+        GetBuilder<AreaController>(builder: (getdata) {
+          totalArea = getdata.area;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Total Area',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+              ),
+              heigh10,
+              Text('${getdata.area} Sqft')
+            ],
+          );
+        })
       ],
     );
   }

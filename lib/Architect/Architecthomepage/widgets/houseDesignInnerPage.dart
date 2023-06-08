@@ -25,6 +25,7 @@ class houseDesignInnerPage extends StatelessWidget {
         child: const appbar(),
       ),
       body: Builder(builder: (context) {
+        // print(CategoryData.length);
         return ListView(children: [
           heigh10,
           heigh5,

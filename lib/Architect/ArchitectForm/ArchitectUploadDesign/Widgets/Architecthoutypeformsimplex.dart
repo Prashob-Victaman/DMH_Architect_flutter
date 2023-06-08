@@ -1,4 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/SubScreen/plotareadetails.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/ArchitectMyDesign.dart';
+import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
+import 'package:dmh_architect/controller/upload%20design/AreaController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +17,6 @@ import '../../../../controller/upload design/ArchitectUploadDesignTypeController
 import '../../../ArchitectDesignpage/widgets/SubScreen/floorDetails.dart';
 import 'ArchitectDesigntypeAndHouseFacing.dart';
 import 'ArchitectaddWorkingDeatails.dart';
-import 'ArchitecthouseFloorandHouseArea.dart';
 
 class Architecthoutypeformsimplex extends StatelessWidget {
   TextEditingController projectDetailsController;
@@ -21,9 +26,13 @@ class Architecthoutypeformsimplex extends StatelessWidget {
       required this.projectDetailsController,
       required this.formKey});
 
+  var totalArea;
+
+  final areagecontroller = Get.put(AreaController());
+
   TextEditingController houseAreaLengthController = TextEditingController();
   TextEditingController houseAreawidthController = TextEditingController();
-  TextEditingController houseTotalAreaController = TextEditingController();
+  // TextEditingController houseTotalAreaController = TextEditingController();
   TextEditingController DesignCostController = TextEditingController();
 
   TextEditingController vastuController = TextEditingController();
@@ -34,6 +43,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
   TextEditingController estimatedConstructionCostController =
       TextEditingController();
   TextEditingController shortdescriptionController = TextEditingController();
+  TextEditingController adddesignTypeController = TextEditingController();
 
   final getxcontroller = Get.put(ArchitectAddDesignController());
 
@@ -44,7 +54,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
   final List planingFileNameControllerList = [TextEditingController()];
   final List planingFilePriceControllerList = [TextEditingController()];
 
-  List<int> indices = [0, 1, 3, 4, 5, 6, 7, 8, 9];
+  // List<int> indices = [0, 1, 3, 4, 5, 6, 7, 8, 9];
 
   @override
   Widget build(BuildContext context) {
@@ -53,14 +63,20 @@ class Architecthoutypeformsimplex extends StatelessWidget {
         SizedBox(
           height: 10.w,
         ),
-        const ArchitectDesigntypeAndHouseFacing(),
+        ArchitectDesigntypeAndHouseFacing(
+            adddesignTypeController: adddesignTypeController),
         SizedBox(
           height: 10.w,
         ),
-        ArchitecHousefloorsAndHousearea(
-            houseAreaLengthController: houseAreaLengthController,
-            houseAreawidthController: houseAreawidthController,
-            houseTotalAreaController: houseTotalAreaController),
+        // ArchitecHousefloorsAndHousearea(
+        //     houseAreaLengthController: houseAreaLengthController,
+        //     houseAreawidthController: houseAreawidthController,
+        //     houseTotalAreaController: houseTotalAreaController),
+
+        PlotAreaDetails(
+            plotLengthController: houseAreaLengthController,
+            plotWidthController: houseAreawidthController,
+            totalArea: totalArea),
         SizedBox(
           height: 20.w,
         ),
@@ -80,9 +96,10 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                     // height: 40.w,
                     width: 170.w,
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter your Comapany Name';
+                          return 'Please enter According to Vastu';
                         }
 
                         return null;
@@ -98,37 +115,37 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                   ),
                 ],
               ),
-              heigh10,
-              Row(
-                children: [
-                  Text(
-                    'Design Cost:',
-                    style:
-                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  SizedBox(
-                    // height: 40.w,
-                    width: 260.w,
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your Comapany Name';
-                        }
+              // heigh10,
+              // Row(
+              //   children: [
+              //     Text(
+              //       'Design Cost:',
+              //       style:
+              //           TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              //     ),
+              //     Spacer(),
+              //     SizedBox(
+              //       // height: 40.w,
+              //       width: 260.w,
+              //       child: TextFormField(
+              //         validator: (value) {
+              //           if (value!.isEmpty) {
+              //             return 'Please enter your Comapany Name';
+              //           }
 
-                        return null;
-                      },
-                      textAlignVertical: TextAlignVertical.center,
-                      controller: DesignCostController,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 10.w),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1.w, color: kprimarycolor))),
-                    ),
-                  ),
-                ],
-              ),
+              //           return null;
+              //         },
+              //         textAlignVertical: TextAlignVertical.center,
+              //         controller: DesignCostController,
+              //         decoration: InputDecoration(
+              //             contentPadding: EdgeInsets.only(left: 10.w),
+              //             border: OutlineInputBorder(
+              //                 borderSide: BorderSide(
+              //                     width: 1.w, color: kprimarycolor))),
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
         ),
@@ -142,7 +159,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'AproximateConstructionCost :',
+                    'Aproximate Construction Cost :',
                     style:
                         TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
@@ -151,6 +168,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                     // height: 40.w,
                     width: 140.w,
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your Comapany Name';
@@ -173,7 +191,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'EstimatedConstructionCost:',
+                    'Estimated Construction Time:',
                     style:
                         TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
@@ -322,13 +340,16 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                               exteriorImageList.add(element);
                                             }
                                           }
+                                          print(exteriorImageList);
 
                                           List exteriorFileNameList = [];
                                           getxcontroller
                                               .exteriorDesignNameControllerList
                                               .forEach((element) {
-                                            exteriorFileNameList
-                                                .add(element.text);
+                                            if (element.text.isNotEmpty) {
+                                              exteriorFileNameList
+                                                  .add(element.text);
+                                            }
                                           });
 
                                           List floorimgurlnList = [];
@@ -343,11 +364,24 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                           getxcontroller
                                               .floorDesignNameControllerList
                                               .forEach((element) {
-                                            floorFileNameList.add(element.text);
+                                            if (element.text.isNotEmpty) {
+                                              floorFileNameList
+                                                  .add(element.text);
+                                            }
                                           });
+                                          var data;
+                                          await FirebaseFirestore.instance
+                                              .collection('ArchitectData')
+                                              .doc(FirebaseAuth
+                                                  .instance.currentUser!.uid)
+                                              .get()
+                                              .then((snapshot) =>
+                                                  data = snapshot);
+                                          print(data['name']);
 
                                           await getxcontroller
                                               .uploadDesignDataFromAdmin(
+                                                  architectName: data['name'],
                                                   projectCost:
                                                       DesignCostController.text,
                                                   exteriorImageList:
@@ -358,8 +392,9 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                       floorimgurlnList,
                                                   floorImagetitleList:
                                                       floorFileNameList,
-                                                  floordetails: GetUploadController
-                                                      .createdlistofitems,
+                                                  floordetails:
+                                                      GetUploadController
+                                                          .createdlistofitems,
                                                   aproximateConstructionCost:
                                                       aproximateConstructionCostController
                                                           .text,
@@ -367,7 +402,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                       estimatedConstructionCostController
                                                           .text,
                                                   designprice:
-                                                      DesignCostController.text,
+                                                      planingFilePriceList[0],
                                                   shortdescription:
                                                       shortdescriptionController
                                                           .text,
@@ -380,23 +415,21 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                       .currentUser!
                                                       .uid,
                                                   projectDetails:
-                                                      'projectDetailsController.text',
+                                                      projectDetailsController
+                                                          .text,
                                                   designType: getxcontroller
                                                               .selectedDesignTypeCheckBox ==
                                                           0
-                                                      ? 'Simple'
+                                                      ? 'Modern'
                                                       : getxcontroller
                                                                   .selectedDesignTypeCheckBox ==
                                                               1
-                                                          ? 'Modern'
-                                                          : 'Others',
-                                                  houseFacing: getxcontroller
-                                                              .selectedHouseFacingCheckbox ==
-                                                          0
+                                                          ? 'Classical'
+                                                          : adddesignTypeController
+                                                              .text,
+                                                  houseFacing: getxcontroller.selectedHouseFacingCheckbox == 0
                                                       ? 'East'
-                                                      : getxcontroller
-                                                                  .selectedHouseFacingCheckbox ==
-                                                              1
+                                                      : getxcontroller.selectedHouseFacingCheckbox == 1
                                                           ? 'West'
                                                           : getxcontroller.selectedHouseFacingCheckbox == 2
                                                               ? 'South'
@@ -429,8 +462,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                         houseAreawidthController
                                                             .text,
                                                     'area':
-                                                        houseTotalAreaController
-                                                            .text,
+                                                        areagecontroller.area,
                                                   },
                                                   accordingtoVastu: vastuController.text,
                                                   discount: discountController.text,
@@ -439,59 +471,30 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                                                   planingFileUrlList: planingImageUrl);
 
                                           // getNavigatecontroller.changeoption(1);
-
-                                          changeisloding() {
-                                            for (var i = 0; i < 10; i++) {
-                                              getxcontroller.floorisLoading[i] =
-                                                  false;
-                                              getxcontroller
-                                                  .exteriorisLoading[i] = false;
-                                            }
-                                          }
+                                          getxcontroller.clearingfields();
 
                                           // getxcontroller
-                                          //     .exteriorisLoading[index] = false;
+                                          //     .exteriorisLoading[index] = false;pru
 
-                                          getxcontroller.exteriorimgurlList[1] =
-                                              null;
-                                          getxcontroller.exteriorimgurlList[3] =
-                                              null;
-                                          getxcontroller.exteriorimgurlList[0] =
-                                              null;
-
-                                          getxcontroller
-                                              .exteriorimgXfileList[0] = null;
-                                          getxcontroller
-                                              .exteriorimgXfileList[1] = null;
-                                          getxcontroller
-                                              .exteriorimgXfileList[2] = null;
-
-                                          getxcontroller.floorimgXFileList[0] =
-                                              null;
-                                          getxcontroller.floorimgurlList[0] =
-                                              null;
-
-                                          getxcontroller.floorimgXFileList[1] =
-                                              null;
-                                          getxcontroller.floorimgurlList[1] =
-                                              null;
-
-                                          getxcontroller.floorimgXFileList[2] =
-                                              null;
-                                          getxcontroller.floorimgurlList[2] =
-                                              null;
+                                          print(getxcontroller
+                                              .exteriorimgurlList[1]);
 
                                           GetUploadController.createdlistofitems
                                               .clear();
                                           planingFileNameList.clear();
                                           planingFilePriceList.clear();
                                           planingImageUrl.clear();
-
+                                          areagecontroller.area = '';
                                           Get.back();
+
+                                          Get.off(() => ArchitectMyDesign);
 
                                           // Navigator.push(
                                           //   context,
-                                          //   MaterialPageRoute(builder: (context) => Architectbottomnavigationbar(selectedindex: 0)),
+                                          //   MaterialPageRoute(
+                                          //       builder: (context) =>
+                                          //           Architectbottomnavigationbar(
+                                          //               selectedindex: 0)),
                                           // );
                                         },
                                         child: Container(

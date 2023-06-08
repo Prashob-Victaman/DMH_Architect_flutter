@@ -27,8 +27,8 @@ class designlistview extends StatelessWidget {
           if (!snapshot.hasData) {
             return Center(
                 child: SizedBox(
-                  height: 19.w,
-                ));
+              height: 19.w,
+            ));
           }
 
           return ListView.separated(
@@ -37,7 +37,7 @@ class designlistview extends StatelessWidget {
               physics: const ScrollPhysics(),
               itemBuilder: (context, index) {
                 final data =
-                designDataModel.fromJson(snapshot.data!.docs[index].data());
+                    designDataModel.fromJson(snapshot.data!.docs[index].data());
 
                 return GestureDetector(
                   onTap: () async {
@@ -48,8 +48,8 @@ class designlistview extends StatelessWidget {
                     print(data.uid);
 
                     Get.to(() => ProductView(
-                      DesignData: data,
-                    ));
+                          DesignData: data,
+                        ));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -82,14 +82,14 @@ class designlistview extends StatelessWidget {
                                             topLeft: Radius.circular(10.w),
                                             bottomRight: Radius.circular(10.w)),
                                         color:
-                                        Color.fromARGB(255, 255, 214, 69)),
+                                            Color.fromARGB(255, 255, 214, 69)),
                                     height: 22.w,
                                     width: (screenwidth - 30) / 2.w,
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.center,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           '${data.designType} /',
@@ -146,7 +146,7 @@ class designlistview extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    Text('${data.shortdescription}'),
+                                    Text('${data.houseFacing } Facing House'),
                                     const Spacer(),
                                     // Container(
                                     //   child: RatingBar.builder(

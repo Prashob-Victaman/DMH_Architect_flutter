@@ -1,3 +1,4 @@
+import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,8 +8,6 @@ import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
 import '../../controller/ArchitectformController.dart';
-import '../Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
-import 'service_rate.dart';
 
 class ArchitectOfficeDetails extends StatefulWidget {
   const ArchitectOfficeDetails({Key? key}) : super(key: key);
@@ -193,16 +192,34 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(5)),
                             ),
-                            child: Column(
-                              children: [
-                                Icon(Icons.cloud_upload_outlined,
-                                    color: Colors.blue, size: 25.sp),
-                                Text(
-                                  'Upload',
-                                  style: TextStyle(
-                                      fontSize: 8.0.sp, color: Colors.blue),
-                                ),
-                              ],
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(MyApp());
+                                // showDialog<void>(
+                                //   context: context,
+                                //   builder: (BuildContext context) {
+                                //     return AlertDialog(
+                                //       titlePadding: EdgeInsets.all(0.w),
+                                //       title: Container(
+                                //         height: 300.w,
+                                //         width: 282.w,
+                                //         child: fetchLocation(),
+                                //       ),
+                                //     );
+                                //   },
+                                // );
+                              },
+                              child: Column(
+                                children: [
+                                  Icon(Icons.cloud_upload_outlined,
+                                      color: Colors.blue, size: 25.sp),
+                                  Text(
+                                    'Upload',
+                                    style: TextStyle(
+                                        fontSize: 8.0.sp, color: Colors.blue),
+                                  ),
+                                ],
+                              ),
                             ),
                           )
                         ],
@@ -356,9 +373,7 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                                   townController.text,
                                   pincodeController.text,
                                   selectedState);
-                              Get.off(() =>ServiceRateUpdated()
-                              
-                              );
+                              Get.off(() => ServiceRateUpdated());
                             }
                           },
                           child: Text('Next', style: normal14),

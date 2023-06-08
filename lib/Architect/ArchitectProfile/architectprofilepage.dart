@@ -15,7 +15,7 @@ import 'architectProfile.dart';
 class ArchitectProfilePage extends StatelessWidget {
   ArchitectProfilePage({super.key});
 
-  final getcontroller = Get.put(SignupController());
+  // final getcontroller = Get.put(SignupController());
 
   @override
   Widget build(BuildContext context) {

@@ -226,7 +226,7 @@ class ArchitectSignupPage extends StatelessWidget {
     if (form!.validate()) {
       form.save();
 
-       showDialog(
+      showDialog(
           barrierDismissible: true,
           context: context,
           builder: (context) {
@@ -236,8 +236,8 @@ class ArchitectSignupPage extends StatelessWidget {
             ));
           });
       // TODO: Perform login with _mobile and _password
-    getcontroller.SentOtpforsignup(context, mobilecontroller.text,
-          emailcontroller.text, namecontroller.text);
+      getcontroller.SentOtpforsignup(context, mobilecontroller.text.trim(),
+          emailcontroller.text.trim(), namecontroller.text);
     }
   }
 }

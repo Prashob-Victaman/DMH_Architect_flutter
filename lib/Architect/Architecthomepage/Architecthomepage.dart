@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/corouselslider.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/housedesigngridview.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/houserenewgridview.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/reasontoorderhousegridview.dart';
+import 'package:dmh_architect/controller/locationcontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +20,7 @@ import '../widgets/appbar.dart';
 class ArchitecthomePage extends StatelessWidget {
   ArchitecthomePage({super.key});
 
-  // final getcontroller = Get.put(LocationController());
+  final getcontroller = Get.put(LocationController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,6 @@ class ArchitecthomePage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(55.w),
         child: const appbar(),
-
       ),
       body: ListView(
         children: [
@@ -59,37 +61,40 @@ class ArchitecthomePage extends StatelessWidget {
                   ),
                 );
               }),
-          // Padding(
-          //   padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-          //   child: FutureBuilder(
-          //       future: getcontroller.fectchlocationfn(),
-          //       builder: (context, snapshot) {
-          //         if (snapshot.hasError) {
-          //           return Text('Location Loading...');
-          //         }
-          //         if (!snapshot.hasData) {
-          //           return const Center(child: CircularProgressIndicator());
-          //         }
-          //         return Row(
-          //           children: [
-          //             Icon(
-          //               Icons.location_on,
-          //               size: 15.sp,
-          //               color: kbluecolor,
-          //             ),
-          //             Text(
-          //               'Block 5, Koramangala, Bangalore',
-          //               style: TextStyle(fontSize: 14.sp, color: kbluecolor),
-          //             ),
-          //             Icon(
-          //               Icons.keyboard_arrow_down,
-          //               size: 15.sp,
-          //               color: kbluecolor,
-          //             )
-          //           ],
-          //         );
-          //       }),
-          // ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+            child: FutureBuilder(
+                future: getcontroller.fetchLocation(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text(
+                      'Location Loading...',
+                      style: normal14,
+                    );
+                  }
+                  if (!snapshot.hasData) {
+                    return Text(
+                      'Location Loading...',
+                      style: normal14,
+                    );
+                  }
+                  log(snapshot.data!.toString());
+                  return Row(
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        size: 15.sp,
+                        color: kbluecolor,
+                      ),
+                      Text(
+                        '${snapshot.data}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 14.sp, color: kbluecolor),
+                      ),
+                    ],
+                  );
+                }),
+          ),
           heigh10,
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0.w),
@@ -98,11 +103,15 @@ class ArchitecthomePage extends StatelessWidget {
               style: bold18,
             ),
           ),
-           housedesigngridview(),
+          housedesigngridview(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0.w),
             child: GestureDetector(
-              onTap: () => Get.to(Architectbottomnavigationbar(selectedindex: 2)),
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Architectbottomnavigationbar(selectedindex: 1))),
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5.w),

@@ -65,10 +65,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: IconButton(
                               onPressed: () {
-                                if (getcontroller
-                                        .exteriorDesignNameControllerList
-                                        .length <
-                                    9) {
+                                if (getcontroller.exteriorListCount < 9) {
                                   getcontroller.changetextControllercount(1);
                                 }
                               },
@@ -91,10 +88,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: IconButton(
                               onPressed: () {
-                                if (getcontroller
-                                        .exteriorDesignNameControllerList
-                                        .length >
-                                    3) {
+                                if (getcontroller.exteriorListCount > 3) {
                                   getcontroller.changetextControllercount(0);
                                 }
                               },
@@ -113,7 +107,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                       GetBuilder<ArchitectAddDesignController>(
                           builder: (Getdata) {
                         print(getcontroller
-                            .exteriorDesignNameControllerList.length);
+                            .exteriorListCount);
                         return SizedBox(
                           child: GridView.builder(
                               shrinkWrap: true,
@@ -122,10 +116,8 @@ class ArchitectUploadDesign extends StatelessWidget {
                                       crossAxisCount: 3,
                                       childAspectRatio: 0.7.sp),
                               physics: const ScrollPhysics(),
-                              itemCount: getcontroller
-                                  .exteriorDesignNameControllerList.length,
+                              itemCount: getcontroller.exteriorListCount,
                               itemBuilder: (BuildContext context, int index) {
-
                                 return Column(
                                   children: [
                                     GestureDetector(
@@ -213,9 +205,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: IconButton(
                               onPressed: () {
-                                if (getcontroller
-                                        .floorDesignNameControllerList.length <
-                                    9) {
+                                if (getcontroller.floorListCount < 9) {
                                   getcontroller
                                       .changefloortextControllercount(1);
                                 }
@@ -239,9 +229,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: IconButton(
                               onPressed: () {
-                                if (getcontroller
-                                        .floorDesignNameControllerList.length >
-                                    3) {
+                                if (getcontroller.floorListCount > 3) {
                                   getcontroller
                                       .changefloortextControllercount(0);
                                 }
@@ -268,10 +256,8 @@ class ArchitectUploadDesign extends StatelessWidget {
                                       crossAxisCount: 3,
                                       childAspectRatio: 0.7.sp),
                               physics: const ScrollPhysics(),
-                              itemCount: getcontroller
-                                  .floorDesignNameControllerList.length,
+                              itemCount: getcontroller.floorListCount,
                               itemBuilder: (BuildContext context, int index) {
-
                                 return Column(
                                   children: [
                                     GestureDetector(

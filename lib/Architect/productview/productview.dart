@@ -19,7 +19,6 @@ class ProductView extends StatefulWidget {
   State<ProductView> createState() => _ProductViewState();
 }
 
-
 class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class _ProductViewState extends State<ProductView> {
                           Text(
                             '/ ${widget.DesignData.designType}',
                             style:
-                            TextStyle(fontSize: 14.sp, color: kblackcolor),
+                                TextStyle(fontSize: 14.sp, color: kblackcolor),
                           ),
                         ],
                       ),
@@ -81,9 +80,7 @@ class _ProductViewState extends State<ProductView> {
                   ),
                 ),
                 heigh10,
-
                 ProductCarouselslider(DesignData: widget.DesignData),
-
                 heigh10,
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
@@ -93,8 +90,8 @@ class _ProductViewState extends State<ProductView> {
                         children: [
                           GestureDetector(
                             onTap: () => Get.to(() => GetDesign(
-                              DesignData: widget.DesignData,
-                            )),
+                                  DesignData: widget.DesignData,
+                                )),
                             child: Container(
                               alignment: Alignment.center,
                               width: (screenwidth - 40.w) / 2,
@@ -169,66 +166,42 @@ class _ProductViewState extends State<ProductView> {
                 )
               ],
             ),
-            Positioned(
-              top: screenheight - 100.w,
-              child: Container(
-                decoration: const BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        spreadRadius: .5,
-                        blurStyle: BlurStyle.normal,
-                        color: Color.fromARGB(137, 184, 184, 184),
-                        blurRadius: 10.0,
-                        offset: Offset(0.0, 0.0))
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => getcontroller.addToCart(
-                          amount: widget.DesignData.designprice,
-                          designType: widget.DesignData.designType,
-                          dimensions:
-                          '${widget.DesignData.houseArea['area']} Sqft',
-                          houseType: widget.DesignData.houseType,
-                          imgUrl: widget.DesignData.exteriorImageList[0],
-                          ProductUid: widget.DesignData.uid,
-                          userid: FirebaseAuth.instance.currentUser!.uid),
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: (screenwidth) / 2,
-                        height: 60.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.horizontal(
-                                left: Radius.circular(10.w)),
-                            color: kwhitecolor),
-                        child: Text(
-                          'Add to cart',
-                          style:
-                          TextStyle(fontSize: 17.sp, color: kprimarycolor),
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {},
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: (screenwidth) / 2,
-                        height: 60.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.horizontal(
-                                right: Radius.circular(10.w)),
-                            color: kprimarycolor),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(fontSize: 17.sp, color: kwhitecolor),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Positioned(
+            //   top: screenheight - 100.w,
+            //   child: Container(
+            //     decoration: const BoxDecoration(
+            //       boxShadow: <BoxShadow>[
+            //         BoxShadow(
+            //             spreadRadius: .5,
+            //             blurStyle: BlurStyle.normal,
+            //             color: Color.fromARGB(137, 184, 184, 184),
+            //             blurRadius: 10.0,
+            //             offset: Offset(0.0, 0.0))
+            //       ],
+            //     ),
+            //     child: Row(
+            //       children: [
+                   
+            //         GestureDetector(
+            //           onTap: () async {},
+            //           child: Container(
+            //             alignment: Alignment.center,
+            //             width: (screenwidth - 20.w),
+            //             height: 60.w,
+            //             decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.horizontal(
+            //                     right: Radius.circular(10.w)),
+            //                 color: kprimarycolor),
+            //             child: Text(
+            //               'Next',
+            //               style: TextStyle(fontSize: 17.sp, color: kwhitecolor),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

@@ -215,48 +215,48 @@
 //     final docUrl =
 //         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
 
-//     final designData = designDataModel(
-//         designprice: designprice,
-//         shortdescription: shortdescription,
-//         floorfileimageOneurl: floorfileimageOneurl,
-//         floorfileimageThreeurl: floorfileimageThreeurl,
-//         floorfileimageTwourl: floorfileimageTwourl,
-//         uid: docUrl.id,
-//         sortId: DateTime.now().millisecondsSinceEpoch,
-//         uploadedUserUid: uploadedUserUid,
-//         projectDetails: projectDetails,
-//         imageOneurl: imageOneurl,
-//         imageTwourl: imageTwourl,
-//         imageThreeurl: imageThreeurl,
-//         designType: designType,
-//         houseFacing: houseFacing,
-//         houseFloors: houseFloors,
-//         houseType: houseType,
-//         houseArea: houseArea,
-//         accordingtoVastu: accordingtoVastu,
-//         estimatedConstructionCost: estimatedConstructionCost,
-//         aproximateConstructionCost: aproximateConstructionCost,
-//         postedDate: DateTime.now(),
-//         visitors: 0,
-//         uploadedBy: architectName,
-//         planingFileUrlList: planingFileUrlList,
-//         planingFileNameList: planingFileNameList,
-//         planingFilePriceList: planingFilePriceList);
+    // final designData = designDataModel(
+    //     designprice: designprice,
+    //     shortdescription: shortdescription,
+    //     floorfileimageOneurl: floorfileimageOneurl,
+    //     floorfileimageThreeurl: floorfileimageThreeurl,
+    //     floorfileimageTwourl: floorfileimageTwourl,
+    //     uid: docUrl.id,
+    //     sortId: DateTime.now().millisecondsSinceEpoch,
+    //     uploadedUserUid: uploadedUserUid,
+    //     projectDetails: projectDetails,
+    //     imageOneurl: imageOneurl,
+    //     imageTwourl: imageTwourl,
+    //     imageThreeurl: imageThreeurl,
+    //     designType: designType,
+    //     houseFacing: houseFacing,
+    //     houseFloors: houseFloors,
+    //     houseType: houseType,
+    //     houseArea: houseArea,
+    //     accordingtoVastu: accordingtoVastu,
+    //     estimatedConstructionCost: estimatedConstructionCost,
+    //     aproximateConstructionCost: aproximateConstructionCost,
+    //     postedDate: DateTime.now(),
+    //     visitors: 0,
+    //     uploadedBy: architectName,
+    //     planingFileUrlList: planingFileUrlList,
+    //     planingFileNameList: planingFileNameList,
+    //     planingFilePriceList: planingFilePriceList);
 
-//     final json = designData.toJson();
+    // final json = designData.toJson();
 
-//     await docUrl.set(json);
+    // await docUrl.set(json);
 
-//     final docNotifcaton =
-//         FirebaseFirestore.instance.collection('Notifications').doc();
+    // final docNotifcaton =
+    //     FirebaseFirestore.instance.collection('Notifications').doc();
 
-//     final notificationData = notificationModel(
-//         time: DateTime.now(),
-//         imgUrl: floorfileimageOneurl,
-//         title: '${architectName} Added New Design',
-//         sortid: DateTime.now().millisecondsSinceEpoch,
-//         uid: docUrl.id);
-//     await docNotifcaton.set(notificationData.toJson());
+    // final notificationData = notificationModel(
+    //     time: DateTime.now(),
+    //     imgUrl: floorfileimageOneurl,
+    //     title: '${architectName} Added New Design',
+    //     sortid: DateTime.now().millisecondsSinceEpoch,
+    //     uid: docUrl.id);
+    // await docNotifcaton.set(notificationData.toJson());
 
 //     await FirebaseFirestore.instance
 //         .collection("ArchitectData")

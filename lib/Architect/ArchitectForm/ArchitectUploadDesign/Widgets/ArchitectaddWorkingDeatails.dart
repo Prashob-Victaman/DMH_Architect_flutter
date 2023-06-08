@@ -14,7 +14,7 @@ class ArchitectaddWorkingDeatails extends StatefulWidget {
   List planingFileNameControllerList;
 
   List planingFilePriceControllerList;
-  ArchitectaddWorkingDeatails(
+    ArchitectaddWorkingDeatails(
       {super.key,
       required this.planingFileNameControllerList,
       required this.planingFilePriceControllerList});
@@ -48,7 +48,7 @@ class _ArchitectaddWorkingDeatailsState
             Row(
               children: [
                 Text(
-                  'Planning',
+                  'Working Drawings',
                   style:
                       TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
                 ),

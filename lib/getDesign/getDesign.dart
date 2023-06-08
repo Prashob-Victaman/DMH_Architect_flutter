@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:dmh_architect/controller/getDesignController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,32 +24,18 @@ class _GetDesignState extends State<GetDesign> {
   double? price;
   var razorpay = Razorpay();
 
-
-  List titledata = ['Floor Plan With Column', 'Foundation and structure Plan'];
-  List subtitledata = [
-    'Basement Plan',
-    'Ground floor plan',
-    'first floor plan'
-  ];
-
-
   @override
   void initState() {
-
-
-    super.initState();
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-
   }
-
-
 
   // void onPause() {
   //   unregisterReceiver(
   //       yourBroadcastReceiver); // Replace 'yourBroadcastReceiver' with the actual name of your receiver
   // }
+  final getcontroller = Get.put(GetDesignController());
 
   @override
   void _handlePaymentSuccess(PaymentSuccessResponse response) async {
@@ -142,17 +130,25 @@ class _GetDesignState extends State<GetDesign> {
 
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails
+    print("payment Failed");
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet was selected
   }
 
+  List titledata = ['Floor Plan With Column', 'Foundation and structure Plan'];
 
-
+  List subtitledata = [
+    'Basement Plan',
+    'Ground floor plan',
+    'first floor plan'
+  ];
 
   @override
   Widget build(BuildContext context) {
+    getcontroller.initilizeList(widget.DesignData.planingFileNameList.length);
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -190,19 +186,23 @@ class _GetDesignState extends State<GetDesign> {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Checkbox(
-                          fillColor: MaterialStateProperty.all(kprimarycolor),
-                          value: false,
-                          onChanged: (value) {
-                            value = true;
-                          },
-                        ),
+                        GetBuilder<GetDesignController>(builder: (context) {
+                          return Checkbox(
+                            fillColor: MaterialStateProperty.all(kprimarycolor),
+                            value: getcontroller.selectedFile[index],
+                            onChanged: (value) {
+                              print(getcontroller.selectedFile[index]);
+                              getcontroller.changeValue(index);
+                            },
+                          );
+                        }),
                         Column(
                           children: [
                             Container(
                               width: 300.w,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.w)),
                                 color: kprimarycolor.withOpacity(0.3),
                               ),
                               child: Padding(
@@ -214,15 +214,15 @@ class _GetDesignState extends State<GetDesign> {
                                     SizedBox(
                                         width: 200.w,
                                         child: Text(
-                                          widget.DesignData.planingFileNameList[index],
+                                          widget.DesignData
+                                              .planingFileNameList[index],
                                           style: TextStyle(
                                               fontSize: 16.sp,
                                               fontWeight: FontWeight.bold,
                                               color: kprimarycolor),
                                         )),
                                     Text(
-                                      'Rs. ${widget.DesignData.planingFilePriceList[index]
-                                      }',
+                                      'Rs. ${widget.DesignData.planingFilePriceList[index]}',
                                       style: TextStyle(
                                           fontSize: 17.sp,
                                           fontWeight: FontWeight.bold,
@@ -268,28 +268,37 @@ class _GetDesignState extends State<GetDesign> {
                       height: 10.w,
                     );
                   },
-                  itemCount: widget.DesignData.planingFileNameList.length
-              ),
+                  itemCount: widget.DesignData.planingFileNameList.length),
             ],
           ),
         ),
       ),
       floatingActionButton: GestureDetector(
         onTap: () async {
-          price = double.parse(widget.DesignData.designprice);
-          if (selectedRadioTile == 1) {
-            price = (int.parse(widget.DesignData.designprice) +
-                    int.parse(widget.DesignData.designprice) * 0.3)
-                .toPrecision(1);
-          } else if (selectedRadioTile == 2) {
-            price = (int.parse(widget.DesignData.designprice) +
-                    int.parse(widget.DesignData.designprice) * 0.5)
-                .toPrecision(1);
-          } else if (selectedRadioTile == 3) {
-            price = (int.parse(widget.DesignData.designprice) +
-                    int.parse(widget.DesignData.designprice) * 0.7)
-                .toPrecision(1);
+          var price = 0.0;
+
+          for (int i = 0;
+              i < widget.DesignData.planingFilePriceList.length;
+              i++) {
+            if (getcontroller.selectedFile[i] == true) {
+              price += double.parse(widget.DesignData.planingFilePriceList[i]);
+            }
           }
+
+          //
+          // if (selectedRadioTile == 1) {
+          //   price = (int.parse(widget.DesignData.designprice) +
+          //           int.parse(widget.DesignData.designprice) * 0.3)
+          //       .toPrecision(1);
+          // } else if (selectedRadioTile == 2) {
+          //   price = (int.parse(widget.DesignData.designprice) +
+          //           int.parse(widget.DesignData.designprice) * 0.5)
+          //       .toPrecision(1);
+          // } else if (selectedRadioTile == 3) {
+          //   price = (int.parse(widget.DesignData.designprice) +
+          //           int.parse(widget.DesignData.designprice) * 0.7)
+          //       .toPrecision(1);
+          // }
           var userdata = await FirebaseFirestore.instance
               .collection('UserData')
               .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -316,7 +325,7 @@ class _GetDesignState extends State<GetDesign> {
               borderRadius: BorderRadius.all(Radius.circular(10.w)),
               color: kprimarycolor),
           child: Text(
-            'Choose Architect',
+            'Buy design',
             style: TextStyle(fontSize: 17.sp, color: kwhitecolor),
           ),
         ),

@@ -1,13 +1,10 @@
-import 'package:dmh_architect/Architect/ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
-import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
-import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
+import 'package:dmh_architect/Architect/splashscreen/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Architect/splashscreen/splashscreen.dart';
 import 'Constants/constants.dart';
 
 void main() async {

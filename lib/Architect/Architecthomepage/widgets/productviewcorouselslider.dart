@@ -26,8 +26,9 @@ class productviewcorouselslider extends StatelessWidget {
 
     titleList.addAll(DesignData[index]['floorImagetitleList']);
 
-    print(
-        '${exteriorimageList.length} exteriorimageList ${imageList.length} imageleist');
+    // print(
+    //     '${exteriorimageList.length} exteriorimageList ${imageList.length} imageleist');
+    //     print(index);
 
     return Center(
       child: CarouselSlider.builder(

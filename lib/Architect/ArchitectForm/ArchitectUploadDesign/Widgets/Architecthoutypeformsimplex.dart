@@ -555,7 +555,7 @@ class submitContainer extends StatelessWidget {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
                                         builder: (context) =>
-                                           ArchitectMyDesign(),
+                                            ArchitectMyDesign(),
                                       ));
                                     },
                                     child: Container(

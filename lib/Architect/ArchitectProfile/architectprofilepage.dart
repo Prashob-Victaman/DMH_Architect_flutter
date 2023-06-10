@@ -1,4 +1,5 @@
 import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilewidgets.dart';
@@ -39,7 +40,9 @@ class ArchitectProfilePage extends StatelessWidget {
                     Text(
                       'Profile',
                       style: bold20,
-                    ),width20,width20,
+                    ),
+                    width20,
+                    width20,
                     Spacer()
                   ],
                 ),
@@ -92,6 +95,17 @@ class ArchitectProfilePage extends StatelessWidget {
                               color: kbluecolor, size: 20.w),
                           title: 'Service Rates',
                           subtitle: 'Manage your Service Rates',
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              size: 15.w, color: kgreycolor)),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () => Get.to(() => ordersProfile()),
+                      child: architectprofilewidgets(
+                          icon: Icon(Icons.description_sharp,
+                              color: kbluecolor, size: 20.w),
+                          title: 'Orders',
+                          subtitle: 'Manage your Orders',
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 15.w, color: kgreycolor)),
                     ),

@@ -1,14 +1,10 @@
-import 'package:dmh_architect/Architect/productview/widget/designThisTypeofHouse.dart';
 import 'package:dmh_architect/Architect/productview/widget/productcorouselslider.dart';
 import 'package:dmh_architect/Architect/productview/widget/projectdescription.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
-import '../../controller/CartController.dart';
-import '../../getDesign/getDesign.dart';
 import '../../model/uploadDesignDataModel.dart';
 
 class ProductView extends StatefulWidget {
@@ -22,9 +18,9 @@ class ProductView extends StatefulWidget {
 class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
-    final screenwidth = MediaQuery.of(context).size.width;
-    final screenheight = MediaQuery.of(context).size.height;
-    final getcontroller = Get.put(CartController());
+    // final screenwidth = MediaQuery.of(context).size.width;
+    // final screenheight = MediaQuery.of(context).size.height;
+    // final getcontroller = Get.put(CartController());
     // final getpaymentcontroller = Get.put(PaymentController());
 
     return Scaffold(

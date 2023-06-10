@@ -17,8 +17,7 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
 
   ArchitectaddWorkingDeatails({
     super.key,
-    // required this.planingFileNameControllerList,
-    // required this.planingFilePriceControllerList
+
   });
 
   final getController = Get.put(ArchitectUploadDesignTypeController());

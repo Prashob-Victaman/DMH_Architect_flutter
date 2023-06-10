@@ -2,6 +2,7 @@ import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilewidgets.dart';
+import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/Architect/architerctlogin/architectlogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +29,19 @@ class ArchitectProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                child: Text(
-                  'Profile',
-                  style: bold20,
+                child: Row(
+                  children: [
+                    IconButton(
+                        onPressed: () => Get.to(
+                            Architectbottomnavigationbar(selectedindex: 0)),
+                        icon: Icon(Icons.arrow_back)),
+                    Spacer(),
+                    Text(
+                      'Profile',
+                      style: bold20,
+                    ),width20,width20,
+                    Spacer()
+                  ],
                 ),
               ),
               heigh10,

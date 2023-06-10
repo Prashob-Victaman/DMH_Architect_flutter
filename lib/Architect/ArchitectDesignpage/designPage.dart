@@ -32,7 +32,7 @@ class _ArchitectDesignPageState extends State<ArchitectDesignPage> {
           child: const appbar(),
         ),
         body: ListView(children: [
-          heigh10, 
+          heigh10,
           heigh5,
           Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w),
@@ -79,7 +79,6 @@ class _ArchitectDesignPageState extends State<ArchitectDesignPage> {
                           });
                         })),
               ),
-              
 
               // GestureDetector(
               //   onTap: () => Get.to(() => DrawerScreen()),

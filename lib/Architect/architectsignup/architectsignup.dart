@@ -21,6 +21,8 @@ class ArchitectSignupPage extends StatelessWidget {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
 
+  final controller = Get.put(ArchitectDataController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,13 +178,10 @@ class ArchitectSignupPage extends StatelessWidget {
                   heigh10,
                   GestureDetector(
                     onTap: () {
-                      final controller = Get.put(ArchitectDataController());
-                      controller.setData(namecontroller.text,emailcontroller.text,namecontroller.text);
-
                       print(controller.number);
 
                       _submit(context);
-                      },
+                    },
                     child: Container(
                       height: 50.w,
                       decoration: BoxDecoration(
@@ -243,6 +242,10 @@ class ArchitectSignupPage extends StatelessWidget {
               color: kprimarycolor,
             ));
           });
+
+      controller.setData(
+          namecontroller.text, emailcontroller.text, namecontroller.text);
+
       // TODO: Perform login with _mobile and _password
       getcontroller.SentOtpforsignup(context, mobilecontroller.text.trim(),
           emailcontroller.text.trim(), namecontroller.text);

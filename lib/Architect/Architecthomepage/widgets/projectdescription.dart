@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/model/floorDetailsfromjson.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -20,6 +21,8 @@ class HomepageProjectDescription extends StatelessWidget {
     String cdate = DateFormat("dd - MMM - yyyy").format(dateTime);
 
     final screenwidth = MediaQuery.of(context).size.width;
+
+    var designDataList = DesignData[index]['floordetails'];
 
     return Container(
       child: Column(
@@ -114,176 +117,87 @@ class HomepageProjectDescription extends StatelessWidget {
             title: 'Posted Date',
           ),
           heigh10,
-          // Text(
-          //   'Floor Description',
-          //   style: TextStyle(
-          //     decoration: TextDecoration.underline,
-          //     fontSize: 17.sp,
-          //     fontWeight: FontWeight.bold,
-          //     color: kprimarycolor,
-          //   ),
-          // ),
-          // heigh10,
-          // Container(
-          //   decoration: BoxDecoration(),
-          //   child: Column(
-          //     children: [
-          //       Container(
-          //         padding: EdgeInsets.symmetric(horizontal: 10.w),
-          //         alignment: Alignment.centerLeft,
-          //         height: 40.w,
-          //         width: screenwidth - 20,
-          //         decoration: BoxDecoration(
-          //             color:
-          //                 Color.fromARGB(255, 253, 173, 176).withOpacity(0.5),
-          //             borderRadius: BorderRadius.only(
-          //                 topLeft: Radius.circular(10.w),
-          //                 topRight: Radius.circular(10.w))),
-          //         child: Text(
-          //           'First Floor',
-          //           style: TextStyle(
-          //               fontSize: 17.w,
-          //               fontWeight: FontWeight.bold,
-          //               color: kprimarycolor),
-          //         ),
-          //       ),
-          //       Container(
-          //         padding: EdgeInsets.all(10.w),
-          //         decoration: BoxDecoration(
-          //             borderRadius:
-          //                 BorderRadius.vertical(bottom: Radius.circular(10.w)),
-          //             color:
-          //                 Color.fromARGB(255, 253, 173, 176).withOpacity(0.2)),
-          //         child: Column(
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 Container(
-          //                   height: 15.w,
-          //                   width: 15.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(15.w),
-          //                       border: Border.all(color: kprimarycolor)),
-          //                 ),
-          //                 width10,
-          //                 Text('2 BHK Flat', style: normal16)
-          //               ],
-          //             ),
-          //             heigh10,
-          //             Row(
-          //               children: [
-          //                 Container(
-          //                   height: 15.w,
-          //                   width: 15.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(15.w),
-          //                       border: Border.all(color: kprimarycolor)),
-          //                 ),
-          //                 width10,
-          //                 Text('3 BHK Flat', style: normal16)
-          //               ],
-          //             ),
-          //             heigh10,
-          //             Row(
-          //               children: [
-          //                 Container(
-          //                   height: 15.w,
-          //                   width: 15.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(15.w),
-          //                       border: Border.all(color: kprimarycolor)),
-          //                 ),
-          //                 width10,
-          //                 Text('1 Stairs', style: normal16)
-          //               ],
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //       heigh20
-          //     ],
-          //   ),
-          // ),
-          // Container(
-          //   decoration: BoxDecoration(),
-          //   child: Column(
-          //     children: [
-          //       Container(
-          //         padding: EdgeInsets.symmetric(horizontal: 10.w),
-          //         alignment: Alignment.centerLeft,
-          //         height: 40.w,
-          //         width: screenwidth - 20,
-          //         decoration: BoxDecoration(
-          //             color:
-          //                 Color.fromARGB(255, 253, 173, 176).withOpacity(0.5),
-          //             borderRadius: BorderRadius.only(
-          //                 topLeft: Radius.circular(10.w),
-          //                 topRight: Radius.circular(10.w))),
-          //         child: Text(
-          //           'First Floor',
-          //           style: TextStyle(
-          //               fontSize: 17.w,
-          //               fontWeight: FontWeight.bold,
-          //               color: kprimarycolor),
-          //         ),
-          //       ),
-          //       Container(
-          //         padding: EdgeInsets.all(10.w),
-          //         decoration: BoxDecoration(
-          //             borderRadius:
-          //                 BorderRadius.vertical(bottom: Radius.circular(10.w)),
-          //             color:
-          //                 Color.fromARGB(255, 253, 173, 176).withOpacity(0.2)),
-          //         child: Column(
-          //           children: [
-          //             Row(
-          //               children: [
-          //                 Container(
-          //                   height: 15.w,
-          //                   width: 15.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(15.w),
-          //                       border: Border.all(color: kprimarycolor)),
-          //                 ),
-          //                 width10,
-          //                 Text('2 BHK Flat', style: normal16)
-          //               ],
-          //             ),
-          //             heigh10,
-          //             Row(
-          //               children: [
-          //                 Container(
-          //                   height: 15.w,
-          //                   width: 15.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(15.w),
-          //                       border: Border.all(color: kprimarycolor)),
-          //                 ),
-          //                 width10,
-          //                 Text('3 BHK Flat', style: normal16)
-          //               ],
-          //             ),
-          //             heigh10,
-          //             Row(
-          //               children: [
-          //                 Container(
-          //                   height: 15.w,
-          //                   width: 15.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(15.w),
-          //                       border: Border.all(color: kprimarycolor)),
-          //                 ),
-          //                 width10,
-          //                 Text('1 Stairs', style: normal16)
-          //               ],
-          //             )
-          //           ],
-          //         ),
-          //       ),
-          //       heigh20
-          //     ],
-          //   ),
-          // )
+          ListView.separated(
+              shrinkWrap: true,
+              physics: const ScrollPhysics(),
+              itemBuilder: (context, index) {
+                var designDatfrommap =
+                    FloorDeatails.fromJson(designDataList[index]);
+
+                // print(designDatfrommap.floor);
+                return Container(
+                  decoration: const BoxDecoration(),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        alignment: Alignment.centerLeft,
+                        height: 40.w,
+                        width: screenwidth - 20,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 253, 173, 176)
+                                .withOpacity(0.5),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10.w),
+                                topRight: Radius.circular(10.w))),
+                        child: Text(
+                          '${designDatfrommap.datazero![0]}',
+                          style: TextStyle(
+                              fontSize: 17.w,
+                              fontWeight: FontWeight.bold,
+                              color: kprimarycolor),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10.w),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.vertical(
+                                bottom: Radius.circular(10.w)),
+                            color: const Color.fromARGB(255, 253, 173, 176)
+                                .withOpacity(0.2)),
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 15.w,
+                                        width: 15.w,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15.w),
+                                            border: Border.all(
+                                                color: kprimarycolor)),
+                                      ),
+                                      width10,
+                                      Text(
+                                          '${designDatfrommap.dataone![index]} - ${designDatfrommap.datatwo![index]}',
+                                          style: normal16)
+                                    ],
+                                  ),
+                                  heigh10,
+                                ],
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return SizedBox(
+                                height: 10.w,
+                              );
+                            },
+                            itemCount: designDatfrommap.dataone!.length),
+                      ),
+                      heigh20
+                    ],
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox();
+              },
+              itemCount: designDataList.length),
         ],
       ),
     );

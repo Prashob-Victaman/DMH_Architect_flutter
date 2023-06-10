@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/architectProfile.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/architectprofilepage.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/ArchitectIndividualMyDesign.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class ArchitectMyDesign extends StatelessWidget {
             Row(
               children: [
                 GestureDetector(
-                  onTap: () => Get.back(),
+                  onTap: () => Get.to(ArchitectProfilePage()),
                   child: Icon(
                     Icons.arrow_back,
                     size: 20.sp,

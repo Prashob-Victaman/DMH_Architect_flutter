@@ -31,6 +31,8 @@ class ArchitectSignupOtpscreen extends StatefulWidget {
   @override
   State<ArchitectSignupOtpscreen> createState() =>
       _ArchitectSignupOtpscreenState();
+
+  final getcontroller = Get.put(ArchitectSignupController());
 }
 
 class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
@@ -148,8 +150,9 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                         GestureDetector(
                           onTap: () {
                             if (_remainingTime == 0) {
-                              SigninController()
-                                  .signinAndSentOtp(context, widget.number);
+                              var signinAndSentOtp =
+                                  getcontroller.SentOtpforsignup(context,
+                                      widget.number, widget.email, widget.name);
                               _remainingTime = 90;
                               _startTimer();
                             } else {

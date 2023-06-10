@@ -117,10 +117,8 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                               value: IdProof,
                               underline: const SizedBox(),
                               // Down Arrow Icon
-                              icon: Padding(
-                                padding: EdgeInsets.only(left: 120.w),
-                                child: Icon(Icons.keyboard_arrow_down),
-                              ),
+                              isExpanded: true,
+                              icon: Icon(Icons.keyboard_arrow_down),
                               // Array list of items
                               items: Idworkitems.map((String items) {
                                 return DropdownMenuItem(
@@ -188,11 +186,12 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                                 ),
                               ),
                             ),
+
                             Container(
                               padding: EdgeInsets.only(top: 3.w),
                               height: 40.w,
                               alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width * 0.32,
+                              width: MediaQuery.of(context).size.width * 0.36,
 
                               // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
                               decoration: BoxDecoration(

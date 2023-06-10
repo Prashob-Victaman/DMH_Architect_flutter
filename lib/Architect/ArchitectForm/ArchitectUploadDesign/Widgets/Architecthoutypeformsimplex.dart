@@ -538,7 +538,7 @@ class submitContainer extends StatelessWidget {
                                       getxcontroller.clearingfields();
 
                                       // getxcontroller
-                                      //     .exteriorisLoading[index] = false;pru
+                                      //     .exteriorisLoading[index] = false;
 
                                       print(
                                           getxcontroller.exteriorimgurlList[1]);

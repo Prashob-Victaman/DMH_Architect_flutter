@@ -103,7 +103,15 @@ class ProjectDescription extends StatelessWidget {
           //   subtitle: '${cdate}',
           //   title: 'Estimate Time',
           // ),
-
+          Text(
+            'Floor Details',
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              fontSize: 17.sp,
+              fontWeight: FontWeight.bold,
+              color: kprimarycolor,
+            ),
+          ),
           heigh10,
           ListView.separated(
               shrinkWrap: true,

@@ -17,11 +17,19 @@ import '../../Constants/constants.dart';
 import '../ArchitectDrawer/ArchitectDrawerscreen.dart';
 import '../widgets/appbar.dart';
 
-class ArchitecthomePage extends StatelessWidget {
+class ArchitecthomePage extends StatefulWidget {
   ArchitecthomePage({super.key});
 
+  @override
+  State<ArchitecthomePage> createState() => _ArchitecthomePageState();
+
+  var location;
+}
+
+class _ArchitecthomePageState extends State<ArchitecthomePage> {
   final getcontroller = Get.put(LocationController());
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +95,8 @@ class ArchitecthomePage extends StatelessWidget {
                         color: kbluecolor,
                       ),
                       Text(
+                        // widget.location,
+
                         '${snapshot.data}',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 14.sp, color: kbluecolor),

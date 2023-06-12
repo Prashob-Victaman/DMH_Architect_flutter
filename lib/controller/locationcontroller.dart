@@ -85,6 +85,7 @@ class LocationController extends GetxController {
 
     String address =
         await getAddress(latitude.toDouble(), longitude.toDouble());
+    refresh();
 
     return address;
   }

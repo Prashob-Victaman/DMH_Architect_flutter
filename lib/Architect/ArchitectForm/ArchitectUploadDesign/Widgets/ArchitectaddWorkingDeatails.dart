@@ -2,6 +2,7 @@
 // import 'package:design_my_house_admin/Controller/UploaddesignController/uploadDesignTypeController.dart';
 import 'dart:io';
 
+import 'package:dmh_architect/controller/ordercontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -15,9 +16,9 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
 
   // List planingFilePriceControllerList;
 
+
   ArchitectaddWorkingDeatails({
     super.key,
-
   });
 
   final getController = Get.put(ArchitectUploadDesignTypeController());

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const kprimarycolor = Color.fromARGB(255, 255, 90, 95);
+const kprimarycolor50 = Color.fromARGB(255, 255, 202, 204);
+
 const kwhitecolor = Colors.white;
 const ksuccesscolor = Color.fromARGB(255, 32, 174, 0);
 

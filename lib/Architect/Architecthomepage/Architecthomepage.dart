@@ -24,6 +24,13 @@ class ArchitecthomePage extends StatefulWidget {
   State<ArchitecthomePage> createState() => _ArchitecthomePageState();
 
   var location;
+
+  // int? totalDesigns = 0;
+  // int? totalOrders = 0;
+  // int? totalpendingOrders;
+  // int? rejectedOrders;
+  // int? totalEarnings;
+  // int? deliveredOrders;
 }
 
 class _ArchitecthomePageState extends State<ArchitecthomePage> {
@@ -32,6 +39,8 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
   @override
   @override
   Widget build(BuildContext context) {
+    final screenwidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       drawer: ArchitectDrawerscreen(),
       appBar: PreferredSize(
@@ -48,13 +57,24 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return const CircularProgressIndicator();
+                  return SizedBox(
+                      height: 10.w,
+                      width: 10.w,
+                      child: CircularProgressIndicator());
                 }
                 if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: SizedBox(
+                          height: 10.w,
+                          width: 10.w,
+                          child: CircularProgressIndicator()));
                 }
 
                 final data = snapshot.data;
+                final totalDesigns = data!['myDesigns'].length;
+
+                final totalOrders = data['orders'].length;
+
                 // print(data!['ProfileDetails']);
 
                 // final Username = data!['ProfileDetails']['firstName'];
@@ -63,48 +83,117 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
 
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                  child: Text(
-                    'Hi ${data!['name']}..! How Have you been',
-                    style: bold13,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hi ${data['name']}..! How Have you been',
+                        style: bold13,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0.0.w),
+                        child: FutureBuilder(
+                            future: getcontroller.fetchLocation(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return Text(
+                                  'Location Loading...',
+                                  style: normal14,
+                                );
+                              }
+                              if (!snapshot.hasData) {
+                                return Text(
+                                  'Location Loading...',
+                                  style: normal14,
+                                );
+                              }
+                              log(snapshot.data!.toString());
+                              return Row(
+                                children: [
+                                  Icon(
+                                    Icons.location_on,
+                                    size: 15.sp,
+                                    color: kbluecolor,
+                                  ),
+                                  Text(
+                                    // widget.location,
+
+                                    '${snapshot.data}',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 14.sp, color: kbluecolor),
+                                  ),
+                                ],
+                              );
+                            }),
+                      ),
+                      Container(
+                        // padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.w),
+                        ),
+                        width: screenwidth,
+                        // height: 280.w,
+                        child: Column(
+                          children: [
+                            // heigh10,
+                            // Container(
+                            //   width: screenwidth - 20.w,
+                            //   height: 50.w,
+                            //   decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(5.w),
+                            //       color: kprimarycolor),
+                            // ),
+                            heigh10,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DashboardWidget(
+                                    screenwidth: screenwidth,
+                                    title: 'Total Designs',
+                                    subtitle: totalDesigns.toString()),
+                                DashboardWidget(
+                                    screenwidth: screenwidth,
+                                    title: 'Total Orders',
+                                    subtitle: totalOrders.toString()),
+                              ],
+                            ),
+                            heigh10,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DashboardWidget(
+                                    screenwidth: screenwidth,
+                                    title: 'Pending Orders',
+                                    subtitle: '10'),
+                                DashboardWidget(
+                                    screenwidth: screenwidth,
+                                    title: 'Rejected Orders',
+                                    subtitle: '10'),
+                              ],
+                            ),
+                            heigh10,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DashboardWidget(
+                                    screenwidth: screenwidth,
+                                    title: 'Total Earnings',
+                                    subtitle: '10'),
+                                DashboardWidget(
+                                    screenwidth: screenwidth,
+                                    title: 'Delivered Orders',
+                                    subtitle: '10'),
+                              ],
+                            ),
+                            heigh10
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-            child: FutureBuilder(
-                future: getcontroller.fetchLocation(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Text(
-                      'Location Loading...',
-                      style: normal14,
-                    );
-                  }
-                  if (!snapshot.hasData) {
-                    return Text(
-                      'Location Loading...',
-                      style: normal14,
-                    );
-                  }
-                  log(snapshot.data!.toString());
-                  return Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        size: 15.sp,
-                        color: kbluecolor,
-                      ),
-                      Text(
-                        // widget.location,
-
-                        '${snapshot.data}',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14.sp, color: kbluecolor),
-                      ),
-                    ],
-                  );
-                }),
-          ),
           heigh10,
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0.w),
@@ -201,6 +290,44 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class DashboardWidget extends StatelessWidget {
+  String title;
+  String subtitle;
+  DashboardWidget({
+    super.key,
+    required this.screenwidth,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final double screenwidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10.w),
+      width: screenwidth / 2 - 15.w,
+      height: 60.w,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5), color: kashcolor),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: normal18,
+          ),
+          Text(
+            subtitle,
+            style: bold22,
+          )
         ],
       ),
     );

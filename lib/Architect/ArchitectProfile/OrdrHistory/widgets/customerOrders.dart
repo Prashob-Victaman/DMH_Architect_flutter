@@ -7,7 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class CustomerOrders extends StatelessWidget {
-  const CustomerOrders({super.key});
+  CustomerOrders({super.key});
+
+  List isaAproved = [true, false, true, false];
+  List isaCompleted = [true, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -119,21 +122,45 @@ class CustomerOrders extends StatelessWidget {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      
+                                      isaAproved[index] == false
+                                          ? orderConfirmationPopup(
+                                              context, 'title')
+                                          : SizedBox();
                                     },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          'Pending',
-                                          style: bold16,
-                                        ),
+                                        isaCompleted[index] == true
+                                            ? Text('Completed',
+                                                style: TextStyle(
+                                                    fontSize: 17.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: ksuccesscolor))
+                                            : isaAproved[index] == true
+                                                ? Text(
+                                                    'Processing',
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kredcolor),
+                                                  )
+                                                : Text(
+                                                    'Pending',
+                                                    style: TextStyle(
+                                                        fontSize: 17.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kyellowcolor),
+                                                  ),
                                         width5,
-                                        Icon(
-                                          Icons.info,
-                                          size: 15.sp,
-                                        )
+                                        isaAproved[index] == false
+                                            ? Icon(
+                                                Icons.info,
+                                                size: 18.sp,
+                                              )
+                                            : SizedBox()
                                       ],
                                     ),
                                   ),
@@ -232,9 +259,149 @@ class CustomerOrders extends StatelessWidget {
                   height: 10.w,
                 );
               },
-              itemCount: 4),
+              itemCount: isaAproved.length),
         ],
       ),
+    );
+  }
+
+  Future<void> cofirmationPopup(BuildContext context, String title) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titlePadding: EdgeInsets.all(0.w),
+          title: Container(
+            height: 114.w,
+            width: 282.w,
+            child: Column(
+              children: [
+                Container(
+                    alignment: Alignment.center,
+                    height: 84.w,
+                    child: Text(
+                      'Are you sure you want to ${title}?',
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          color: kblackcolor,
+                          fontWeight: FontWeight.bold),
+                    )),
+                Spacer(),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // await FirebaseFirestore.instance
+                        //     .collection("order")
+                        //     .doc(orderId)
+                        //     .update({field: value});
+
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 30.w,
+                        width: 141.w,
+                        decoration: BoxDecoration(color: kprimarycolor),
+                        child: Center(
+                            child: Text(
+                          'Yes',
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                        )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        height: 30.w,
+                        width: 141.w,
+                        decoration: BoxDecoration(
+                            color: kwhitecolor,
+                            border: Border.all(color: kprimarycolor)),
+                        child: Center(
+                            child: Text(
+                          'Cancel',
+                          style:
+                              TextStyle(fontSize: 14.sp, color: kprimarycolor),
+                        )),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> orderConfirmationPopup(BuildContext context, String title) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titlePadding: EdgeInsets.all(0.w),
+          title: Container(
+            height: 114.w,
+            width: 320.w,
+            child: Column(
+              children: [
+                Container(
+                    alignment: Alignment.center,
+                    height: 84.w,
+                    child: Text(
+                      'Are you sure you want to accept this order?',
+                      style: TextStyle(
+                          fontSize: 15.sp,
+                          color: kblackcolor,
+                          fontWeight: FontWeight.bold),
+                    )),
+                Spacer(),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // await FirebaseFirestore.instance
+                        //     .collection("order")
+                        //     .doc(orderId)
+                        //     .update({field: value});
+
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 30.w,
+                        width: 152.w,
+                        decoration: BoxDecoration(color: kprimarycolor),
+                        child: Center(
+                            child: Text(
+                          'Accept',
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                        )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        height: 30.w,
+                        width: 152.5.w,
+                        decoration: BoxDecoration(
+                            color: kwhitecolor,
+                            border: Border.all(color: kprimarycolor)),
+                        child: Center(
+                            child: Text(
+                          'Reject',
+                          style:
+                              TextStyle(fontSize: 14.sp, color: kprimarycolor),
+                        )),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,11 +1,11 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/OrderDetails.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/RequestWidget.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/ServicesSelected.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/Constants/constants.dart';
+import 'package:dmh_architect/model/orderDataModel.dart';
+import 'package:dmh_architect/model/orderModel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,12 +15,15 @@ class OrderHistoryUser extends StatelessWidget {
   String orderId;
   var dateTime;
   String architectName;
+  String orderUid;
   List imageUrlList;
   OrderHistoryUser(
       {super.key,
       required this.dateTime,
       required this.orderId,
-      required this.imageUrlList, required this.architectName});
+      required this.imageUrlList,
+      required this.architectName,
+      required this.orderUid});
 
   List serviceTitle = [
     'Floor Plan',
@@ -45,7 +48,6 @@ class OrderHistoryUser extends StatelessWidget {
     "Water Flow, Out Flow, Drainage,Sewerage Pipe Lines, Septic etc.",
     "Video Walkthrough is a short 1-2 minutes featured video clip, which enables us to get a tour of whole designed architecture in an effective way. Walkthrough covers all intricate detailing of the designs and present it in 3D.",
   ];
-  
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +77,8 @@ class OrderHistoryUser extends StatelessWidget {
               width: screenWidth,
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
-                      .collection("order")
-                      .doc(orderId)
+                      .collection("orderData")
+                      .doc(orderUid)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
@@ -87,7 +89,18 @@ class OrderHistoryUser extends StatelessWidget {
                     }
                     // final DesignList = snapshot.data!['myDesigns'];
 
-                    // final data = OrderModel.fromJson(snapshot.data!);
+                    final data = OrderDataModel.fromJson(snapshot.data!);
+
+                    final numberOfFloors =
+                        data.averageAreaDimension['noOfFloors'];
+
+                    final numberOffloorsText = numberOfFloors == 1
+                        ? 'Ground'
+                        : numberOfFloors == 2
+                            ? 'Two'
+                            : numberOfFloors == 3
+                                ? 'Three'
+                                : 'Four';
 
                     return Column(
                       children: [
@@ -105,7 +118,10 @@ class OrderHistoryUser extends StatelessWidget {
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Architect - ${architectName}', style: bold15,),
+                                    Text(
+                                      'Architect - ${architectName}',
+                                      style: bold15,
+                                    ),
                                     Text(
                                       orderId,
                                       style: bold15,
@@ -163,14 +179,14 @@ class OrderHistoryUser extends StatelessWidget {
                           children: [
                             width10,
                             Text(
-                              'Design this type :',
+                              'Design this type : ',
                               style: TextStyle(
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
                                   color: kprimarycolor),
                             ),
                             Text(
-                              ' Simplex',
+                              data.houseType,
                               style: TextStyle(
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.bold,
@@ -180,6 +196,7 @@ class OrderHistoryUser extends StatelessWidget {
                         ),
                         heigh10,
                         OrderDetails(
+                            orderData: data,
                             screenWidth: screenWidth,
                             imageUrlList: imageUrlList),
                         heigh10,
@@ -192,7 +209,7 @@ class OrderHistoryUser extends StatelessWidget {
                                   fontSize: 16.sp, color: kprimarycolor),
                             ),
                             Text(
-                              'Width : 25ft. , Length : 60ft.',
+                              ', Length :  ${data.averageAreaDimension['averageLength']} ft. ,Width : ${data.averageAreaDimension['averageWidth']} ft. ',
                               style: TextStyle(
                                   fontSize: 16.sp, color: kblackcolor),
                             ),
@@ -202,7 +219,7 @@ class OrderHistoryUser extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Floor : Ground Floor only,   Total Area : 1500sqft.',
+                              'Floor :   ${numberOffloorsText} Floor only,  Total Area : ${data.averageAreaDimension['averageArea']} sqft.',
                               style: TextStyle(
                                   fontSize: 14.sp, color: kblackcolor),
                             ),
@@ -218,6 +235,7 @@ class OrderHistoryUser extends StatelessWidget {
                         ),
                         heigh5,
                         ServicesSelected(
+                            selectedServices: data.servicesSelectedModel,
                             serviceTitle: serviceTitle,
                             aboutService: aboutService),
                         heigh10,

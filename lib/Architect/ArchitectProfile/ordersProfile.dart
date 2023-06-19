@@ -60,6 +60,8 @@ class ordersProfile extends StatelessWidget {
                                     currentTime.difference(dateTime);
                                 return GestureDetector(
                                   onTap: () => Get.to(() => OrderHistoryUser(
+                                            orderUid: designList[index]
+                                                ['orderUId'],
                                             architectName: designList[index]
                                                 ['architectName'],
                                             imageUrlList: image,

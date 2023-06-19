@@ -1,12 +1,17 @@
 import 'package:dmh_architect/Constants/constants.dart';
+import 'package:dmh_architect/model/orderDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrderDetails extends StatelessWidget {
   List imageUrlList;
+  OrderDataModel orderData;
 
   OrderDetails(
-      {super.key, required this.screenWidth, required this.imageUrlList});
+      {super.key,
+      required this.screenWidth,
+      required this.imageUrlList,
+      required this.orderData});
 
   final double screenWidth;
 
@@ -51,16 +56,16 @@ class OrderDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              ' Modern/',
+                              '${orderData.designType} ',
                               style:
                                   TextStyle(fontSize: 12.sp, color: kredcolor),
                             ),
-                            Text(
-                              'Residential House',
-                              overflow: TextOverflow.ellipsis,
-                              style:
-                                  TextStyle(fontSize: 12.sp, color: kbluecolor),
-                            )
+                            // Text(
+                            //   'Residential House',
+                            //   overflow: TextOverflow.ellipsis,
+                            //   style:
+                            //       TextStyle(fontSize: 12.sp, color: kbluecolor),
+                            // )
                           ],
                         ),
                       ),
@@ -92,9 +97,12 @@ class OrderDetails extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text('20ft. x 50FT. = 1000ft ', style: normal15),
+                        Text(
+                            '${orderData.houseArea['length']} ft. x ${orderData.houseArea['width']} ft. = ${orderData.houseArea['area']} Sqft.',
+                            style: normal15),
                         Spacer(),
-                        Text(' Facing House', style: normal15)
+                        Text(' ${orderData.houseFacing} Facing House',
+                            style: normal15)
                       ],
                     ),
                   ]),

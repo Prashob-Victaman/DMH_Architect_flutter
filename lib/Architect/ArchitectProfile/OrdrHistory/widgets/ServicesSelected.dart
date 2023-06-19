@@ -6,23 +6,25 @@ import 'package:get/get.dart';
 class ServicesSelected extends StatelessWidget {
   List serviceTitle;
   List aboutService;
+  List selectedServices;
 
   ServicesSelected({
     required this.serviceTitle,
     required this.aboutService,
+    required this.selectedServices,
     super.key,
   });
-  final List selectedServices = [
-    true,
-    true,
-    true,
-    false,
-    true,
-    false,
-    false,
-    true,
-    true
-  ];
+  // final List selectedServices = [
+  //   true,
+  //   true,
+  //   true,
+  //   false,
+  //   true,
+  //   false,
+  //   false,
+  //   true,
+  //   true
+  // ];
 
   @override
   Widget build(BuildContext context) {

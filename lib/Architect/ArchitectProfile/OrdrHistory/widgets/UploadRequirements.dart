@@ -26,7 +26,7 @@ class UploadRequirements extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () => Get.to(CustomerOrders()),
+              // onTap: () => Get.to(CustomerOrders()),
               child: Container(
                 alignment: Alignment.center,
                 width: screenWidth,

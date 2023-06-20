@@ -6,25 +6,14 @@ import 'package:get/get.dart';
 class ServicesSelected extends StatelessWidget {
   List serviceTitle;
   List aboutService;
-  List selectedServices;
+  List selectedServicesList;
 
   ServicesSelected({
     required this.serviceTitle,
     required this.aboutService,
-    required this.selectedServices,
+    required this.selectedServicesList,
     super.key,
   });
-  // final List selectedServices = [
-  //   true,
-  //   true,
-  //   true,
-  //   false,
-  //   true,
-  //   false,
-  //   false,
-  //   true,
-  //   true
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +22,7 @@ class ServicesSelected extends StatelessWidget {
       child: GridView.count(
         physics: const ScrollPhysics(),
         shrinkWrap: true,
-        childAspectRatio: 1.25,
+        childAspectRatio: 1.45.w,
         crossAxisCount: 3,
         crossAxisSpacing: 10.w,
         mainAxisSpacing: 10.w,
@@ -41,12 +30,12 @@ class ServicesSelected extends StatelessWidget {
           return GestureDetector(
             child: Container(
               // padding: EdgeInsets.all(3.w),
-              height: 75.w,
+              height: 55.w,
               // width: 115.w,
               decoration: BoxDecoration(
-                color: kashcolor,
-                borderRadius: BorderRadius.circular(5.w),
-              ),
+                  color: kashcolor,
+                  borderRadius: BorderRadius.circular(5.w),
+                  border: Border.all(width: 0.3.w)),
               child: Column(
                 children: [
                   Padding(
@@ -59,7 +48,8 @@ class ServicesSelected extends StatelessWidget {
                           child: Text(
                             serviceTitle[index],
                             maxLines: 2,
-                            style: selectedServices[index] == true
+                            style: selectedServicesList[index]['isSelected'] ==
+                                    true
                                 ? bold15
                                 : TextStyle(
                                     fontSize: 15,
@@ -139,44 +129,50 @@ class ServicesSelected extends StatelessWidget {
                   ),
                   Spacer(),
 
-                  selectedServices[index] == true
-                      ? Text(
-                          'Completed',
-                          style: TextStyle(
-                              color: ksuccesscolor,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
-                        )
-                      : Text(
-                          'Not Selected',
-                          style: TextStyle(
-                              color: kredcolor.withOpacity(0.3),
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.bold),
-                        ),
-                  // Spacer(),H
+                  // selectedServices[index] == true
+                  //     ? Text(
+                  //         'Completed',
+                  //         style: TextStyle(
+                  //             color: ksuccesscolor,
+                  //             fontSize: 16.sp,
+                  //             fontWeight: FontWeight.bold),
+                  //       )
+                  //     : Text(
+                  //         'Not Selected',
+                  //         style: TextStyle(
+                  //             color: kredcolor.withOpacity(0.3),
+                  //             fontSize: 16.sp,
+                  //             fontWeight: FontWeight.bold),
+                  //       ),
+                  // // Spacer(),H
                   heigh5,
                   Container(
-                    height: 20,
+                    height: 25,
                     decoration: BoxDecoration(
-                      color: selectedServices[index] == true
-                          ? kprimarycolor
-                          : kprimarycolor50,
+                      color: selectedServicesList[index]['isSelected'] == true
+                          ? kwhitecolor
+                          : kwhitecolor,
                       borderRadius:
                           BorderRadius.vertical(bottom: Radius.circular(5.w)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'Download',
-                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
-                        ),
-                        Icon(
-                          Icons.download,
-                          size: 18.w,
-                          color: kwhitecolor,
-                        ),
+                        selectedServicesList[index]['isSelected'] == true
+                            ? Text(
+                                'Completed',
+                                style: TextStyle(
+                                    color: ksuccesscolor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            : Text(
+                                'Not Selected',
+                                style: TextStyle(
+                                    color: kashcolor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.bold),
+                              ),
                       ],
                     ),
                   )

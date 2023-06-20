@@ -14,12 +14,12 @@ class individualOrderUser extends StatelessWidget {
           children: [
             Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 Text(
                   'Order Status',
                   style: bold18,
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
             Padding(

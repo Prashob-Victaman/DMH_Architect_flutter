@@ -3,12 +3,15 @@ import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/Ord
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/RequestWidget.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/ServicesSelected.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/customerOrders.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/selectedOrderDetails.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
 import 'package:dmh_architect/model/orderModel.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class OrderHistoryUser extends StatelessWidget {
@@ -226,16 +229,54 @@ class OrderHistoryUser extends StatelessWidget {
                           ],
                         ),
                         heigh10,
-                        Text(
-                          'Services Selected',
-                          style: TextStyle(
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.bold,
-                              color: kprimarycolor),
+                        Padding(
+                          padding: EdgeInsets.all(10.0.w),
+                          child: Row(
+                            children: [
+                              Text(
+                                'Services Selected',
+                                style: TextStyle(
+                                    fontSize: 17.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: kprimarycolor),
+                              ),
+                              const Spacer(),
+                              SizedBox(
+                                width: 110.w,
+                                height: 30.w,
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                kprimarycolor)),
+                                    onPressed: () {
+                                      Get.to(CustomerOrders(
+                                        orderData: data,
+                                        selectedServicesList:
+                                            data.servicesSelectedModel,
+                                      ));
+                                    },
+                                    child: Container(
+                                      // width: 100.w,
+                                      // height: 40.w,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.w)),
+                                      child: Text(
+                                        'Order Details',
+                                        style: TextStyle(
+                                          fontSize: 13.sp,
+                                          color: kwhitecolor,
+                                        ),
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ),
                         ),
                         heigh5,
                         ServicesSelected(
-                            selectedServices: data.servicesSelectedModel,
+                            selectedServicesList: data.servicesSelectedModel,
                             serviceTitle: serviceTitle,
                             aboutService: aboutService),
                         heigh10,

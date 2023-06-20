@@ -52,13 +52,13 @@ class ProjectDescription extends StatelessWidget {
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: '${DesignData.houseArea['length']} st',
+            subtitle: '${DesignData.houseArea['length']} sq',
             title: 'House Length(Depth)',
           ),
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: '${DesignData.houseArea['width']} st',
+            subtitle: '${DesignData.houseArea['width']} sq',
             title: 'House Width(Front)',
           ),
           heigh5,

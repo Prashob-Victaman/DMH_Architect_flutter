@@ -158,21 +158,71 @@ class ServicesSelected extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        selectedServicesList[index]['isSelected'] == true
+                        selectedServicesList[index]['isSelected'] == false
                             ? Text(
-                                'Completed',
-                                style: TextStyle(
-                                    color: ksuccesscolor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            : Text(
                                 'Not Selected',
                                 style: TextStyle(
-                                    color: kashcolor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: kgreycolor),
+                              )
+                            : selectedServicesList[index]['isRejected'] == true
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Rejected',
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: kredcolor),
+                                      ),
+                                      width5,
+                                      Icon(
+                                        Icons.error,
+                                        color: kredcolor,
+                                        size: 20.w,
+                                      )
+                                    ],
+                                  )
+                                : selectedServicesList[index]['isCompleted'] ==
+                                        true
+                                    ? Text('Completed',
+                                        style: TextStyle(
+                                            fontSize: 15.sp,
+                                            fontWeight: FontWeight.bold,
+                                            color: ksuccesscolor))
+                                    : selectedServicesList[index]['isPaid'] ==
+                                            true
+                                        ? Text(
+                                            'Processing',
+                                            style: TextStyle(
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.orange),
+                                          )
+                                        : selectedServicesList[index]
+                                                    ['isAproved'] ==
+                                                true
+                                            ? Text(
+                                                'Not paid',
+                                                style: TextStyle(
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kyellowcolor),
+                                              )
+                                            : selectedServicesList[index]
+                                                        ['isAproved'] ==
+                                                    false
+                                                ? Text(
+                                                    'Not Accepted',
+                                                    style: TextStyle(
+                                                        fontSize: 15.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: kyellowcolor),
+                                                  )
+                                                : SizedBox(),
                       ],
                     ),
                   )

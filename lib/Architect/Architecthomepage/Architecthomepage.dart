@@ -60,14 +60,14 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                   return SizedBox(
                       height: 10.w,
                       width: 10.w,
-                      child: CircularProgressIndicator());
+                      child: const CircularProgressIndicator());
                 }
                 if (!snapshot.hasData) {
                   return Center(
                       child: SizedBox(
                           height: 10.w,
                           width: 10.w,
-                          child: CircularProgressIndicator()));
+                          child: const CircularProgressIndicator()));
                 }
 
                 final data = snapshot.data;
@@ -269,7 +269,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                     barrierDismissible: true,
                     context: context,
                     builder: (context) {
-                      return Center(child: const CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     });
 
                 Share.share(

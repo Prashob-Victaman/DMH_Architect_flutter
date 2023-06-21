@@ -1,8 +1,6 @@
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/customerOrders.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class UploadRequirements extends StatelessWidget {
   UploadRequirements({
@@ -35,7 +33,7 @@ class UploadRequirements extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5.w),
                     color: kgreycolor),
                 child: Text(
-                  'Upload Requirements',
+                  'View Requirements',
                   style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
@@ -49,13 +47,6 @@ class UploadRequirements extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    height: 70.w,
-                    width: 60.w,
-                    color: kwhitecolor,
-                    child: IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-                  ),
-                  width5,
-                  Container(
                     height: 90.w,
                     width: 275.w,
                     child: ListView.separated(
@@ -64,38 +55,14 @@ class UploadRequirements extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return Container(
                             padding: EdgeInsets.only(left: 10.w),
-                            color: kashcolor,
-                            height: 100.w,
-
-                            // width: screenWidth,w
-                            width: 80.w,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 90.w,
-                                  width: 70.w,
-                                  color: kashcolor,
-                                  child: Container(
-                                    height: 70.w,
-                                    width: 60.w,
-                                    color: kwhitecolor,
-                                  ),
-                                ),
-                                Positioned(
-                                  left: 35.w,
-                                  bottom: 50.w,
-                                  child: IconButton(
-                                      onPressed: () {},
-                                      icon: Icon(Icons.remove_circle)),
-                                )
-                              ],
-                            ),
+                            color: kwhitecolor,
+                            height: 90.w,
+                            width: 70.w,
                           );
                         },
                         separatorBuilder: (context, index) {
                           return SizedBox(
-                            width: 0.w,
+                            width: 10.w,
                           );
                         },
                         itemCount: uploadedData.length),

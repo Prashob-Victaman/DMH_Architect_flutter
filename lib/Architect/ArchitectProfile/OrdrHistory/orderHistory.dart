@@ -4,11 +4,8 @@ import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/Req
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/ServicesSelected.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/customerOrders.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/selectedOrderDetails.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
-import 'package:dmh_architect/model/orderModel.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -212,7 +209,7 @@ class OrderHistoryUser extends StatelessWidget {
                                   fontSize: 16.sp, color: kprimarycolor),
                             ),
                             Text(
-                              ', Length :  ${data.averageAreaDimension['averageLength']} ft. ,Width : ${data.averageAreaDimension['averageWidth']} ft. ',
+                              ' Length :  ${data.averageAreaDimension['averageLength']} ft. ,Width : ${data.averageAreaDimension['averageWidth']} ft. ',
                               style: TextStyle(
                                   fontSize: 16.sp, color: kblackcolor),
                             ),
@@ -250,11 +247,12 @@ class OrderHistoryUser extends StatelessWidget {
                                             MaterialStateProperty.all(
                                                 kprimarycolor)),
                                     onPressed: () {
-                                      Get.to(CustomerOrders(
-                                        orderData: data,
-                                        selectedServicesList:
-                                            data.servicesSelectedModel,
-                                      ));
+                                      Get.to(() => CustomerOrders(
+                                            orderUid: orderUid,
+                                            orderData: data,
+                                            // selectedServicesList:
+                                            //     data.servicesSelectedModel,
+                                          ));
                                     },
                                     child: Container(
                                       // width: 100.w,

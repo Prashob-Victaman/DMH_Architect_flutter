@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class OrderController extends GetxController {
@@ -13,9 +14,15 @@ class OrderController extends GetxController {
   // List<FilePickerResult?> flooplan =
   //     List<FilePickerResult?>.filled(1, null);
 
-  FilePickerResult? flooplan = null;
+  // FilePickerResult? flooplan = null;
 
-  String? floorplanUrl = null;
+  // String? floorplanUrl = null;
+
+  // List floorplanUrl =[null, null, null];
+
+  List<FilePickerResult?> flooplan = List.filled(9, null);
+
+  List<String?> floorplanUrl = List.filled(9, null);
 
   // List<String?> floorplanUrl = List<String?>.filled(6, null);
 
@@ -37,10 +44,10 @@ class OrderController extends GetxController {
 
   chooseArchitect() {}
 
-  fetchPlanningfile() async {
+  fetchPlanningfile(index) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    flooplan = await FilePicker.platform.pickFiles(
+    flooplan[index] = await FilePicker.platform.pickFiles(
       allowMultiple: false,
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -62,9 +69,9 @@ class OrderController extends GetxController {
     // flooplan = flooplan.files.single.bytes;
 
     try {
-      await referenceImageToUpload.putFile(File(flooplan!.paths[0]!));
+      await referenceImageToUpload.putFile(File(flooplan[index]!.paths[0]!));
 
-      floorplanUrl = await referenceImageToUpload.getDownloadURL();
+      floorplanUrl[index] = await referenceImageToUpload.getDownloadURL();
       print('imageurl $floorplanUrl');
     } catch (e) {
       // log(e.toString());F

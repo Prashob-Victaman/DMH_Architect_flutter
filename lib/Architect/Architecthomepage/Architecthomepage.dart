@@ -74,6 +74,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                 final totalDesigns = data!['myDesigns'].length;
 
                 final totalOrders = data['orders'].length;
+                final totalEarnings = data['totalEarnings'];
 
                 // print(data!['ProfileDetails']);
 
@@ -179,7 +180,8 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                 DashboardWidget(
                                     screenwidth: screenwidth,
                                     title: 'Total Earnings',
-                                    subtitle: '10'),
+                                    subtitle: totalEarnings.toString()
+                                ),
                                 DashboardWidget(
                                     screenwidth: screenwidth,
                                     title: 'Delivered Orders',
@@ -313,9 +315,9 @@ class DashboardWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(left: 10.w),
       width: screenwidth / 2 - 15.w,
-      height: 60.w,
+      height: 65.w,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5), color: kashcolor),
+          borderRadius: BorderRadius.circular(5.w), color: kashcolor),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -23,9 +23,6 @@ class ArchitectAddDesignController extends GetxController {
 
   int planningGridCount = 1;
 
-  // bool isLoading = false;
-
-  // List<bool> isLoading = List<bool>.filled(9, false);
 
   List<bool> exteriorisLoading = List.filled(9, false);
   List<bool> floorisLoading = List.filled(9, false);

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -52,15 +53,18 @@ class ProductCarouselslider extends StatelessWidget {
   Widget buildCarouselItem(String image, String text) {
     return Column(
       children: [
-        Container(
-          height: 180.w,
-          width: double.infinity,
-          margin: EdgeInsets.symmetric(horizontal: 5.0.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.w),
-            image: DecorationImage(
-              image: NetworkImage(image),
-              fit: BoxFit.cover,
+        CachedNetworkImage(
+          imageUrl: image,
+          imageBuilder: (context, imageProvider) => Container(
+            height: 180.w,
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 5.0.w),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.w),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),

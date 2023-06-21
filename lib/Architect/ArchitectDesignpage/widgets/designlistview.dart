@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,15 +63,17 @@ class designlistview extends StatelessWidget {
                           height: 160.w,
                           child: Stack(
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10.w),
-                                      topRight: Radius.circular(10.w)),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          data.exteriorImageList[0])),
+                              CachedNetworkImage(
+                                imageUrl: data.exteriorImageList[0],
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10.w),
+                                        topRight: Radius.circular(10.w)),
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: imageProvider),
+                                  ),
                                 ),
                               ),
                               Row(

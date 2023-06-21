@@ -11,7 +11,7 @@ class ArchitectsignupData {
   int sortId;
   Map serviceRateTypeList;
   Map serviceRateamountList;
-
+  double totalEarnings;
   ArchitectsignupData({
     required this.uid,
     required this.designation,
@@ -25,6 +25,7 @@ class ArchitectsignupData {
     required this.sortId,
     required this.serviceRateTypeList,
     required this.serviceRateamountList,
+    required this.totalEarnings,
   });
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +41,7 @@ class ArchitectsignupData {
         'sortId': sortId,
         'serviceRateTypeList': serviceRateTypeList,
         'serviceRateamountList': serviceRateamountList,
+    'totalEarnings':totalEarnings
       };
 
   factory ArchitectsignupData.fromJson(json) => ArchitectsignupData(
@@ -55,5 +57,6 @@ class ArchitectsignupData {
         sortId: json['sortId'],
         serviceRateTypeList: json['serviceRateTypeList'],
         serviceRateamountList: json['serviceRateamountList'],
+      totalEarnings: json['totalEarnings']
       );
 }

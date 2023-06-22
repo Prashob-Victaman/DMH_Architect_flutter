@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class UploadRequirements extends StatelessWidget {
+  List requiredData;
   UploadRequirements({
     super.key,
     required this.screenWidth,
+    required this.requiredData,
   });
 
   final double screenWidth;
 
-  List uploadedData = ['', ''];
+  // List uploadedData = ['', ''];
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class UploadRequirements extends StatelessWidget {
                 child: Text(
                   'View Requirements',
                   style: TextStyle(
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5,
                       color: kwhitecolor),
@@ -53,11 +55,15 @@ class UploadRequirements extends StatelessWidget {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
+                          print(requiredData.length);
                           return Container(
                             padding: EdgeInsets.only(left: 10.w),
                             color: kwhitecolor,
                             height: 90.w,
                             width: 70.w,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: NetworkImage(requiredData[index]))),
                           );
                         },
                         separatorBuilder: (context, index) {
@@ -65,7 +71,7 @@ class UploadRequirements extends StatelessWidget {
                             width: 10.w,
                           );
                         },
-                        itemCount: uploadedData.length),
+                        itemCount: requiredData.length),
                   ),
                 ],
               ),

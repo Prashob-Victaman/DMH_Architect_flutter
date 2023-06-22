@@ -87,24 +87,28 @@ class ordersProfile extends StatelessWidget {
                                       // color: kgreycolor,
                                     ),
                                     width: screenwidth - 20.w,
-                                    height: 100.w,
+                                    // height: 100.w,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        CachedNetworkImage(
-                                          imageUrl:image[0],
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            height: 90.w,
-                                            width: 100.w,
-                                            decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(5.w),
-                                              image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: imageProvider),
+                                        SizedBox(
+                                          height: 90.w,
+                                          width: 100.w,
+                                          child: CachedNetworkImage(
+                                            imageUrl: image[0],
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              height: 90.w,
+                                              width: 100.w,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(5.w),
+                                                image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: imageProvider),
+                                              ),
                                             ),
                                           ),
                                         ),

@@ -32,7 +32,7 @@ class RequestWidget extends StatelessWidget {
               child: Text(
                 'Request',
                 style: TextStyle(
-                    fontSize: 16.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0.5,
                     color: kwhitecolor),
@@ -48,7 +48,7 @@ class RequestWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.w),
                         color: kwhitecolor),
                     width: (screenWidth / 2) - 25.w,
-                    height: 80.w,
+                    height: 75.w,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -58,7 +58,7 @@ class RequestWidget extends StatelessWidget {
                             Text(
                               'Site Supervision',
                               style: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ),
                             Icon(
                               Icons.info,
@@ -87,7 +87,7 @@ class RequestWidget extends StatelessWidget {
                               Text(
                                 'Vist In Next 8 Days',
                                 style: TextStyle(
-                                    fontSize: 14.sp, color: kwhitecolor),
+                                    fontSize: 12.sp, color: kwhitecolor),
                               ),
                             ],
                           ),
@@ -102,7 +102,7 @@ class RequestWidget extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5.w),
                         color: kwhitecolor),
                     width: (screenWidth / 2) - 25.w,
-                    height: 80.w,
+                    height: 75.w,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -112,7 +112,7 @@ class RequestWidget extends StatelessWidget {
                             Text(
                               'Naksha Layout',
                               style: TextStyle(
-                                  fontSize: 16.sp, fontWeight: FontWeight.bold),
+                                  fontSize: 14.sp, fontWeight: FontWeight.bold),
                             ),
                             Icon(
                               Icons.info,
@@ -141,7 +141,7 @@ class RequestWidget extends StatelessWidget {
                               Text(
                                 'Vist In Next 8 Days',
                                 style: TextStyle(
-                                    fontSize: 14.sp, color: kwhitecolor),
+                                    fontSize: 12.sp, color: kwhitecolor),
                               ),
                             ],
                           ),

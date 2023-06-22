@@ -65,7 +65,7 @@ class CustomerOrders extends StatelessWidget {
                   Text(
                     'Customer Orders',
                     style: TextStyle(
-                        fontSize: 18.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold,
                         color: kprimarycolor),
                     textAlign: TextAlign.center,
@@ -102,7 +102,7 @@ class CustomerOrders extends StatelessWidget {
                                               Text(
                                                 'Order ID: DMH${orderData.orderId}',
                                                 style: TextStyle(
-                                                    fontSize: 15.sp,
+                                                    fontSize: 13.sp,
                                                     fontWeight: FontWeight.bold,
                                                     color: kblackcolor),
                                               ),
@@ -292,7 +292,7 @@ class CustomerOrders extends StatelessWidget {
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
-                                                          fontSize: 14.sp,
+                                                          fontSize: 12.sp,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           color: kprimarycolor),
@@ -320,7 +320,7 @@ class CustomerOrders extends StatelessWidget {
                                                               'Not Selected',
                                                               style: TextStyle(
                                                                   fontSize:
-                                                                      15.sp,
+                                                                      13.sp,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -364,7 +364,7 @@ class CustomerOrders extends StatelessWidget {
                                                                   ? Text(
                                                                       'Completed',
                                                                       style: TextStyle(
-                                                                          fontSize: 15
+                                                                          fontSize: 13
                                                                               .sp,
                                                                           fontWeight: FontWeight
                                                                               .bold,
@@ -383,12 +383,12 @@ class CustomerOrders extends StatelessWidget {
                                                                       : selectedServicesList[index]['isAproved'] == true
                                                                           ? Text(
                                                                               'Not paid',
-                                                                              style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: kyellowcolor),
+                                                                              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: kyellowcolor),
                                                                             )
                                                                           : selectedServicesList[index]['isAproved'] == false
                                                                               ? Text(
                                                                                   'Not Accepted',
-                                                                                  style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold, color: kyellowcolor),
+                                                                                  style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: kyellowcolor),
                                                                                 )
                                                                               : SizedBox(),
                                                     ],
@@ -436,7 +436,7 @@ class CustomerOrders extends StatelessWidget {
                                                     ? Text(
                                                         'Recieved Amount',
                                                         style: TextStyle(
-                                                            fontSize: 16.sp,
+                                                            fontSize: 14.sp,
                                                             color:
                                                                 ksuccesscolor),
                                                         textAlign:
@@ -668,7 +668,7 @@ class CustomerOrders extends StatelessWidget {
                                                                   color:
                                                                       kwhitecolor,
                                                                   fontSize:
-                                                                      14.sp,
+                                                                      12.sp,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
@@ -684,7 +684,7 @@ class CustomerOrders extends StatelessWidget {
                                                                       color:
                                                                           kwhitecolor,
                                                                       fontSize:
-                                                                          14.sp,
+                                                                          12.sp,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold),

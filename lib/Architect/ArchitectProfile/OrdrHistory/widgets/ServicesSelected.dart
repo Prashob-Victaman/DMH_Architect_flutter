@@ -52,7 +52,7 @@ class ServicesSelected extends StatelessWidget {
                                     true
                                 ? bold15
                                 : TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 13,
                                     fontWeight: FontWeight.bold,
                                     color: kgreycolor.withOpacity(0.6)),
                             overflow: TextOverflow.ellipsis,
@@ -162,7 +162,7 @@ class ServicesSelected extends StatelessWidget {
                             ? Text(
                                 'Not Selected',
                                 style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 13.sp,
                                     fontWeight: FontWeight.bold,
                                     color: kgreycolor),
                               )
@@ -173,7 +173,7 @@ class ServicesSelected extends StatelessWidget {
                                       Text(
                                         'Rejected',
                                         style: TextStyle(
-                                            fontSize: 15.sp,
+                                            fontSize: 13.sp,
                                             fontWeight: FontWeight.bold,
                                             color: kredcolor),
                                       ),
@@ -189,7 +189,7 @@ class ServicesSelected extends StatelessWidget {
                                         true
                                     ? Text('Completed',
                                         style: TextStyle(
-                                            fontSize: 15.sp,
+                                            fontSize: 13.sp,
                                             fontWeight: FontWeight.bold,
                                             color: ksuccesscolor))
                                     : selectedServicesList[index]['isPaid'] ==
@@ -197,7 +197,7 @@ class ServicesSelected extends StatelessWidget {
                                         ? Text(
                                             'Processing',
                                             style: TextStyle(
-                                                fontSize: 15.sp,
+                                                fontSize: 13.sp,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.orange),
                                           )
@@ -207,7 +207,7 @@ class ServicesSelected extends StatelessWidget {
                                             ? Text(
                                                 'Not paid',
                                                 style: TextStyle(
-                                                    fontSize: 15.sp,
+                                                    fontSize: 13.sp,
                                                     fontWeight: FontWeight.bold,
                                                     color: kyellowcolor),
                                               )
@@ -217,7 +217,7 @@ class ServicesSelected extends StatelessWidget {
                                                 ? Text(
                                                     'Not Accepted',
                                                     style: TextStyle(
-                                                        fontSize: 15.sp,
+                                                        fontSize: 13.sp,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         color: kyellowcolor),

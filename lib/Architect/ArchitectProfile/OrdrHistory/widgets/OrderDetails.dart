@@ -30,7 +30,7 @@ class OrderDetails extends StatelessWidget {
               height: 160.w,
               child: Stack(
                 children: [
-                  
+
                   CachedNetworkImage(
                     imageUrl: imageUrlList[0],
                     imageBuilder: (context, imageProvider) => Container(
@@ -115,10 +115,10 @@ class OrderDetails extends StatelessWidget {
                       children: [
                         Text(
                             '${orderData.houseArea['length']} ft. x ${orderData.houseArea['width']} ft. = ${orderData.houseArea['area']} Sqft.',
-                            style: normal15),
+                            style: TextStyle(fontSize: 13.sp)),
                         Spacer(),
                         Text(' ${orderData.houseFacing} Facing House',
-                            style: normal15)
+                            style: TextStyle(fontSize: 13.sp))
                       ],
                     ),
                   ]),

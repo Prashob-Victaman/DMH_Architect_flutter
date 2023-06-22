@@ -206,12 +206,12 @@ class OrderHistoryUser extends StatelessWidget {
                             Text(
                               'Average Dimension : ',
                               style: TextStyle(
-                                  fontSize: 16.sp, color: kprimarycolor),
+                                  fontSize: 13.sp, color: kprimarycolor),
                             ),
                             Text(
                               ' Length :  ${data.averageAreaDimension['averageLength']} ft. ,Width : ${data.averageAreaDimension['averageWidth']} ft. ',
                               style: TextStyle(
-                                  fontSize: 16.sp, color: kblackcolor),
+                                  fontSize: 13.sp, color: kblackcolor),
                             ),
                           ],
                         ),
@@ -221,7 +221,7 @@ class OrderHistoryUser extends StatelessWidget {
                             Text(
                               'Floor :   ${numberOffloorsText} Floor only,  Total Area : ${data.averageAreaDimension['averageArea']} sqft.',
                               style: TextStyle(
-                                  fontSize: 14.sp, color: kblackcolor),
+                                  fontSize: 13.sp, color: kblackcolor),
                             ),
                           ],
                         ),
@@ -233,7 +233,7 @@ class OrderHistoryUser extends StatelessWidget {
                               Text(
                                 'Services Selected',
                                 style: TextStyle(
-                                    fontSize: 17.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold,
                                     color: kprimarycolor),
                               ),
@@ -255,15 +255,18 @@ class OrderHistoryUser extends StatelessWidget {
                                           ));
                                     },
                                     child: Container(
+                                      alignment: Alignment.center,
                                       // width: 100.w,
                                       // height: 40.w,
+                                      width: 110.w,
+                                      height: 30.w,
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5.w)),
                                       child: Text(
                                         'Order Details',
                                         style: TextStyle(
-                                          fontSize: 13.sp,
+                                          fontSize: 11.sp,
                                           color: kwhitecolor,
                                         ),
                                       ),
@@ -279,7 +282,10 @@ class OrderHistoryUser extends StatelessWidget {
                             aboutService: aboutService),
                         heigh10,
                         RequestWidget(screenWidth: screenWidth),
-                        UploadRequirements(screenWidth: screenWidth)
+                        UploadRequirements(
+                          screenWidth: screenWidth,
+                          requiredData: data.requirementData,
+                        )
                       ],
                     );
                   }),

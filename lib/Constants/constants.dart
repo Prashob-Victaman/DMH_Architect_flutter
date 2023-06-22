@@ -25,45 +25,45 @@ final width10 = SizedBox(width: 10.w);
 
 final width5 = SizedBox(width: 5.w);
 
-final bold25 = TextStyle(fontSize: 25.sp, fontWeight: FontWeight.bold);
-final bold22 = TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold);
-final bold20 = TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold);
-final bold21 = TextStyle(fontSize: 21.sp, fontWeight: FontWeight.bold);
-final bold19 = TextStyle(fontSize: 19.sp, fontWeight: FontWeight.bold);
+final bold25 = TextStyle(fontSize: 23.sp, fontWeight: FontWeight.bold);
+final bold22 = TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold);
+final bold20 = TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold);
+final bold21 = TextStyle(fontSize: 19.sp, fontWeight: FontWeight.bold);
+final bold19 = TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold);
 
-final bold16 = TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold);
-final bold17 = TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold);
-final bold18 = TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold);
+final bold16 = TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold);
+final bold17 = TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold);
+final bold18 = TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold);
 
 final normal22 = TextStyle(
-  fontSize: 22.sp,
-);
-final normal20 = TextStyle(
   fontSize: 20.sp,
 );
-final normal18 = TextStyle(
+final normal20 = TextStyle(
   fontSize: 18.sp,
 );
+final normal18 = TextStyle(
+  fontSize: 16.sp,
+);
 final normal12 = TextStyle(
-  fontSize: 12.sp,
-);
-final bold13 = TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold);
-final bold15 = TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold);
-
-final bold12 = TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold);
-
-final normal11 = TextStyle(
-  fontSize: 13.sp,
-);
-final normal10 = TextStyle(
   fontSize: 10.sp,
 );
-final normal16 = TextStyle(fontSize: 16.sp);
+final bold13 = TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold);
+final bold15 = TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold);
+
+final bold12 = TextStyle(fontSize: 11.sp, fontWeight: FontWeight.bold);
+
+final normal11 = TextStyle(
+  fontSize: 11.sp,
+);
+final normal10 = TextStyle(
+  fontSize: 8.sp,
+);
+final normal16 = TextStyle(fontSize: 14.sp);
 final normal14 = TextStyle(
-  fontSize: 14.sp,
+  fontSize: 12.sp,
 );
 final normal15 = TextStyle(
-  fontSize: 15.sp,
+  fontSize: 13.sp,
 );
 
 final housedesignname = [

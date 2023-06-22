@@ -1,4 +1,3 @@
-import 'package:dmh_architect/Architect/ArchitectProfile/individualOrder.dart';
 import 'package:dmh_architect/Architect/splashscreen/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

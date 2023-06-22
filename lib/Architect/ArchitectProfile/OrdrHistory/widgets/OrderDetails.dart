@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
 import 'package:flutter/material.dart';
@@ -29,17 +30,32 @@ class OrderDetails extends StatelessWidget {
               height: 160.w,
               child: Stack(
                 children: [
-                  Container(
-                    width: screenWidth - 10.w,
-                    decoration: BoxDecoration(
-                        color: kwhitecolor,
+                  
+                  CachedNetworkImage(
+                    imageUrl: imageUrlList[0],
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: screenWidth - 10.w,
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.w),
                             topRight: Radius.circular(10.w)),
                         image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(imageUrlList[0]))),
+                            fit: BoxFit.cover, image: imageProvider),
+                      ),
+                    ),
                   ),
+
+                  // Container(
+                  //   width: screenWidth - 10.w,
+                  //   decoration: BoxDecoration(
+                  //       color: kwhitecolor,
+                  //       borderRadius: BorderRadius.only(
+                  //           topLeft: Radius.circular(10.w),
+                  //           topRight: Radius.circular(10.w)),
+                  //       image: DecorationImage(
+                  //           fit: BoxFit.cover,
+                  //           image: NetworkImage(imageUrlList[0]))),
+                  // ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -119,36 +119,36 @@ class CustomerOrders extends StatelessWidget {
                                           const Spacer(),
                                           Column(
                                             children: [
-                                              SizedBox(
-                                                width: 135.w,
-                                                height: 30.w,
-                                                child: ElevatedButton(
-                                                    style: ButtonStyle(
-                                                        backgroundColor:
-                                                            MaterialStateProperty
-                                                                .all(
-                                                                    kprimarycolor)),
-                                                    onPressed: () {
-                                                      Get.to(() =>
-                                                          const SelectedOrderDetails());
-                                                    },
-                                                    child: Container(
-                                                      // width: 100.w,
-                                                      // height: 40.w,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.w)),
-                                                      child: Text(
-                                                        'Order Details',
-                                                        style: TextStyle(
-                                                          fontSize: 13.sp,
-                                                          color: kwhitecolor,
-                                                        ),
-                                                      ),
-                                                    )),
-                                              ),
+                                              // SizedBox(
+                                              //   width: 135.w,
+                                              //   height: 30.w,
+                                              //   child: ElevatedButton(
+                                              //       style: ButtonStyle(
+                                              //           backgroundColor:
+                                              //               MaterialStateProperty
+                                              //                   .all(
+                                              //                       kprimarycolor)),
+                                              //       onPressed: () {
+                                              //         Get.to(() =>
+                                              //             const SelectedOrderDetails());
+                                              //       },
+                                              //       child: Container(
+                                              //         // width: 100.w,
+                                              //         // height: 40.w,
+                                              //         decoration: BoxDecoration(
+                                              //             borderRadius:
+                                              //                 BorderRadius
+                                              //                     .circular(
+                                              //                         5.w)),
+                                              //         child: Text(
+                                              //           'Order Details',
+                                              //           style: TextStyle(
+                                              //             fontSize: 13.sp,
+                                              //             color: kwhitecolor,
+                                              //           ),
+                                              //         ),
+                                              //       )),
+                                              // ),
                                               heigh5,
                                               Row(
                                                 children: [
@@ -430,22 +430,77 @@ class CustomerOrders extends StatelessWidget {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 const Spacer(),
-                                                Text(
-                                                  'Recieved Amount',
-                                                  style: normal16,
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Text(
-                                                  'Rs.5000.00',
-                                                  style: bold16,
-                                                ),
-                                                Text(
-                                                  'Not Delivered',
-                                                  style: TextStyle(
-                                                    color: kredcolor,
-                                                    fontSize: 14.sp,
-                                                  ),
-                                                ),
+                                                selectedServicesList[index]
+                                                            ['isPaid'] ==
+                                                        true
+                                                    ? Text(
+                                                        'Recieved Amount',
+                                                        style: TextStyle(
+                                                            fontSize: 16.sp,
+                                                            color:
+                                                                ksuccesscolor),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      )
+                                                    : Text(
+                                                        'Pending Amount',
+                                                        style: normal16,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                (selectedServicesList[index]
+                                                                ['amount'] ==
+                                                            '' ||
+                                                        selectedServicesList[
+                                                                    index]
+                                                                ['amount'] ==
+                                                            null)
+                                                    ? Text(
+                                                        'Not Updated',
+                                                        style: bold16,
+                                                      )
+                                                    : Text(
+                                                        'Rs${selectedServicesList[index]['amount']}',
+                                                        style: bold16,
+                                                      ),
+                                                (selectedServicesList[index]
+                                                                ['planurl'] ==
+                                                            '' ||
+                                                        selectedServicesList[
+                                                                    index]
+                                                                ['planurl'] ==
+                                                            null)
+                                                    ? Text(
+                                                        'Not Delivered',
+                                                        style: TextStyle(
+                                                          color: kredcolor,
+                                                          fontSize: 14.sp,
+                                                        ),
+                                                      )
+                                                    : Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'Delivered',
+                                                            style: TextStyle(
+                                                              color:
+                                                                  ksuccesscolor,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                              fontSize: 14.sp,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                              Icons
+                                                                  .check_circle,
+                                                              color:
+                                                                  ksuccesscolor,
+                                                              size: 16.sp)
+                                                        ],
+                                                      ),
                                                 const Spacer(),
                                                 GetBuilder<OrderController>(
                                                     builder: (getdata) {
@@ -506,6 +561,8 @@ class CustomerOrders extends StatelessWidget {
 
                                                                                       // Modify the desired string value
                                                                                       documentData!['servicesSelectedModel'][index]['planurl'] = getdata.floorplanUrl[index];
+
+                                                                                      documentData['servicesSelectedModel'][index]['isCompleted'] = true;
 
                                                                                       // Update the document with the modified array
                                                                                       FirebaseFirestore.instance.collection('orderData').doc(orderUid).set(documentData).then((value) => print('Value updated successfully.')).catchError((error) => print('Error updating value: $error'));
@@ -688,6 +745,7 @@ class CustomerOrders extends StatelessWidget {
                               );
                       },
                       itemCount: selectedServicesList.length),
+                  heigh20
                 ],
               );
             }),

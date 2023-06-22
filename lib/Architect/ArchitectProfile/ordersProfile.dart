@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/orderHistory.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/individualOrder.dart';
@@ -50,28 +51,33 @@ class ordersProfile extends StatelessWidget {
                               shrinkWrap: true,
                               physics: const ScrollPhysics(),
                               itemBuilder: (context, index) {
-                                final image = designList[index]['imageList'];
+                                int reverseIndex =
+                                    designList.length - index - 1;
+
+                                final image =
+                                    designList[reverseIndex]['imageList'];
 
                                 Timestamp timestamp =
-                                    designList[index]['dateTime'];
+                                    designList[reverseIndex]['dateTime'];
                                 DateTime dateTime = timestamp.toDate();
                                 DateTime currentTime = DateTime.now();
                                 Duration timeDif =
                                     currentTime.difference(dateTime);
                                 return GestureDetector(
                                   onTap: () => Get.to(() => OrderHistoryUser(
-                                            orderUid: designList[index]
+                                            orderUid: designList[reverseIndex]
                                                 ['orderUId'],
-                                            architectName: designList[index]
-                                                ['architectName'],
+                                            architectName:
+                                                designList[reverseIndex]
+                                                    ['architectName'],
                                             imageUrlList: image,
                                             dateTime: dateTime,
-                                            orderId: designList[index]
+                                            orderId: designList[reverseIndex]
                                                 ['orderId'],
                                           )
 
                                       // individualOrder(
-                                      //   orderId: designList[index]['orderUId'],
+                                      //   orderId: designList[reverseIndex]['orderUId'],
                                       // ),
                                       ),
                                   child: Container(
@@ -86,17 +92,33 @@ class ordersProfile extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Container(
-                                          height: 90.w,
-                                          width: 100.w,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
+                                        CachedNetworkImage(
+                                          imageUrl:image[0],
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            height: 90.w,
+                                            width: 100.w,
+                                            decoration: BoxDecoration(
+                                                  borderRadius:
                                                   BorderRadius.circular(5.w),
                                               image: DecorationImage(
                                                   fit: BoxFit.cover,
-                                                  image:
-                                                      NetworkImage(image[0]))),
+                                                  image: imageProvider),
+                                            ),
+                                          ),
                                         ),
+                                        // Container(
+                                        //   height: 90.w,
+                                        //   width: 100.w,
+                                        //   decoration: BoxDecoration(
+                                        //       borderRadius:
+                                        //           BorderRadius.circular(5.w),
+                                        //       image: DecorationImage(
+                                        //           fit: BoxFit.cover,
+                                        //           image:
+                                        //               NetworkImage(image[0]))),
+                                        // ),
                                         width10,
                                         Column(
                                           mainAxisAlignment:
@@ -105,21 +127,21 @@ class ordersProfile extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              '${designList[index]['orderId']}',
+                                              '${designList[reverseIndex]['orderId']}',
                                               style: bold16,
                                             ),
                                             Text(
-                                              '${designList[index]['customerName']}',
+                                              '${designList[reverseIndex]['customerName']}',
                                               style: normal16,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
-                                              '${designList[index]['customeNumber']}',
+                                              '${designList[reverseIndex]['customeNumber']}',
                                               style: normal16,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             Text(
-                                              'Distance: ${designList[index]['distanceFromClient'].toStringAsFixed(2)} KM',
+                                              'Distance: ${designList[reverseIndex]['distanceFromClient'].toStringAsFixed(2)} KM',
                                               style: normal16,
                                               overflow: TextOverflow.ellipsis,
                                             ),

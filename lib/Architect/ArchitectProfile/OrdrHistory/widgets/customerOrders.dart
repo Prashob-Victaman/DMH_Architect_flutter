@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomerOrders extends StatelessWidget {
   OrderDataModel orderData;
@@ -715,16 +716,31 @@ class CustomerOrders extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                const Icon(
-                                                  Icons.call,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 140, 255),
+                                                GestureDetector(
+                                                  onTap: ()async{
+                                                    if (!await launchUrl(Uri.parse('tel:+919008337447'))) {
+                                                      throw Exception('Could not launch');
+                                                    }
+
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.call,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 140, 255),
+                                                  ),
                                                 ),
                                                 // heigh5,
-                                                FaIcon(
-                                                  FontAwesomeIcons.whatsapp,
-                                                  size: 24.sp,
-                                                  color: ksuccesscolor,
+                                                GestureDetector(
+                                                  onTap: ()async{
+                                                    if (!await launchUrl(Uri.parse('whatsapp://send?phone=+919008337447'))) {
+                                                    throw Exception('Could not launch');
+                                                    }
+                                                  },
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    size: 24.sp,
+                                                    color: ksuccesscolor,
+                                                  ),
                                                 ),
                                               ],
                                             ),

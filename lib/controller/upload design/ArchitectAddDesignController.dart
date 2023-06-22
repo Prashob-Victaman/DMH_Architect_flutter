@@ -17,13 +17,9 @@ class ArchitectAddDesignController extends GetxController {
   int selectedDesignTypeCheckBox = 0;
   int selectedHouseFacingCheckbox = 0;
   int selectedHouseFloorsCheckbox = 0;
-
   int exteriorListCount = 3;
   int floorListCount = 3;
-
   int planningGridCount = 1;
-
-
   List<bool> exteriorisLoading = List.filled(9, false);
   List<bool> floorisLoading = List.filled(9, false);
   List<bool> workingDrawingsisLoading = List.filled(6, false);

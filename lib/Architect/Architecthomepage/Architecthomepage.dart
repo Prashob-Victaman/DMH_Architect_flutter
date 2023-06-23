@@ -20,6 +20,8 @@ import '../widgets/appbar.dart';
 class ArchitecthomePage extends StatefulWidget {
   ArchitecthomePage({super.key});
 
+  int? totalOrders = 0;
+
   @override
   State<ArchitecthomePage> createState() => _ArchitecthomePageState();
 
@@ -73,8 +75,13 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                 final data = snapshot.data;
                 final totalDesigns = data!['myDesigns'].length;
 
-                final totalOrders = data['orders'].length;
                 final totalEarnings = data['totalEarnings'];
+
+                try {
+                  widget.totalOrders = data['orders'].length;
+                } catch (e) {
+                  widget.totalOrders = 0;
+                }
 
                 // print(data!['ProfileDetails']);
 
@@ -156,7 +163,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                 DashboardWidget(
                                     screenwidth: screenwidth,
                                     title: 'Total Orders',
-                                    subtitle: totalOrders.toString()),
+                                    subtitle: widget.totalOrders.toString()),
                               ],
                             ),
                             heigh10,

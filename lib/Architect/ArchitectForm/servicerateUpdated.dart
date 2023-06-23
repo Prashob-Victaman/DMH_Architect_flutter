@@ -60,7 +60,7 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                     Text(
                       'Service Rate',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
@@ -99,7 +99,7 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                       horizontal: 10.0),
                                   decoration: customBoxDecoration(),
                                   child: Text(
-                                    serviceType[primaryindex],
+                                    serviceListItems[primaryindex],
                                     style: bold15,
                                   )),
                               heigh10,
@@ -120,8 +120,8 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                         .width /
                                                     2 -
                                                 55.w,
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10.0),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10.0.w),
                                             decoration: customBoxDecoration(),
                                             child: DropdownButton(
                                               value: selctedserviceRateMainList[
@@ -132,7 +132,10 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                   .map((value) =>
                                                       DropdownMenuItem(
                                                         value: value,
-                                                        child: Text(value),
+                                                        child: Text(
+                                                          value,
+                                                          style: normal16,
+                                                        ),
                                                       ))
                                                   .toList(),
                                               onChanged: (value) {
@@ -170,9 +173,9 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                   TextInputType.number,
                                               decoration: InputDecoration(
                                                   errorBorder:
-                                                      const OutlineInputBorder(
+                                                      OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                        width: 1,
+                                                        width: 1.w,
                                                         color: Color.fromARGB(
                                                             255, 255, 0, 0)),
                                                   ),
@@ -192,11 +195,11 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5),
+                                                            5.w),
                                                   ),
-                                                  hintText: 'Enter Amount',
+                                                  hintText: 'Amount Per SqFt.',
                                                   hintStyle: TextStyle(
-                                                      fontSize: 16.sp,
+                                                      fontSize: 13.sp,
                                                       color: kgreycolor)),
                                               validator: (value) {
                                                 if (value!.isEmpty) {
@@ -316,15 +319,15 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
               }
 
               Map selctedserviceRateAmounrtMainListmap = {
-                "Planning": serviceAmountList[0],
-                'Structure': serviceAmountList[1],
-                '2D Elevation': serviceAmountList[2],
-                '3D Elevation': serviceAmountList[3],
-                '3D Floor': serviceAmountList[4],
-                'Walkthrough Video(Exterior)': serviceAmountList[5],
-                'Walkthrough Video(Interior & Exterior)': serviceAmountList[6],
-                'Electricals': serviceAmountList[7],
-                'Plumbing': serviceAmountList[8],
+                "Floor Plan": serviceAmountList[0],
+                'Structural Drawing': serviceAmountList[1],
+                '3D Front Elevation': serviceAmountList[2],
+                '2D Front Elevation': serviceAmountList[3],
+                '3D Floor Plan': serviceAmountList[4],
+                'Working Drawing': serviceAmountList[5],
+                'Electrical Plan': serviceAmountList[6],
+                'Plumbing Plan': serviceAmountList[7],
+                'Walkthough Video': serviceAmountList[8],
                 'Site Supervision': serviceAmountList[9],
               };
 

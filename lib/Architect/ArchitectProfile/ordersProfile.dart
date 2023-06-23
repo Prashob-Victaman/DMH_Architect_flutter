@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+String? orderUidpublic;
+
 class ordersProfile extends StatelessWidget {
   const ordersProfile({super.key});
 
@@ -64,10 +66,13 @@ class ordersProfile extends StatelessWidget {
                                 DateTime currentTime = DateTime.now();
                                 Duration timeDif =
                                     currentTime.difference(dateTime);
+
+                                orderUidpublic =
+                                    designList[reverseIndex]['orderUId'];
                                 return GestureDetector(
                                   onTap: () => Get.to(() => OrderHistoryUser(
-                                            orderUid: designList[reverseIndex]
-                                                ['orderUId'],
+                                            // orderUid: designList[reverseIndex]
+                                            //     ['orderUId'],
                                             architectName:
                                                 designList[reverseIndex]
                                                     ['architectName'],

@@ -110,7 +110,7 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                                             horizontal: 10.0),
                                         decoration: customBoxDecoration(),
                                         child: Text(
-                                          serviceType[primaryindex],
+                                          serviceListItems[primaryindex],
                                           style: bold15,
                                         )),
                                     heigh10,
@@ -133,7 +133,7 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                                                           2 -
                                                       55.w,
                                                   padding: const EdgeInsets
-                                                          .symmetric(
+                                                      .symmetric(
                                                       horizontal: 10.0),
                                                   decoration:
                                                       customBoxDecoration(),
@@ -363,8 +363,8 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                 'Site Supervision': serviceAmountList[9],
               };
 
-              log(selctedserviceRateAmounrtMainListmap.toString());
-              log(selctedserviceRateMainListmap.toString());
+              // log(selctedserviceRateAmounrtMainListmap.toString());
+              // log(selctedserviceRateMainListmap.toString());
 
               widget.getformcontroller.addServicerateDetails(
                   FirebaseAuth.instance.currentUser!.uid,

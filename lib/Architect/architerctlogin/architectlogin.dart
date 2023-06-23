@@ -92,7 +92,7 @@ class ArchitectLoginScreen extends StatelessWidget {
                     child: SizedBox(
                       child: TextFormField(
                         controller: mobilecontroller,
-                        style: normal18,
+                        style: normal16,
                         textAlignVertical: TextAlignVertical.top,
                         // controller: mobilecontroller,
                         decoration: InputDecoration(
@@ -101,9 +101,9 @@ class ArchitectLoginScreen extends StatelessWidget {
 
                           hintText: 'Enter Phone Number',
                           hintStyle: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.bold),
+                              fontSize: 14.sp, fontWeight: FontWeight.bold),
                           labelStyle: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.bold),
+                              fontSize: 14.sp, fontWeight: FontWeight.bold),
                           border: InputBorder.none,
 
                           // border: const OutlineInputBorder(),
@@ -142,7 +142,7 @@ class ArchitectLoginScreen extends StatelessWidget {
                       child: const Center(
                         child: Text(
                           'Login',
-                          style: TextStyle(color: kwhitecolor, fontSize: 20),
+                          style: TextStyle(color: kwhitecolor, fontSize: 18),
                         ),
                       ),
                     ),
@@ -154,7 +154,7 @@ class ArchitectLoginScreen extends StatelessWidget {
                       Text(
                         ' Already have an account? ',
                         style: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: kblackcolor),
                       ),
@@ -163,7 +163,7 @@ class ArchitectLoginScreen extends StatelessWidget {
                         child: Text(
                           ' Register',
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                               color: kprimarycolor),
                         ),

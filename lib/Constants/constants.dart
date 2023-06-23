@@ -290,18 +290,18 @@ List HouseType = [
   'BanquetHall'
 ];
 
-final List<String> serviceType = [
-  "Planning",
-  'Structure',
-  '2D Elevation',
-  '3D Elevation',
-  '3D Floor',
-  'Walkthrough Video(Exterior)',
-  'Walkthrough Video(Interior & Exterior)',
-  'Electricals',
-  'Plumbing',
-  'Site Supervision',
-];
+// final List<String> serviceType = [
+//   "Planning",
+//   'Structure',
+//   '2D Elevation',
+//   '3D Elevation',
+//   '3D Floor',
+//   'Walkthrough Video(Exterior)',
+//   'Walkthrough Video(Interior & Exterior)',
+//   'Electricals',
+//   'Plumbing',
+//   'Site Supervision',
+// ];
 
 // List desiignTypeselectedvaluelist = ['Simple'];
 
@@ -325,14 +325,27 @@ List<List<String>> selctedserviceRateMainList =
     List.generate(10, (_) => ['Simple']);
 
 Map selctedserviceRateMainListmap = {
-  "Planning": selctedserviceRateMainList[0],
-  'Structure': selctedserviceRateMainList[1],
-  '2D Elevation': selctedserviceRateMainList[2],
-  '3D Elevation': selctedserviceRateMainList[3],
-  '3D Floor': selctedserviceRateMainList[4],
-  'Walkthrough Video(Exterior)': selctedserviceRateMainList[5],
-  'Walkthrough Video(Interior & Exterior)': selctedserviceRateMainList[6],
-  'Electricals': selctedserviceRateMainList[7],
-  'Plumbing': selctedserviceRateMainList[8],
+  "Floor Plan": selctedserviceRateMainList[0],
+  'Structural Drawing': selctedserviceRateMainList[1],
+  '3D Front Elevation': selctedserviceRateMainList[2],
+  '2D Front Elevation': selctedserviceRateMainList[3],
+  '3D Floor Plan': selctedserviceRateMainList[4],
+  'Working Drawing': selctedserviceRateMainList[5],
+  'Electrical Plan': selctedserviceRateMainList[6],
+  'Plumbing Plan': selctedserviceRateMainList[7],
+  'Walkthough Video': selctedserviceRateMainList[8],
   'Site Supervision': selctedserviceRateMainList[9],
 };
+
+final List<String> serviceListItems = [
+  'Floor Plan',
+  'Structural Drawing',
+  '3D Front Elevation',
+  '2D Front Elevation',
+  '3D Floor Plan',
+  'Working Drawing',
+  'Electrical Plan',
+  'Plumbing Plan',
+  'Walkthough Video',
+  'Site Supervision'
+];

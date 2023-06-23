@@ -80,9 +80,9 @@ class ArchitectSignupPage extends StatelessWidget {
 
                         hintText: 'Enter Name Here',
                         hintStyle: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            fontSize: 14.sp, fontWeight: FontWeight.bold),
                         labelStyle: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            fontSize: 14.sp, fontWeight: FontWeight.bold),
                         border: InputBorder.none,
 
                         // border: const OutlineInputBorder(),
@@ -116,9 +116,9 @@ class ArchitectSignupPage extends StatelessWidget {
 
                         hintText: 'Enter Email Here',
                         hintStyle: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            fontSize: 14.sp, fontWeight: FontWeight.bold),
                         labelStyle: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.bold),
+                            fontSize: 14.sp, fontWeight: FontWeight.bold),
                         border: InputBorder.none,
 
                         // border: const OutlineInputBorder(),
@@ -159,9 +159,9 @@ class ArchitectSignupPage extends StatelessWidget {
                           // border: const OutlineInputBorder(),
                           // labelText: 'Email',
                           hintStyle: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.bold),
+                              fontSize: 14.sp, fontWeight: FontWeight.bold),
                           labelStyle: TextStyle(
-                              fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                              fontSize: 14.sp, fontWeight: FontWeight.bold)),
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -190,7 +190,7 @@ class ArchitectSignupPage extends StatelessWidget {
                       child: const Center(
                         child: Text(
                           'Register',
-                          style: TextStyle(color: kwhitecolor, fontSize: 20),
+                          style: TextStyle(color: kwhitecolor, fontSize: 18),
                         ),
                       ),
                     ),
@@ -202,7 +202,7 @@ class ArchitectSignupPage extends StatelessWidget {
                       Text(
                         ' Already have an account? ',
                         style: TextStyle(
-                            fontSize: 18.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                             color: kblackcolor),
                       ),
@@ -211,7 +211,7 @@ class ArchitectSignupPage extends StatelessWidget {
                         child: Text(
                           ' Login',
                           style: TextStyle(
-                              fontSize: 18.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold,
                               color: kprimarycolor),
                         ),

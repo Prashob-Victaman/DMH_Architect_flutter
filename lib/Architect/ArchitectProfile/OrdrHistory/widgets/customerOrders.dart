@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/selectedOrderDetails.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/controller/ordercontroller.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
@@ -9,15 +9,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomerOrders extends StatelessWidget {
-  OrderDataModel orderData;
-  String orderUid;
+  // OrderDataModel orderData;
+  // String orderUid;
   CustomerOrders({
     super.key,
     // required this.selectedServicesList,
-    required this.orderData,
-    required this.orderUid,
+    // required this.orderData,
+    // required this.orderUid,
   });
 
   // List isaAproved = [true, false, true, false];
@@ -31,8 +32,7 @@ class CustomerOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
-        .format(orderData.orderDatetime.toDate());
+    // String updatedOrderUid = orderUid;
 
     // for (var item in selectedServicesList) {
     //   if (item['isSelected'] == true) {
@@ -44,7 +44,7 @@ class CustomerOrders extends StatelessWidget {
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection("orderData")
-                .doc(orderUid)
+                .doc(orderUidpublic)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
@@ -55,20 +55,35 @@ class CustomerOrders extends StatelessWidget {
               }
               // final DesignList = snapshot.data!['myDesigns'];
 
-              final data = OrderDataModel.fromJson(snapshot.data!);
+              final orderData = OrderDataModel.fromJson(snapshot.data!);
 
-              List selectedServicesList = data.servicesSelectedModel;
+              String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
+                  .format(orderData.orderDatetime.toDate());
+
+              List selectedServicesList = orderData.servicesSelectedModel;
 
               return ListView(
                 children: [
-                  heigh10,
-                  Text(
-                    'Customer Orders',
-                    style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        color: kprimarycolor),
-                    textAlign: TextAlign.center,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(Icons.arrow_back)),
+                      Text(
+                        'Customer Orders',
+                        style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: kprimarycolor),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        width: 30.w,
+                      )
+                    ],
                   ),
                   heigh10,
                   ListView.separated(
@@ -164,6 +179,11 @@ class CustomerOrders extends StatelessWidget {
                                                           height: 25.w,
                                                           child: ElevatedButton(
                                                               style: ButtonStyle(
+                                                                  padding: MaterialStateProperty.all<
+                                                                          EdgeInsets>(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0)),
                                                                   backgroundColor:
                                                                       MaterialStateProperty
                                                                           .all(
@@ -180,14 +200,20 @@ class CustomerOrders extends StatelessWidget {
                                                                             'isRejected'] ==
                                                                         false) {
                                                                   orderConfirmationAcceptPopup(
-                                                                      context,
-                                                                      'Accept',
-                                                                      index,
-                                                                      'isAproved',
-                                                                      true);
+                                                                    context,
+                                                                    'Accept',
+                                                                    index,
+                                                                    'isAproved',
+                                                                    true,
+                                                                  );
                                                                 }
                                                               },
                                                               child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                width: 65.w,
+                                                                height: 25.w,
                                                                 // width: 100.w,
                                                                 // height: 40.w,
                                                                 decoration: BoxDecoration(
@@ -199,7 +225,7 @@ class CustomerOrders extends StatelessWidget {
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
-                                                                        10.sp,
+                                                                        12.sp,
                                                                     color:
                                                                         kwhitecolor,
                                                                   ),
@@ -220,6 +246,11 @@ class CustomerOrders extends StatelessWidget {
                                                           height: 25.w,
                                                           child: ElevatedButton(
                                                               style: ButtonStyle(
+                                                                  padding: MaterialStateProperty.all<
+                                                                          EdgeInsets>(
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0)),
                                                                   backgroundColor:
                                                                       MaterialStateProperty
                                                                           .all(
@@ -234,14 +265,18 @@ class CustomerOrders extends StatelessWidget {
                                                                             'isRejected'] ==
                                                                         false) {
                                                                   orderConfirmationPopup(
-                                                                      context,
-                                                                      'Reject',
-                                                                      index,
-                                                                      'isRejected',
-                                                                      true);
+                                                                    context,
+                                                                    'Reject',
+                                                                    index,
+                                                                    'isRejected',
+                                                                    true,
+                                                                  );
                                                                 }
                                                               },
                                                               child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
                                                                 width: 50.w,
                                                                 // width: 100.w,
                                                                 // height: 40.w,
@@ -254,7 +289,7 @@ class CustomerOrders extends StatelessWidget {
                                                                   style:
                                                                       TextStyle(
                                                                     fontSize:
-                                                                        10.sp,
+                                                                        12.sp,
                                                                     color:
                                                                         kwhitecolor,
                                                                   ),
@@ -460,7 +495,7 @@ class CustomerOrders extends StatelessWidget {
                                                         style: bold16,
                                                       )
                                                     : Text(
-                                                        'Rs${selectedServicesList[index]['amount']}',
+                                                        'Rs ${selectedServicesList[index]['amount']}',
                                                         style: bold16,
                                                       ),
                                                 (selectedServicesList[index]
@@ -503,208 +538,206 @@ class CustomerOrders extends StatelessWidget {
                                                       ),
                                                 const Spacer(),
 
-
                                                 // error starts
 
-
-                                                GetBuilder<OrderController>(
-                                                    builder: (getdata) {
-                                                  return GestureDetector(
-                                                    onTap: () async {
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    if (selectedServicesList[
+                                                                index]
+                                                            ['isRejected'] ==
+                                                        false) {
                                                       if (selectedServicesList[
                                                                   index]
-                                                              ['isRejected'] ==
-                                                          false) {
+                                                              ['isAproved'] ==
+                                                          true) {
                                                         if (selectedServicesList[
                                                                     index]
-                                                                ['isAproved'] ==
+                                                                ['isPaid'] ==
                                                             true) {
-                                                          if (selectedServicesList[
-                                                                      index]
-                                                                  ['isPaid'] ==
-                                                              true) {
-                                                            orderController
-                                                                .fetchPlanningfile(
-                                                                    index);
+                                                          orderController
+                                                              .fetchPlanningfile(
+                                                                  index);
 
-                                                            showDialog<void>(
-                                                              context: context,
-                                                              builder:
-                                                                  (BuildContext
-                                                                      context) {
-                                                                return AlertDialog(
-                                                                  titlePadding:
-                                                                      EdgeInsets
-                                                                          .all(0
-                                                                              .w),
-                                                                  title:
+                                                          showDialog<void>(
+                                                            context: context,
+                                                            builder:
+                                                                (BuildContext
+                                                                    context) {
+                                                              return AlertDialog(
+                                                                titlePadding:
+                                                                    EdgeInsets
+                                                                        .all(0
+                                                                            .w),
+                                                                title:
+                                                                    Container(
+                                                                  height: 114.w,
+                                                                  width: 282.w,
+                                                                  child: Column(
+                                                                    children: [
                                                                       Container(
-                                                                    height:
-                                                                        114.w,
-                                                                    width:
-                                                                        282.w,
-                                                                    child:
-                                                                        Column(
-                                                                      children: [
-                                                                        Container(
-                                                                            alignment:
-                                                                                Alignment.center,
-                                                                            height: 84.w,
-                                                                            child: Text(
-                                                                              'Are you sure you want to Upload?',
-                                                                              style: TextStyle(fontSize: 16.sp, color: kblackcolor, fontWeight: FontWeight.bold),
-                                                                            )),
-                                                                        const Spacer(),
-                                                                        Row(
-                                                                          children: [
-                                                                            GestureDetector(
-                                                                              onTap: () async {
-                                                                                if (getdata.floorplanUrl[index] != null) {
-                                                                                  await FirebaseFirestore.instance.collection('orderData').doc(orderUid).get().then((documentSnapshot) {
-                                                                                    if (documentSnapshot.exists) {
-                                                                                      Map<String, dynamic>? documentData = documentSnapshot.data();
+                                                                          alignment: Alignment
+                                                                              .center,
+                                                                          height: 84
+                                                                              .w,
+                                                                          child:
+                                                                              Text(
+                                                                            'Are you sure you want to Upload?',
+                                                                            style: TextStyle(
+                                                                                fontSize: 16.sp,
+                                                                                color: kblackcolor,
+                                                                                fontWeight: FontWeight.bold),
+                                                                          )),
+                                                                      const Spacer(),
+                                                                      Row(
+                                                                        children: [
+                                                                          GestureDetector(
+                                                                            onTap:
+                                                                                () async {
+                                                                              if (orderController.floorplanUrl[index] != null) {
+                                                                                await FirebaseFirestore.instance.collection('orderData').doc(orderUidpublic!).get().then((documentSnapshot) {
+                                                                                  if (documentSnapshot.exists) {
+                                                                                    Map<String, dynamic>? documentData = documentSnapshot.data();
 
-                                                                                      // Modify the desired string value
-                                                                                      documentData!['servicesSelectedModel'][index]['planurl'] = getdata.floorplanUrl[index];
+                                                                                    // Modify the desired string value
+                                                                                    documentData!['servicesSelectedModel'][index]['planurl'] = orderController.floorplanUrl[index];
 
-                                                                                      documentData['servicesSelectedModel'][index]['isCompleted'] = true;
+                                                                                    documentData['servicesSelectedModel'][index]['isCompleted'] = true;
 
-                                                                                      // Update the document with the modified array
-                                                                                      FirebaseFirestore.instance.collection('orderData').doc(orderUid).set(documentData).then((value) => print('Value updated successfully.')).catchError((error) => print('Error updating value: $error'));
+                                                                                    // Update the document with the modified array
+                                                                                    FirebaseFirestore.instance.collection('orderData').doc(orderUidpublic!).set(documentData).then((value) => print('Value updated successfully.')).catchError((error) => print('Error updating value: $error'));
 
-                                                                                      getdata.flooplan[index] = null;
-                                                                                      getdata.floorplanUrl[index] = null;
-                                                                                    } else {
-                                                                                      print('Document does not exist.');
-                                                                                    }
-                                                                                    getdata.floorplanUrl[index] = null;
-                                                                                  });
+                                                                                    orderController.flooplan[index] = null;
+                                                                                    orderController.floorplanUrl[index] = null;
+                                                                                  } else {
+                                                                                    print('Document does not exist.');
+                                                                                  }
+                                                                                  orderController.floorplanUrl[index] = null;
+                                                                                });
 
-                                                                                  Get.back();
-                                                                                } else {
-                                                                                  Fluttertoast.showToast(msg: 'Loading... Please Wait');
-                                                                                }
-                                                                                print(getdata.flooplan[index]);
-                                                                              },
-                                                                              child: Container(
-                                                                                height: 30.w,
-                                                                                width: 141.w,
-                                                                                decoration: const BoxDecoration(color: kprimarycolor),
-                                                                                child: Center(
-                                                                                    child: Text(
-                                                                                  'Yes',
-                                                                                  style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
-                                                                                )),
-                                                                              ),
+                                                                                Get.back();
+                                                                              } else {
+                                                                                Fluttertoast.showToast(msg: 'Loading... Please Wait');
+                                                                              }
+                                                                              print(orderController.flooplan[index]);
+                                                                            },
+                                                                            child:
+                                                                                Container(
+                                                                              height: 30.w,
+                                                                              width: 141.w,
+                                                                              decoration: const BoxDecoration(color: kprimarycolor),
+                                                                              child: Center(
+                                                                                  child: Text(
+                                                                                'Yes',
+                                                                                style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                                                                              )),
                                                                             ),
-                                                                            GestureDetector(
-                                                                              onTap: () {
-                                                                                if (getdata.floorplanUrl[index] != null || getdata.flooplan[index] == null) {
-                                                                                  Get.back();
-                                                                                  getdata.floorplanUrl[index] = null;
-                                                                                } else {
-                                                                                  Fluttertoast.showToast(msg: 'Please Wait Loading...');
-                                                                                }
-                                                                              },
-                                                                              child: Container(
-                                                                                height: 30.w,
-                                                                                width: 141.w,
-                                                                                decoration: BoxDecoration(color: kwhitecolor, border: Border.all(color: kprimarycolor)),
-                                                                                child: Center(
-                                                                                    child: Text(
-                                                                                  'Cancel',
-                                                                                  style: TextStyle(fontSize: 14.sp, color: kprimarycolor),
-                                                                                )),
-                                                                              ),
-                                                                            )
-                                                                          ],
-                                                                        )
-                                                                      ],
-                                                                    ),
+                                                                          ),
+                                                                          GestureDetector(
+                                                                            onTap:
+                                                                                () {
+                                                                              if (orderController.floorplanUrl[index] != null || orderController.flooplan[index] == null) {
+                                                                                Get.back();
+                                                                                orderController.floorplanUrl[index] = null;
+                                                                              } else {
+                                                                                Fluttertoast.showToast(msg: 'Please Wait Loading...');
+                                                                              }
+                                                                            },
+                                                                            child:
+                                                                                Container(
+                                                                              height: 30.w,
+                                                                              width: 141.w,
+                                                                              decoration: BoxDecoration(color: kwhitecolor, border: Border.all(color: kprimarycolor)),
+                                                                              child: Center(
+                                                                                  child: Text(
+                                                                                'Cancel',
+                                                                                style: TextStyle(fontSize: 14.sp, color: kprimarycolor),
+                                                                              )),
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                      )
+                                                                    ],
                                                                   ),
-                                                                );
-                                                              },
-                                                            );
-                                                          } else {
-                                                            Fluttertoast.showToast(
-                                                                msg:
-                                                                    'Payment Not Recieved');
-                                                          }
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
                                                         } else {
                                                           Fluttertoast.showToast(
                                                               msg:
-                                                                  'Please Accept Order');
+                                                                  'Payment Not Recieved');
                                                         }
+                                                      } else {
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                'Please Accept Order');
                                                       }
-                                                    },
-                                                    child: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.vertical(
-                                                                  bottom: Radius
-                                                                      .circular(
-                                                                          5.w)),
-                                                          color: selectedServicesList[
-                                                                          index]
-                                                                      [
-                                                                      'isRejected'] ==
-                                                                  false
-                                                              ? kprimarycolor
-                                                              : kprimarycolor
-                                                                  .withOpacity(
-                                                                      0.2)),
-                                                      width: 140.w,
-                                                      height: 20.w,
-                                                      child: (selectedServicesList[
-                                                                          index]
-                                                                      [
-                                                                      'planurl'] ==
-                                                                  "" ||
-                                                              selectedServicesList[
-                                                                          index]
-                                                                      [
-                                                                      'planurl'] ==
-                                                                  null)
-                                                          ? Text(
-                                                              'Upload File',
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      kwhitecolor,
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            )
-                                                          : Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'File Uploded',
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                          kwhitecolor,
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                                Icon(
-                                                                    Icons
-                                                                        .check_circle,
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .vertical(
+                                                          bottom:
+                                                              Radius.circular(
+                                                                  5.w),
+                                                        ),
+                                                        color: selectedServicesList[
+                                                                        index][
+                                                                    'isRejected'] ==
+                                                                false
+                                                            ? kprimarycolor
+                                                            : kprimarycolor
+                                                                .withOpacity(
+                                                                    0.2)),
+                                                    width: 140.w,
+                                                    height: 20.w,
+                                                    child: (selectedServicesList[
+                                                                        index][
+                                                                    'planurl'] ==
+                                                                "" ||
+                                                            selectedServicesList[
+                                                                        index][
+                                                                    'planurl'] ==
+                                                                null)
+                                                        ? Text(
+                                                            'Upload File',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    kwhitecolor,
+                                                                fontSize: 12.sp,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          )
+                                                        : Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'File Uploded',
+                                                                style: TextStyle(
                                                                     color:
                                                                         kwhitecolor,
-                                                                    size: 16.sp)
-                                                              ],
-                                                            ),
-                                                    ),
-                                                  );
-                                                })
+                                                                    fontSize:
+                                                                        12.sp,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              Icon(
+                                                                  Icons
+                                                                      .check_circle,
+                                                                  color:
+                                                                      kwhitecolor,
+                                                                  size: 16.sp)
+                                                            ],
+                                                          ),
+                                                  ),
+                                                )
 
                                                 //error ends here
                                               ],
@@ -722,16 +755,34 @@ class CustomerOrders extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                const Icon(
-                                                  Icons.call,
-                                                  color: Color.fromARGB(
-                                                      255, 0, 140, 255),
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    if (!await launchUrl(Uri.parse(
+                                                        'tel:+919008337447'))) {
+                                                      throw Exception(
+                                                          'Could not launch');
+                                                    }
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.call,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 140, 255),
+                                                  ),
                                                 ),
                                                 // heigh5,
-                                                FaIcon(
-                                                  FontAwesomeIcons.whatsapp,
-                                                  size: 24.sp,
-                                                  color: ksuccesscolor,
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    if (!await launchUrl(Uri.parse(
+                                                        'whatsapp://send?phone=+919008337447'))) {
+                                                      throw Exception(
+                                                          'Could not launch');
+                                                    }
+                                                  },
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    size: 24.sp,
+                                                    color: ksuccesscolor,
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -831,7 +882,12 @@ class CustomerOrders extends StatelessWidget {
   }
 
   Future<void> orderConfirmationPopup(
-      BuildContext context, String title, int index, String field, bool value) {
+    BuildContext context,
+    String title,
+    int index,
+    String field,
+    bool value,
+  ) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -859,7 +915,7 @@ class CustomerOrders extends StatelessWidget {
                       onTap: () async {
                         await FirebaseFirestore.instance
                             .collection('orderData')
-                            .doc(orderUid)
+                            .doc(orderUidpublic!)
                             .get()
                             .then((documentSnapshot) {
                           if (documentSnapshot.exists) {
@@ -873,7 +929,7 @@ class CustomerOrders extends StatelessWidget {
                             // Update the document with the modified array
                             FirebaseFirestore.instance
                                 .collection('orderData')
-                                .doc(orderUid)
+                                .doc(orderUidpublic!)
                                 .set(documentData)
                                 .then((value) =>
                                     print('Value updated successfully.'))
@@ -886,7 +942,7 @@ class CustomerOrders extends StatelessWidget {
 
                         // await FirebaseFirestore.instance
                         //     .collection("order")
-                        //     .doc(orderUid)
+                        //     .doc(orderUidpublic!)
                         //     .update({'servicesSelectedModel': value});
 
                         Get.back();
@@ -929,7 +985,12 @@ class CustomerOrders extends StatelessWidget {
   }
 
   Future<void> orderConfirmationAcceptPopup(
-      BuildContext context, String title, int index, String field, bool value) {
+    BuildContext context,
+    String title,
+    int index,
+    String field,
+    bool value,
+  ) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -1007,7 +1068,7 @@ class CustomerOrders extends StatelessWidget {
                         if (form!.validate()) {
                           await FirebaseFirestore.instance
                               .collection('orderData')
-                              .doc(orderUid)
+                              .doc(orderUidpublic!)
                               .get()
                               .then((documentSnapshot) {
                             if (documentSnapshot.exists) {
@@ -1025,7 +1086,7 @@ class CustomerOrders extends StatelessWidget {
                               // Update the document with the modified array
                               FirebaseFirestore.instance
                                   .collection('orderData')
-                                  .doc(orderUid)
+                                  .doc(orderUidpublic!)
                                   .set(documentData)
                                   .then((value) =>
                                       print('Value updated successfully.'))
@@ -1038,7 +1099,7 @@ class CustomerOrders extends StatelessWidget {
 
                           // await FirebaseFirestore.instance
                           //     .collection("order")
-                          //     .doc(orderUid)
+                          //     .doc(orderUidpublic!)
                           //     .update({'servicesSelectedModel': value});
 
                           Get.back();

@@ -1,6 +1,7 @@
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:photo_view/photo_view.dart';
 
 class UploadRequirements extends StatelessWidget {
   List requiredData;
@@ -55,16 +56,82 @@ class UploadRequirements extends StatelessWidget {
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          print(requiredData.length);
+                          // print(requiredData);
                           return Container(
-                            padding: EdgeInsets.only(left: 10.w),
-                            color: kwhitecolor,
-                            height: 90.w,
-                            width: 70.w,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: NetworkImage(requiredData[index]))),
-                          );
+                              // padding: EdgeInsets.only(left: 10.w),
+                              color: kwhitecolor,
+                              height: 90.w,
+                              width: 70.w,
+
+                              // decoration: BoxDecoration(
+                              //   image: DecorationImage(
+                              //       image: NetworkImage(requiredData[index])),
+                              // ),
+                              // child: PhotoView(
+                              //   imageProvider:
+                              //       NetworkImage(requiredData[index]),
+                              //   minScale: PhotoViewComputedScale.contained,
+                              //   maxScale: PhotoViewComputedScale.covered * 4.0,
+                              //   backgroundDecoration: BoxDecoration(color: kblackcolor
+                              //   ),
+                              //   initialScale: PhotoViewComputedScale.contained,
+                              //   loadingBuilder: (context, event) => Center(
+                              //     child: CircularProgressIndicator(),
+                              //   ),
+                              // )
+                              // child: Image(
+                              //   fit: BoxFit.cover,
+                              //   image: NetworkImage(requiredData[index]),
+                              // ),
+
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    PageRouteBuilder(
+                                      opaque: false,
+                                      pageBuilder:
+                                          (BuildContext context, _, __) {
+                                        return Scaffold(
+                                          backgroundColor: Colors.black,
+                                          body: Stack(
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Center(
+                                                  child: Hero(
+                                                    tag: requiredData[index],
+                                                    child: PhotoView(
+                                                        imageProvider:
+                                                            NetworkImage(
+                                                                requiredData[
+                                                                    index])),
+                                                  ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 20.w,
+                                                right: 20.w,
+                                                child: IconButton(onPressed: () => Navigator.pop(context),
+                                                  icon: Icon(
+                                                    Icons.close,
+                                                    color: kwhitecolor,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Image.network(
+                                  requiredData[index],
+                                  fit: BoxFit.cover,
+                                ),
+                              ));
                         },
                         separatorBuilder: (context, index) {
                           return SizedBox(

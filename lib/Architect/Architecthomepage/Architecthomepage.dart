@@ -180,8 +180,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                 DashboardWidget(
                                     screenwidth: screenwidth,
                                     title: 'Total Earnings',
-                                    subtitle: totalEarnings.toString()
-                                ),
+                                    subtitle: totalEarnings.toString()),
                                 DashboardWidget(
                                     screenwidth: screenwidth,
                                     title: 'Delivered Orders',
@@ -201,7 +200,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             padding: EdgeInsets.symmetric(horizontal: 10.0.w),
             child: Text(
               'Let\'s get your house design',
-              style: bold18,
+              style: bold17,
             ),
           ),
           housedesigngridview(),
@@ -232,7 +231,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
             child: Text(
               'If it\'s a house we will renew it',
-              style: bold18,
+              style: bold17,
             ),
           ),
           const houserenewgridview(),
@@ -240,7 +239,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
             child: Text(
               'Reason To Order House Designs',
-              style: bold18,
+              style: bold17,
             ),
           ),
           const reasontoorderhousegridview(),
@@ -248,7 +247,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
             child: Text(
               'Refer and Earn',
-              style: bold18,
+              style: bold17,
             ),
           ),
           Padding(
@@ -324,11 +323,11 @@ class DashboardWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: normal18,
+            style: normal16,
           ),
           Text(
             subtitle,
-            style: bold22,
+            style: bold20,
           )
         ],
       ),

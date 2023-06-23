@@ -33,7 +33,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                 Text(
                   'Design Type',
                   style:
-                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10.w,
@@ -52,7 +52,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             getdata.DesignTypeCheckbox(0);
                           },
                         ),
-                        Text('Modern', style: TextStyle(fontSize: 16.sp))
+                        Text('Modern', style: TextStyle(fontSize: 14.sp))
                       ],
                     ),
                     Row(
@@ -66,7 +66,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             getdata.DesignTypeCheckbox(1);
                           },
                         ),
-                        Text('Classical', style: TextStyle(fontSize: 16.sp))
+                        Text('Classical', style: TextStyle(fontSize: 14.sp))
                       ],
                     ),
                     GetBuilder<ArchitectAddDesignController>(
@@ -82,7 +82,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                               getdata.DesignTypeCheckbox(2);
                             },
                           ),
-                          // Text('Others', style: TextStyle(fontSize: 16.sp)),
+                          // Text('Others', style: TextStyle(fontSize: 14.sp)),
                           SizedBox(
                             width: 65.w,
                             height: 30.w,
@@ -127,7 +127,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                 Text(
                   'House Facing',
                   style:
-                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 10.w,
@@ -148,7 +148,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             },
                           ),
                         ),
-                        Text('East', style: TextStyle(fontSize: 16.sp))
+                        Text('East', style: TextStyle(fontSize: 14.sp))
                       ],
                     ),
                     Row(
@@ -164,7 +164,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             },
                           ),
                         ),
-                        Text('West', style: TextStyle(fontSize: 16.sp))
+                        Text('West', style: TextStyle(fontSize: 14.sp))
                       ],
                     ),
                     Row(
@@ -180,7 +180,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             },
                           ),
                         ),
-                        Text('South', style: TextStyle(fontSize: 16.sp))
+                        Text('South', style: TextStyle(fontSize: 14.sp))
                       ],
                     ),
                     Row(
@@ -196,7 +196,7 @@ class ArchitectDesigntypeAndHouseFacing extends StatelessWidget {
                             },
                           ),
                         ),
-                        Text('North', style: TextStyle(fontSize: 16.sp))
+                        Text('North', style: TextStyle(fontSize: 14.sp))
                       ],
                     ),
                   ],

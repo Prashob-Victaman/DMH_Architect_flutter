@@ -42,7 +42,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                       Text(
                         'Upload Property Designs',
                         style: TextStyle(
-                            fontSize: 18.sp, fontWeight: FontWeight.bold),
+                            fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                       const Divider(),
                       SizedBox(
@@ -53,7 +53,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                           Text(
                             'Upload Exterior Image',
                             style: TextStyle(
-                                fontSize: 18.sp, fontWeight: FontWeight.bold),
+                                fontSize: 16.sp, fontWeight: FontWeight.bold),
                           ),
                           const Spacer(),
                           Container(
@@ -205,7 +205,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                           Text(
                             'Upload Floor Images',
                             style: TextStyle(
-                                fontSize: 18.sp, fontWeight: FontWeight.bold),
+                                fontSize: 16.sp, fontWeight: FontWeight.bold),
                           ),
                           const Spacer(),
                           Container(
@@ -360,7 +360,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                       Text(
                         'Add Project Details',
                         style: TextStyle(
-                            fontSize: 18.sp, fontWeight: FontWeight.bold),
+                            fontSize: 16.sp, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 10.w,

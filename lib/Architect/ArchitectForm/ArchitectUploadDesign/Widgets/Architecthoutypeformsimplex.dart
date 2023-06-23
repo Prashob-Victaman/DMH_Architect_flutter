@@ -181,7 +181,7 @@ class Architecthoutypeformsimplex extends StatelessWidget {
                   Spacer(),
                   SizedBox(
                     // height: 40.w,
-                    width: 140.w,
+                    width: 120.w,
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       validator: (value) {
@@ -560,7 +560,7 @@ class submitContainer extends StatelessWidget {
                                     },
                                     child: Container(
                                       height: 30.w,
-                                      width: 141.w,
+                                      width: 121.w,
                                       decoration: const BoxDecoration(
                                           color: kprimarycolor),
                                       child: Center(
@@ -577,7 +577,7 @@ class submitContainer extends StatelessWidget {
                                     onTap: () => Get.back(),
                                     child: Container(
                                       height: 30.w,
-                                      width: 141.w,
+                                      width: 121.w,
                                       decoration: BoxDecoration(
                                           color: kwhitecolor,
                                           border:

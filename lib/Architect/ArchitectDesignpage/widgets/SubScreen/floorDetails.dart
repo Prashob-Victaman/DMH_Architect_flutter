@@ -228,7 +228,7 @@ class _FloorDetailsState extends State<FloorDetails> {
           children: [
             Text(
               'Floor Details',
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
             ),
             const Spacer(),
             Container(
@@ -338,7 +338,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                         child: DropdownButton(
                           underline: const SizedBox(),
                           style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               color: kblackcolor,
                               fontWeight: FontWeight.bold),
                           value: GetxController.selectedFloorList[0],
@@ -466,7 +466,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                                       isExpanded: true,
                                       underline: const SizedBox(),
                                       style: TextStyle(
-                                          fontSize: 16.sp, color: kblackcolor),
+                                          fontSize: 14.sp, color: kblackcolor),
                                       value: GetxController
                                           .roomtypeitemsvalue[indexprimarylist],
                                       icon: Icon(Icons.keyboard_arrow_down,
@@ -505,7 +505,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                                       isExpanded: true,
                                       underline: const SizedBox(),
                                       style: TextStyle(
-                                          fontSize: 16.sp, color: kblackcolor),
+                                          fontSize: 14.sp, color: kblackcolor),
                                       value: GetxController
                                           .roomcountvalue[indexprimarylist],
                                       icon: Icon(Icons.keyboard_arrow_down,
@@ -584,7 +584,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                           borderRadius: BorderRadius.circular(5.w)),
                       child: Text('${Maptolistitem[0].value[0]}',
                           style: TextStyle(
-                              fontSize: 16.sp,
+                              fontSize: 14.sp,
                               color: kblackcolor,
                               fontWeight: FontWeight.bold)),
                     ),
@@ -611,7 +611,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                                     borderRadius: BorderRadius.circular(5.w)),
                                 child: Text('${mapvalueroom[indexthree]}',
                                     style: TextStyle(
-                                        fontSize: 16.sp,
+                                        fontSize: 14.sp,
                                         color: kblackcolor,
                                         fontWeight: FontWeight.bold)),
                               ),
@@ -625,7 +625,7 @@ class _FloorDetailsState extends State<FloorDetails> {
                                     borderRadius: BorderRadius.circular(5.w)),
                                 child: Text('${mapvalueroocount[indexthree]}',
                                     style: TextStyle(
-                                        fontSize: 16.sp,
+                                        fontSize: 14.sp,
                                         color: kblackcolor,
                                         fontWeight: FontWeight.bold)),
                               ),
@@ -681,7 +681,7 @@ class _FloorDetailsState extends State<FloorDetails> {
 //           borderRadius: BorderRadius.circular(5.w)),
 //       child: DropdownButton(
 //         underline: const SizedBox(),
-//         style: TextStyle(fontSize: 16.sp, color: kblackcolor),
+//         style: TextStyle(fontSize: 14.sp, color: kblackcolor),
 //         value: dropdownvalue,
 //         icon: Icon(Icons.keyboard_arrow_down, size: 20.sp),
 //         items: dropdownitems.map((String items) {

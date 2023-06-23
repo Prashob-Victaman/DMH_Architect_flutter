@@ -60,11 +60,12 @@ class ArchitectMyDesign extends StatelessWidget {
                           shrinkWrap: true,
                           physics: ScrollPhysics(),
                           itemBuilder: (context, index) {
+                            int reverseIndex = DesignList.length-index-1;
                             final data =
-                                designDataModel.fromJson(DesignList[index]);
+                                designDataModel.fromJson(DesignList[reverseIndex]);
 
                             Timestamp timestamp =
-                                DesignList[index]['postedDate'];
+                                DesignList[reverseIndex]['postedDate'];
                             DateTime dateTime = timestamp.toDate();
                             DateTime currentTime = DateTime.now();
                             Duration timeDif = currentTime.difference(dateTime);
@@ -86,7 +87,7 @@ class ArchitectMyDesign extends StatelessWidget {
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
                                               image: NetworkImage(DesignList[
-                                                              index]
+                                                              reverseIndex]
                                                           ['exteriorImageList']
                                                       [0] ??
                                                   'https://firebasestorage.googleapis.com/v0/b/designmyhouseuser.appspot.com/o/Placeholder%2Fef3-placeholder-image.jpg?alt=media&token=9e009457-de80-44b9-aa42-89b3bf2fb101&_gl=1*op8ful*_ga*MTIxMzcwMjQwOC4xNjg2MDYwMDEz*_ga_CW55HF8NVT*MTY4NjEzNTM2MS42LjEuMTY4NjEzNTkzNi4wLjAuMA..'))),

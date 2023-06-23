@@ -502,6 +502,11 @@ class CustomerOrders extends StatelessWidget {
                                                         ],
                                                       ),
                                                 const Spacer(),
+
+
+                                                // error starts
+
+
                                                 GetBuilder<OrderController>(
                                                     builder: (getdata) {
                                                   return GestureDetector(
@@ -700,6 +705,8 @@ class CustomerOrders extends StatelessWidget {
                                                     ),
                                                   );
                                                 })
+
+                                                //error ends here
                                               ],
                                             ),
                                           ),

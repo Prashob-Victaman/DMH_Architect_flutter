@@ -16,7 +16,6 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
 
   // List planingFilePriceControllerList;
 
-
   ArchitectaddWorkingDeatails({
     super.key,
   });
@@ -35,7 +34,7 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
           children: [
             Text(
               'Add Working Details',
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 10.w,
@@ -45,7 +44,7 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
                 Text(
                   'Working Drawings',
                   style:
-                      TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
                 ),
                 Spacer(),
                 Container(
@@ -257,7 +256,7 @@ customUploadButton(image, context, isloading) {
                   ),
                   Text(
                     'Upload design PDF',
-                    style: TextStyle(fontSize: 12.0.sp, color: kprimarycolor),
+                    style: TextStyle(fontSize: 10.0.sp, color: kprimarycolor),
                   ),
                 ],
               ),
@@ -275,7 +274,7 @@ class uploadDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 180.w,
+      height: 160.w,
       width: 390.w,
       decoration: BoxDecoration(
           border: Border.all(width: 1.w, color: kprimarycolor),
@@ -304,7 +303,7 @@ class uploadDesign extends StatelessWidget {
             ),
             Text(
               'Upload your design',
-              style: TextStyle(fontSize: 14.sp, color: kprimarycolor),
+              style: TextStyle(fontSize: 12.sp, color: kprimarycolor),
             )
           ],
         ),

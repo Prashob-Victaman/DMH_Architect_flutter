@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/orderHistory.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/individualOrder.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,17 +15,19 @@ class ordersProfile extends StatelessWidget {
     final screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
-          child: StreamBuilder(
+          child: ListView(
+        children: [
+          StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("ArchitectData")
                   .doc(FirebaseAuth.instance.currentUser!.uid)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 final designList = snapshot.data!['orders'];
 
@@ -43,7 +44,7 @@ class ordersProfile extends StatelessWidget {
                     ),
                     ListView(
                       shrinkWrap: true,
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       children: [
                         Padding(
                           padding: EdgeInsets.all(10.0.w),
@@ -178,7 +179,9 @@ class ordersProfile extends StatelessWidget {
                     ),
                   ],
                 );
-              })),
+              }),
+        ],
+      )),
     );
   }
 }

@@ -25,7 +25,7 @@ class ArchitectHouseType extends StatelessWidget {
           children: [
             Text(
               'House Type',
-              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.bold),
             ),
             heigh10,
             Row(
@@ -182,7 +182,7 @@ class housetypebutton extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: TextStyle(fontSize: 14.sp, color: textcolor),
+          style: TextStyle(fontSize: 13.sp, color: textcolor),
         ),
       ),
     );

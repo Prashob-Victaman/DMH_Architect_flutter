@@ -31,7 +31,13 @@ class ordersProfile extends StatelessWidget {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                final designList = snapshot.data!['orders'];
+                var designList;
+
+                try {
+                  designList = snapshot.data!['orders'];
+                } catch (e) {
+                  designList = [];
+                }
 
                 return Column(
                   children: [

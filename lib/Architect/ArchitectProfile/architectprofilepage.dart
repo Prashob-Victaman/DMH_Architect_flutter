@@ -1,4 +1,4 @@
-import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/designsSold.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
@@ -106,6 +106,17 @@ class ArchitectProfilePage extends StatelessWidget {
                               color: kbluecolor, size: 20.w),
                           title: 'Orders',
                           subtitle: 'Manage your Orders',
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              size: 15.w, color: kgreycolor)),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () => Get.to(() => DesignsSold()),
+                      child: architectprofilewidgets(
+                          icon: Icon(Icons.description_sharp,
+                              color: kbluecolor, size: 20.w),
+                          title: 'Designs sold',
+                          subtitle: 'Designs bought by users',
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 15.w, color: kgreycolor)),
                     ),

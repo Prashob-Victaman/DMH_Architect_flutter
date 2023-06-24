@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-String? orderUidpublic;
+// String? orderUidpublic;
 
 class ordersProfile extends StatelessWidget {
   const ordersProfile({super.key});
@@ -31,7 +31,13 @@ class ordersProfile extends StatelessWidget {
                 if (!snapshot.hasData) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                final designList = snapshot.data!['orders'];
+                var designList;
+
+                try {
+                  designList = snapshot.data!['orders'];
+                } catch (e) {
+                  designList = [];
+                }
 
                 return Column(
                   children: [
@@ -67,12 +73,15 @@ class ordersProfile extends StatelessWidget {
                                 Duration timeDif =
                                     currentTime.difference(dateTime);
 
-                                orderUidpublic =
-                                    designList[reverseIndex]['orderUId'];
+                                    print( designList[reverseIndex]
+                                                ['orderUId'],);
+
+                                // orderUidpublic =
+                                //     designList[reverseIndex]['orderUId'];
                                 return GestureDetector(
                                   onTap: () => Get.to(() => OrderHistoryUser(
-                                            // orderUid: designList[reverseIndex]
-                                            //     ['orderUId'],
+                                            orderUid: designList[reverseIndex]
+                                                ['orderUId'],
                                             architectName:
                                                 designList[reverseIndex]
                                                     ['architectName'],

@@ -13,12 +13,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CustomerOrders extends StatelessWidget {
   // OrderDataModel orderData;
-  // String orderUid;
+  String orderUid;
   CustomerOrders({
     super.key,
     // required this.selectedServicesList,
     // required this.orderData,
-    // required this.orderUid,
+    required this.orderUid,
   });
 
   // List isaAproved = [true, false, true, false];
@@ -44,7 +44,7 @@ class CustomerOrders extends StatelessWidget {
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection("orderData")
-                .doc(orderUidpublic)
+                .doc(orderUid)
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
@@ -594,7 +594,7 @@ class CustomerOrders extends StatelessWidget {
                                                                             onTap:
                                                                                 () async {
                                                                               if (orderController.floorplanUrl[index] != null) {
-                                                                                await FirebaseFirestore.instance.collection('orderData').doc(orderUidpublic!).get().then((documentSnapshot) {
+                                                                                await FirebaseFirestore.instance.collection('orderData').doc(orderUid!).get().then((documentSnapshot) {
                                                                                   if (documentSnapshot.exists) {
                                                                                     Map<String, dynamic>? documentData = documentSnapshot.data();
 
@@ -604,7 +604,7 @@ class CustomerOrders extends StatelessWidget {
                                                                                     documentData['servicesSelectedModel'][index]['isCompleted'] = true;
 
                                                                                     // Update the document with the modified array
-                                                                                    FirebaseFirestore.instance.collection('orderData').doc(orderUidpublic!).set(documentData).then((value) => print('Value updated successfully.')).catchError((error) => print('Error updating value: $error'));
+                                                                                    FirebaseFirestore.instance.collection('orderData').doc(orderUid!).set(documentData).then((value) => print('Value updated successfully.')).catchError((error) => print('Error updating value: $error'));
 
                                                                                     orderController.flooplan[index] = null;
                                                                                     orderController.floorplanUrl[index] = null;
@@ -915,7 +915,7 @@ class CustomerOrders extends StatelessWidget {
                       onTap: () async {
                         await FirebaseFirestore.instance
                             .collection('orderData')
-                            .doc(orderUidpublic!)
+                            .doc(orderUid!)
                             .get()
                             .then((documentSnapshot) {
                           if (documentSnapshot.exists) {
@@ -929,7 +929,7 @@ class CustomerOrders extends StatelessWidget {
                             // Update the document with the modified array
                             FirebaseFirestore.instance
                                 .collection('orderData')
-                                .doc(orderUidpublic!)
+                                .doc(orderUid!)
                                 .set(documentData)
                                 .then((value) =>
                                     print('Value updated successfully.'))
@@ -942,7 +942,7 @@ class CustomerOrders extends StatelessWidget {
 
                         // await FirebaseFirestore.instance
                         //     .collection("order")
-                        //     .doc(orderUidpublic!)
+                        //     .doc(orderUid!)
                         //     .update({'servicesSelectedModel': value});
 
                         Get.back();
@@ -1068,7 +1068,7 @@ class CustomerOrders extends StatelessWidget {
                         if (form!.validate()) {
                           await FirebaseFirestore.instance
                               .collection('orderData')
-                              .doc(orderUidpublic!)
+                              .doc(orderUid!)
                               .get()
                               .then((documentSnapshot) {
                             if (documentSnapshot.exists) {
@@ -1086,7 +1086,7 @@ class CustomerOrders extends StatelessWidget {
                               // Update the document with the modified array
                               FirebaseFirestore.instance
                                   .collection('orderData')
-                                  .doc(orderUidpublic!)
+                                  .doc(orderUid!)
                                   .set(documentData)
                                   .then((value) =>
                                       print('Value updated successfully.'))
@@ -1099,7 +1099,7 @@ class CustomerOrders extends StatelessWidget {
 
                           // await FirebaseFirestore.instance
                           //     .collection("order")
-                          //     .doc(orderUidpublic!)
+                          //     .doc(orderUid!)
                           //     .update({'servicesSelectedModel': value});
 
                           Get.back();

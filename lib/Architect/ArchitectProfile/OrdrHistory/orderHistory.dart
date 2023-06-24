@@ -16,7 +16,7 @@ class OrderHistoryUser extends StatelessWidget {
   String orderId;
   var dateTime;
   String architectName;
-  // String orderUid;
+  String orderUid;
   List imageUrlList;
   OrderHistoryUser({
     super.key,
@@ -24,7 +24,7 @@ class OrderHistoryUser extends StatelessWidget {
     required this.orderId,
     required this.imageUrlList,
     required this.architectName,
-    // required this.orderUid
+    required this.orderUid
   });
 
   List serviceTitle = [
@@ -82,14 +82,14 @@ class OrderHistoryUser extends StatelessWidget {
               child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection("orderData")
-                    .doc(orderUidpublic)
+                    .doc(orderUid)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   // final DesignList = snapshot.data!['myDesigns'];
 
@@ -137,33 +137,33 @@ class OrderHistoryUser extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Spacer(),
-                            Container(
-                              width: 100.w,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.w),
-                                  color: kprimarycolor50.withOpacity(0.5)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Status',
-                                    style: TextStyle(
-                                        fontSize: 15.w,
-                                        color: kblackcolor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    'Pending',
-                                    style: TextStyle(
-                                        fontSize: 15.w,
-                                        color: kredcolor,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            )
+                            const Spacer(),
+                            // Container(
+                            //   width: 100.w,
+                            //   height: 45,
+                            //   decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(5.w),
+                            //       color: kprimarycolor50.withOpacity(0.5)),
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     children: [
+                            //       Text(
+                            //         'Status',
+                            //         style: TextStyle(
+                            //             fontSize: 15.w,
+                            //             color: kblackcolor,
+                            //             fontWeight: FontWeight.bold),
+                            //       ),
+                            //       Text(
+                            //         'Pending',
+                            //         style: TextStyle(
+                            //             fontSize: 15.w,
+                            //             color: kredcolor,
+                            //             fontWeight: FontWeight.bold),
+                            //       )
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
@@ -252,7 +252,7 @@ class OrderHistoryUser extends StatelessWidget {
                                               kprimarycolor)),
                                   onPressed: () {
                                     Get.to(() => CustomerOrders(
-                                        // orderUid: orderUidpublic!,
+                                        orderUid: orderUid,
                                         // selectedServicesList:
                                         //     data.servicesSelectedModel,
                                         ));

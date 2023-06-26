@@ -56,32 +56,40 @@ class LocationController extends GetxController {
   fetchLocation() async {
     bool isLocationServiceEnabled = await Geolocator.isLocationServiceEnabled();
 
-    if (!isLocationServiceEnabled) {
-      // Handle when location service is not enabled
-      return;
-    }
+    await Geolocator.requestPermission().then((value){}).onError((error, stackTrace){
+      print(error);
+    });
 
-    LocationPermission permission = await Geolocator.checkPermission();
+    Position userPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    latitude.value = userPosition.latitude;
+    longitude.value = userPosition.longitude;
 
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-
-      if (permission == LocationPermission.denied) {
-        // Handle when location permission is denied
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Handle when location permission is permanently denied
-      return;
-    }
-
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    latitude.value = position.latitude;
-    longitude.value = position.longitude;
+    // if (!isLocationServiceEnabled) {
+    //   // Handle when location service is not enabled
+    //   return;
+    // }
+    //
+    // LocationPermission permission = await Geolocator.checkPermission();
+    //
+    // if (permission == LocationPermission.denied) {
+    //   permission = await Geolocator.requestPermission();
+    //
+    //   if (permission == LocationPermission.denied) {
+    //     // Handle when location permission is denied
+    //     return;
+    //   }
+    // }
+    //
+    // if (permission == LocationPermission.deniedForever) {
+    //   // Handle when location permission is permanently denied
+    //   return;
+    // }
+    //
+    // Position position = await Geolocator.getCurrentPosition(
+    //     desiredAccuracy: LocationAccuracy.high);
+    //
+    // latitude.value = position.latitude;
+    // longitude.value = position.longitude;
 
     String address =
         await getAddress(latitude.toDouble(), longitude.toDouble());

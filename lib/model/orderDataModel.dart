@@ -10,6 +10,7 @@ class OrderDataModel {
   List servicesSelectedModel;
   List requirementData;
   Map averageAreaDimension;
+  Map requestList;
 
   OrderDataModel(
       {required this.architectName,
@@ -22,6 +23,7 @@ class OrderDataModel {
       required this.houseFacing,
       required this.servicesSelectedModel,
       required this.requirementData,
+      required this.requestList,
       required this.averageAreaDimension});
 
   Map<String, dynamic> toJson() => {
@@ -36,6 +38,7 @@ class OrderDataModel {
         'servicesSelectedModel': servicesSelectedModel,
         'requirementData': requirementData,
         'averageAreaDimension': averageAreaDimension,
+        'requestList': requestList,
       };
 
   factory OrderDataModel.fromJson(json) => OrderDataModel(
@@ -50,5 +53,6 @@ class OrderDataModel {
         servicesSelectedModel: json['servicesSelectedModel'],
         requirementData: json['requirementData'],
         averageAreaDimension: json['averageAreaDimension'],
+        requestList: json['requestList'],
       );
 }

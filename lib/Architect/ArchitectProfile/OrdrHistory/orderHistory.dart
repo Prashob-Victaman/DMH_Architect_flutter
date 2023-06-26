@@ -18,14 +18,13 @@ class OrderHistoryUser extends StatelessWidget {
   String architectName;
   String orderUid;
   List imageUrlList;
-  OrderHistoryUser({
-    super.key,
-    required this.dateTime,
-    required this.orderId,
-    required this.imageUrlList,
-    required this.architectName,
-    required this.orderUid
-  });
+  OrderHistoryUser(
+      {super.key,
+      required this.dateTime,
+      required this.orderId,
+      required this.imageUrlList,
+      required this.architectName,
+      required this.orderUid});
 
   List serviceTitle = [
     'Floor Plan',
@@ -252,9 +251,9 @@ class OrderHistoryUser extends StatelessWidget {
                                               kprimarycolor)),
                                   onPressed: () {
                                     Get.to(() => CustomerOrders(
-                                        orderUid: orderUid,
-                                        // selectedServicesList:
-                                        //     data.servicesSelectedModel,
+                                          orderUid: orderUid,
+                                          // selectedServicesList:
+                                          //     data.servicesSelectedModel,
                                         ));
                                   },
                                   child: Container(
@@ -284,7 +283,9 @@ class OrderHistoryUser extends StatelessWidget {
                           serviceTitle: serviceTitle,
                           aboutService: aboutService),
                       heigh10,
-                      RequestWidget(screenWidth: screenWidth),
+                      RequestWidget(
+                          screenWidth: screenWidth,
+                          requestList: data.requestList),
                       UploadRequirements(
                         screenWidth: screenWidth,
                         requiredData: data.requirementData,

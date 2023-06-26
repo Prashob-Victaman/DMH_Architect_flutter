@@ -73,9 +73,6 @@ class ordersProfile extends StatelessWidget {
                                 Duration timeDif =
                                     currentTime.difference(dateTime);
 
-                                    print( designList[reverseIndex]
-                                                ['orderUId'],);
-
                                 // orderUidpublic =
                                 //     designList[reverseIndex]['orderUId'];
                                 return GestureDetector(

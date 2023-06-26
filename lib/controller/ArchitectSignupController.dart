@@ -18,7 +18,11 @@ class ArchitectSignupController extends GetxController {
         next *= 10;
       }
       int otp = next.toInt();
-
+      Get.to(ArchitectSignupOtpscreen(
+        number: mobile,
+        verify: otp, email: email, name: name,
+        // email: email,
+      ));
       var url = Uri.parse('https://enterprise.smsgupshup.com/GatewayAPI/rest');
 
       var queryParams = {
@@ -40,11 +44,7 @@ class ArchitectSignupController extends GetxController {
       if (response.statusCode == 200) {
         // Request successful, process the response
 
-        Get.to(ArchitectSignupOtpscreen(
-          number: mobile,
-          verify: otp, email: email, name: name,
-          // email: email,
-        ));
+
 
         Fluttertoast.showToast(msg: 'OTP sent successfully');
 

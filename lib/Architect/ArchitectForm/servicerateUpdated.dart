@@ -215,15 +215,20 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                                                   width: 30.w,
                                                   child: IconButton(
                                                     onPressed: () {
-                                                      widget
-                                                          .getXcontroller
-                                                          .servicerateTextController[
-                                                              primaryindex]
-                                                          .add(
-                                                              TextEditingController());
-                                                      widget.getXcontroller
-                                                          .changeserviceTypeCountfunction(
-                                                              primaryindex);
+                                                      if (selctedserviceRateMainList[
+                                                                  primaryindex]
+                                                              .length <
+                                                          2) {
+                                                        widget
+                                                            .getXcontroller
+                                                            .servicerateTextController[
+                                                                primaryindex]
+                                                            .add(
+                                                                TextEditingController());
+                                                        widget.getXcontroller
+                                                            .changeserviceTypeCountfunction(
+                                                                primaryindex);
+                                                      }
                                                     },
                                                     icon: Icon(Icons.add,
                                                         size: 20.sp),

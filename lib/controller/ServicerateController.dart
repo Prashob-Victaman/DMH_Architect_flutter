@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ServicerateController extends GetxController {
-  final List<String> desiignType = ['Simple', "Modern", 'Classical', 'Others'];
+  final List<String> desiignType = ['Modern', 'Classical'];
 
   int serviceTypeCount = 1;
 
@@ -15,7 +15,7 @@ class ServicerateController extends GetxController {
   );
 
   changeserviceTypeCountfunction(index) {
-    selctedserviceRateMainList[index].add('Simple');
+    selctedserviceRateMainList[index].add('Modern');
     // print('${serviceRateMainlist} kkkkkkkkkkkkkkkkkkkkkkkkkkkkk');
     refresh();
   }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/controller/ArchitectformController.dart';
@@ -11,19 +9,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../Constants/constants.dart';
 
-class ProfileServiceRate extends StatefulWidget {
+class ProfileServiceRate extends StatelessWidget {
   ProfileServiceRate({Key? key}) : super(key: key);
-
-  @override
-  State<ProfileServiceRate> createState() => _ProfileServiceRateState();
 
   final formKeyServiceRate = GlobalKey<FormState>();
 
   final getXcontroller = Get.put(ServicerateController());
   final getformcontroller = Get.put(ArchitectformController());
-}
 
-class _ProfileServiceRateState extends State<ProfileServiceRate> {
+  List designTypeList = ['Modern', 'Classic'];
+
+  TextEditingController amountcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +28,7 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
-            key: widget.formKeyServiceRate,
+            key: formKeyServiceRate,
             child: ListView(
               children: [
                 Align(
@@ -83,11 +80,21 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                             List<MapEntry> mapEntries =
                                 serviceRateTypemap.entries.toList();
 
-                            log(mapEntries[0].value.toString());
+                            Map serviceRateAmountmap =
+                                data.serviceRateamountList;
+
+                            List<MapEntry> AmountmapEntries =
+                                serviceRateAmountmap.entries.toList();
+
+                            // log(mapEntries[0].value.toString());
+
+                            // serviceRateamountmap =
+                            //   widget.architectData['serviceRateamountList'];
 
                             // List<List> serviceRateTypelist = serviceRateTypemap.map((number) => number).toList();
 
-                            // print(serviceRateTypeList);
+                            print(
+                                '${selctedserviceRateMainList[primaryindex]}');
                             return Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5.0.w),
@@ -120,12 +127,25 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                                           shrinkWrap: true,
                                           physics: const ScrollPhysics(),
                                           itemBuilder: (context, index) {
+                                            var serviceRate;
+
+                                            try {
+                                              serviceRate =
+                                                  serviceRateAmountmap[
+                                                      serviceListItems[
+                                                          primaryindex]][index];
+                                            } catch (e) {
+                                              serviceRate = null;
+                                              print(e);
+                                            }
+
                                             return Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
                                                 Container(
+                                                  alignment: Alignment.center,
                                                   height: 40.w,
                                                   width: MediaQuery.of(context)
                                                               .size
@@ -137,177 +157,50 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
                                                       horizontal: 10.0),
                                                   decoration:
                                                       customBoxDecoration(),
-                                                  child: DropdownButton(
-                                                    value:
-                                                        selctedserviceRateMainList[
-                                                                primaryindex]
-                                                            [index],
-                                                    underline: const SizedBox(),
-                                                    items: widget.getXcontroller
-                                                        .desiignType
-                                                        .map((value) =>
-                                                            DropdownMenuItem(
-                                                              value: value,
-                                                              child:
-                                                                  Text(value),
-                                                            ))
-                                                        .toList(),
-                                                    onChanged: (value) {
-                                                      selctedserviceRateMainList[
-                                                              primaryindex]
-                                                          [index] = value!;
-                                                      setState(() {});
-                                                    },
-
-                                                    // onChanged: (newValue) {
-                                                    //   // Update the list value in the map when the dropdown selection changes
-                                                    //   selctedserviceRateMainListmap
-                                                    //       .update(serviceType[primaryindex],
-                                                    //           (value) => [newValue]);
-                                                    //   setState(() {});
-                                                    // },
-                                                    isExpanded: true,
-                                                  ),
+                                                  child: Text(
+                                                      designTypeList[index]),
                                                 ),
                                                 Container(
-                                                  color: kashcolor
-                                                      .withOpacity(0.5),
+                                                  decoration:
+                                                      customBoxDecoration(),
+                                                  alignment: Alignment.center,
                                                   width: MediaQuery.of(context)
                                                               .size
                                                               .width /
                                                           2 -
                                                       45.w,
                                                   height: 40.w,
-                                                  child: TextFormField(
-                                                    textAlignVertical:
-                                                        TextAlignVertical
-                                                            .center,
-                                                    controller: widget
-                                                            .getXcontroller
-                                                            .servicerateTextController[
-                                                        primaryindex][index],
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    decoration: InputDecoration(
-                                                        errorBorder:
-                                                            const OutlineInputBorder(
-                                                          borderSide:
-                                                              BorderSide(
-                                                                  width: 1,
-                                                                  color: Color
-                                                                      .fromARGB(
-                                                                          255,
-                                                                          255,
-                                                                          0,
-                                                                          0)),
-                                                        ),
-                                                        errorStyle: TextStyle(
-                                                            height: 0,
-                                                            color: Colors
-                                                                .transparent,
-                                                            fontSize: 1.sp),
-                                                        contentPadding:
-                                                            EdgeInsets
-                                                                .symmetric(
-                                                          // vertical: 10.0.w,
-                                                          horizontal: 10.0.w,
-                                                        ),
-                                                        border:
-                                                            OutlineInputBorder(
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color:
-                                                                kprimarycolor,
-                                                          ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(5),
-                                                        ),
-                                                        hintText:
-                                                            'Enter Amount',
-                                                        hintStyle: TextStyle(
-                                                            fontSize: 16.sp,
-                                                            color: kgreycolor)),
-                                                    validator: (value) {
-                                                      if (value!.isEmpty) {
-                                                        return '';
-                                                      }
-
-                                                      return null;
-                                                    },
+                                                  child: Text(
+                                                    serviceRate ?? 'Not Added',
+                                                    style: normal15,
                                                   ),
                                                 ),
-                                                index == 0
-                                                    ? SizedBox(
-                                                        width: 30.w,
-                                                        child: IconButton(
-                                                          onPressed: () {
-                                                            widget
-                                                                .getXcontroller
-                                                                .servicerateTextController[
-                                                                    primaryindex]
-                                                                .add(
-                                                                    TextEditingController());
-                                                            widget
-                                                                .getXcontroller
-                                                                .changeserviceTypeCountfunction(
-                                                                    primaryindex);
-                                                          },
-                                                          icon: Icon(Icons.add,
-                                                              size: 20.sp),
-                                                        ),
-                                                      )
-                                                    : index ==
-                                                            selctedserviceRateMainList[
-                                                                        primaryindex]
-                                                                    .length -
-                                                                1
-                                                        ? SizedBox(
-                                                            width: 30.w,
-                                                            child: IconButton(
-                                                              onPressed: () {
-                                                                widget
-                                                                    .getXcontroller
-                                                                    .removeserviceTypeCountfunction(
-                                                                        primaryindex);
-
-                                                                widget
-                                                                    .getXcontroller
-                                                                    .servicerateTextController[
-                                                                        primaryindex]
-                                                                    .removeLast();
-                                                                print(widget
-                                                                    .getXcontroller
-                                                                    .servicerateTextController[
-                                                                        primaryindex]
-                                                                    .length);
-                                                              },
-                                                              icon: Icon(
-                                                                Icons.delete,
-                                                                size: 20.sp,
-                                                              ),
-                                                            ),
-                                                          )
-                                                        : SizedBox(
-                                                            width: 30.w,
-                                                            child: IconButton(
-                                                              onPressed: () {},
-                                                              icon: Icon(
-                                                                  Icons.delete,
-                                                                  size: 20.sp,
-                                                                  color:
-                                                                      kwhitecolor),
-                                                            ),
-                                                          )
+                                                SizedBox(
+                                                    width: 20.w,
+                                                    child: IconButton(
+                                                      onPressed: () {
+                                                        cofirmationPopup(
+                                                          context,
+                                                          serviceListItems[
+                                                              primaryindex],
+                                                          designTypeList[index],
+                                                          index,
+                                                        );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.edit_square,
+                                                        color: kprimarycolor,
+                                                        size: 25.sp,
+                                                      ),
+                                                    )),
+                                                width5
                                               ],
                                             );
                                           },
                                           separatorBuilder: (context, index) {
                                             return heigh10;
                                           },
-                                          itemCount: selctedserviceRateMainList[
-                                                  primaryindex]
-                                              .length);
+                                          itemCount: designTypeList.length);
                                     }),
                                   ],
                                 ),
@@ -328,57 +221,167 @@ class _ProfileServiceRateState extends State<ProfileServiceRate> {
           ),
         ),
       ),
-      floatingActionButton: Container(
-        width: 143,
-        height: 35,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(
-                const Color.fromARGB(255, 255, 90, 95)),
+      // floatingActionButton: Container(
+      //   width: 143,
+      //   height: 35,
+      //   child: ElevatedButton(
+      //     style: ButtonStyle(
+      //       backgroundColor: MaterialStateProperty.all<Color>(
+      //           const Color.fromARGB(255, 255, 90, 95)),
+      //     ),
+      //     onPressed: () {
+      //       final form = widget.formKeyServiceRate.currentState;
+
+      //       if (form!.validate()) {
+      //         List<List<String>> serviceAmountList =
+      //             List.generate(10, (_) => []);
+
+      //         for (int i = 0; i < 10; i++) {
+      //           widget.getXcontroller.servicerateTextController[i]
+      //               .forEach((element) {
+      //             serviceAmountList[i].add(element.text);
+      //           });
+      //         }
+
+      //         Map selctedserviceRateAmounrtMainListmap = {
+      //           "Planning": serviceAmountList[0],
+      //           'Structure': serviceAmountList[1],
+      //           '2D Elevation': serviceAmountList[2],
+      //           '3D Elevation': serviceAmountList[3],
+      //           '3D Floor': serviceAmountList[4],
+      //           'Walkthrough Video(Exterior)': serviceAmountList[5],
+      //           'Walkthrough Video(Interior & Exterior)': serviceAmountList[6],
+      //           'Electricals': serviceAmountList[7],
+      //           'Plumbing': serviceAmountList[8],
+      //           'Site Supervision': serviceAmountList[9],
+      //         };
+
+      //         // log(selctedserviceRateAmounrtMainListmap.toString());
+      //         // log(selctedserviceRateMainListmap.toString());
+
+      //         widget.getformcontroller.addServicerateDetails(
+      //             FirebaseAuth.instance.currentUser!.uid,
+      //             selctedserviceRateMainListmap,
+      //             selctedserviceRateAmounrtMainListmap);
+
+      //         Get.offAll(Architectbottomnavigationbar(
+      //           selectedindex: 0,
+      //         ));
+      //       }
+      //     },
+      //     child: const Text('Update'),
+      //   ),
+      // ),
+    );
+  }
+
+  Future<void> cofirmationPopup(
+    BuildContext context,
+    title,
+    subtitle,
+    index,
+  ) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titlePadding: EdgeInsets.all(0.w),
+          title: Container(
+            height: 150.w,
+            width: 300.w,
+            child: Column(
+              children: [
+                Container(
+                    padding: EdgeInsets.all(10.w),
+                    alignment: Alignment.center,
+                    // height: 84.w,
+                    child: Text(
+                      'Enter Service Rate for ${title} - ${subtitle}',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 14.sp,
+                          color: kblackcolor,
+                          fontWeight: FontWeight.bold),
+                    )),
+                // const Spacer(),
+                Container(
+                  height: 50.w,
+                  width: 270.w,
+                  padding: EdgeInsets.symmetric(vertical: 10.w),
+                  child: TextFormField(
+                      // initialValue: dataController.email,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your Email';
+                        }
+                        if (!RegExp(
+                                r'^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$')
+                            .hasMatch(value)) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
+                      controller: amountcontroller,
+                      decoration: customInputDecoration('Amount')),
+                ),
+                Spacer(),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        // final documentReference = await FirebaseFirestore
+                        //     .instance
+                        //     .collection('ArchitectData')
+                        //     .doc(FirebaseAuth.instance.currentUser!.uid);
+
+                        // documentReference.update({
+                        //   'serviceRateamountList.${title}.${index}':
+                        //       amountcontroller.text,
+                        // });
+
+                        // await FirebaseFirestore.instance
+                        //     .collection("order")
+                        //     .doc(orderUid!)
+                        //     .update({'servicesSelectedModel': value});
+
+                        Get.back();
+                        amountcontroller.clear();
+                      },
+                      child: Container(
+                        height: 30.w,
+                        width: 150.w,
+                        decoration: const BoxDecoration(color: kprimarycolor),
+                        child: Center(
+                            child: Text(
+                          'Yes',
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                        )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        height: 30.w,
+                        width: 150.w,
+                        decoration: BoxDecoration(
+                            color: kwhitecolor,
+                            border: Border.all(color: kprimarycolor)),
+                        child: Center(
+                            child: Text(
+                          'Cancel',
+                          style:
+                              TextStyle(fontSize: 14.sp, color: kprimarycolor),
+                        )),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
-          onPressed: () {
-            final form = widget.formKeyServiceRate.currentState;
-
-            if (form!.validate()) {
-              List<List<String>> serviceAmountList =
-                  List.generate(10, (_) => []);
-
-              for (int i = 0; i < 10; i++) {
-                widget.getXcontroller.servicerateTextController[i]
-                    .forEach((element) {
-                  serviceAmountList[i].add(element.text);
-                });
-              }
-
-              Map selctedserviceRateAmounrtMainListmap = {
-                "Planning": serviceAmountList[0],
-                'Structure': serviceAmountList[1],
-                '2D Elevation': serviceAmountList[2],
-                '3D Elevation': serviceAmountList[3],
-                '3D Floor': serviceAmountList[4],
-                'Walkthrough Video(Exterior)': serviceAmountList[5],
-                'Walkthrough Video(Interior & Exterior)': serviceAmountList[6],
-                'Electricals': serviceAmountList[7],
-                'Plumbing': serviceAmountList[8],
-                'Site Supervision': serviceAmountList[9],
-              };
-
-              // log(selctedserviceRateAmounrtMainListmap.toString());
-              // log(selctedserviceRateMainListmap.toString());
-
-              widget.getformcontroller.addServicerateDetails(
-                  FirebaseAuth.instance.currentUser!.uid,
-                  selctedserviceRateMainListmap,
-                  selctedserviceRateAmounrtMainListmap);
-
-              Get.offAll(Architectbottomnavigationbar(
-                selectedindex: 0,
-              ));
-            }
-          },
-          child: const Text('Update'),
-        ),
-      ),
+        );
+      },
     );
   }
 }

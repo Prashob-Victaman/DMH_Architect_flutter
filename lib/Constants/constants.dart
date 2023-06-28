@@ -322,7 +322,7 @@ List HouseType = [
 // ];
 
 List<List<String>> selctedserviceRateMainList =
-    List.generate(10, (_) => ['Simple']);
+    List.generate(10, (_) => ['Modern']);
 
 Map selctedserviceRateMainListmap = {
   "Floor Plan": selctedserviceRateMainList[0],

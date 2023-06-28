@@ -3,6 +3,7 @@ import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/controller/ordercontroller.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,11 +15,13 @@ import 'package:url_launcher/url_launcher.dart';
 class CustomerOrders extends StatelessWidget {
   // OrderDataModel orderData;
   String orderUid;
+  String customerUid;
   CustomerOrders({
     super.key,
     // required this.selectedServicesList,
     // required this.orderData,
     required this.orderUid,
+    required this.customerUid
   });
 
   // List isaAproved = [true, false, true, false];
@@ -61,6 +64,8 @@ class CustomerOrders extends StatelessWidget {
                   .format(orderData.orderDatetime.toDate());
 
               List selectedServicesList = orderData.servicesSelectedModel;
+
+
 
               return ListView(
                 children: [
@@ -757,8 +762,13 @@ class CustomerOrders extends StatelessWidget {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () async {
+                                                    var userdata = await FirebaseFirestore.instance
+                                                        .collection('UserData')
+                                                        .doc(customerUid)
+                                                        .get();
+
                                                     if (!await launchUrl(Uri.parse(
-                                                        'tel:+919008337447'))) {
+                                                        'tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
                                                       throw Exception(
                                                           'Could not launch');
                                                     }
@@ -772,8 +782,12 @@ class CustomerOrders extends StatelessWidget {
                                                 // heigh5,
                                                 GestureDetector(
                                                   onTap: () async {
+                                                    var userdata = await FirebaseFirestore.instance
+                                                        .collection('UserData')
+                                                        .doc(customerUid)
+                                                        .get();
                                                     if (!await launchUrl(Uri.parse(
-                                                        'whatsapp://send?phone=+919008337447'))) {
+                                                        'whatsapp://send?phone=+91${userdata['ProfileDetails']['mobileNumber']}'))) {
                                                       throw Exception(
                                                           'Could not launch');
                                                     }

@@ -92,7 +92,7 @@ class OrderHistoryUser extends StatelessWidget {
                   }
                   // final DesignList = snapshot.data!['myDesigns'];
 
-                  final data = OrderDataModel.fromJson(snapshot.data!);
+                  OrderDataModel data = OrderDataModel.fromJson(snapshot.data!);
 
                   final numberOfFloors =
                       data.averageAreaDimension['noOfFloors'];
@@ -122,7 +122,7 @@ class OrderHistoryUser extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Architect - ${architectName}',
+                                    'Customer - ${data.customerName}',
                                     style: bold15,
                                   ),
                                   Text(

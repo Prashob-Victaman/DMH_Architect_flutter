@@ -251,6 +251,7 @@ class OrderHistoryUser extends StatelessWidget {
                                               kprimarycolor)),
                                   onPressed: () {
                                     Get.to(() => CustomerOrders(
+                                      customerUid:data.customerUid,
                                           orderUid: orderUid,
                                           // selectedServicesList:
                                           //     data.servicesSelectedModel,

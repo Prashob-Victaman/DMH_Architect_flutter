@@ -122,7 +122,7 @@ class CustomerOrders extends StatelessWidget {
                                                     color: kblackcolor),
                                               ),
                                               Text(
-                                                '${orderData.architectName}',
+                                                '${orderData.customerName}',
                                                 style: normal14,
                                               ),
                                               Text(

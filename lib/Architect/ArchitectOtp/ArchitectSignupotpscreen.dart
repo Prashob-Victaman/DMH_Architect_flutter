@@ -116,29 +116,27 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Text(
                     'We Will send you a one time password On',
-                    style: normal18,
+                    style: normal16,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text('+91${widget.number}', style: normal20),
                   const SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: pinputwidget(controller: otpcontroller),
                   ),
+             
+                  // const Text('Dont Recieve Code? Resend', style: textbold16),
                   const SizedBox(
-                    height: 20,
-                  ),
-                  // const Text('Dont Recieve Code? Resend', style: textbold18),
-                  const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Text('$_remainingTime sec'), heigh20,
                   Container(
@@ -172,7 +170,7 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                       ],
                     ),
                   ),
-                  heigh20,
+                  heigh10,
                   GestureDetector(
                     onTapUp: (details) => print('Ontaptap'),
                     onTap: () async {
@@ -224,7 +222,7 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                       child: const Center(
                         child: Text(
                           'Submit',
-                          style: TextStyle(color: kwhitecolor, fontSize: 20),
+                          style: TextStyle(color: kwhitecolor, fontSize: 16),
                         ),
                       ),
                     ),
@@ -236,7 +234,7 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                       const Text(
                         ' Already have an account? ',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: kblackcolor),
                       ),
@@ -245,7 +243,7 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                         child: const Text(
                           ' Login',
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               color: kprimarycolor),
                         ),

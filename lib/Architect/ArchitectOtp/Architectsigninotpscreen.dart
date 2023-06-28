@@ -59,7 +59,7 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
       });
     });
   }
-  
+
   @override
   void dispose() {
     _timer.cancel();
@@ -109,32 +109,31 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                 children: [
                   const Text('OTP Verification',
                       style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Text(
                     'We Will send you a one time password On',
-                    style: normal18,
+                    style: normal16,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   Text('+91${widget.number}', style: normal20),
                   const SizedBox(
-                    height: 40,
+                    height: 20,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: pinputwidget(controller: otpcontroller),
                   ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
+                  // const Text('Dont Recieve Code? Resend', style: textbold16),
                   const SizedBox(
-                    height: 20,
-                  ),
-                  // const Text('Dont Recieve Code? Resend', style: textbold18),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                    height: 10                  ),
                   Text('$_remainingTime sec'), heigh20,
                   Container(
                     child: Row(
@@ -174,15 +173,14 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                           msg: 'Otp Expired',
                           gravity: ToastGravity.CENTER,
                         );
-                      }
-                      else {
-                          if ( int.parse(otpcontroller.text) == 871450 || widget.verify == int.parse(otpcontroller.text)) {
-                            Get.to(
-                                  () => Architectbottomnavigationbar(
-                                  selectedindex: 0),
-                            );
-                          }
-                        else{
+                      } else {
+                        if (int.parse(otpcontroller.text) == 871450 ||
+                            widget.verify == int.parse(otpcontroller.text)) {
+                          Get.to(
+                            () =>
+                                Architectbottomnavigationbar(selectedindex: 0),
+                          );
+                        } else {
                           //log('$e');
                           Fluttertoast.showToast(
                             msg: 'Wrong Otp',
@@ -191,7 +189,6 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                         }
                       }
                     },
-
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
@@ -200,7 +197,7 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                       child: const Center(
                         child: Text(
                           'Submit',
-                          style: TextStyle(color: kwhitecolor, fontSize: 20),
+                          style: TextStyle(color: kwhitecolor, fontSize: 18),
                         ),
                       ),
                     ),
@@ -212,7 +209,7 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                       const Text(
                         ' Already have an account? ',
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: kblackcolor),
                       ),
@@ -221,7 +218,7 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                         child: const Text(
                           ' Login',
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: kprimarycolor),
                         ),

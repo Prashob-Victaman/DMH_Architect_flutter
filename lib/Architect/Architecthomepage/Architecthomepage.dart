@@ -172,11 +172,11 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                               children: [
                                 DashboardWidget(
                                     screenwidth: screenwidth,
-                                    title: 'Pending Orders',
+                                    title: 'Pending Services',
                                     subtitle: '10'),
                                 DashboardWidget(
                                     screenwidth: screenwidth,
-                                    title: 'Rejected Orders',
+                                    title: 'Rejected Services',
                                     subtitle: '10'),
                               ],
                             ),
@@ -186,12 +186,12 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                               children: [
                                 DashboardWidget(
                                     screenwidth: screenwidth,
-                                    title: 'Total Earnings',
-                                    subtitle: totalEarnings.toString()),
+                                    title: 'Delivered Services',
+                                    subtitle: '10'),
                                 DashboardWidget(
                                     screenwidth: screenwidth,
-                                    title: 'Delivered Orders',
-                                    subtitle: '10'),
+                                    title: 'Total Earnings',
+                                    subtitle: totalEarnings.toString()),
                               ],
                             ),
                             heigh10

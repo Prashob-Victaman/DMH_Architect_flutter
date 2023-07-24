@@ -46,9 +46,7 @@ class CustomerOrders extends StatelessWidget {
       body: SafeArea(
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection("orderData")
-                .doc(orderUid)
-                .snapshots(),
+                .collection("orderData").doc(orderUid).snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return const Center(child: CircularProgressIndicator());

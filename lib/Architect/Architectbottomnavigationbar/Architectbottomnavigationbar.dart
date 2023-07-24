@@ -1,6 +1,7 @@
 import 'package:dmh_architect/Architect/ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/architect_office_details.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/architect_presonal_details.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/servicesOrderHistory.dart';
 import 'package:flutter/material.dart';
 
 import '../../Constants/constants.dart';
@@ -23,13 +24,10 @@ class _ArchitectbottomnavigationbarState
 
   final List<Widget> _screens = [
     ArchitecthomePage(),
-    const ArchitectDesignPage(),
+    ServicesOrderHistory(),
+    //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
 
-    // ArchitectPresonalDetails(),
-    // ArchitectOfficeDetails(),
-    // ServiceRateUpdated(),
-    // DesignThisTypeOfHouse(),
     ArchitectProfilePage(),
   ];
 

@@ -21,7 +21,7 @@ class CustomerOrders extends StatelessWidget {
     // required this.selectedServicesList,
     // required this.orderData,
     required this.orderUid,
-    required this.customerUid
+    required this.customerUid,
   });
 
   // List isaAproved = [true, false, true, false];
@@ -64,8 +64,6 @@ class CustomerOrders extends StatelessWidget {
                   .format(orderData.orderDatetime.toDate());
 
               List selectedServicesList = orderData.servicesSelectedModel;
-
-
 
               return ListView(
                 children: [
@@ -139,36 +137,6 @@ class CustomerOrders extends StatelessWidget {
                                           const Spacer(),
                                           Column(
                                             children: [
-                                              // SizedBox(
-                                              //   width: 135.w,
-                                              //   height: 30.w,
-                                              //   child: ElevatedButton(
-                                              //       style: ButtonStyle(
-                                              //           backgroundColor:
-                                              //               MaterialStateProperty
-                                              //                   .all(
-                                              //                       kprimarycolor)),
-                                              //       onPressed: () {
-                                              //         Get.to(() =>
-                                              //             const SelectedOrderDetails());
-                                              //       },
-                                              //       child: Container(
-                                              //         // width: 100.w,
-                                              //         // height: 40.w,
-                                              //         decoration: BoxDecoration(
-                                              //             borderRadius:
-                                              //                 BorderRadius
-                                              //                     .circular(
-                                              //                         5.w)),
-                                              //         child: Text(
-                                              //           'Order Details',
-                                              //           style: TextStyle(
-                                              //             fontSize: 13.sp,
-                                              //             color: kwhitecolor,
-                                              //           ),
-                                              //         ),
-                                              //       )),
-                                              // ),
                                               heigh5,
                                               Row(
                                                 children: [
@@ -599,6 +567,11 @@ class CustomerOrders extends StatelessWidget {
                                                                             onTap:
                                                                                 () async {
                                                                               if (orderController.floorplanUrl[index] != null) {
+                                                                                final documentReference = await FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid);
+
+                                                                                await documentReference.update({
+                                                                                  'dashboardData.deliveredServices': FieldValue.increment(1),
+                                                                                });
                                                                                 await FirebaseFirestore.instance.collection('orderData').doc(orderUid!).get().then((documentSnapshot) {
                                                                                   if (documentSnapshot.exists) {
                                                                                     Map<String, dynamic>? documentData = documentSnapshot.data();
@@ -613,6 +586,8 @@ class CustomerOrders extends StatelessWidget {
 
                                                                                     orderController.flooplan[index] = null;
                                                                                     orderController.floorplanUrl[index] = null;
+
+                                                                                    // print(widget.architectUid);
                                                                                   } else {
                                                                                     print('Document does not exist.');
                                                                                   }
@@ -762,10 +737,13 @@ class CustomerOrders extends StatelessWidget {
                                               children: [
                                                 GestureDetector(
                                                   onTap: () async {
-                                                    var userdata = await FirebaseFirestore.instance
-                                                        .collection('UserData')
-                                                        .doc(customerUid)
-                                                        .get();
+                                                    var userdata =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'UserData')
+                                                            .doc(customerUid)
+                                                            .get();
 
                                                     if (!await launchUrl(Uri.parse(
                                                         'tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
@@ -782,10 +760,13 @@ class CustomerOrders extends StatelessWidget {
                                                 // heigh5,
                                                 GestureDetector(
                                                   onTap: () async {
-                                                    var userdata = await FirebaseFirestore.instance
-                                                        .collection('UserData')
-                                                        .doc(customerUid)
-                                                        .get();
+                                                    var userdata =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'UserData')
+                                                            .doc(customerUid)
+                                                            .get();
                                                     if (!await launchUrl(Uri.parse(
                                                         'whatsapp://send?phone=+91${userdata['ProfileDetails']['mobileNumber']}'))) {
                                                       throw Exception(
@@ -918,7 +899,7 @@ class CustomerOrders extends StatelessWidget {
                     child: Text(
                       'Are you sure you want to ${title} this order?',
                       style: TextStyle(
-                          fontSize: 15.sp,
+                          fontSize: 12.5.sp,
                           color: kblackcolor,
                           fontWeight: FontWeight.bold),
                     )),
@@ -927,9 +908,19 @@ class CustomerOrders extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () async {
+                        final documentReference = await FirebaseFirestore
+                            .instance
+                            .collection('ArchitectData')
+                            .doc(FirebaseAuth.instance.currentUser!.uid);
+
+                        await documentReference.update({
+                          'dashboardData.rejectedServicesCount':
+                              FieldValue.increment(1),
+                        });
+
                         await FirebaseFirestore.instance
                             .collection('orderData')
-                            .doc(orderUid!)
+                            .doc(orderUid)
                             .get()
                             .then((documentSnapshot) {
                           if (documentSnapshot.exists) {
@@ -943,7 +934,7 @@ class CustomerOrders extends StatelessWidget {
                             // Update the document with the modified array
                             FirebaseFirestore.instance
                                 .collection('orderData')
-                                .doc(orderUid!)
+                                .doc(orderUid)
                                 .set(documentData)
                                 .then((value) =>
                                     print('Value updated successfully.'))
@@ -1080,6 +1071,16 @@ class CustomerOrders extends StatelessWidget {
                         final form = formKeydeliveryDate.currentState;
 
                         if (form!.validate()) {
+                          final documentReference = await FirebaseFirestore
+                              .instance
+                              .collection('ArchitectData')
+                              .doc(FirebaseAuth.instance.currentUser!.uid);
+
+                          await documentReference.update({
+                            'dashboardData.acceptedServicesCount':
+                                FieldValue.increment(1),
+                          });
+
                           await FirebaseFirestore.instance
                               .collection('orderData')
                               .doc(orderUid!)

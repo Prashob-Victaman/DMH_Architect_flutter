@@ -16,6 +16,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../Constants/constants.dart';
 import '../ArchitectDrawer/ArchitectDrawerscreen.dart';
 import '../widgets/appbar.dart';
+import 'package:upgrader/upgrader.dart';
 
 class ArchitecthomePage extends StatefulWidget {
   ArchitecthomePage({super.key});
@@ -43,262 +44,330 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
   Widget build(BuildContext context) {
     final screenwidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      drawer: ArchitectDrawerscreen(),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(55.w),
-        child: const appbar(),
-      ),
-      body: ListView(
-        children: [
-          const Carouselslider(),
-          StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection("ArchitectData")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return SizedBox(
-                      height: 10.w,
-                      width: 10.w,
-                      child: const CircularProgressIndicator());
-                }
-                if (!snapshot.hasData) {
-                  return Center(
-                      child: SizedBox(
-                          height: 10.w,
-                          width: 10.w,
-                          child: const CircularProgressIndicator()));
-                }
+    return UpgradeAlert(
+      child: Scaffold(
+        drawer: ArchitectDrawerscreen(),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(55.w),
+          child: const appbar(),
+        ),
+        body: ListView(
+          children: [
+            const Carouselslider(),
+            StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("ArchitectData")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return SizedBox(
+                        height: 10.w,
+                        width: 10.w,
+                        child: const CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData) {
+                    return Center(
+                        child: SizedBox(
+                            height: 10.w,
+                            width: 10.w,
+                            child: const CircularProgressIndicator()));
+                  }
 
-                final data = snapshot.data;
-                final totalDesigns = data!['myDesigns'].length;
+                  final data = snapshot.data;
+                  final totalDesigns = data!['myDesigns'].length;
 
-                final totalEarnings = data['totalEarnings'];
+                  final totalEarnings = data['totalEarnings'];
 
-                try {
-                  widget.totalOrders = data['orders'].length;
-                } catch (e) {
-                  widget.totalOrders = 0;
-                }
+                  var rejectedServices;
+                  var acceptedServices;
+                  var totalServices;
+                  var deliveredServices;
+                  var pendingServices;
 
-                // print(data!['ProfileDetails']);
+                  try {
+                    totalServices = data['dashboardData']['TotalServicesCount'];
+                  } catch (e) {
+                    totalServices = 0;
+                  }
 
-                // final Username = data!['ProfileDetails']['firstName'];
+                  try {
+                    acceptedServices =
+                        data['dashboardData']['acceptedServicesCount'];
+                  } catch (e) {
+                    acceptedServices = 0;
+                  }
 
-                // print(Username);
+                  try {
+                    widget.totalOrders = data['orders'].length;
+                  } catch (e) {
+                    widget.totalOrders = 0;
 
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hi ${data['name']}..! How Have you been',
-                        style: bold13,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0.0.w),
-                        child: FutureBuilder(
-                            future: getcontroller.fetchLocation(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasError) {
-                                return Text(
-                                  'Location Loading...',
-                                  style: normal14,
+                    print(e);
+                  }
+
+                  try {
+                    rejectedServices =
+                        data['dashboardData']['rejectedServicesCount'];
+                  } catch (e) {
+                    rejectedServices = 0;
+
+                    print(e);
+                  }
+                  // print(deliveredServices);
+
+                  try {
+                    deliveredServices =
+                        data['dashboardData']['deliveredServices'];
+                  } catch (e) {
+                    deliveredServices = 0;
+
+                    print(e);
+                  }
+
+                  try {
+                    pendingServices =
+                        totalServices - (acceptedServices + rejectedServices);
+                  } catch (e) {
+                    pendingServices = 0;
+                    print(e);
+                  }
+
+                  // print(data!['ProfileDetails']);
+
+                  // final Username = data!['ProfileDetails']['firstName'];
+
+                  // print(Username);
+
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hi ${data['name']}..! How Have you been',
+                          style: bold13,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 0.0.w),
+                          child: FutureBuilder(
+                              future: getcontroller.fetchLocation(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text(
+                                    'Location Loading...',
+                                    style: normal14,
+                                  );
+                                }
+                                if (!snapshot.hasData) {
+                                  return Text(
+                                    'Location Loading...',
+                                    style: normal14,
+                                  );
+                                }
+                                log(snapshot.data!.toString());
+                                return Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      size: 15.sp,
+                                      color: kbluecolor,
+                                    ),
+                                    Text(
+                                      // widget.location,
+
+                                      '${snapshot.data}',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 14.sp, color: kbluecolor),
+                                    ),
+                                  ],
                                 );
-                              }
-                              if (!snapshot.hasData) {
-                                return Text(
-                                  'Location Loading...',
-                                  style: normal14,
-                                );
-                              }
-                              log(snapshot.data!.toString());
-                              return Row(
+                              }),
+                        ),
+                        Container(
+                          // padding: EdgeInsets.symmetric(horizontal: 10.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.w),
+                          ),
+                          width: screenwidth,
+                          // height: 280.w,
+                          child: Column(
+                            children: [
+                              // heigh10,
+                              // Container(
+                              //   width: screenwidth - 20.w,
+                              //   height: 50.w,
+                              //   decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(5.w),
+                              //       color: kprimarycolor),
+                              // ),
+                              heigh10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
-                                    Icons.location_on,
-                                    size: 15.sp,
-                                    color: kbluecolor,
-                                  ),
-                                  Text(
-                                    // widget.location,
-
-                                    '${snapshot.data}',
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 14.sp, color: kbluecolor),
-                                  ),
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Total Designs',
+                                      subtitle: totalDesigns.toString()),
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Total Orders',
+                                      subtitle: widget.totalOrders.toString()),
                                 ],
-                              );
-                            }),
-                      ),
-                      Container(
-                        // padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.w),
+                              ),
+                              heigh10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Total Services',
+                                      subtitle: totalServices.toString()),
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Accepted Services',
+                                      subtitle: acceptedServices.toString()),
+                                ],
+                              ),
+                              heigh10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Rejected Services',
+                                      subtitle: rejectedServices.toString()),
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Pending Request',
+                                      subtitle: pendingServices.toString()),
+                                ],
+                              ),
+                              heigh10,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Delivered Services',
+                                      subtitle: deliveredServices.toString()),
+                                  DashboardWidget(
+                                      screenwidth: screenwidth,
+                                      title: 'Total Earnings',
+                                      subtitle: totalEarnings.toString()),
+                                ],
+                              ),
+                              heigh10
+                            ],
+                          ),
                         ),
-                        width: screenwidth,
-                        // height: 280.w,
-                        child: Column(
-                          children: [
-                            // heigh10,
-                            // Container(
-                            //   width: screenwidth - 20.w,
-                            //   height: 50.w,
-                            //   decoration: BoxDecoration(
-                            //       borderRadius: BorderRadius.circular(5.w),
-                            //       color: kprimarycolor),
-                            // ),
-                            heigh10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DashboardWidget(
-                                    screenwidth: screenwidth,
-                                    title: 'Total Designs',
-                                    subtitle: totalDesigns.toString()),
-                                DashboardWidget(
-                                    screenwidth: screenwidth,
-                                    title: 'Total Orders',
-                                    subtitle: widget.totalOrders.toString()),
-                              ],
-                            ),
-                            heigh10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DashboardWidget(
-                                    screenwidth: screenwidth,
-                                    title: 'Pending Services',
-                                    subtitle: '10'),
-                                DashboardWidget(
-                                    screenwidth: screenwidth,
-                                    title: 'Rejected Services',
-                                    subtitle: '10'),
-                              ],
-                            ),
-                            heigh10,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                DashboardWidget(
-                                    screenwidth: screenwidth,
-                                    title: 'Delivered Services',
-                                    subtitle: '10'),
-                                DashboardWidget(
-                                    screenwidth: screenwidth,
-                                    title: 'Total Earnings',
-                                    subtitle: totalEarnings.toString()),
-                              ],
-                            ),
-                            heigh10
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
-          heigh10,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-            child: Text(
-              'Let\'s get your house design',
-              style: bold17,
+                      ],
+                    ),
+                  );
+                }),
+            heigh10,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+              child: Text(
+                'Let\'s get your house design',
+                style: bold17,
+              ),
             ),
-          ),
-          housedesigngridview(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-            child: GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Architectbottomnavigationbar(selectedindex: 1))),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.w),
-                  color: kprimarycolor,
-                ),
-                height: 40.w,
-                child: Center(
-                  child: Text(
-                    'View All Designs',
-                    style: TextStyle(fontSize: 16.sp, color: kwhitecolor),
+            housedesigngridview(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+              child: GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Architectbottomnavigationbar(selectedindex: 1))),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.w),
+                    color: kprimarycolor,
+                  ),
+                  height: 40.w,
+                  child: Center(
+                    child: Text(
+                      'View All Designs',
+                      style: TextStyle(fontSize: 16.sp, color: kwhitecolor),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
-            child: Text(
-              'If it\'s a house we will renew it',
-              style: bold17,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
+              child: Text(
+                'If it\'s a house we will renew it',
+                style: bold17,
+              ),
             ),
-          ),
-          const houserenewgridview(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
-            child: Text(
-              'Reason To Order House Designs',
-              style: bold17,
+            const houserenewgridview(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
+              child: Text(
+                'Reason To Order House Designs',
+                style: bold17,
+              ),
             ),
-          ),
-          const reasontoorderhousegridview(),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
-            child: Text(
-              'Refer and Earn',
-              style: bold17,
+            const reasontoorderhousegridview(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
+              child: Text(
+                'Refer and Earn',
+                style: bold17,
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-            child: Container(
-              height: 125.w,
-              decoration: BoxDecoration(
-                  image: const DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('asset/refer_image.png')),
-                  borderRadius: BorderRadius.circular(10.w),
-                  color: kgreycolor),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+              child: Container(
+                height: 125.w,
+                decoration: BoxDecoration(
+                    image: const DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('asset/refer_image.png')),
+                    borderRadius: BorderRadius.circular(10.w),
+                    color: kgreycolor),
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.w),
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                    barrierDismissible: true,
-                    context: context,
-                    builder: (context) {
-                      return const Center(child: CircularProgressIndicator());
-                    });
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.w),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (context) {
+                        return const Center(child: CircularProgressIndicator());
+                      });
 
-                Share.share(
-                    'Download Design My House https://play.google.com/store/apps/details?id=com.victaman.designmyhouse');
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.w),
-                  color: kprimarycolor,
-                ),
-                height: 40.w,
-                child: Center(
-                  child: Text(
-                    'Invite Now',
-                    style: TextStyle(fontSize: 16.sp, color: kwhitecolor),
+                  Share.share(
+                      'Download Design My House https://play.google.com/store/apps/details?id=com.victaman.designmyhouse');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.w),
+                    color: kprimarycolor,
+                  ),
+                  height: 40.w,
+                  child: Center(
+                    child: Text(
+                      'Invite Now',
+                      style: TextStyle(fontSize: 16.sp, color: kwhitecolor),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

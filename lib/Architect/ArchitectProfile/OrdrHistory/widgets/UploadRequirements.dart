@@ -76,7 +76,7 @@ class UploadRequirements extends StatelessWidget {
                             return Container(
                                 // padding: EdgeInsets.only(left: 10.w),
                                 color: kwhitecolor,
-                                height: 90.w,
+                                height: 90.w, 
                                 width: 70.w,
                                 child: GestureDetector(
                                   onTap: () {

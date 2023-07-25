@@ -64,7 +64,7 @@ class _ArchitectbottomnavigationbarState
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.category),
-              label: 'Design',
+              label: 'My Work',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.cloud_upload_outlined),

@@ -15,7 +15,7 @@ class OrderServiceModel {
   String customerName;
   String architectUid;
   String orderUid;
-  String deliveryDate;
+  var deliveryDate;
   double amount;
 
   OrderServiceModel(

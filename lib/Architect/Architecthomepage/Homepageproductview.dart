@@ -1,14 +1,10 @@
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/productviewcorouselslider.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/projectdescription.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../Constants/constants.dart';
 import '../../controller/CartController.dart';
-import '../../getDesign/getDesign.dart';
-import '../../model/uploadDesignDataModel.dart';
-import '../productview/widget/designThisTypeofHouse.dart';
 
 class Homepageproductview extends StatelessWidget {
   final List<Map<String, dynamic>> DesignData;

@@ -1,11 +1,9 @@
 import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../Constants/constants.dart';
 import '../../controller/HomepageController.dart';
 import 'Homepageproductview.dart';
@@ -63,7 +61,13 @@ class separateddesignlistview extends StatelessWidget {
                       child: Stack(
                         children: [
                           CachedNetworkImage(
-                            imageUrl:  CategoryData[index]['exteriorImageList'][0] ?? 'https://firebasestorage.googleapis.com/v0/b/designmyhouseuser.appspot.com/o/Placeholder%2Fef3-placeholder-image.jpg?alt=media&token=9e009457-de80-44b9-aa42-89b3bf2fb101&_gl=1*op8ful*_ga*MTIxMzcwMjQwOC4xNjg2MDYwMDEz*_ga_CW55HF8NVT*MTY4NjEzNTM2MS42LjEuMTY4NjEzNTkzNi4wLjAuMA..',
+                            placeholder: (context, url) => Image(
+                                height: 160.w,
+                                width: screenwidth - 20.w,
+                                fit: BoxFit.fitWidth,
+                                image: const AssetImage('asset/placeholder.jpg')),
+                            imageUrl: CategoryData[index]['exteriorImageList']
+                                [0],
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -84,7 +88,7 @@ class separateddesignlistview extends StatelessWidget {
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10.w),
                                         bottomRight: Radius.circular(10.w)),
-                                    color: Color.fromARGB(255, 255, 214, 69)),
+                                    color: const Color.fromARGB(255, 255, 214, 69)),
                                 height: 22.w,
                                 width: (screenwidth - 30) / 2.w,
                                 child: Row(
@@ -107,7 +111,7 @@ class separateddesignlistview extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                             ],
                           )
                         ],
@@ -139,7 +143,7 @@ class separateddesignlistview extends StatelessWidget {
                                   '${CategoryData[index]['houseArea']['length']}In * ${CategoryData[index]['houseArea']['width']} = ${CategoryData[index]['houseArea']['area']} sqft ',
                                   style: normal14,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Text(
                                   '₹ ${CategoryData[index]['designprice']}.00',
                                   style: bold18,

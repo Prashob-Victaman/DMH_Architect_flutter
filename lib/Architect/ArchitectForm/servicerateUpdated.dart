@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/controller/ArchitectformController.dart';
 import 'package:dmh_architect/controller/ServicerateController.dart';
@@ -9,32 +7,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../Constants/constants.dart';
 
-class ServiceRateUpdated extends StatefulWidget {
+class ServiceRateUpdated extends StatelessWidget {
   ServiceRateUpdated({Key? key}) : super(key: key);
-
-  @override
-  State<ServiceRateUpdated> createState() => _ServiceRateUpdatedState();
 
   final formKeyServiceRate = GlobalKey<FormState>();
 
-  // List servicerateTextController = [
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  //   [TextEditingController()],
-  // ];
+  List modernMinimumAmount = [2, 2, 1.5, 2, 2, 1.5, 3, 3, 3, 50];
+
+  List classicalMinimumAmount = [3, 2, 2, 2, 2, 2, 3, 3, 5, 50];
 
   final getXcontroller = Get.put(ServicerateController());
   final getformcontroller = Get.put(ArchitectformController());
-}
 
-class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +26,7 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
-            key: widget.formKeyServiceRate,
+            key: formKeyServiceRate,
             child: ListView(
               children: [
                 Align(
@@ -70,8 +54,8 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                     physics: const ScrollPhysics(),
                     itemBuilder: (context, primaryindex) {
                       // final indexwiseData =
-                      //     widget.getXcontroller.serviceRateMainlist[primaryindex].values;
-                      // print(widget.getXcontroller.serviceRateMainlist[primaryindex]);
+                      //     getXcontroller.serviceRateMainlist[primaryindex].values;
+                      // print(getXcontroller.serviceRateMainlist[primaryindex]);
 
                       // print(indexwiseData);
 
@@ -87,201 +71,211 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                               width: 1.w),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(12.0.w),
+                          padding: EdgeInsets.only(
+                              bottom: 12.0.w, top: 12.0.w, left: 12.0.w),
                           child: Column(
                             children: [
-                              Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: 40,
-                                  width:
-                                      MediaQuery.of(context).size.width - 25.w,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0),
-                                  decoration: customBoxDecoration(),
-                                  child: Text(
-                                    serviceListItems[primaryindex],
-                                    style: bold15,
-                                  )),
-                              heigh10,
+                              Row(
+                                children: [
+                                  Container(
+                                    alignment: Alignment.centerLeft,
+                                    height: 40,
+                                    width: MediaQuery.of(context).size.width -
+                                        85.w,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0),
+                                    decoration: customBoxDecoration(),
+                                    child: Text(
+                                      serviceListItems[primaryindex],
+                                      style: bold15,
+                                    ),
+                                  ),
+                                  width5,
+                                  GetBuilder<ServicerateController>(
+                                      builder: (context) {
+                                    return SizedBox(
+                                      height: 20.w,
+                                      child: Checkbox(
+                                        fillColor:
+                                            const MaterialStatePropertyAll(
+                                                kprimarycolor),
+                                        value: getXcontroller
+                                                .serviceSelectedBoolList[
+                                            primaryindex],
+                                        onChanged: (value) {
+                                          getXcontroller
+                                              .changeServiceSelectedbool(
+                                                  primaryindex);
+                                        },
+                                      ),
+                                    );
+                                  })
+                                ],
+                              ),
                               GetBuilder<ServicerateController>(
                                   builder: (getdata) {
-                                return ListView.separated(
-                                    shrinkWrap: true,
-                                    physics: const ScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            height: 40.w,
-                                            width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2 -
-                                                55.w,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 10.0.w),
-                                            decoration: customBoxDecoration(),
-                                            child: DropdownButton(
-                                              value: selctedserviceRateMainList[
-                                                  primaryindex][index],
-                                              underline: const SizedBox(),
-                                              items: widget
-                                                  .getXcontroller.desiignType
-                                                  .map((value) =>
-                                                      DropdownMenuItem(
-                                                        value: value,
-                                                        child: Text(
-                                                          value,
-                                                          style: normal16,
-                                                        ),
-                                                      ))
-                                                  .toList(),
-                                              onChanged: (value) {
-                                                selctedserviceRateMainList[
-                                                        primaryindex][index] =
-                                                    value!;
-                                                setState(() {});
-                                              },
+                                if (getdata.serviceSelectedBoolList[
+                                        primaryindex] ==
+                                    false) {
+                                  return const SizedBox();
+                                } else {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      heigh10,
+                                      ListView.separated(
+                                          shrinkWrap: true,
+                                          physics: const ScrollPhysics(),
+                                          itemBuilder: (context, index) {
+                                            return Row(
+                                              children: [
+                                                Container(
+                                                  alignment: Alignment.center,
+                                                  height: 40.w,
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2 -
+                                                      55.w,
+                                                  padding: EdgeInsets.symmetric(
+                                                      horizontal: 10.0.w),
+                                                  decoration:
+                                                      customBoxDecoration(),
+                                                  child: Text(getXcontroller
+                                                      .designType[index]),
+                                                ),
+                                                width10,
+                                                Container(
+                                                  color: kashcolor
+                                                      .withOpacity(0.5),
+                                                  width: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          2 -
+                                                      45.w,
+                                                  height: 40.w,
+                                                  child: index == 0
+                                                      ? (getXcontroller
+                                                                  .modernSelectedBoolList[
+                                                              primaryindex]
+                                                          ? TextFormField(
+                                                              textAlignVertical:
+                                                                  TextAlignVertical
+                                                                      .center,
+                                                              controller: index ==
+                                                                      0
+                                                                  ? getXcontroller
+                                                                          .modernControllerList[
+                                                                      primaryindex]
+                                                                  : getXcontroller
+                                                                          .classicalControllerList[
+                                                                      primaryindex],
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      errorBorder: OutlineInputBorder(
+                                                                          borderSide: BorderSide(
+                                                                              width: 1
+                                                                                  .w,
+                                                                              color:
+                                                                                  kredcolor)),
+                                                                      errorStyle: TextStyle(
+                                                                          height:
+                                                                              0,
+                                                                          color: Colors
+                                                                              .transparent,
+                                                                          fontSize:
+                                                                              1.sp),
+                                                                      contentPadding: EdgeInsets.symmetric(
+                                                                          // vertical: 10.0.w,
+                                                                          horizontal: 10.0.w),
+                                                                      border: OutlineInputBorder(
+                                                                          borderSide: const BorderSide(
+                                                                            color:
+                                                                                kprimarycolor,
+                                                                          ),
+                                                                          borderRadius: BorderRadius.circular(5.w)),
+                                                                      hintText: 'Min Rs ${modernMinimumAmount[primaryindex]}/SqFt',
+                                                                      hintStyle: TextStyle(fontSize: 13.sp, color: kgreycolor)),
+                                                              validator: (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return '';
+                                                                }
 
-                                              // onChanged: (newValue) {
-                                              //   // Update the list value in the map when the dropdown selection changes
-                                              //   selctedserviceRateMainListmap
-                                              //       .update(serviceType[primaryindex],
-                                              //           (value) => [newValue]);
-                                              //   setState(() {});
-                                              // },
-                                              isExpanded: true,
-                                            ),
-                                          ),
-                                          Container(
-                                            color: kashcolor.withOpacity(0.5),
-                                            width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2 -
-                                                45.w,
-                                            height: 40.w,
-                                            child: TextFormField(
-                                              textAlignVertical:
-                                                  TextAlignVertical.center,
-                                              controller: widget.getXcontroller
-                                                      .servicerateTextController[
-                                                  primaryindex][index],
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              decoration: InputDecoration(
-                                                  errorBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                        width: 1.w,
-                                                        color: Color.fromARGB(
-                                                            255, 255, 0, 0)),
-                                                  ),
-                                                  errorStyle: TextStyle(
-                                                      height: 0,
-                                                      color: Colors.transparent,
-                                                      fontSize: 1.sp),
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                    // vertical: 10.0.w,
-                                                    horizontal: 10.0.w,
-                                                  ),
-                                                  border: OutlineInputBorder(
-                                                    borderSide:
-                                                        const BorderSide(
-                                                      color: kprimarycolor,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.w),
-                                                  ),
-                                                  hintText: 'Amount Per SqFt.',
-                                                  hintStyle: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      color: kgreycolor)),
-                                              validator: (value) {
-                                                if (value!.isEmpty) {
-                                                  return '';
-                                                }
+                                                                return null;
+                                                              })
+                                                          : SizedBox())
+                                                      : getXcontroller.classicalSelectedBoolList[primaryindex]
+                                                          ? TextFormField(
+                                                              textAlignVertical: TextAlignVertical.center,
+                                                              controller: index == 0 ? getXcontroller.modernControllerList[primaryindex] : getXcontroller.classicalControllerList[primaryindex],
+                                                              keyboardType: TextInputType.number,
+                                                              decoration: InputDecoration(
+                                                                  errorBorder: OutlineInputBorder(borderSide: BorderSide(width: 1.w, color: kredcolor)),
+                                                                  errorStyle: TextStyle(height: 0, color: Colors.transparent, fontSize: 1.sp),
+                                                                  contentPadding: EdgeInsets.symmetric(
+                                                                      // vertical: 10.0.w,
+                                                                      horizontal: 10.0.w),
+                                                                  border: OutlineInputBorder(
+                                                                      borderSide: const BorderSide(
+                                                                        color:
+                                                                            kprimarycolor,
+                                                                      ),
+                                                                      borderRadius: BorderRadius.circular(5.w)),
+                                                                  hintText: 'Min Rs ${classicalMinimumAmount[index]}/SqFt',
+                                                                  hintStyle: TextStyle(fontSize: 13.sp, color: kgreycolor)),
+                                                              validator: (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return '';
+                                                                }
 
-                                                return null;
-                                              },
-                                            ),
-                                          ),
-                                          index == 0
-                                              ? SizedBox(
-                                                  width: 30.w,
-                                                  child: IconButton(
-                                                    onPressed: () {
-                                                      if (selctedserviceRateMainList[
-                                                                  primaryindex]
-                                                              .length <
-                                                          2) {
-                                                        widget
-                                                            .getXcontroller
-                                                            .servicerateTextController[
-                                                                primaryindex]
-                                                            .add(
-                                                                TextEditingController());
-                                                        widget.getXcontroller
-                                                            .changeserviceTypeCountfunction(
-                                                                primaryindex);
-                                                      }
+                                                                return null;
+                                                              })
+                                                          : SizedBox(),
+                                                ),
+                                                SizedBox(
+                                                  height: 20.w,
+                                                  child: Checkbox(
+                                                    value: index == 0
+                                                        ? getXcontroller
+                                                                .modernSelectedBoolList[
+                                                            primaryindex]
+                                                        : getXcontroller
+                                                                .classicalSelectedBoolList[
+                                                            primaryindex],
+                                                    fillColor:
+                                                        MaterialStatePropertyAll(
+                                                            kblackcolor),
+                                                    onChanged: (value) {
+                                                      index == 0
+                                                          ? getXcontroller
+                                                              .changeModernSelectedBoolList(
+                                                              primaryindex,
+                                                            )
+                                                          : getXcontroller
+                                                              .changeClassicalSelectedBoolList(
+                                                              primaryindex,
+                                                            );
                                                     },
-                                                    icon: Icon(Icons.add,
-                                                        size: 20.sp),
                                                   ),
                                                 )
-                                              : index ==
-                                                      selctedserviceRateMainList[
-                                                                  primaryindex]
-                                                              .length -
-                                                          1
-                                                  ? SizedBox(
-                                                      width: 30.w,
-                                                      child: IconButton(
-                                                        onPressed: () {
-                                                          widget.getXcontroller
-                                                              .removeserviceTypeCountfunction(
-                                                                  primaryindex);
-
-                                                          widget
-                                                              .getXcontroller
-                                                              .servicerateTextController[
-                                                                  primaryindex]
-                                                              .removeLast();
-                                                          print(widget
-                                                              .getXcontroller
-                                                              .servicerateTextController[
-                                                                  primaryindex]
-                                                              .length);
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.delete,
-                                                          size: 20.sp,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      width: 30.w,
-                                                      child: IconButton(
-                                                        onPressed: () {},
-                                                        icon: Icon(Icons.delete,
-                                                            size: 20.sp,
-                                                            color: kwhitecolor),
-                                                      ),
-                                                    )
-                                        ],
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) {
-                                      return heigh10;
-                                    },
-                                    itemCount:
-                                        selctedserviceRateMainList[primaryindex]
-                                            .length);
+                                              ],
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return SizedBox(
+                                              height: 10.w,
+                                            );
+                                          },
+                                          itemCount: 2),
+                                    ],
+                                  );
+                                }
                               }),
                             ],
                           ),
@@ -310,43 +304,158 @@ class _ServiceRateUpdatedState extends State<ServiceRateUpdated> {
                 const Color.fromARGB(255, 255, 90, 95)),
           ),
           onPressed: () {
-            final form = widget.formKeyServiceRate.currentState;
+            final form = formKeyServiceRate.currentState;
 
             if (form!.validate()) {
               List<List<String>> serviceAmountList =
                   List.generate(10, (_) => []);
 
-              for (int i = 0; i < 10; i++) {
-                widget.getXcontroller.servicerateTextController[i]
-                    .forEach((element) {
-                  serviceAmountList[i].add(element.text);
-                });
-              }
+              // for (int i = 0; i < 10; i++) {
+              //   getXcontroller.servicerateTextController[i].forEach((element) {
+              //     serviceAmountList[i].add(element.text);
+              //   });
+              // }
 
               Map selctedserviceRateAmounrtMainListmap = {
-                "Floor Plan": serviceAmountList[0],
-                'Structural Drawing': serviceAmountList[1],
-                '3D Front Elevation': serviceAmountList[2],
-                '2D Front Elevation': serviceAmountList[3],
-                '3D Floor Plan': serviceAmountList[4],
-                'Working Drawing': serviceAmountList[5],
-                'Electrical Plan': serviceAmountList[6],
-                'Plumbing Plan': serviceAmountList[7],
-                'Walkthough Video': serviceAmountList[8],
-                'Site Supervision': serviceAmountList[9],
+                "Floor Plan": {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[0],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[0],
+                    'price': getXcontroller.modernControllerList[0].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[0],
+                    'price': getXcontroller.classicalControllerList[0].text,
+                  },
+                },
+                'Structural Drawing': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[1],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[1],
+                    'price': getXcontroller.modernControllerList[1].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[1],
+                    'price': getXcontroller.classicalControllerList[1].text,
+                  },
+                },
+                '3D Front Elevation': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[2],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[2],
+                    'price': getXcontroller.modernControllerList[2].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[2],
+                    'price': getXcontroller.classicalControllerList[2].text,
+                  },
+                },
+                '2D Front Elevation': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[3],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[3],
+                    'price': getXcontroller.modernControllerList[3].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[3],
+                    'price': getXcontroller.classicalControllerList[3].text,
+                  },
+                },
+                '3D Floor Plan': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[4],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[4],
+                    'price': getXcontroller.modernControllerList[4].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[4],
+                    'price': getXcontroller.classicalControllerList[4].text,
+                  },
+                },
+                'Working Drawing': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[5],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[5],
+                    'price': getXcontroller.modernControllerList[5].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[5],
+                    'price': getXcontroller.classicalControllerList[5].text,
+                  },
+                },
+                'Electrical Plan': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[6],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[6],
+                    'price': getXcontroller.modernControllerList[6].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[6],
+                    'price': getXcontroller.classicalControllerList[6].text,
+                  },
+                },
+                'Plumbing Plan': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[7],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[7],
+                    'price': getXcontroller.modernControllerList[7].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[7],
+                    'price': getXcontroller.classicalControllerList[7].text,
+                  },
+                },
+                'Walkthough Video': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[8],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[8],
+                    'price': getXcontroller.modernControllerList[8].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[8],
+                    'price': getXcontroller.classicalControllerList[8].text,
+                  },
+                },
+                'Site Supervision': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[9],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[9],
+                    'price': getXcontroller.modernControllerList[9].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[9],
+                    'price': getXcontroller.classicalControllerList[9].text,
+                  },
+                },
               };
+              // log(finalmap.toString());
 
-              log(selctedserviceRateAmounrtMainListmap.toString());
-              log(selctedserviceRateMainListmap.toString());
+              // Map selctedserviceRateAmounrtMainListmap = {
+              //   "Floor Plan": serviceAmountList[0],
+              //   'Structural Drawing': serviceAmountList[1],
+              //   '3D Front Elevation': serviceAmountList[2],
+              //   '2D Front Elevation': serviceAmountList[3],
+              //   '3D Floor Plan': serviceAmountList[4],
+              //   'Working Drawing': serviceAmountList[5],
+              //   'Electrical Plan': serviceAmountList[6],
+              //   'Plumbing Plan': serviceAmountList[7],
+              //   'Walkthough Video': serviceAmountList[8],
+              //   'Site Supervision': serviceAmountList[9],
+              // };
 
-              widget.getformcontroller.addServicerateDetails(
+              // log(selctedserviceRateAmounrtMainListmap.toString());
+              // log(selctedserviceRateMainListmap.toString());
+
+              getformcontroller.addServicerateDetails(
                   FirebaseAuth.instance.currentUser!.uid,
-                  selctedserviceRateMainListmap,
+                  // selctedserviceRateMainListmap,
                   selctedserviceRateAmounrtMainListmap);
 
               Get.offAll(Architectbottomnavigationbar(
                 selectedindex: 0,
               ));
+            } else {
+              print('object');
             }
           },
           child: const Text('Next'),

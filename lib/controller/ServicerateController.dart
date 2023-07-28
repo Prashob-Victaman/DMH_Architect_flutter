@@ -3,15 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ServicerateController extends GetxController {
-  final List<String> desiignType = ['Modern', 'Classical'];
+  final List<String> designType = ['Modern', 'Classical'];
+  //  List<String> designTypeSecond = [];
 
   int serviceTypeCount = 1;
+  List<bool> serviceSelectedBoolList = List.filled(10, false);
+
+  List<bool> modernSelectedBoolList = List.filled(10, false);
+  List<bool> classicalSelectedBoolList = List.filled(10, false);
 
   List HousetypeServicerateList = [];
 
-    List<List<TextEditingController>> servicerateTextController = List.generate(
+  List serviceRateDataListEditing = [];
+
+  // List<List<TextEditingController>> servicerateTextController = List.generate(
+  //   10,
+  //   (_) => [
+  //     TextEditingController(),
+  //   ],
+  // );
+
+  List<TextEditingController> modernControllerList = List.generate(
     10,
-    (_) => [TextEditingController()],
+    (index) => TextEditingController(),
+  );
+
+  List<TextEditingController> classicalControllerList = List.generate(
+    10,
+    (index) => TextEditingController(),
   );
 
   changeserviceTypeCountfunction(index) {
@@ -20,8 +39,47 @@ class ServicerateController extends GetxController {
     refresh();
   }
 
+  changeserviceRateDataListEditing(primaryindex) {
+    serviceRateDataListEditing[primaryindex]['isSelected'] =
+        !serviceRateDataListEditing[primaryindex]['isSelected'];
+    refresh();
+  }
+
+  changeModernserviceRateDataListEditing(primaryindex) {
+    serviceRateDataListEditing[primaryindex]['modern']['isSelected'] =
+        !serviceRateDataListEditing[primaryindex]['modern']['isSelected'];
+    refresh();
+  }
+
+  changeclassicalserviceRateDataListEditing(primaryindex) {
+    serviceRateDataListEditing[primaryindex]['classic']['isSelected'] =
+        !serviceRateDataListEditing[primaryindex]['classic']['isSelected'];
+    refresh();
+  }
+
+  changeModernSelectedBoolList(primaryindex) {
+    modernSelectedBoolList[primaryindex] =
+        !modernSelectedBoolList[primaryindex];
+
+    refresh();
+    // print(subServiceSelectedBoolList[primaryindex][index]);
+  }
+
+  changeClassicalSelectedBoolList(primaryindex) {
+    classicalSelectedBoolList[primaryindex] =
+        !classicalSelectedBoolList[primaryindex];
+
+    refresh();
+    // print(subServiceSelectedBoolList[primaryindex][index]);
+  }
+
   removeserviceTypeCountfunction(index) {
     selctedserviceRateMainList[index].removeLast();
+    refresh();
+  }
+
+  changeServiceSelectedbool(index) {
+    serviceSelectedBoolList[index] = !serviceSelectedBoolList[index];
     refresh();
   }
 

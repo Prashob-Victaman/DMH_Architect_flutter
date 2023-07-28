@@ -274,7 +274,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w),
               child: Text(
-                'Let\'s get your house design',
+                'Your designed/uploaded House',
                 style: bold17,
               ),
             ),
@@ -302,14 +302,14 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
-              child: Text(
-                'If it\'s a house we will renew it',
-                style: bold17,
-              ),
-            ),
-            const houserenewgridview(),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
+            //   child: Text(
+            //     'If it\'s a house we will renew it',
+            //     style: bold17,
+            //   ),
+            // ),
+            // const houserenewgridview(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
               child: Text(

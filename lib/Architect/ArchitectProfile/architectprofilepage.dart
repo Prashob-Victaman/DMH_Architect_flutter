@@ -1,6 +1,7 @@
 import 'package:dmh_architect/Architect/ArchitectProfile/designsSold.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/profileServicesUpdated.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilewidgets.dart';
 import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
@@ -89,7 +90,7 @@ class ArchitectProfilePage extends StatelessWidget {
                     ),
                     heigh20,
                     GestureDetector(
-                      onTap: () => Get.to(() => ProfileServiceRate()),
+                      onTap: () => Get.to(() => ProfileServicesUpdated()),
                       child: architectprofilewidgets(
                           icon: Icon(Icons.currency_rupee,
                               color: kbluecolor, size: 20.w),

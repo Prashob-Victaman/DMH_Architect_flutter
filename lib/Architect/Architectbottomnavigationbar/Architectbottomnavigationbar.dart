@@ -1,11 +1,7 @@
 import 'package:dmh_architect/Architect/ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
-import 'package:dmh_architect/Architect/ArchitectForm/architect_office_details.dart';
-import 'package:dmh_architect/Architect/ArchitectForm/architect_presonal_details.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/servicesOrderHistory.dart';
 import 'package:flutter/material.dart';
-
 import '../../Constants/constants.dart';
-import '../ArchitectDesignpage/designPage.dart';
 import '../ArchitectProfile/architectprofilepage.dart';
 import '../Architecthomepage/Architecthomepage.dart';
 
@@ -27,21 +23,24 @@ class _ArchitectbottomnavigationbarState
     ServicesOrderHistory(),
     //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
-
+    // ServiceRateUpdated(),
+    // ArchitectOfficeDetails()
     ArchitectProfilePage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-
-      onWillPop: () async{
-      if(widget.selectedindex!=0){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Architectbottomnavigationbar(selectedindex: 0),));
-        return false;
-      }else {
-        return true;
-      }
+      onWillPop: () async {
+        if (widget.selectedindex != 0) {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                Architectbottomnavigationbar(selectedindex: 0),
+          ));
+          return false;
+        } else {
+          return true;
+        }
       },
       child: Scaffold(
         body: _screens[widget.selectedindex],

@@ -136,35 +136,37 @@ class ArchitectUploadDesign extends StatelessWidget {
                                       onTap: () {
                                         Getdata.uploadexteriorimagefileOne(
                                             index);
-                                        getcontroller.changeexteriorisLoading(
-                                            true, index);
+                                        getcontroller
+                                            .changeexteriorisLoading(index);
                                       },
-                                      child:
-                                          Getdata.exteriorimgXfileList[index] !=
-                                                  null
-                                              ? Container(
-                                                  height: 90.w,
-                                                  width: 115.w,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          width: 1.w,
-                                                          color: kprimarycolor),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.w),
-                                                      image: DecorationImage(
-                                                          fit: BoxFit.cover,
-                                                          image: FileImage(File(
-                                                              Getdata
-                                                                  .exteriorimgXfileList[
-                                                                      index]!
-                                                                  .path)))),
-                                                )
-                                              : uploadDesign(
-                                                  isLoading: getcontroller
-                                                      .exteriorisLoading[index],
-                                                  // uploadedImage: Getdata.designDataImgOne!
+                                      child: Getdata.exteriorimgXfileList[
+                                                  index] !=
+                                              null
+                                          ? Container(
+                                              height: 90.w,
+                                              width: 115.w,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    width: 1.w,
+                                                    color: kprimarycolor),
+                                                borderRadius:
+                                                    BorderRadius.circular(5.w),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: FileImage(
+                                                    File(Getdata
+                                                        .exteriorimgXfileList[
+                                                            index]!
+                                                        .path),
+                                                  ),
                                                 ),
+                                              ),
+                                            )
+                                          : uploadDesign(
+                                              isLoading: getcontroller
+                                                  .exteriorisLoading[index],
+                                              // uploadedImage: Getdata.designDataImgOne!
+                                            ),
                                     ),
                                     SizedBox(
                                       height: 10.w,
@@ -288,8 +290,8 @@ class ArchitectUploadDesign extends StatelessWidget {
                                     GestureDetector(
                                       onTap: () {
                                         Getdata.uploadfloorfileimage(index);
-                                        getcontroller.changefloorisLoading(
-                                            true, index);
+                                        getcontroller
+                                            .changefloorisLoading(index);
                                       },
                                       child: Getdata.floorimgXFileList[index] !=
                                               null

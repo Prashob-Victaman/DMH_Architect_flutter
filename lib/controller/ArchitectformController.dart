@@ -106,16 +106,16 @@ class ArchitectformController extends GetxController {
 
   addServicerateDetails(
     uid,
-    Map serviceType,
-    Map serviceAmount,
+    // Map serviceType,
+    Map selctedserviceRateAmounrtMainListmap,
   ) async {
     await FirebaseFirestore.instance
         .collection("ArchitectData")
         .doc(uid)
         .update(
       {
-        'serviceRateTypeList': serviceType,
-        'serviceRateamountList': serviceAmount,
+        // 'serviceRateTypeList': serviceType,
+        'serviceRateamountList': selctedserviceRateAmounrtMainListmap,
       },
     );
 

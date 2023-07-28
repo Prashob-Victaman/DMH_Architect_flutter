@@ -36,6 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
         var doc = await ArchitectDocRef.get();
         if (!doc.exists) {
           // print('Architect not found!');
+                goto(context);
+
         } else {
           Get.offAll(() => Architectbottomnavigationbar(selectedindex: 0));
         }

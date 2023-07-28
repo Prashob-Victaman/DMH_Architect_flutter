@@ -137,8 +137,8 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
                                 onTap: () {
                                   getXCOntroller.fetchPlanningImg(index);
 
-                                  getXCOntroller.changeworkingDetailsisLoading(
-                                      true, index);
+                                  getXCOntroller
+                                      .changeworkingDetailsisLoading(index);
                                 },
                                 child: customUploadButton(
                                     getXCOntroller.planningImgs[index],

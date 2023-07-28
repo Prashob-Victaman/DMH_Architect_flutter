@@ -20,6 +20,7 @@ class ArchitectAddDesignController extends GetxController {
   int exteriorListCount = 3;
   int floorListCount = 3;
   int planningGridCount = 1;
+
   List<bool> exteriorisLoading = List.filled(9, false);
   List<bool> floorisLoading = List.filled(9, false);
   List<bool> workingDrawingsisLoading = List.filled(6, false);
@@ -92,18 +93,18 @@ class ArchitectAddDesignController extends GetxController {
     }
   }
 
-  changefloorisLoading(bool passedisLoading, int index) {
-    floorisLoading[index] = passedisLoading;
+  changefloorisLoading(int index) {
+    floorisLoading[index] = !floorisLoading[index];
     refresh();
   }
 
-  changeexteriorisLoading(bool passedisLoading, int index) {
-    exteriorisLoading[index] = passedisLoading;
+  changeexteriorisLoading(int index) {
+    exteriorisLoading[index] = !exteriorisLoading[index];
     refresh();
   }
 
-  changeworkingDetailsisLoading(bool passedisLoading, int index) {
-    workingDrawingsisLoading[index] = passedisLoading;
+  changeworkingDetailsisLoading(int index) {
+    workingDrawingsisLoading[index] = !workingDrawingsisLoading[index];
     refresh();
   }
 
@@ -188,6 +189,7 @@ class ArchitectAddDesignController extends GetxController {
 
     print('uploadimg file called');
     if (exteriorimgXfileList[buttonIndex] == null) {
+      changeexteriorisLoading(buttonIndex);
       return;
     }
     try {
@@ -220,6 +222,8 @@ class ArchitectAddDesignController extends GetxController {
     //
     print('uploadimg file called');
     if (floorimgXFileList[buttonindex] == null) {
+      changefloorisLoading(buttonindex);
+
       return;
     }
     try {
@@ -253,6 +257,7 @@ class ArchitectAddDesignController extends GetxController {
 
     print('uploadimg file called');
     if (planningImgs[buttonIndex] == null) {
+      changeworkingDetailsisLoading(buttonIndex);
       return;
     }
     // planningImgs[buttonIndex] = planningImgs[buttonIndex].files.single.bytes;

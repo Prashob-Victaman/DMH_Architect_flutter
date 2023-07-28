@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dmh_architect/Architect/ArchitectForm/fetchLocation.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/googlemapwidget.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
-import 'package:dmh_architect/controller/locationcontroller.dart';
+import 'package:dmh_architect/controller/googlemapcontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
@@ -34,12 +33,13 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
   final TextEditingController pincodeController = TextEditingController();
 
   final getController = Get.put(ArchitectformController());
+  final getGooglemapController = Get.put(GooglemapController());
 
   final formKey = GlobalKey<FormState>();
 
   final currentUserUid = FirebaseAuth.instance.currentUser!.uid;
 
-  final getlocationcontroller = Get.put(LocationController());
+  // final getlocationcontroller = Get.put(LocationController());
 
   var adress;
 
@@ -169,61 +169,7 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                     heigh10,
                     Text('Location', style: normal14),
                     // heigh10,
-                    GetBuilder<LocationController>(builder: (getdata) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(vertical: 5.w),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: (MediaQuery.of(context).size.width / 1.3) -
-                                  80,
-                              child: Container(
-                                child: Text(
-                                  '${getlocationcontroller.addressforform}',
-                                  style: normal15,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ),
-
-                            Container(
-                              padding: EdgeInsets.only(top: 3.w),
-                              height: 40.w,
-                              alignment: Alignment.center,
-                              width: MediaQuery.of(context).size.width * 0.36,
-
-                              // padding: const EdgeInsets.fromLTRB(25, 5, 25, 5),
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(width: 1, color: Colors.black12),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5)),
-                              ),
-                              child: GestureDetector(
-                                onTap: () {
-                                  getlocationcontroller.fetchLocationforform();
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(Icons.location_on_outlined,
-                                        color: Colors.blue, size: 20.sp),
-                                    Text(
-                                      'Fetch Location',
-                                      style: TextStyle(
-                                          fontSize: 14.0.sp,
-                                          color: Colors.blue),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }),
+                    GooglemapWidget(screenwidth: screenwidth),
                     heigh10,
                     Text('Office Email Id', style: normal14),
                     Container(
@@ -369,9 +315,11 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                                     nameController.text,
                                     IdProof,
                                     GeoPoint(
-                                        getlocationcontroller.latitude
+                                        getGooglemapController
+                                            .location!.latitude
                                             .toDouble(),
-                                        getlocationcontroller.longitude
+                                        getGooglemapController
+                                            .location!.longitude
                                             .toDouble()),
                                     emailIdController.text.trim(),
                                     AdressController.text,

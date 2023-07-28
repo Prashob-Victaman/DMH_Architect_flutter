@@ -7,15 +7,15 @@ import 'package:image_picker/image_picker.dart';
 
 class UploadWorkFilesController extends GetxController {
 
-  List<List<XFile?>> imgXfileList = List.empty(growable: true);
-  List<List<String?>> imgurlList = List.empty(growable: true);
+  List<XFile?> imgXfileList = List.empty(growable: true);
+  List<String?> imgurlList = List.empty(growable: true);
 
-  uploadImagefile(serviceIndex) async {
-    addIm(serviceIndex);
+  uploadImagefile() async {
+    addIm();
     int buttonIndex = imgurlList.length - 1;
 
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
-    imgXfileList[serviceIndex][buttonIndex] =
+    imgXfileList[buttonIndex] =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
     Reference referenceRoot = FirebaseStorage.instance.ref();
@@ -27,30 +27,29 @@ class UploadWorkFilesController extends GetxController {
     // Uint8List uploadfile = result.files.single.bytes;
 
     print('uploadimg file called');
-    if (imgXfileList[serviceIndex][buttonIndex] == null) {
+    if (imgXfileList[buttonIndex] == null) {
       return;
     }
     try {
       await referenceImageToUpload
-          .putFile(File(imgXfileList[serviceIndex][buttonIndex]!.path));
-      imgurlList[serviceIndex][buttonIndex] = await referenceImageToUpload.getDownloadURL();
-      print('imageurl $imgurlList[buttonIndex]');
+          .putFile(File(imgXfileList[buttonIndex]!.path));
+      imgurlList[buttonIndex] = await referenceImageToUpload.getDownloadURL();
+      print('imageurl ${imgurlList[buttonIndex]}');
     } catch (e) {
       // log(e.toString());F
     }
     refresh();
   }
 
-  addIm(serviceIndex) {
-    imgurlList.add([]);
-    imgurlList[serviceIndex].add(null);
-    imgXfileList[serviceIndex].add(null);
+  addIm() {
+    imgurlList.add(null);
+    imgXfileList.add(null);
     refresh();
   }
 
-  removeIm(serviceIndex,index) {
-    imgurlList[serviceIndex].removeAt(index);
-    imgXfileList[serviceIndex].removeAt(index);
+  removeIm(index) {
+    imgurlList.removeAt(index);
+    imgXfileList.removeAt(index);
     refresh();
   }
 

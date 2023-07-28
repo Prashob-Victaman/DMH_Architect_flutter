@@ -134,6 +134,26 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                 orderData.deliveryDate)),
                                         style: normal14,
                                       ),
+
+
+                                      // Row(
+                                      //   mainAxisAlignment: MainAxisAlignment.center,
+                                      //   children: List.generate(5, (index) => Container(
+                                      //     height: 16,
+                                      //     width: 16,
+                                      //     decoration: BoxDecoration(
+                                      //       color: Colors.green,
+                                      //       borderRadius: BorderRadius.circular(8),
+                                      //     ),
+                                      //     child: Center(
+                                      //       child: Text(
+                                      //         index.toString(),
+                                      //         style: TextStyle(fontSize: 8.sp),
+                                      //       ),
+                                      //     ),
+                                      //   )),
+                                      // ),
+
                                     ],
                                   ),
                                 ],
@@ -169,7 +189,51 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                     ),
                                   ),
                                   const Spacer(),
+                                  GestureDetector(
+                                    onTap: (){
+                                      showDialog<void>(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            titlePadding: EdgeInsets.all(0.w),
+                                            title: Container(
+                                             width: screenWidth,
+                                              height: 180.w,
+                                              child: Column(
+                                                children: [
+                                                  UploadWorkFiles(
+                                                      orderData: orderData,
+                                                      screenWidth: screenWidth,
+                                                      orderUid: orderData.orderUid,
+                                                      requirementList: orderData.requirementData,
+                                                      serviceIndex:index
 
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.vertical(
+                                              bottom: Radius.circular(5.w),
+                                            ),
+                                            color: kprimarycolor),
+                                        width: 140.w,
+                                        height: 20.w,
+                                        child: Text(
+                                          'Upload Files',
+                                          style: TextStyle(
+                                              color: kwhitecolor,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.bold),
+                                        )),
+                                  ),
                                   // error starts
                                 ],
                               ),
@@ -224,18 +288,12 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
 
                           ],
                         ),
-                        UploadWorkFiles(
-                            orderData: orderData,
-                            screenWidth: screenWidth,
-                            orderUid: orderData.orderUid,
-                            requirementList: orderData.requirementData,
-                            serviceIndex:index
 
-                        ),
+
 
                       ],
                     ),

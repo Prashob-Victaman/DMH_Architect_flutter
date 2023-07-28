@@ -13,9 +13,6 @@ class designDataModel {
   String aproximateConstructionCost;
   var postedDate;
   int visitors;
-  List planingFileNameList;
-  List planingFilePriceList;
-  List planingFileUrlList;
   String designprice;
   String shortdescription;
   String uploadedBy;
@@ -24,6 +21,7 @@ class designDataModel {
   List exteriorImagetitleList;
   List floorImageList;
   List floorImagetitleList;
+  List planingFiles;
 
   designDataModel(
       {this.uid = '',
@@ -47,10 +45,9 @@ class designDataModel {
         required this.aproximateConstructionCost,
         required this.postedDate,
         required this.visitors,
-        required this.planingFileNameList,
-        required this.planingFilePriceList,
-        required this.planingFileUrlList,
-        required this.uploadedBy});
+        required this.uploadedBy,
+        required this.planingFiles
+      });
 
   Map<String, dynamic> toJson() => {
     'uid': uid,
@@ -72,12 +69,10 @@ class designDataModel {
     'aproximateConstructionCost': aproximateConstructionCost,
     'postedDate': postedDate,
     'visitors': visitors,
-    'planingFileNameList': planingFileNameList,
-    'planingFilePriceList': planingFilePriceList,
-    'planingFileUrlList': planingFileUrlList,
     'designprice': designprice,
     'shortdescription': shortdescription,
-    'uploadedBy': uploadedBy
+    'uploadedBy': uploadedBy,
+    'planingFiles':planingFiles
   };
 
   factory designDataModel.fromJson(json) => designDataModel(
@@ -100,10 +95,9 @@ class designDataModel {
       aproximateConstructionCost: json['aproximateConstructionCost'],
       postedDate: json['postedDate'],
       visitors: json['visitors'],
-      planingFileNameList: json['planingFileNameList'],
-      planingFilePriceList: json['planingFilePriceList'],
-      planingFileUrlList: json['planingFileUrlList'],
       designprice: json['designprice'],
       shortdescription: json['shortdescription'],
-      uploadedBy: json['uploadedBy']);
+      uploadedBy: json['uploadedBy'],
+      planingFiles:json['planingFiles']
+  );
 }

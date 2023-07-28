@@ -1,10 +1,6 @@
 class designDataFromAdmin {
   String uid;
   String uploadedUserUid;
-  // String imageOneurl;
-  // String imageTwourl;
-  // String imageThreeurl;
-
   List exteriorImageList;
   List exteriorImagetitleList;
   List floorImageList;
@@ -22,12 +18,11 @@ class designDataFromAdmin {
   String aproximateConstructionCost;
   var postedDate;
   int visitors;
-  List planingFileNameList;
-  List planingFilePriceList;
-  List planingFileUrlList;
   String designprice;
   String shortdescription;
   List floordetails;
+  List planingFiles;
+
 
   designDataFromAdmin({
     this.uid = '',
@@ -52,9 +47,7 @@ class designDataFromAdmin {
     required this.aproximateConstructionCost,
     required this.postedDate,
     required this.visitors,
-    required this.planingFileNameList,
-    required this.planingFilePriceList,
-    required this.planingFileUrlList,
+    required this.planingFiles,
   });
 
   Map<String, dynamic> toJson() => {
@@ -78,9 +71,7 @@ class designDataFromAdmin {
         'postedDate': postedDate,
         'uploadedBy': uploadedBy,
         'visitors': visitors,
-        'planingFileNameList': planingFileNameList,
-        'planingFilePriceList': planingFilePriceList,
-        'planingFileUrlList': planingFileUrlList,
+        'planingFiles': planingFiles,
         'designprice': designprice,
         'shortdescription': shortdescription,
       };
@@ -106,9 +97,7 @@ class designDataFromAdmin {
         aproximateConstructionCost: json['aproximateConstructionCost'],
         postedDate: json['postedDate'],
         visitors: json['visitors'],
-        planingFileNameList: json['planingFileNameList'],
-        planingFilePriceList: json['planingFilePriceList'],
-        planingFileUrlList: json['planingFileUrlList'],
+        planingFiles: json['planingFiles'],
         designprice: json['designprice'],
         shortdescription: json['shortdescription'],
       );

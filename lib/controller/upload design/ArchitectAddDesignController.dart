@@ -304,13 +304,27 @@ class ArchitectAddDesignController extends GetxController {
     final docUrl =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
 
+    final postedDate = DateTime.now();
+    final sortId =DateTime.now().millisecondsSinceEpoch;
+
+    List planingFiles =[];
+    for(int i=0;i<planingFileUrlList.length;i++){
+      planingFiles.add(
+        {
+          'name':planingFileNameList[i],
+          'price':planingFilePriceList[i],
+          'url':planingFileUrlList[i]
+        }
+      );
+    }
+
     final designData = designDataFromAdmin(
         floordetails: floordetails,
         uploadedBy: architectName,
         uid: docUrl.id,
         shortdescription: shortdescription,
         designprice: designprice,
-        sortId: DateTime.now().millisecondsSinceEpoch,
+        sortId: sortId,
         uploadedUserUid: uploadedUserUid,
         projectDetails: projectDetails,
         exteriorImageList: exteriorImageList,
@@ -323,23 +337,29 @@ class ArchitectAddDesignController extends GetxController {
         accordingtoVastu: accordingtoVastu,
         estimatedConstructionCost: estimatedConstructionCost,
         aproximateConstructionCost: aproximateConstructionCost,
-        postedDate: DateTime.now(),
+        postedDate: postedDate,
         visitors: 0,
         floorImageList: floorImageList,
         floorImagetitleList: floorImagetitleList,
-        planingFileNameList: planingFileNameList,
-        planingFilePriceList: planingFilePriceList,
-        planingFileUrlList: planingFileUrlList);
+      planingFiles:planingFiles
+    );
 
     final json = designData.toJson();
 
     await docUrl.set(json);
 
+    final json2 = {
+      'postedDate':postedDate,
+      'exteriorImageList':exteriorImageList,
+      'designType':designType,
+      'sortId':sortId,
+      "uid": docUrl.id,
+    };
     await FirebaseFirestore.instance
         .collection('ArchitectData')
         .doc(uploadedUserUid)
         .update({
-      'myDesigns': FieldValue.arrayUnion([json])
+      'myDesigns': FieldValue.arrayUnion([json2])
     });
 
     final docNotifcaton =

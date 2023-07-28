@@ -27,8 +27,6 @@ class ServicesOrderHistory extends StatefulWidget {
 class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
   final orderController = Get.put(OrderController());
 
-
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -46,17 +44,40 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
-
           // List selectedServicesList = orderData.servicesSelectedModel;
+
+          try {
+            if (snapshot.data['serviceOrderHistory'].length == 0) {
+              return Center(
+                child: Text(
+                  'No service pending',
+                  style:
+                      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                ),
+              );
+            }
+          } catch (e) {
+            return Center(
+              child: Text(
+                'No service pending',
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+              ),
+            );
+          }
 
           return ListView.separated(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (context, index) {
+                OrderServiceModel orderData;
+                try {
+                  orderData = OrderServiceModel.fromJson(
+                      snapshot.data['serviceOrderHistory'][index]);
+                } catch (e) {
+                  print(e);
+                  return Text('No service pending');
+                }
 
-
-                OrderServiceModel orderData = OrderServiceModel.fromJson(
-                    snapshot.data['serviceOrderHistory'][index]);
                 String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
                     .format(orderData.orderDatetime.toDate());
 
@@ -135,7 +156,6 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                         style: normal14,
                                       ),
 
-
                                       // Row(
                                       //   mainAxisAlignment: MainAxisAlignment.center,
                                       //   children: List.generate(5, (index) => Container(
@@ -153,7 +173,6 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                       //     ),
                                       //   )),
                                       // ),
-
                                     ],
                                   ),
                                 ],
@@ -190,7 +209,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                   ),
                                   const Spacer(),
                                   GestureDetector(
-                                    onTap: (){
+                                    onTap: () {
                                       showDialog<void>(
                                         context: context,
                                         barrierDismissible: false,
@@ -198,18 +217,18 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                           return AlertDialog(
                                             titlePadding: EdgeInsets.all(0.w),
                                             title: Container(
-                                             width: screenWidth,
+                                              width: screenWidth,
                                               height: 180.w,
                                               child: Column(
                                                 children: [
                                                   UploadWorkFiles(
                                                       orderData: orderData,
                                                       screenWidth: screenWidth,
-                                                      orderUid: orderData.orderUid,
-                                                      requirementList: orderData.requirementData,
-                                                      serviceIndex:index
-
-                                                  ),
+                                                      orderUid:
+                                                          orderData.orderUid,
+                                                      requirementList: orderData
+                                                          .requirementData,
+                                                      serviceIndex: index),
                                                 ],
                                               ),
                                             ),
@@ -289,12 +308,8 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                 ],
                               ),
                             ),
-
                           ],
                         ),
-
-
-
                       ],
                     ),
                   ),

@@ -383,8 +383,7 @@ class submitContainer extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () async {
                                       List planingImageUrl = [];
-                                      for (var element
-                                          in getxcontroller.planingImageUrl) {
+                                      for (var element in getxcontroller.planingImageUrl) {
                                         if (element != null) {
                                           planingImageUrl.add(element);
                                         }

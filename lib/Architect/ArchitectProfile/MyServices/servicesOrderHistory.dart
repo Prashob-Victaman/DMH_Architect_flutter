@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/UploadWorkFiles.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/model/OrderServiceModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Constants/constants.dart';
+import '../../../controller/OrderServiceHistory/uploadWorkFiles.dart';
 import '../../../controller/ordercontroller.dart';
 import '../../../model/orderDataModel.dart';
 
@@ -24,8 +27,12 @@ class ServicesOrderHistory extends StatefulWidget {
 class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
   final orderController = Get.put(OrderController());
 
+
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -40,18 +47,19 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final orderData = OrderServiceModel.fromJson(snapshot.data['serviceOrderHistory'][0]);
-
-
-          String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
-              .format(orderData.orderDatetime.toDate());
-
           // List selectedServicesList = orderData.servicesSelectedModel;
 
           return ListView.separated(
               shrinkWrap: true,
               physics: const ScrollPhysics(),
               itemBuilder: (context, index) {
+
+
+                OrderServiceModel orderData = OrderServiceModel.fromJson(
+                    snapshot.data['serviceOrderHistory'][index]);
+                String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
+                    .format(orderData.orderDatetime.toDate());
+
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: Container(
@@ -121,11 +129,33 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                         style: normal12,
                                       ),
                                       Text(
-                                        orderData.deliveryDate,
+                                        DateFormat('yyyy-MM-dd').format(
+                                            DateTime.parse(
+                                                orderData.deliveryDate)),
                                         style: normal14,
                                       ),
+
+
+                                      // Row(
+                                      //   mainAxisAlignment: MainAxisAlignment.center,
+                                      //   children: List.generate(5, (index) => Container(
+                                      //     height: 16,
+                                      //     width: 16,
+                                      //     decoration: BoxDecoration(
+                                      //       color: Colors.green,
+                                      //       borderRadius: BorderRadius.circular(8),
+                                      //     ),
+                                      //     child: Center(
+                                      //       child: Text(
+                                      //         index.toString(),
+                                      //         style: TextStyle(fontSize: 8.sp),
+                                      //       ),
+                                      //     ),
+                                      //   )),
+                                      // ),
+
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -159,186 +189,27 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                     ),
                                   ),
                                   const Spacer(),
-
-                                  // error starts
-
                                   GestureDetector(
-                                    onTap: () async {
-                                      orderController.fetchPlanningfile(index);
-
+                                    onTap: (){
                                       showDialog<void>(
                                         context: context,
+                                        barrierDismissible: false,
                                         builder: (BuildContext context) {
                                           return AlertDialog(
                                             titlePadding: EdgeInsets.all(0.w),
                                             title: Container(
-                                              height: 114.w,
-                                              width: 282.w,
+                                             width: screenWidth,
+                                              height: 180.w,
                                               child: Column(
                                                 children: [
-                                                  Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: 84.w,
-                                                      child: Text(
-                                                        'Are you sure you want to Upload?',
-                                                        style: TextStyle(
-                                                            fontSize: 16.sp,
-                                                            color: kblackcolor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )),
-                                                  const Spacer(),
-                                                  Row(
-                                                    children: [
-                                                      GestureDetector(
-                                                        onTap: () async {
-                                                          if (orderController
-                                                                      .floorplanUrl[
-                                                                  index] !=
-                                                              null) {
-                                                            final documentReference =
-                                                                await FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'ArchitectData')
-                                                                    .doc(FirebaseAuth
-                                                                        .instance
-                                                                        .currentUser!
-                                                                        .uid);
+                                                  UploadWorkFiles(
+                                                      orderData: orderData,
+                                                      screenWidth: screenWidth,
+                                                      orderUid: orderData.orderUid,
+                                                      requirementList: orderData.requirementData,
+                                                      serviceIndex:index
 
-                                                            await documentReference
-                                                                .update({
-                                                              'dashboardData.deliveredServices':
-                                                                  FieldValue
-                                                                      .increment(
-                                                                          1),
-                                                            });
-                                                            await FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    'orderData')
-                                                                .doc("orderUid!")
-                                                                .get()
-                                                                .then(
-                                                                    (documentSnapshot) {
-                                                              if (documentSnapshot
-                                                                  .exists) {
-                                                                Map<String,
-                                                                        dynamic>?
-                                                                    documentData =
-                                                                    documentSnapshot
-                                                                        .data();
-
-                                                                // Modify the desired string value
-                                                                documentData!['servicesSelectedModel']
-                                                                            [
-                                                                            index]
-                                                                        [
-                                                                        'planurl'] =
-                                                                    orderController
-                                                                            .floorplanUrl[
-                                                                        index];
-
-                                                                documentData[
-                                                                            'servicesSelectedModel']
-                                                                        [index][
-                                                                    'isCompleted'] = true;
-
-                                                                // Update the document with the modified array
-                                                                FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        'orderData').doc(
-                                                                        "orderUid!").set(
-                                                                        documentData).then((value) =>
-                                                                        print('Value updated successfully.')).catchError(
-                                                                        (error) =>
-                                                                            print('Error updating value: $error'));
-
-                                                                orderController
-                                                                        .flooplan[
-                                                                    index] = null;
-                                                                orderController
-                                                                        .floorplanUrl[
-                                                                    index] = null;
-
-                                                                // print(widget.architectUid);
-                                                              } else {
-                                                                print(
-                                                                    'Document does not exist.');
-                                                              }
-                                                              orderController
-                                                                      .floorplanUrl[
-                                                                  index] = null;
-                                                            });
-
-                                                            Get.back();
-                                                          } else {
-                                                            Fluttertoast.showToast(
-                                                                msg:
-                                                                    'Loading... Please Wait');
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          height: 30.w,
-                                                          width: 141.w,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  color:
-                                                                      kprimarycolor),
-                                                          child: Center(
-                                                              child: Text(
-                                                            'Yes',
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                color:
-                                                                    kwhitecolor),
-                                                          )),
-                                                        ),
-                                                      ),
-                                                      GestureDetector(
-                                                        onTap: () {
-                                                          if (orderController
-                                                                          .floorplanUrl[
-                                                                      index] !=
-                                                                  null ||
-                                                              orderController
-                                                                          .flooplan[
-                                                                      index] ==
-                                                                  null) {
-                                                            Get.back();
-                                                            orderController
-                                                                    .floorplanUrl[
-                                                                index] = null;
-                                                          } else {
-                                                            Fluttertoast.showToast(
-                                                                msg:
-                                                                    'Please Wait Loading...');
-                                                          }
-                                                        },
-                                                        child: Container(
-                                                          height: 30.w,
-                                                          width: 141.w,
-                                                          decoration: BoxDecoration(
-                                                              color:
-                                                                  kwhitecolor,
-                                                              border: Border.all(
-                                                                  color:
-                                                                      kprimarycolor)),
-                                                          child: Center(
-                                                              child: Text(
-                                                            'Cancel',
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                color:
-                                                                    kprimarycolor),
-                                                          )),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -356,13 +227,14 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                         width: 140.w,
                                         height: 20.w,
                                         child: Text(
-                                          'Upload File',
+                                          'Upload Files',
                                           style: TextStyle(
                                               color: kwhitecolor,
                                               fontSize: 12.sp,
                                               fontWeight: FontWeight.bold),
                                         )),
                                   ),
+                                  // error starts
                                 ],
                               ),
                             ),
@@ -416,9 +288,13 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                   ),
                                 ],
                               ),
-                            )
+                            ),
+
                           ],
                         ),
+
+
+
                       ],
                     ),
                   ),
@@ -429,7 +305,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                   height: 10.w,
                 );
               },
-              itemCount: 1);
+              itemCount: snapshot.data['serviceOrderHistory'].length);
         },
       ),
     );

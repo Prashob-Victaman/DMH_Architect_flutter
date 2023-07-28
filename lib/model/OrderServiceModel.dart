@@ -15,7 +15,7 @@ class OrderServiceModel {
   String customerName;
   String architectUid;
   String orderUid;
-  String deliveryDate;
+  var deliveryDate;
   double amount;
 
   OrderServiceModel(
@@ -36,7 +36,7 @@ class OrderServiceModel {
         required this.architectUid,
         required this.orderUid,
         required this.deliveryDate,
-        required this.amount
+        required this.amount,
       });
 
   Map<String, dynamic> toJson() => {

@@ -383,8 +383,7 @@ class submitContainer extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () async {
                                       List planingImageUrl = [];
-                                      for (var element
-                                          in getxcontroller.planingImageUrl) {
+                                      for (var element in getxcontroller.planingImageUrl) {
                                         if (element != null) {
                                           planingImageUrl.add(element);
                                         }
@@ -540,11 +539,9 @@ class submitContainer extends StatelessWidget {
                                       // getxcontroller
                                       //     .exteriorisLoading[index] = false;
 
-                                      print(
-                                          getxcontroller.exteriorimgurlList[1]);
+                                      print(getxcontroller.exteriorimgurlList[1]);
 
-                                      GetUploadController.createdlistofitems
-                                          .clear();
+                                      GetUploadController.createdlistofitems.clear();
                                       planingFileNameList.clear();
                                       planingFilePriceList.clear();
                                       planingImageUrl.clear();

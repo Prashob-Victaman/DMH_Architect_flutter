@@ -61,18 +61,17 @@ class ArchitectMyDesign extends StatelessWidget {
                           physics: ScrollPhysics(),
                           itemBuilder: (context, index) {
                             int reverseIndex = DesignList.length-index-1;
-                            final data =
-                                designDataModel.fromJson(DesignList[reverseIndex]);
+                            //final data = designDataModel.fromJson(DesignList[reverseIndex]);
+                            final data = DesignList[reverseIndex];
 
-                            Timestamp timestamp =
-                                DesignList[reverseIndex]['postedDate'];
+                            Timestamp timestamp = DesignList[reverseIndex]['postedDate'];
                             DateTime dateTime = timestamp.toDate();
                             DateTime currentTime = DateTime.now();
                             Duration timeDif = currentTime.difference(dateTime);
                             return GestureDetector(
                               onTap: () =>
                                   Get.to(() => ArchitectIndividualHomeDesign(
-                                        designData: data,
+                                        designUid: data['uid'],
                                       )),
                               child: Container(
                                 child: Row(
@@ -102,7 +101,7 @@ class ArchitectMyDesign extends StatelessWidget {
                                           Row(
                                             children: [
                                               Text(
-                                                data.designType,
+                                                data['designType'],
                                                 style: bold16,
                                               ),
                                               Spacer(),
@@ -113,7 +112,7 @@ class ArchitectMyDesign extends StatelessWidget {
                                             ],
                                           ),
                                           Text(
-                                            'DMH${data.sortId}',
+                                            'DMH${data['sortId']}',
                                             // '',
                                             style: normal14,
                                             overflow: TextOverflow.ellipsis,

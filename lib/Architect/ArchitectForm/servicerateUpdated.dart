@@ -12,9 +12,9 @@ class ServiceRateUpdated extends StatelessWidget {
 
   final formKeyServiceRate = GlobalKey<FormState>();
 
-  List modernMinimumAmount = [2, 2, 1.5, 2, 2, 1.5, 3, 3, 3, 50];
+  List modernMinimumAmount = [2, 2, 1.5, 2, 2, 1.5, 3, 3, 3, '', ''];
 
-  List classicalMinimumAmount = [3, 2, 2, 2, 2, 2, 3, 3, 5, 50];
+  List classicalMinimumAmount = [3, 2, 2, 2, 2, 2, 3, 3, 5, '', ''];
 
   final getXcontroller = Get.put(ServicerateController());
   final getformcontroller = Get.put(ArchitectformController());
@@ -137,13 +137,16 @@ class ServiceRateUpdated extends StatelessWidget {
                                                               .size
                                                               .width /
                                                           2 -
-                                                      55.w,
+                                                      100.w,
                                                   padding: EdgeInsets.symmetric(
                                                       horizontal: 10.0.w),
                                                   decoration:
                                                       customBoxDecoration(),
-                                                  child: Text(getXcontroller
-                                                      .designType[index]),
+                                                  child: Text(
+                                                    getXcontroller
+                                                        .designType[index],
+                                                    style: normal15,
+                                                  ),
                                                 ),
                                                 width10,
                                                 Container(
@@ -153,7 +156,7 @@ class ServiceRateUpdated extends StatelessWidget {
                                                               .size
                                                               .width /
                                                           2 -
-                                                      45.w,
+                                                      100.w,
                                                   height: 40.w,
                                                   child: index == 0
                                                       ? (getXcontroller
@@ -198,8 +201,8 @@ class ServiceRateUpdated extends StatelessWidget {
                                                                                 kprimarycolor,
                                                                           ),
                                                                           borderRadius: BorderRadius.circular(5.w)),
-                                                                      hintText: 'Min Rs ${modernMinimumAmount[primaryindex]}/SqFt',
-                                                                      hintStyle: TextStyle(fontSize: 13.sp, color: kgreycolor)),
+                                                                      hintText: 'Rate/SqFt',
+                                                                      hintStyle: TextStyle(fontSize: 12.sp, color: kgreycolor)),
                                                               validator: (value) {
                                                                 if (value!
                                                                     .isEmpty) {
@@ -226,8 +229,100 @@ class ServiceRateUpdated extends StatelessWidget {
                                                                             kprimarycolor,
                                                                       ),
                                                                       borderRadius: BorderRadius.circular(5.w)),
-                                                                  hintText: 'Min Rs ${classicalMinimumAmount[index]}/SqFt',
-                                                                  hintStyle: TextStyle(fontSize: 13.sp, color: kgreycolor)),
+                                                                  hintText: 'Rate/Sqft',
+                                                                  hintStyle: TextStyle(fontSize: 12.sp, color: kgreycolor)),
+                                                              validator: (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return '';
+                                                                }
+
+                                                                return null;
+                                                              })
+                                                          : SizedBox(),
+                                                ),
+                                                width10,
+                                                Container(
+                                                  color: kashcolor
+                                                      .withOpacity(0.5),
+                                                  width: (MediaQuery.of(context)
+                                                          .size
+                                                          .width) *
+                                                      0.23,
+                                                  height: 40.w,
+                                                  child: index == 0
+                                                      ? (getXcontroller
+                                                                  .modernSelectedBoolList[
+                                                              primaryindex]
+                                                          ? TextFormField(
+                                                              textAlignVertical:
+                                                                  TextAlignVertical
+                                                                      .center,
+                                                              controller: index ==
+                                                                      0
+                                                                  ? getXcontroller
+                                                                          .modernControllerList[
+                                                                      primaryindex]
+                                                                  : getXcontroller
+                                                                          .classicalControllerList[
+                                                                      primaryindex],
+                                                              keyboardType:
+                                                                  TextInputType
+                                                                      .number,
+                                                              decoration:
+                                                                  InputDecoration(
+                                                                      errorBorder: OutlineInputBorder(
+                                                                          borderSide: BorderSide(
+                                                                              width: 1
+                                                                                  .w,
+                                                                              color:
+                                                                                  kredcolor)),
+                                                                      errorStyle: TextStyle(
+                                                                          height:
+                                                                              0,
+                                                                          color: Colors
+                                                                              .transparent,
+                                                                          fontSize:
+                                                                              1.sp),
+                                                                      contentPadding: EdgeInsets.symmetric(
+                                                                          // vertical: 10.0.w,
+                                                                          horizontal: 10.0.w),
+                                                                      border: OutlineInputBorder(
+                                                                          borderSide: const BorderSide(
+                                                                            color:
+                                                                                kprimarycolor,
+                                                                          ),
+                                                                          borderRadius: BorderRadius.circular(5.w)),
+                                                                      hintText: 'Min Rate',
+                                                                      hintStyle: TextStyle(fontSize: 12.sp, color: kgreycolor)),
+                                                              validator: (value) {
+                                                                if (value!
+                                                                    .isEmpty) {
+                                                                  return '';
+                                                                }
+
+                                                                return null;
+                                                              })
+                                                          : SizedBox())
+                                                      : getXcontroller.classicalSelectedBoolList[primaryindex]
+                                                          ? TextFormField(
+                                                              textAlignVertical: TextAlignVertical.center,
+                                                              controller: index == 0 ? getXcontroller.minratemodernControllerList[primaryindex] : getXcontroller.minrateclassicalControllerList[primaryindex],
+                                                              keyboardType: TextInputType.number,
+                                                              decoration: InputDecoration(
+                                                                  errorBorder: OutlineInputBorder(borderSide: BorderSide(width: 1.w, color: kredcolor)),
+                                                                  errorStyle: TextStyle(height: 0, color: Colors.transparent, fontSize: 1.sp),
+                                                                  contentPadding: EdgeInsets.symmetric(
+                                                                      // vertical: 10.0.w,
+                                                                      horizontal: 10.0.w),
+                                                                  border: OutlineInputBorder(
+                                                                      borderSide: const BorderSide(
+                                                                        color:
+                                                                            kprimarycolor,
+                                                                      ),
+                                                                      borderRadius: BorderRadius.circular(5.w)),
+                                                                  hintText: 'Min Rate',
+                                                                  hintStyle: TextStyle(fontSize: 12.sp, color: kgreycolor)),
                                                               validator: (value) {
                                                                 if (value!
                                                                     .isEmpty) {
@@ -285,7 +380,7 @@ class ServiceRateUpdated extends StatelessWidget {
                     separatorBuilder: (context, index) {
                       return heigh10;
                     },
-                    itemCount: 10),
+                    itemCount: 11),
                 heigh20,
                 SizedBox(
                   height: 40.w,
@@ -308,7 +403,7 @@ class ServiceRateUpdated extends StatelessWidget {
 
             if (form!.validate()) {
               List<List<String>> serviceAmountList =
-                  List.generate(10, (_) => []);
+                  List.generate(11, (_) => []);
 
               // for (int i = 0; i < 10; i++) {
               //   getXcontroller.servicerateTextController[i].forEach((element) {
@@ -321,110 +416,176 @@ class ServiceRateUpdated extends StatelessWidget {
                   'isSelected': getXcontroller.serviceSelectedBoolList[0],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[0],
-                    'price': getXcontroller.modernControllerList[0].text,
+                    'pricesqft': getXcontroller.modernControllerList[0].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[0].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[0],
-                    'price': getXcontroller.classicalControllerList[0].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[0].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[0].text,
                   },
                 },
                 'Structural Drawing': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[1],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[1],
-                    'price': getXcontroller.modernControllerList[1].text,
+                    'pricesqft': getXcontroller.modernControllerList[1].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[1].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[1],
-                    'price': getXcontroller.classicalControllerList[1].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[1].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[1].text,
                   },
                 },
                 '3D Front Elevation': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[2],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[2],
-                    'price': getXcontroller.modernControllerList[2].text,
+                    'pricesqft': getXcontroller.modernControllerList[2].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[2].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[2],
-                    'price': getXcontroller.classicalControllerList[2].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[2].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[2].text,
                   },
                 },
                 '2D Front Elevation': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[3],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[3],
-                    'price': getXcontroller.modernControllerList[3].text,
+                    'pricesqft': getXcontroller.modernControllerList[3].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[3].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[3],
-                    'price': getXcontroller.classicalControllerList[3].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[3].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[3].text,
                   },
                 },
                 '3D Floor Plan': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[4],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[4],
-                    'price': getXcontroller.modernControllerList[4].text,
+                    'pricesqft': getXcontroller.modernControllerList[4].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[4].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[4],
-                    'price': getXcontroller.classicalControllerList[4].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[4].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[4].text,
                   },
                 },
                 'Working Drawing': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[5],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[5],
-                    'price': getXcontroller.modernControllerList[5].text,
+                    'pricesqft': getXcontroller.modernControllerList[5].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[5].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[5],
-                    'price': getXcontroller.classicalControllerList[5].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[5].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[5].text,
                   },
                 },
                 'Electrical Plan': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[6],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[6],
-                    'price': getXcontroller.modernControllerList[6].text,
+                    'pricesqft': getXcontroller.modernControllerList[6].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[6].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[6],
-                    'price': getXcontroller.classicalControllerList[6].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[6].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[6].text,
                   },
                 },
                 'Plumbing Plan': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[7],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[7],
-                    'price': getXcontroller.modernControllerList[7].text,
+                    'pricesqft': getXcontroller.modernControllerList[7].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[7].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[7],
-                    'price': getXcontroller.classicalControllerList[7].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[7].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[7].text,
                   },
                 },
                 'Walkthough Video': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[8],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[8],
-                    'price': getXcontroller.modernControllerList[8].text,
+                    'pricesqft': getXcontroller.modernControllerList[8].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[8].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[8],
-                    'price': getXcontroller.classicalControllerList[8].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[8].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[8].text,
                   },
                 },
                 'Site Supervision': {
                   'isSelected': getXcontroller.serviceSelectedBoolList[9],
                   'modern': {
                     'isSelected': getXcontroller.modernSelectedBoolList[9],
-                    'price': getXcontroller.modernControllerList[9].text,
+                    'pricesqft': getXcontroller.modernControllerList[9].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[9].text,
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[9],
-                    'price': getXcontroller.classicalControllerList[9].text,
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[9].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[9].text,
+                  },
+                },
+                'Naksha Layout': {
+                  'isSelected': getXcontroller.serviceSelectedBoolList[10],
+                  'modern': {
+                    'isSelected': getXcontroller.modernSelectedBoolList[10],
+                    'pricesqft': getXcontroller.modernControllerList[10].text,
+                    'minprice':
+                        getXcontroller.minratemodernControllerList[10].text,
+                  },
+                  'classic': {
+                    'isSelected': getXcontroller.classicalSelectedBoolList[10],
+                    'pricesqft':
+                        getXcontroller.classicalControllerList[10].text,
+                    'minprice':
+                        getXcontroller.minrateclassicalControllerList[10].text,
                   },
                 },
               };

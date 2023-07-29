@@ -324,8 +324,6 @@ List HouseType = [
 List<List<String>> selctedserviceRateMainList =
     List.generate(10, (_) => ['Modern']);
 
-
-
 Map selctedserviceRateMainListmap = {
   "Floor Plan": selctedserviceRateMainList[0],
   'Structural Drawing': selctedserviceRateMainList[1],
@@ -349,5 +347,6 @@ final List<String> serviceListItems = [
   'Electrical Plan',
   'Plumbing Plan',
   'Walkthough Video',
-  'Site Supervision'
+  'Site Supervision',
+  'Naksha Layout'
 ];

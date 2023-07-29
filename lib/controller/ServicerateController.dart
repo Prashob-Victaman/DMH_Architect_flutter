@@ -7,10 +7,10 @@ class ServicerateController extends GetxController {
   //  List<String> designTypeSecond = [];
 
   int serviceTypeCount = 1;
-  List<bool> serviceSelectedBoolList = List.filled(10, false);
+  List<bool> serviceSelectedBoolList = List.filled(11, false);
 
-  List<bool> modernSelectedBoolList = List.filled(10, false);
-  List<bool> classicalSelectedBoolList = List.filled(10, false);
+  List<bool> modernSelectedBoolList = List.filled(11, false);
+  List<bool> classicalSelectedBoolList = List.filled(11, false);
 
   List HousetypeServicerateList = [];
 
@@ -24,12 +24,23 @@ class ServicerateController extends GetxController {
   // );
 
   List<TextEditingController> modernControllerList = List.generate(
-    10,
+    11,
     (index) => TextEditingController(),
   );
 
   List<TextEditingController> classicalControllerList = List.generate(
-    10,
+    11,
+    (index) => TextEditingController(),
+  );
+
+  
+  List<TextEditingController> minratemodernControllerList = List.generate(
+    11,
+    (index) => TextEditingController(),
+  );
+
+  List<TextEditingController> minrateclassicalControllerList = List.generate(
+    11,
     (index) => TextEditingController(),
   );
 

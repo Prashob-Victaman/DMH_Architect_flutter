@@ -8,7 +8,8 @@ List modelNameList = [
   'ElectricalPlan',
   'PlumbingPlan',
   'WalkthoughVideo',
-  'SiteSupervision'
+  'SiteSupervision',
+  'NakshaLayout'
 ];
 
 class ServiceListModel {
@@ -22,19 +23,20 @@ class ServiceListModel {
   Map PlumbingPlan;
   Map WalkthoughVideo;
   Map SiteSupervision;
+  Map NakshaLayout;
 
-  ServiceListModel({
-    required this.FloorPlan,
-    required this.StructuralDrawing,
-    required this.TwoDFrontElevation,
-    required this.ThreeDFrontElevation,
-    required this.ThreeDFloorPlan,
-    required this.WorkingDrawing,
-    required this.ElectricalPlan,
-    required this.WalkthoughVideo,
-    required this.PlumbingPlan,
-    required this.SiteSupervision,
-  });
+  ServiceListModel(
+      {required this.FloorPlan,
+      required this.StructuralDrawing,
+      required this.TwoDFrontElevation,
+      required this.ThreeDFrontElevation,
+      required this.ThreeDFloorPlan,
+      required this.WorkingDrawing,
+      required this.ElectricalPlan,
+      required this.WalkthoughVideo,
+      required this.PlumbingPlan,
+      required this.SiteSupervision,
+      required this.NakshaLayout});
 
   factory ServiceListModel.fromJson(json) => ServiceListModel(
         ThreeDFrontElevation: json['3D Front Elevation'],
@@ -47,5 +49,6 @@ class ServiceListModel {
         WalkthoughVideo: json['Walkthough Video'],
         PlumbingPlan: json['Plumbing Plan'],
         SiteSupervision: json['Site Supervision'],
+        NakshaLayout: json['Naksha Layout'],
       );
 }

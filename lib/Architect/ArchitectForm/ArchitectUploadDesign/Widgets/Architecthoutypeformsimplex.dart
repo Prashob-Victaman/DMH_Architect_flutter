@@ -539,11 +539,9 @@ class submitContainer extends StatelessWidget {
                                       // getxcontroller
                                       //     .exteriorisLoading[index] = false;
 
-                                      print(
-                                          getxcontroller.exteriorimgurlList[1]);
+                                      print(getxcontroller.exteriorimgurlList[1]);
 
-                                      GetUploadController.createdlistofitems
-                                          .clear();
+                                      GetUploadController.createdlistofitems.clear();
                                       planingFileNameList.clear();
                                       planingFilePriceList.clear();
                                       planingImageUrl.clear();

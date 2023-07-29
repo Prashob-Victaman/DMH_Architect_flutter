@@ -91,6 +91,7 @@ class ArchitectAddDesignController extends GetxController {
       planingImageUrl[i] = null;
       planningImgs[i] = null;
     }
+    planningGridCount =1;
   }
 
   changefloorisLoading(int index) {

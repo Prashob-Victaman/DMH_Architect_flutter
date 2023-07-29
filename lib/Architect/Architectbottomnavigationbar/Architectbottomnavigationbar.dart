@@ -3,6 +3,7 @@ import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/servicesOrde
 import 'package:flutter/material.dart';
 import '../../Constants/constants.dart';
 import '../ArchitectProfile/architectprofilepage.dart';
+import '../ArchitectProfile/ordersProfile.dart';
 import '../Architecthomepage/Architecthomepage.dart';
 
 class Architectbottomnavigationbar extends StatefulWidget {
@@ -16,11 +17,11 @@ class Architectbottomnavigationbar extends StatefulWidget {
 
 class _ArchitectbottomnavigationbarState
     extends State<Architectbottomnavigationbar> {
-  // int _selectedIndex = widget.selectedindex;
 
   final List<Widget> _screens = [
     ArchitecthomePage(),
-    ServicesOrderHistory(),
+    ordersProfile(),
+    //ServicesOrderHistory(),
     //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
     // ServiceRateUpdated(),
@@ -63,7 +64,7 @@ class _ArchitectbottomnavigationbarState
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.category),
-              label: 'My Work',
+              label: 'Projects',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.cloud_upload_outlined),

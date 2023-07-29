@@ -94,69 +94,75 @@ class EditMyDesign extends StatelessWidget {
         heigh10,
         ArchitectaddWorkingDeatails(),
         GestureDetector(
-          onTap: ()async{
-
+          onTap: () async {
             List planingImageUrl = [];
             for (var element in getxcontroller.planingImageUrl) {
               if (element != null) {
                 planingImageUrl.add(element);
-              }else{
-                Fluttertoast.showToast(msg: 'Please wait');
-                return;
               }
+            }
+            if (planingImageUrl.length != getxcontroller.planningGridCount || planingImageUrl.isEmpty) {
+              Fluttertoast.showToast(msg: 'Please upload files');
+              return;
             }
             List planingFileNameList = [];
-            getxcontroller.planingFileNameControllerList
-                .forEach((element) {
+            getxcontroller.planingFileNameControllerList.forEach((element) {
               if (element.text.isNotEmpty) {
                 planingFileNameList.add(element.text);
-              }else{
-                Fluttertoast.showToast(msg: 'Please fill all fields');
-                return;
-              }
-            });
-            List planingFilePriceList = [];
-            getxcontroller.planingFilePriceControllerList
-                .forEach((element) {
-              if (element.text.isNotEmpty) {
-                planingFilePriceList
-                    .add(element.text);
-              }else{
-                Fluttertoast.showToast(msg: 'Please fill all fields');
-                return;
               }
             });
 
-            List planingFiles =[];
-            for(int i=0;i<planingImageUrl.length;i++){
-              planingFiles.add(
-                  {
-                    'name':planingFileNameList[i],
-                    'price':planingFilePriceList[i],
-                    'url':planingImageUrl[i]
-                  }
-              );
+            if(planingFileNameList.length != getxcontroller.planningGridCount|| planingFileNameList.isEmpty){
+              Fluttertoast.showToast(msg: 'Please add drawing name');
+              return;
+            }
+            List planingFilePriceList = [];
+            getxcontroller.planingFilePriceControllerList.forEach((element) {
+              if (element.text.isNotEmpty) {
+                planingFilePriceList.add(element.text);
+              }
+            });
+
+            if(planingFilePriceList.length != getxcontroller.planningGridCount|| planingFilePriceList.isEmpty){
+              Fluttertoast.showToast(msg: 'Please add price');
+              return;
             }
 
+            List planingFiles = [];
+            for (int i = 0; i < planingImageUrl.length; i++) {
+              planingFiles.add({
+                'name': planingFileNameList[i],
+                'price': planingFilePriceList[i],
+                'url': planingImageUrl[i]
+              });
+            }
+            print('no error');
             final collectionReference = FirebaseFirestore.instance
                 .collection('DesignDataFromAdmin');
             await collectionReference.doc(designData.uid).update({
               'planingFiles': FieldValue.arrayUnion(planingFiles),
             });
+            planingFileNameList.clear();
+            planingFilePriceList.clear();
+            planingImageUrl.clear();
+            getxcontroller.clearingfields();
 
-
+            Fluttertoast.showToast(msg: 'Files Uploaded Successfully');
+            Get.back();
           },
           child: Container(
             height: 40.w,
             decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              color: Colors.redAccent
-            ),
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                color: Colors.redAccent),
             child: Center(
-              child: Text("Upload Drawings",style: TextStyle(
-                fontSize: 18.sp,
-                color: Colors.white,
-              ),),
+              child: Text(
+                "Upload Drawings",
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),

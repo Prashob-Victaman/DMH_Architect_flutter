@@ -75,7 +75,6 @@ class _ArchitectDesignPageState extends State<ArchitectDesignPage> {
                         onChanged: (value) {
                           setState(() {
                             searchKey = value;
-                            fetchData();
                           });
                         })),
               ),
@@ -108,42 +107,12 @@ class _ArchitectDesignPageState extends State<ArchitectDesignPage> {
           heigh20,
           designlistview(
             screenwidth: screenwidth,
-            streamQuery: streamQuery,
+              searchKey:searchKey
           ),
           heigh20,
           heigh20
         ]));
   }
 
-  Future<void> fetchData() async {
-    streamQuery = FirebaseFirestore.instance
-        .collection('DesignDataFromAdmin')
-        .where('designType', isGreaterThanOrEqualTo: searchKey.capitalizeFirst)
-        .where('designType', isLessThan: '${searchKey.capitalizeFirst}z')
-        .snapshots();
-    final querySnapshot = await streamQuery.first;
-    final length = querySnapshot.docs.length;
 
-    if (length == 0) {
-      streamQuery = FirebaseFirestore.instance
-          .collection('DesignDataFromAdmin')
-          .where('houseType', isGreaterThanOrEqualTo: searchKey.capitalizeFirst)
-          .where('houseType', isLessThan: '${searchKey.capitalizeFirst}z')
-          .snapshots();
-
-      final querySnapshot = await streamQuery.first;
-      final length = querySnapshot.docs.length;
-
-      if (length == 0) {
-        streamQuery = FirebaseFirestore.instance
-            .collection('DesignDataFromAdmin')
-            .where('houseFacing',
-                isGreaterThanOrEqualTo: searchKey.capitalizeFirst)
-            .where('houseFacing', isLessThan: '${searchKey.capitalizeFirst}z')
-            .snapshots();
-        final querySnapshot = await streamQuery.first;
-      }
-    }
-    setState(() {});
-  }
 }

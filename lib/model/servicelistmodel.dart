@@ -36,7 +36,8 @@ class ServiceListModel {
       required this.WalkthoughVideo,
       required this.PlumbingPlan,
       required this.SiteSupervision,
-      required this.NakshaLayout});
+      required this.NakshaLayout
+      });
 
   factory ServiceListModel.fromJson(json) => ServiceListModel(
         ThreeDFrontElevation: json['3D Front Elevation'],

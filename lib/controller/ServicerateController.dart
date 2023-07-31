@@ -28,6 +28,11 @@ class ServicerateController extends GetxController {
     (index) => TextEditingController(),
   );
 
+  //   List<TextEditingController> moderntextControllerList = List.generate(
+  //   11,
+  //   (index) => TextEditingController(),
+  // );
+
   List<TextEditingController> classicalControllerList = List.generate(
     11,
     (index) => TextEditingController(),

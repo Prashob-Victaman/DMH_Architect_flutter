@@ -133,7 +133,7 @@ class _ArchitectSignupOtpscreenState extends State<ArchitectSignupOtpscreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: pinputwidget(controller: otpcontroller),
                   ),
-             
+
                   // const Text('Dont Recieve Code? Resend', style: textbold16),
                   const SizedBox(
                     height: 10,

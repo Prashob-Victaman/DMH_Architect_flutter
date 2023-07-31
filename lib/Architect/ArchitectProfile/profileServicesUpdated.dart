@@ -117,13 +117,13 @@ class ProfileServicesUpdated extends StatelessWidget {
                                 .minratemodernControllerList[primaryindex]
                                 .text = getXcontroller
                                     .serviceRateDataListEditing[primaryindex]
-                                ['modern']['price/sqft'];
+                                ['modern']['pricesqft'];
 
                             getXcontroller
                                 .minrateclassicalControllerList[primaryindex]
                                 .text = getXcontroller
                                     .serviceRateDataListEditing[primaryindex]
-                                ['classic']['price/sqft'];
+                                ['classic']['pricesqft'];
 
                             // final indexwiseData =
                             //     getXcontroller.serviceRateMainlist[primaryindex].values;
@@ -329,11 +329,13 @@ class ProfileServicesUpdated extends StatelessWidget {
                                                                     textAlignVertical:
                                                                         TextAlignVertical
                                                                             .center,
-                                                                    controller: index ==
+                                                                    controller:
+                                                                     index ==
                                                                             0
-                                                                        ? getXcontroller.modernControllerList[
+                                                                        ? getXcontroller.minratemodernControllerList[
                                                                             primaryindex]
-                                                                        : getXcontroller.classicalControllerList[
+                                                                        :
+                                                                         getXcontroller.minrateclassicalControllerList[
                                                                             primaryindex],
                                                                     keyboardType:
                                                                         TextInputType
@@ -356,10 +358,9 @@ class ProfileServicesUpdated extends StatelessWidget {
                                                                           .isEmpty) {
                                                                         return '';
                                                                       }
-
                                                                       return null;
                                                                     })
-                                                                : SizedBox())
+                                                                : const SizedBox())
                                                             : getXcontroller.serviceRateDataListEditing[primaryindex]['classic']['isSelected']
                                                                 ? TextFormField(
                                                                     textAlignVertical: TextAlignVertical.center,
@@ -386,7 +387,7 @@ class ProfileServicesUpdated extends StatelessWidget {
 
                                                                       return null;
                                                                     })
-                                                                : SizedBox(),
+                                                                : const SizedBox(),
                                                       ),
                                                       SizedBox(
                                                           height: 20.w,
@@ -473,13 +474,14 @@ class ProfileServicesUpdated extends StatelessWidget {
                     //     serviceAmountList[i].add(element.text);
                     //   });
                     // }
-
                     Map selctedserviceRateAmounrtMainListmap = {
                       "Floor Plan": {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[0],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[0]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[0],
+                              getXcontroller.serviceRateDataListEditing[0]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[0].text,
                           'minprice': getXcontroller
@@ -487,7 +489,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[0],
+                              getXcontroller.serviceRateDataListEditing[0]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[0].text,
                           'minprice': getXcontroller
@@ -495,10 +498,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Structural Drawing': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[1],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[1]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[1],
+                              getXcontroller.serviceRateDataListEditing[1]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[1].text,
                           'minprice': getXcontroller
@@ -506,7 +511,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[1],
+                              getXcontroller.serviceRateDataListEditing[1]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[1].text,
                           'minprice': getXcontroller
@@ -514,10 +520,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       '3D Front Elevation': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[2],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[2]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[2],
+                              getXcontroller.serviceRateDataListEditing[2]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[2].text,
                           'minprice': getXcontroller
@@ -525,7 +533,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[2],
+                              getXcontroller.serviceRateDataListEditing[2]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[2].text,
                           'minprice': getXcontroller
@@ -533,10 +542,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       '2D Front Elevation': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[3],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[3]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[3],
+                              getXcontroller.serviceRateDataListEditing[3]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[3].text,
                           'minprice': getXcontroller
@@ -544,7 +555,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[3],
+                              getXcontroller.serviceRateDataListEditing[3]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[3].text,
                           'minprice': getXcontroller
@@ -552,10 +564,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       '3D Floor Plan': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[4],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[4]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[4],
+                              getXcontroller.serviceRateDataListEditing[4]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[4].text,
                           'minprice': getXcontroller
@@ -563,7 +577,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[4],
+                              getXcontroller.serviceRateDataListEditing[4]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[4].text,
                           'minprice': getXcontroller
@@ -571,10 +586,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Working Drawing': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[5],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[5]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[5],
+                              getXcontroller.serviceRateDataListEditing[5]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[5].text,
                           'minprice': getXcontroller
@@ -582,7 +599,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[5],
+                              getXcontroller.serviceRateDataListEditing[5]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[5].text,
                           'minprice': getXcontroller
@@ -590,10 +608,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Electrical Plan': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[6],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[6]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[6],
+                              getXcontroller.serviceRateDataListEditing[6]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[6].text,
                           'minprice': getXcontroller
@@ -601,7 +621,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[6],
+                              getXcontroller.serviceRateDataListEditing[6]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[6].text,
                           'minprice': getXcontroller
@@ -609,10 +630,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Plumbing Plan': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[7],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[7]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[7],
+                              getXcontroller.serviceRateDataListEditing[7]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[7].text,
                           'minprice': getXcontroller
@@ -620,7 +643,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[7],
+                              getXcontroller.serviceRateDataListEditing[7]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[7].text,
                           'minprice': getXcontroller
@@ -628,10 +652,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Walkthough Video': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[8],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[8]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[8],
+                              getXcontroller.serviceRateDataListEditing[8]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[8].text,
                           'minprice': getXcontroller
@@ -639,7 +665,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[8],
+                              getXcontroller.serviceRateDataListEditing[8]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[8].text,
                           'minprice': getXcontroller
@@ -647,10 +674,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Site Supervision': {
-                        'isSelected': getXcontroller.serviceSelectedBoolList[9],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[9]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[9],
+                              getXcontroller.serviceRateDataListEditing[9]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[9].text,
                           'minprice': getXcontroller
@@ -658,7 +687,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[9],
+                              getXcontroller.serviceRateDataListEditing[9]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[9].text,
                           'minprice': getXcontroller
@@ -666,11 +696,12 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                       },
                       'Naksha Layout': {
-                        'isSelected':
-                            getXcontroller.serviceSelectedBoolList[10],
+                        'isSelected': getXcontroller
+                            .serviceRateDataListEditing[10]['isSelected'],
                         'modern': {
                           'isSelected':
-                              getXcontroller.modernSelectedBoolList[10],
+                              getXcontroller.serviceRateDataListEditing[10]
+                                  ['modern']['isSelected'],
                           'pricesqft':
                               getXcontroller.modernControllerList[10].text,
                           'minprice': getXcontroller
@@ -678,7 +709,8 @@ class ProfileServicesUpdated extends StatelessWidget {
                         },
                         'classic': {
                           'isSelected':
-                              getXcontroller.classicalSelectedBoolList[10],
+                              getXcontroller.serviceRateDataListEditing[10]
+                                  ['classic']['isSelected'],
                           'pricesqft':
                               getXcontroller.classicalControllerList[10].text,
                           'minprice': getXcontroller

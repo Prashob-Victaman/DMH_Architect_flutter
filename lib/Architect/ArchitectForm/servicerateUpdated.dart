@@ -62,6 +62,8 @@ class ServiceRateUpdated extends StatelessWidget {
                       // var datalisttomap = indexwiseData.entries.toList();
 
                       // List dataList = datalisttomap[primaryindex].value;
+
+                      
                       return Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0.w),
@@ -261,10 +263,10 @@ class ServiceRateUpdated extends StatelessWidget {
                                                               controller: index ==
                                                                       0
                                                                   ? getXcontroller
-                                                                          .modernControllerList[
+                                                                          .minratemodernControllerList[
                                                                       primaryindex]
                                                                   : getXcontroller
-                                                                          .classicalControllerList[
+                                                                          .minrateclassicalControllerList[
                                                                       primaryindex],
                                                               keyboardType:
                                                                   TextInputType
@@ -422,8 +424,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[0],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[0].text,
+                    'pricesqft': getXcontroller.classicalControllerList[0].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[0].text,
                   },
@@ -438,8 +439,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[1],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[1].text,
+                    'pricesqft': getXcontroller.classicalControllerList[1].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[1].text,
                   },
@@ -454,8 +454,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[2],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[2].text,
+                    'pricesqft': getXcontroller.classicalControllerList[2].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[2].text,
                   },
@@ -470,8 +469,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[3],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[3].text,
+                    'pricesqft': getXcontroller.classicalControllerList[3].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[3].text,
                   },
@@ -486,8 +484,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[4],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[4].text,
+                    'pricesqft': getXcontroller.classicalControllerList[4].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[4].text,
                   },
@@ -502,8 +499,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[5],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[5].text,
+                    'pricesqft': getXcontroller.classicalControllerList[5].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[5].text,
                   },
@@ -518,8 +514,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[6],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[6].text,
+                    'pricesqft': getXcontroller.classicalControllerList[6].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[6].text,
                   },
@@ -534,8 +529,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[7],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[7].text,
+                    'pricesqft': getXcontroller.classicalControllerList[7].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[7].text,
                   },
@@ -550,8 +544,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[8],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[8].text,
+                    'pricesqft': getXcontroller.classicalControllerList[8].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[8].text,
                   },
@@ -566,8 +559,7 @@ class ServiceRateUpdated extends StatelessWidget {
                   },
                   'classic': {
                     'isSelected': getXcontroller.classicalSelectedBoolList[9],
-                    'pricesqft':
-                        getXcontroller.classicalControllerList[9].text,
+                    'pricesqft': getXcontroller.classicalControllerList[9].text,
                     'minprice':
                         getXcontroller.minrateclassicalControllerList[9].text,
                   },

@@ -75,10 +75,10 @@ class ProfileServiceRate extends StatelessWidget {
                             final data =
                                 ArchitectsignupData.fromJson(snapshot.data!);
 
-                            Map serviceRateTypemap = data.serviceRateTypeList;
+                            // Map serviceRateTypemap = data.serviceRateTypeList;
 
-                            List<MapEntry> mapEntries =
-                                serviceRateTypemap.entries.toList();
+                            // List<MapEntry> mapEntries =
+                            //     serviceRateTypemap.entries.toList();
 
                             Map serviceRateAmountmap =
                                 data.serviceRateamountList;
@@ -153,7 +153,7 @@ class ProfileServiceRate extends StatelessWidget {
                                                           2 -
                                                       55.w,
                                                   padding: const EdgeInsets
-                                                      .symmetric(
+                                                          .symmetric(
                                                       horizontal: 10.0),
                                                   decoration:
                                                       customBoxDecoration(),

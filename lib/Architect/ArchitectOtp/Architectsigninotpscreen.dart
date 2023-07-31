@@ -1,5 +1,9 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/architect_office_details.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/architect_presonal_details.dart';
+import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
 import 'package:dmh_architect/Architect/architerctlogin/architectlogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -132,8 +136,7 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                   //   height: 20,
                   // ),
                   // const Text('Dont Recieve Code? Resend', style: textbold16),
-                  const SizedBox(
-                    height: 10                  ),
+                  const SizedBox(height: 10),
                   Text('$_remainingTime sec'), heigh20,
                   Container(
                     child: Row(
@@ -176,6 +179,23 @@ class _ArchitectSigninOtpscreenState extends State<ArchitectSigninOtpscreen> {
                       } else {
                         if (int.parse(otpcontroller.text) == 871450 ||
                             widget.verify == int.parse(otpcontroller.text)) {
+                          var userDocRef = await FirebaseFirestore.instance
+                              .collection('ArchitectData')
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
+                              .get()
+                            ..data();
+
+                          if (userDocRef['personalDetails'].isEmpty) {
+                            Get.to(
+                              () => ArchitectPresonalDetails(),
+                            );
+                          } else if (userDocRef['officeDetails'].isEmpty) {
+                            Get.to(() => ArchitectOfficeDetails());
+                          } else if (userDocRef['serviceRateamountList']
+                              .isEmpty) {
+                            Get.to(() => ServiceRateUpdated());
+                          }
+
                           Get.to(
                             () =>
                                 Architectbottomnavigationbar(selectedindex: 0),

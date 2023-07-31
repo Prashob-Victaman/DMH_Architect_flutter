@@ -9,7 +9,6 @@ class ArchitectsignupData {
   List myDesigns;
   String gender;
   int sortId;
-  Map serviceRateTypeList;
   Map serviceRateamountList;
   double totalEarnings;
   ArchitectsignupData({
@@ -23,7 +22,6 @@ class ArchitectsignupData {
     required this.gender,
     required this.myDesigns,
     required this.sortId,
-    required this.serviceRateTypeList,
     required this.serviceRateamountList,
     required this.totalEarnings,
   });
@@ -39,24 +37,21 @@ class ArchitectsignupData {
         'gender': gender,
         'myDesigns': myDesigns,
         'sortId': sortId,
-        'serviceRateTypeList': serviceRateTypeList,
         'serviceRateamountList': serviceRateamountList,
-    'totalEarnings':totalEarnings
+        'totalEarnings': totalEarnings
       };
 
   factory ArchitectsignupData.fromJson(json) => ArchitectsignupData(
-        name: json['name'],
-        designation: json['designation'],
-        uid: json['uid'],
-        email: json['email'],
-        mobilenumber: json['mobilenumber'],
-        personalDetails: json['personalDetails'],
-        officeDetails: json['officeDetails'],
-        gender: json['gender'],
-        myDesigns: json['myDesigns'],
-        sortId: json['sortId'],
-        serviceRateTypeList: json['serviceRateTypeList'],
-        serviceRateamountList: json['serviceRateamountList'],
-      totalEarnings: json['totalEarnings']
-      );
+      name: json['name'],
+      designation: json['designation'],
+      uid: json['uid'],
+      email: json['email'],
+      mobilenumber: json['mobilenumber'],
+      personalDetails: json['personalDetails'],
+      officeDetails: json['officeDetails'],
+      gender: json['gender'],
+      myDesigns: json['myDesigns'],
+      sortId: json['sortId'],
+      serviceRateamountList: json['serviceRateamountList'],
+      totalEarnings: json['totalEarnings']);
 }

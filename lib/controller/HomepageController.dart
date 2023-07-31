@@ -8,7 +8,7 @@ class HomePageContoller extends GetxController {
     CollectionReference<Map<String, dynamic>> collectionRef =
         FirebaseFirestore.instance.collection('DesignDataFromAdmin');
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-        await collectionRef.get();
+        await collectionRef.where('uploadedUserUid',isEqualTo: FirebaseAuth.instance.currentUser!.uid).get();
 
     Map<String, List<Map<String, dynamic>>> separatedData = {};
 

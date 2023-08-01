@@ -8,12 +8,22 @@ import 'package:dmh_architect/model/uploadDesignDataModel.dart';
 import '../../../Constants/constants.dart';
 import '../../productview/productview.dart';
 
-class designlistview extends StatelessWidget {
+class designlistview extends StatefulWidget {
   designlistview(
-      {super.key, required this.screenwidth, required this.streamQuery});
+      {super.key, required this.screenwidth, required this.searchKey});
 
   final double screenwidth;
-  final Stream streamQuery;
+  String searchKey;
+
+  @override
+  State<designlistview> createState() => _designlistviewState();
+}
+
+class _designlistviewState extends State<designlistview> {
+  Stream streamQuery = FirebaseFirestore.instance
+      .collection("DesignDataFromAdmin")
+      .orderBy("sortId", descending: true)
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +75,8 @@ class designlistview extends StatelessWidget {
                             children: [
                               CachedNetworkImage(
                                 imageUrl: data.exteriorImageList[0],
-                                imageBuilder: (context, imageProvider) => Container(
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10.w),
@@ -87,7 +98,7 @@ class designlistview extends StatelessWidget {
                                         color:
                                             Color.fromARGB(255, 255, 214, 69)),
                                     height: 22.w,
-                                    width: (screenwidth - 30) / 2.w,
+                                    width: (widget.screenwidth - 30) / 2.w,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -149,7 +160,7 @@ class designlistview extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    Text('${data.houseFacing } Facing House'),
+                                    Text('${data.houseFacing} Facing House'),
                                     const Spacer(),
                                     // Container(
                                     //   child: RatingBar.builder(
@@ -184,5 +195,41 @@ class designlistview extends StatelessWidget {
               },
               itemCount: snapshot.data!.size);
         });
+  }
+
+  Future<void> fetchData() async {
+    streamQuery = FirebaseFirestore.instance
+        .collection('DesignDataFromAdmin')
+        .where('designType',
+            isGreaterThanOrEqualTo: widget.searchKey.capitalizeFirst)
+        .where('designType', isLessThan: '${widget.searchKey.capitalizeFirst}z')
+        .snapshots();
+    final querySnapshot = await streamQuery.first;
+    final length = querySnapshot.docs.length;
+
+    if (length == 0) {
+      streamQuery = FirebaseFirestore.instance
+          .collection('DesignDataFromAdmin')
+          .where('houseType',
+              isGreaterThanOrEqualTo: widget.searchKey.capitalizeFirst)
+          .where('houseType',
+              isLessThan: '${widget.searchKey.capitalizeFirst}z')
+          .snapshots();
+
+      final querySnapshot = await streamQuery.first;
+      final length = querySnapshot.docs.length;
+
+      if (length == 0) {
+        streamQuery = FirebaseFirestore.instance
+            .collection('DesignDataFromAdmin')
+            .where('houseFacing',
+                isGreaterThanOrEqualTo: widget.searchKey.capitalizeFirst)
+            .where('houseFacing',
+                isLessThan: '${widget.searchKey.capitalizeFirst}z')
+            .snapshots();
+        final querySnapshot = await streamQuery.first;
+      }
+    }
+    setState(() {});
   }
 }

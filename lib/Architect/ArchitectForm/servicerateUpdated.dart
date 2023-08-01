@@ -12,9 +12,9 @@ class ServiceRateUpdated extends StatelessWidget {
 
   final formKeyServiceRate = GlobalKey<FormState>();
 
-  List modernMinimumAmount = [2, 2, 1.5, 2, 2, 1.5, 3, 3, 3, '', ''];
+  // List modernMinimumAmount = [2, 2, 1.5, 2, 2, 1.5, 3, 3, 3, '', ''];
 
-  List classicalMinimumAmount = [3, 2, 2, 2, 2, 2, 3, 3, 5, '', ''];
+  // List classicalMinimumAmount = [3, 2, 2, 2, 2, 2, 3, 3, 5, '', ''];
 
   final getXcontroller = Get.put(ServicerateController());
   final getformcontroller = Get.put(ArchitectformController());
@@ -63,7 +63,6 @@ class ServiceRateUpdated extends StatelessWidget {
 
                       // List dataList = datalisttomap[primaryindex].value;
 
-                      
                       return Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0.w),
@@ -105,9 +104,11 @@ class ServiceRateUpdated extends StatelessWidget {
                                                 .serviceSelectedBoolList[
                                             primaryindex],
                                         onChanged: (value) {
-                                          getXcontroller
-                                              .changeServiceSelectedbool(
-                                                  primaryindex);
+                                          if (primaryindex != 0) {
+                                            getXcontroller
+                                                .changeServiceSelectedbool(
+                                                    primaryindex);
+                                          }
                                         },
                                       ),
                                     );
@@ -349,15 +350,17 @@ class ServiceRateUpdated extends StatelessWidget {
                                                         MaterialStatePropertyAll(
                                                             kblackcolor),
                                                     onChanged: (value) {
-                                                      index == 0
-                                                          ? getXcontroller
-                                                              .changeModernSelectedBoolList(
-                                                              primaryindex,
-                                                            )
-                                                          : getXcontroller
-                                                              .changeClassicalSelectedBoolList(
-                                                              primaryindex,
-                                                            );
+                                                      if (primaryindex != 0) {
+                                                        index == 0
+                                                            ? getXcontroller
+                                                                .changeModernSelectedBoolList(
+                                                                primaryindex,
+                                                              )
+                                                            : getXcontroller
+                                                                .changeClassicalSelectedBoolList(
+                                                                primaryindex,
+                                                              );
+                                                      }
                                                     },
                                                   ),
                                                 )

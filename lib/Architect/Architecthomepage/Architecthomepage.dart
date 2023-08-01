@@ -21,7 +21,7 @@ import 'package:upgrader/upgrader.dart';
 class ArchitecthomePage extends StatefulWidget {
   ArchitecthomePage({super.key});
 
-  int? totalOrders = 0;
+  var totalOrders = 0;
 
   @override
   State<ArchitecthomePage> createState() => _ArchitecthomePageState();
@@ -210,11 +210,11 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Total Designs',
-                                      subtitle: totalDesigns.toString()),
+                                      subtitle: totalDesigns ?? 0),
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Total Orders',
-                                      subtitle: widget.totalOrders.toString()),
+                                      subtitle: widget.totalOrders ?? 0),
                                 ],
                               ),
                               heigh10,
@@ -225,11 +225,11 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Total Services',
-                                      subtitle: totalServices.toString()),
+                                      subtitle: totalServices ?? 0),
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Accepted Services',
-                                      subtitle: acceptedServices.toString()),
+                                      subtitle: acceptedServices ?? 0),
                                 ],
                               ),
                               heigh10,
@@ -240,11 +240,11 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Rejected Services',
-                                      subtitle: rejectedServices.toString()),
+                                      subtitle: rejectedServices ?? 0),
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Pending Request',
-                                      subtitle: pendingServices.toString()),
+                                      subtitle: pendingServices ?? 0),
                                 ],
                               ),
                               heigh10,
@@ -255,11 +255,11 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Delivered Services',
-                                      subtitle: deliveredServices.toString()),
+                                      subtitle: deliveredServices ?? 0),
                                   DashboardWidget(
                                       screenwidth: screenwidth,
                                       title: 'Total Earnings',
-                                      subtitle: totalEarnings.toString()),
+                                      subtitle: totalEarnings ?? 0),
                                 ],
                               ),
                               heigh10
@@ -375,7 +375,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
 
 class DashboardWidget extends StatelessWidget {
   String title;
-  String subtitle;
+  var subtitle;
   DashboardWidget({
     super.key,
     required this.screenwidth,
@@ -402,7 +402,7 @@ class DashboardWidget extends StatelessWidget {
             style: normal16,
           ),
           Text(
-            subtitle,
+            '$subtitle',
             style: bold20,
           )
         ],

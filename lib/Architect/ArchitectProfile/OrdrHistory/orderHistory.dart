@@ -7,8 +7,10 @@ import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/cus
 import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -94,6 +96,8 @@ class OrderHistoryUser extends StatelessWidget {
 
                   OrderDataModel data = OrderDataModel.fromJson(snapshot.data!);
 
+                  List selectedServicesList = data.servicesSelectedModel;
+
                   final numberOfFloors =
                       data.averageAreaDimension['noOfFloors'];
 
@@ -113,26 +117,133 @@ class OrderHistoryUser extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              // width: screenWidth * 0.5,
+                              width: screenWidth - 25.w,
                               // height: 100.w,
-                              height: 60.w,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              // height: 60.w,
+                              child: Row(
                                 children: [
-                                  Text(
-                                    'Customer - ${data.customerName}',
-                                    style: bold15,
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: screenWidth - 120,
+                                        child: Text(
+                                          'Customer - ${data.customerName}',
+                                          style: bold15,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Text(
+                                        orderId,
+                                        style: bold15,
+                                      ),
+                                      Text(
+                                        '${formatedDate}',
+                                        style: normal14,
+                                      )
+                                    ],
                                   ),
-                                  Text(
-                                    orderId,
-                                    style: bold15,
-                                  ),
-                                  Text(
-                                    '${formatedDate}',
-                                    style: normal14,
-                                  )
+                                  Spacer(),
+                                  (selectedServicesList[0]['isAproved'] ==
+                                              false &&
+                                          selectedServicesList[0]
+                                                  ['isRejected'] ==
+                                              false) // accept and reject only storing in floor plan (0 th index)
+
+                                      ? Column(
+                                          children: [
+                                            SizedBox(
+                                              width: 90.w,
+                                              height: 25.w,
+                                              child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                                  ksuccesscolor)),
+                                                  onPressed: () {
+                                                    // Get.to(() => CustomerOrders(
+                                                    //       customerUid: data.customerUid,
+                                                    //       orderUid: orderUid,
+                                                    //       // selectedServicesList:
+                                                    //       //     data.servicesSelectedModel,
+                                                    //     ));
+                                                    orderConfirmationAcceptPopup(
+                                                        context,
+                                                        'Accept',
+                                                        0,
+                                                        'isAproved',
+                                                        true);
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    // width: 100.w,
+                                                    // height: 40.w,
+                                                    width: 90.w,
+                                                    height: 25.w,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.w)),
+                                                    child: Text(
+                                                      'Accept',
+                                                      style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color: kwhitecolor,
+                                                      ),
+                                                    ),
+                                                  )),
+                                            ),
+                                            heigh5,
+                                            SizedBox(
+                                              width: 90.w,
+                                              height: 25.w,
+                                              child: ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(kredcolor)),
+                                                  onPressed: () {
+                                                    // Get.to(() => CustomerOrders(
+                                                    //       customerUid: data.customerUid,
+                                                    //       orderUid: orderUid,
+                                                    //       // selectedServicesList:
+                                                    //       //     data.servicesSelectedModel,
+                                                    //     ));
+
+                                                    orderConfirmationAcceptPopup(
+                                                        context,
+                                                        'Reject',
+                                                        0,
+                                                        'isRejected',
+                                                        true);
+                                                  },
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    // width: 100.w,
+                                                    // height: 40.w,
+                                                    width: 90.w,
+                                                    height: 25.w,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.w)),
+                                                    child: Text(
+                                                      'Reject',
+                                                      style: TextStyle(
+                                                        fontSize: 12.sp,
+                                                        color: kwhitecolor,
+                                                      ),
+                                                    ),
+                                                  )),
+                                            )
+                                          ],
+                                        )
+                                      : SizedBox()
                                 ],
                               ),
                             ),
@@ -241,40 +352,40 @@ class OrderHistoryUser extends StatelessWidget {
                                   color: kprimarycolor),
                             ),
                             const Spacer(),
-                            SizedBox(
-                              width: 110.w,
-                              height: 30.w,
-                              child: ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              kprimarycolor)),
-                                  onPressed: () {
-                                    Get.to(() => CustomerOrders(
-                                      customerUid:data.customerUid,
-                                          orderUid: orderUid,
-                                          // selectedServicesList:
-                                          //     data.servicesSelectedModel,
-                                        ));
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    // width: 100.w,
-                                    // height: 40.w,
-                                    width: 110.w,
-                                    height: 30.w,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.w)),
-                                    child: Text(
-                                      'Order Details',
-                                      style: TextStyle(
-                                        fontSize: 11.sp,
-                                        color: kwhitecolor,
-                                      ),
-                                    ),
-                                  )),
-                            )
+                            // SizedBox(
+                            //   width: 110.w,
+                            //   height: 30.w,
+                            //   child: ElevatedButton(
+                            //       style: ButtonStyle(
+                            //           backgroundColor:
+                            //               MaterialStateProperty.all(
+                            //                   kprimarycolor)),
+                            //       onPressed: () {
+                            //         Get.to(() => CustomerOrders(
+                            //               customerUid: data.customerUid,
+                            //               orderUid: orderUid,
+                            //               // selectedServicesList:
+                            //               //     data.servicesSelectedModel,
+                            //             ));
+                            //       },
+                            //       child: Container(
+                            //         alignment: Alignment.center,
+                            //         // width: 100.w,
+                            //         // height: 40.w,
+                            //         width: 110.w,
+                            //         height: 30.w,
+                            //         decoration: BoxDecoration(
+                            //             borderRadius:
+                            //                 BorderRadius.circular(5.w)),
+                            //         child: Text(
+                            //           'Order Details',
+                            //           style: TextStyle(
+                            //             fontSize: 11.sp,
+                            //             color: kwhitecolor,
+                            //           ),
+                            //         ),
+                            //       )),
+                            // )
                           ],
                         ),
                       ),
@@ -299,6 +410,121 @@ class OrderHistoryUser extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> orderConfirmationAcceptPopup(
+    BuildContext context,
+    String title,
+    int index,
+    String field,
+    bool value,
+  ) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          titlePadding: EdgeInsets.only(top: 10.w),
+          title: Container(
+            // height: 114.w,
+            width: 320.w,
+            child: Column(
+              children: [
+                heigh10,
+                Container(
+                  alignment: Alignment.center,
+                  // height: 84.w,
+                  child: Text(
+                    'Are you sure you want to $title?',
+                    style: normal15,
+                  ),
+                ),
+                heigh20,
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        final documentReference = await FirebaseFirestore
+                            .instance
+                            .collection('ArchitectData')
+                            .doc(FirebaseAuth.instance.currentUser!.uid);
+
+                        await documentReference.update({
+                          'dashboardData.acceptedServicesCount':
+                              FieldValue.increment(1),
+                        });
+
+                        await FirebaseFirestore.instance
+                            .collection('orderData')
+                            .doc(orderUid!)
+                            .get()
+                            .then((documentSnapshot) {
+                          if (documentSnapshot.exists) {
+                            Map<String, dynamic>? documentData =
+                                documentSnapshot.data();
+
+                            // Modify the desired string value
+                            documentData!['servicesSelectedModel'][index]
+                                [field] = value;
+
+                            documentData['servicesSelectedModel'][index]
+                                    ['deliveryDate'] =
+
+                                // Update the document with the modified array
+                                FirebaseFirestore.instance
+                                    .collection('orderData')
+                                    .doc(orderUid!)
+                                    .set(documentData)
+                                    .then((value) =>
+                                        print('Value updated successfully.'))
+                                    .catchError((error) =>
+                                        print('Error updating value: $error'));
+                          } else {
+                            print('Document does not exist.');
+                          }
+                        });
+
+                        // await FirebaseFirestore.instance
+                        //     .collection("order")
+                        //     .doc(orderUid!)
+                        //     .update({'servicesSelectedModel': value});
+
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 30.w,
+                        width: 152.w,
+                        decoration: const BoxDecoration(color: kprimarycolor),
+                        child: Center(
+                            child: Text(
+                          'Yes',
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                        )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        height: 30.w,
+                        width: 152.5.w,
+                        decoration: BoxDecoration(
+                            color: kwhitecolor,
+                            border: Border.all(color: kprimarycolor)),
+                        child: Center(
+                            child: Text(
+                          'No',
+                          style:
+                              TextStyle(fontSize: 14.sp, color: kprimarycolor),
+                        )),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

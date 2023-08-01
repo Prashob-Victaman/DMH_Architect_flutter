@@ -169,28 +169,29 @@ class ProfileServicesUpdated extends StatelessWidget {
                                         ),
                                         width5,
                                         GetBuilder<ServicerateController>(
-                                            builder: (context) {
-                                          return SizedBox(
-                                            height: 20.w,
-                                            child: Checkbox(
-                                              fillColor:
-                                                  const MaterialStatePropertyAll(
-                                                      kprimarycolor),
-                                              value: getXcontroller
-                                                      .serviceRateDataListEditing[
-                                                  primaryindex]['isSelected'],
+                                          builder: (context) {
+                                            return SizedBox(
+                                              height: 20.w,
+                                              child: Checkbox(
+                                                fillColor:
+                                                    const MaterialStatePropertyAll(
+                                                        kprimarycolor),
+                                                value: getXcontroller
+                                                        .serviceRateDataListEditing[
+                                                    primaryindex]['isSelected'],
 
-                                              // getXcontroller
-                                              //         .serviceSelectedBoolList[
-                                              //     primaryindex],
-                                              onChanged: (value) {
-                                                getXcontroller
-                                                    .changeserviceRateDataListEditing(
-                                                        primaryindex);
-                                              },
-                                            ),
-                                          );
-                                        })
+                                                // getXcontroller
+                                                //         .serviceSelectedBoolList[
+                                                //     primaryindex],
+                                                onChanged: (value) {
+                                                  getXcontroller
+                                                      .changeserviceRateDataListEditing(
+                                                          primaryindex);
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        )
                                       ],
                                     ),
                                     GetBuilder<ServicerateController>(
@@ -329,13 +330,11 @@ class ProfileServicesUpdated extends StatelessWidget {
                                                                     textAlignVertical:
                                                                         TextAlignVertical
                                                                             .center,
-                                                                    controller:
-                                                                     index ==
+                                                                    controller: index ==
                                                                             0
                                                                         ? getXcontroller.minratemodernControllerList[
                                                                             primaryindex]
-                                                                        :
-                                                                         getXcontroller.minrateclassicalControllerList[
+                                                                        : getXcontroller.minrateclassicalControllerList[
                                                                             primaryindex],
                                                                     keyboardType:
                                                                         TextInputType

@@ -166,7 +166,7 @@ class ServicesSelected extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: kgreycolor),
                               )
-                            : selectedServicesList[index]['isRejected'] == true
+                            : selectedServicesList[0]['isRejected'] == true
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -201,7 +201,7 @@ class ServicesSelected extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.orange),
                                           )
-                                        : selectedServicesList[index]
+                                        : selectedServicesList[0]
                                                     ['isAproved'] ==
                                                 true
                                             ? Text(
@@ -211,7 +211,7 @@ class ServicesSelected extends StatelessWidget {
                                                     fontWeight: FontWeight.bold,
                                                     color: kyellowcolor),
                                               )
-                                            : selectedServicesList[index]
+                                            : selectedServicesList[0]
                                                         ['isAproved'] ==
                                                     false
                                                 ? Text(
@@ -222,7 +222,7 @@ class ServicesSelected extends StatelessWidget {
                                                             FontWeight.bold,
                                                         color: kyellowcolor),
                                                   )
-                                                : SizedBox(),
+                                                : const SizedBox(),
                       ],
                     ),
                   )
@@ -234,6 +234,4 @@ class ServicesSelected extends StatelessWidget {
       ),
     );
   }
-
-  
 }

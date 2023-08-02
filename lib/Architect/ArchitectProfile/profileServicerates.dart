@@ -72,6 +72,7 @@ class ProfileServiceRate extends StatelessWidget {
                                 height: 19.w,
                               ));
                             }
+
                             final data =
                                 ArchitectsignupData.fromJson(snapshot.data!);
 
@@ -86,6 +87,8 @@ class ProfileServiceRate extends StatelessWidget {
                             List<MapEntry> AmountmapEntries =
                                 serviceRateAmountmap.entries.toList();
 
+                                
+
                             // log(mapEntries[0].value.toString());
 
                             // serviceRateamountmap =
@@ -95,6 +98,8 @@ class ProfileServiceRate extends StatelessWidget {
 
                             print(
                                 '${selctedserviceRateMainList[primaryindex]}');
+
+
                             return Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5.0.w),

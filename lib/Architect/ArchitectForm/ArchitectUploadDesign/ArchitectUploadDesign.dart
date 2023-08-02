@@ -290,8 +290,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                                     GestureDetector(
                                       onTap: () {
                                         Getdata.uploadfloorfileimage(index);
-                                        getcontroller
-                                            .changefloorisLoading(index);
+                                        getcontroller.changefloorisLoading(index);
                                       },
                                       child: Getdata.floorimgXFileList[index] !=
                                               null

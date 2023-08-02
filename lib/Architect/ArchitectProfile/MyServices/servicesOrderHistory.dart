@@ -75,12 +75,10 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                       snapshot.data['serviceOrderHistory'][index]);
                 } catch (e) {
                   print(e);
-                  return Text('No service pending');
+                  return const Text('No service pending');
                 }
-
                 String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
                     .format(orderData.orderDatetime.toDate());
-
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                   child: Container(

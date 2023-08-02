@@ -13,55 +13,63 @@ class OrderDataModel {
   Map requestList;
   String customerUid;
   String customerName;
+  String architectUid;
+  String designUid;
 
-  OrderDataModel(
-      {required this.architectName,
-        required this.orderId,
-        required this.isOrderAproved,
-        required this.orderDatetime,
-        required this.designType,
-        required this.houseType,
-        required this.houseArea,
-        required this.houseFacing,
-        required this.servicesSelectedModel,
-        required this.requirementData,
-        required this.requestList,
-        required this.averageAreaDimension,
-        required this.customerUid,
-        required this.customerName
-      });
+  OrderDataModel({
+    required this.architectName,
+    required this.orderId,
+    required this.isOrderAproved,
+    required this.orderDatetime,
+    required this.designType,
+    required this.houseType,
+    required this.houseArea,
+    required this.houseFacing,
+    required this.servicesSelectedModel,
+    required this.requirementData,
+    required this.requestList,
+    required this.averageAreaDimension,
+    required this.customerUid,
+    required this.customerName,
+    required this.architectUid,
+    required this.designUid,
+  });
 
   Map<String, dynamic> toJson() => {
-    'architectName': architectName,
-    'orderId': orderId,
-    'isOrderAproved': isOrderAproved,
-    'orderDatetime': orderDatetime,
-    'designType': designType,
-    'houseType': houseType,
-    'houseArea': houseArea,
-    'houseFacing': houseFacing,
-    'servicesSelectedModel': servicesSelectedModel,
-    'requirementData': requirementData,
-    'averageAreaDimension': averageAreaDimension,
-    'requestList': requestList,
-    'customerName':customerName,
-    'customerUid':customerUid
-  };
+        'architectName': architectName,
+        'orderId': orderId,
+        'isOrderAproved': isOrderAproved,
+        'orderDatetime': orderDatetime,
+        'designType': designType,
+        'houseType': houseType,
+        'houseArea': houseArea,
+        'houseFacing': houseFacing,
+        'servicesSelectedModel': servicesSelectedModel,
+        'requirementData': requirementData,
+        'averageAreaDimension': averageAreaDimension,
+        'requestList': requestList,
+        'customerName': customerName,
+        'customerUid': customerUid,
+        'architectUid': architectUid,
+        'designUid': designUid
+      };
 
   factory OrderDataModel.fromJson(json) => OrderDataModel(
-      orderId: json['orderId'],
-      architectName: json['architectName'],
-      isOrderAproved: json['isOrderAproved'],
-      orderDatetime: json['orderDatetime'],
-      designType: json['designType'],
-      houseType: json['houseType'],
-      houseArea: json['houseArea'],
-      houseFacing: json['houseFacing'],
-      servicesSelectedModel: json['servicesSelectedModel'],
-      requirementData: json['requirementData'],
-      averageAreaDimension: json['averageAreaDimension'],
-      requestList: json['requestList'],
-      customerName: json['customerName'],
-      customerUid: json['customerUid']
-  );
+        orderId: json['orderId'],
+        architectName: json['architectName'],
+        isOrderAproved: json['isOrderAproved'],
+        orderDatetime: json['orderDatetime'],
+        designType: json['designType'],
+        houseType: json['houseType'],
+        houseArea: json['houseArea'],
+        houseFacing: json['houseFacing'],
+        servicesSelectedModel: json['servicesSelectedModel'],
+        requirementData: json['requirementData'],
+        averageAreaDimension: json['averageAreaDimension'],
+        requestList: json['requestList'],
+        customerName: json['customerName'],
+        customerUid: json['customerUid'],
+        architectUid: json['architectUid'],
+        designUid: json['designUid'],
+      );
 }

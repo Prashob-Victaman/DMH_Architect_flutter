@@ -44,12 +44,16 @@ class ordersProfile extends StatelessWidget {
                     heigh10,
                     Text(
                       'My Orders',
-                      style: bold16,
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: kprimarycolor),
+                      textAlign: TextAlign.center,
                     ),
-                    Divider(
-                      height: 10.w,
-                      thickness: 1.w,
-                    ),
+                    // Divider(
+                    //   height: 10.w,
+                    //   thickness: 1.w,
+                    // ),
                     ListView(
                       shrinkWrap: true,
                       physics: const ScrollPhysics(),

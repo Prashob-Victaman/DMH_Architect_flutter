@@ -18,11 +18,10 @@ class Architectbottomnavigationbar extends StatefulWidget {
 
 class _ArchitectbottomnavigationbarState
     extends State<Architectbottomnavigationbar> {
-
   final List<Widget> _screens = [
     ArchitecthomePage(),
     ordersProfile(),
-    //ServicesOrderHistory(),
+    ServicesOrderHistory(),
     //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
     // ServiceRateUpdated(),
@@ -67,6 +66,10 @@ class _ArchitectbottomnavigationbarState
             BottomNavigationBarItem(
               icon: Icon(Icons.category),
               label: 'Projects',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.description_sharp),
+              label: 'Services',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.cloud_upload_outlined),

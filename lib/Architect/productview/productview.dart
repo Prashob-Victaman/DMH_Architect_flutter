@@ -18,7 +18,7 @@ class ProductView extends StatefulWidget {
 class _ProductViewState extends State<ProductView> {
   @override
   Widget build(BuildContext context) {
-    // final screenwidth = MediaQuery.of(context).size.width;
+    final screenwidth = MediaQuery.of(context).size.width;
     // final screenheight = MediaQuery.of(context).size.height;
     // final getcontroller = Get.put(CartController());
     // final getpaymentcontroller = Get.put(PaymentController());
@@ -42,6 +42,7 @@ class _ProductViewState extends State<ProductView> {
                               Icons.arrow_back,
                               size: 20.sp,
                             ),
+                            width10,
                             Text(
                               'Back',
                               style: normal16,
@@ -65,12 +66,17 @@ class _ProductViewState extends State<ProductView> {
                         ],
                       ),
                       heigh10,
-                      Text(
-                        '${widget.DesignData.projectDetails}',
-                        style: TextStyle(
-                          fontSize: 14.sp,
+                      Container(
+                        width: screenwidth - 30,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${widget.DesignData.projectDetails}',
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                          ),
+                          textAlign: TextAlign.justify,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        textAlign: TextAlign.justify,
                       ),
                     ],
                   ),
@@ -177,7 +183,7 @@ class _ProductViewState extends State<ProductView> {
             //     ),
             //     child: Row(
             //       children: [
-                   
+
             //         GestureDetector(
             //           onTap: () async {},
             //           child: Container(

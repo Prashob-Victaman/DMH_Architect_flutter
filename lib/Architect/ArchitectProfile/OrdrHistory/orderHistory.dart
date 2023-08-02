@@ -5,8 +5,10 @@ import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/Ser
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/customerOrders.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
+import 'package:dmh_architect/Architect/productview/productview.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
+import 'package:dmh_architect/model/uploadDesignDataModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -309,8 +311,9 @@ class OrderHistoryUser extends StatelessWidget {
                         ],
                       ),
                       heigh10,
-                      OrderDetails(
-                          orderData: data,
+                      OrderDetailsClass(
+                          orderUid: data.designUid,
+                          data: data,
                           screenWidth: screenWidth,
                           imageUrlList: imageUrlList),
                       heigh10,
@@ -526,5 +529,51 @@ class OrderHistoryUser extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class OrderDetailsClass extends StatelessWidget {
+  const OrderDetailsClass(
+      {super.key,
+      required this.data,
+      required this.screenWidth,
+      required this.imageUrlList,
+      required this.orderUid});
+
+  final OrderDataModel data;
+  final double screenWidth;
+  final List imageUrlList;
+  final String orderUid;
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("DesignDataFromAdmin")
+            .doc(orderUid)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return SizedBox(
+              height: 19.w,
+            );
+          }
+          if (!snapshot.hasData) {
+            return Center(
+                child: SizedBox(
+              height: 19.w,
+            ));
+          }
+          final designData = designDataModel.fromJson(snapshot.data);
+          return GestureDetector(
+            onTap: () => Get.to(
+              () => ProductView(DesignData: designData),
+            ),
+            child: OrderDetails(
+                orderData: data,
+                screenWidth: screenWidth,
+                imageUrlList: imageUrlList),
+          );
+        });
   }
 }

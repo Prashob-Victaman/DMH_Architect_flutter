@@ -36,9 +36,13 @@ class UploadWorkFiles extends StatelessWidget {
           borderRadius: BorderRadius.circular(5.w), color: kashcolor),
       child: Column(
         children: [
-          Text('Upload Files'),
+          heigh10,
+          Text(
+            'Upload Files',
+            style: bold18,
+          ),
           Padding(
-            padding: EdgeInsets.only(left: 10.0.w, right: 10.0.w, top: 10.0.w),
+            padding: EdgeInsets.only(left: 7.0.w, right: 10.0.w, top: 10.0.w),
             child: Row(
               children: [
                 Container(
@@ -233,9 +237,13 @@ class UploadWorkFiles extends StatelessWidget {
                         .get()
                         .then((documentSnapshot) {
                       if (documentSnapshot.exists) {
-                        Map<String, dynamic>? documentData = documentSnapshot.data();
-                        documentData!['servicesSelectedModel'][serviceIndex]['planurl']['0'] = uploadWorkFilesController.imgurlList;
-                        documentData['servicesSelectedModel'][serviceIndex]['isCompleted'] = true;
+                        Map<String, dynamic>? documentData =
+                            documentSnapshot.data();
+                        documentData!['servicesSelectedModel'][serviceIndex]
+                                ['planurl']['0'] =
+                            uploadWorkFilesController.imgurlList;
+                        documentData['servicesSelectedModel'][serviceIndex]
+                            ['isCompleted'] = true;
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance
@@ -251,7 +259,6 @@ class UploadWorkFiles extends StatelessWidget {
                       } else {
                         print('Document does not exist.');
                       }
-
                     });
 
                     Get.back();

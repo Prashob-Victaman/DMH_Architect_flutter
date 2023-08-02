@@ -6,6 +6,7 @@ import 'package:dmh_architect/model/notificationModel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -91,7 +92,7 @@ class ArchitectAddDesignController extends GetxController {
       planingImageUrl[i] = null;
       planningImgs[i] = null;
     }
-    planningGridCount =1;
+    planningGridCount = 1;
   }
 
   changefloorisLoading(int index) {
@@ -177,31 +178,44 @@ class ArchitectAddDesignController extends GetxController {
   uploadexteriorimagefileOne(buttonIndex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    exteriorimgXfileList[buttonIndex] =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? uploadedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-    Reference referenceRoot = FirebaseStorage.instance.ref();
-    Reference referenceDirectoryImages =
-        referenceRoot.child('adminuploadDesign/');
-    Reference referenceImageToUpload =
-        referenceDirectoryImages.child(uploadimgkey.toString());
+    final bytes = await uploadedFile!.length() / 1024;
 
-    // Uint8List uploadfile = result.files.single.bytes;
+    // print('$bytes sssssssss');
 
-    print('uploadimg file called');
-    if (exteriorimgXfileList[buttonIndex] == null) {
+    if (bytes < 2048) {
+      exteriorimgXfileList[buttonIndex] = uploadedFile;
+      Reference referenceRoot = FirebaseStorage.instance.ref();
+      Reference referenceDirectoryImages =
+          referenceRoot.child('adminuploadDesign/');
+      Reference referenceImageToUpload =
+          referenceDirectoryImages.child(uploadimgkey.toString());
+
+      // Uint8List uploadfile = result.files.single.bytes;
+
+      print('uploadimg file called');
+      if (exteriorimgXfileList[buttonIndex] == null) {
+        changeexteriorisLoading(buttonIndex);
+        return;
+      }
+      try {
+        await referenceImageToUpload
+            .putFile(File(exteriorimgXfileList[buttonIndex]!.path));
+
+        exteriorimgurlList[buttonIndex] =
+            await referenceImageToUpload.getDownloadURL();
+        print('imageurl $exteriorimgurlList[buttonIndex]');
+      } catch (e) {
+        // log(e.toString());F
+      }
+    } else {
       changeexteriorisLoading(buttonIndex);
-      return;
-    }
-    try {
-      await referenceImageToUpload
-          .putFile(File(exteriorimgXfileList[buttonIndex]!.path));
 
-      exteriorimgurlList[buttonIndex] =
-          await referenceImageToUpload.getDownloadURL();
-      print('imageurl $exteriorimgurlList[buttonIndex]');
-    } catch (e) {
-      // log(e.toString());F
+      Fluttertoast.showToast(msg: 'Please upload file less than 2 mb');
+      return;
     }
 
     refresh();
@@ -210,31 +224,43 @@ class ArchitectAddDesignController extends GetxController {
   uploadfloorfileimage(buttonindex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    floorimgXFileList[buttonindex] =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    XFile? uploadedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
 
-    Reference referenceRoot = FirebaseStorage.instance.ref();
-    Reference referenceDirectoryImages =
-        referenceRoot.child('adminuploadDesign/');
-    Reference referenceImageToUpload =
-        referenceDirectoryImages.child(uploadimgkey.toString());
+    final bytes = await uploadedFile!.length() / 1024;
 
-    // Uint8List uploadfile = result.files.single.bytes;
-    //
-    print('uploadimg file called');
-    if (floorimgXFileList[buttonindex] == null) {
+    if (bytes < 2048) {
+      floorimgXFileList[buttonindex] = uploadedFile;
+
+      Reference referenceRoot = FirebaseStorage.instance.ref();
+      Reference referenceDirectoryImages =
+          referenceRoot.child('adminuploadDesign/');
+      Reference referenceImageToUpload =
+          referenceDirectoryImages.child(uploadimgkey.toString());
+
+      // Uint8List uploadfile = result.files.single.bytes;
+      //
+      print('uploadimg file called');
+      if (floorimgXFileList[buttonindex] == null) {
+        changefloorisLoading(buttonindex);
+
+        return;
+      }
+      try {
+        await referenceImageToUpload
+            .putFile(File(floorimgXFileList[buttonindex]!.path));
+        floorimgurlList[buttonindex] =
+            await referenceImageToUpload.getDownloadURL();
+        print('imageurl $floorimgurlList[buttonindex]');
+      } catch (e) {
+        // log(e.toString());F
+      }
+    } else {
       changefloorisLoading(buttonindex);
 
+      Fluttertoast.showToast(msg: 'Please upload file less than 2 mb');
       return;
-    }
-    try {
-      await referenceImageToUpload
-          .putFile(File(floorimgXFileList[buttonindex]!.path));
-      floorimgurlList[buttonindex] =
-          await referenceImageToUpload.getDownloadURL();
-      print('imageurl $floorimgurlList[buttonindex]');
-    } catch (e) {
-      // log(e.toString());F
     }
     refresh();
   }
@@ -306,17 +332,15 @@ class ArchitectAddDesignController extends GetxController {
         FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
 
     final postedDate = DateTime.now();
-    final sortId =DateTime.now().millisecondsSinceEpoch;
+    final sortId = DateTime.now().millisecondsSinceEpoch;
 
-    List planingFiles =[];
-    for(int i=0;i<planingFileUrlList.length;i++){
-      planingFiles.add(
-        {
-          'name':planingFileNameList[i],
-          'price':planingFilePriceList[i],
-          'url':planingFileUrlList[i]
-        }
-      );
+    List planingFiles = [];
+    for (int i = 0; i < planingFileUrlList.length; i++) {
+      planingFiles.add({
+        'name': planingFileNameList[i],
+        'price': planingFilePriceList[i],
+        'url': planingFileUrlList[i]
+      });
     }
 
     final designData = designDataFromAdmin(
@@ -342,18 +366,17 @@ class ArchitectAddDesignController extends GetxController {
         visitors: 0,
         floorImageList: floorImageList,
         floorImagetitleList: floorImagetitleList,
-      planingFiles:planingFiles
-    );
+        planingFiles: planingFiles);
 
     final json = designData.toJson();
 
     await docUrl.set(json);
 
     final json2 = {
-      'postedDate':postedDate,
-      'exteriorImageList':exteriorImageList,
-      'designType':designType,
-      'sortId':sortId,
+      'postedDate': postedDate,
+      'exteriorImageList': exteriorImageList,
+      'designType': designType,
+      'sortId': sortId,
       "uid": docUrl.id,
     };
     await FirebaseFirestore.instance

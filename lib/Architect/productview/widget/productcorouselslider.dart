@@ -1,14 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dmh_architect/Constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ProductCarouselslider extends StatelessWidget {
   final DesignData;
 
   ProductCarouselslider({super.key, required this.DesignData});
-
 
   List imageList = [];
   List titleList = [];
@@ -35,7 +36,7 @@ class ProductCarouselslider extends StatelessWidget {
         itemBuilder: (BuildContext context, int index, int realIndex) {
           final image = imageList[index];
           final text = titleList[index];
-          return buildCarouselItem(image, text);
+          return buildCarouselItem(image, text, context);
         },
         options: CarouselOptions(
           height: 205.0.w,
@@ -50,20 +51,68 @@ class ProductCarouselslider extends StatelessWidget {
     );
   }
 
-  Widget buildCarouselItem(String image, String text) {
+  Widget buildCarouselItem(String image, String text, context) {
     return Column(
       children: [
-        CachedNetworkImage(
-          imageUrl: image,
-          imageBuilder: (context, imageProvider) => Container(
-            height: 180.w,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 5.0.w),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.w),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            print('object');
+            Navigator.of(context).push(
+              PageRouteBuilder(
+                opaque: false,
+                pageBuilder: (BuildContext context, _, __) {
+                  return Scaffold(
+                    backgroundColor: Colors.black,
+                    body: Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Center(
+                            child: Hero(
+                              tag: image,
+                              child:
+                                  PhotoView(imageProvider: NetworkImage(image)),
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 20.w,
+                          right: 20.w,
+                          child: IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(
+                              Icons.close,
+                              color: kwhitecolor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+          child: CachedNetworkImage(
+            placeholder: (context, url) => Image(
+                height: 180.w,
+                // width: screenwidth - 20.w,
+                width: double.infinity,
+                fit: BoxFit.fitWidth,
+                image: const AssetImage('asset/placeholder.png')),
+            imageUrl: image,
+            imageBuilder: (context, imageProvider) => Container(
+              height: 180.w,
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 5.0.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.w),
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -76,5 +125,3 @@ class ProductCarouselslider extends StatelessWidget {
     );
   }
 }
-
-

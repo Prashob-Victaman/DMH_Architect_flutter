@@ -11,11 +11,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../Constants/constants.dart';
 import 'ArchitectMyDesign.dart';
 import 'architectProfile.dart';
+
+import 'package:http/http.dart' as http;
 
 class ArchitectProfilePage extends StatelessWidget {
   ArchitectProfilePage({super.key});
@@ -258,22 +261,22 @@ class ArchitectProfilePage extends StatelessWidget {
                                           const number =
                                               '+918409404033'; //set the number here
                                           bool? res =
-                                          await FlutterPhoneDirectCaller
-                                              .callNumber(number);
+                                              await FlutterPhoneDirectCaller
+                                                  .callNumber(number);
                                           print(res);
                                         },
                                         child: Container(
                                           height: 30.w,
                                           width: 141.w,
-                                          decoration:
-                                          BoxDecoration(color: kprimarycolor),
+                                          decoration: BoxDecoration(
+                                              color: kprimarycolor),
                                           child: Center(
                                               child: Text(
-                                                'Yes',
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: kwhitecolor),
-                                              )),
+                                            'Yes',
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: kwhitecolor),
+                                          )),
                                         ),
                                       ),
                                       GestureDetector(
@@ -287,11 +290,11 @@ class ArchitectProfilePage extends StatelessWidget {
                                                   color: kprimarycolor)),
                                           child: Center(
                                               child: Text(
-                                                'Cancel',
-                                                style: TextStyle(
-                                                    fontSize: 14.sp,
-                                                    color: kprimarycolor),
-                                              )),
+                                            'Cancel',
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: kprimarycolor),
+                                          )),
                                         ),
                                       )
                                     ],
@@ -302,19 +305,66 @@ class ArchitectProfilePage extends StatelessWidget {
                           );
                         },
                       ),
-                      child: architectprofilewidgetdown(
-                          icon: Icon(Icons.notifications,
-                              color: kbluecolor, size: 20.w),
-                          title: 'Help & Support',
-                          trailing: Icon(
-                            Icons.arrow_forward_ios,
-                            size: 15.w,
-                            color: kgreycolor,
-                          )),
+                      child: GestureDetector(
+                        onTap: () async {
+                          // print('object');
+                          // var url = Uri.parse(
+                          //     'https://enterprise.smsgupshup.com/GatewayAPI/rest');
+
+                          // var queryParams = {
+                          //   'method': 'SendMessage',
+                          //   'send_to': '918714500637',
+                          //   'msg':
+                          //       'Design My House - Dear 123, Your order for 123 is updated. Login and download from the Design My House Application.SAWNA INFRABUILD PVT. LTD.',
+                          //   'msg_type': 'TEXT',
+                          //   'userid': '2000230223',
+                          //   'auth_scheme': 'plain',
+                          //   'password': 'OTTQZ5sMl',
+                          //   'v': '1.1',
+                          //   'format': 'text',
+                          // };
+
+                          // var uri = url.replace(queryParameters: queryParams);
+
+                          // var response = await http.get(uri);
+
+                          // if (response.statusCode == 200) {
+                          //   // Request successful, process the response
+
+                          //   // Get.to(ArchitectSigninOtpscreen(
+                          //   //   number: mobile,
+                          //   //   verify: otp,
+                          //   //   // email: email,
+                          //   // ));
+
+                          //   Fluttertoast.showToast(
+                          //       msg: 'OTP sent successfully');
+
+                          //   // print('OTP sent successfully');
+                          //   // print(response.body);
+                          // } else {
+                          //   // Request failed
+
+                          //   Fluttertoast.showToast(msg: 'Failed to send OTP');
+
+                          //   print('Failed to send OTP');
+                          //   print('Status Code: ${response.statusCode}');
+                          // }
+                        },
+                        child: architectprofilewidgetdown(
+                            icon: Icon(Icons.notifications,
+                                color: kbluecolor, size: 20.w),
+                            title: 'Help & Support',
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15.w,
+                              color: kgreycolor,
+                            )),
+                      ),
                     ),
                     heigh20,
                     GestureDetector(
-                      onTap: () => Get.to(()=>const AboutApp()),
+                      onTap: () => Get.to(() => const AboutApp()),
                       child: architectprofilewidgetdown(
                           icon: Icon(Icons.account_circle_outlined,
                               color: kbluecolor, size: 20.w),

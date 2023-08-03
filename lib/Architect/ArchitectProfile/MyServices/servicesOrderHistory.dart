@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/UploadWorkFiles.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/orderHistory.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/model/OrderServiceModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -142,10 +140,12 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                       onTap: () {
                                         Get.to(
                                           OrderHistoryUser(
-                                            dateTime: orderData.orderDatetime.toDate(),
+                                            dateTime: orderData.orderDatetime
+                                                .toDate(),
                                             orderId: orderData.orderId,
                                             imageUrlList: [],
-                                            architectName: orderData.architectName,
+                                            architectName:
+                                                orderData.architectName,
                                             orderUid: orderData.orderUid,
                                           ),
                                         );

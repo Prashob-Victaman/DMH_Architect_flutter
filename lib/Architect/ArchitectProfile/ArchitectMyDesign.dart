@@ -52,10 +52,10 @@ class ArchitectMyDesign extends StatelessWidget {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
                   }
-                  final DesignList = snapshot.data!['myDesigns'];
+                  final List DesignList = snapshot.data!['myDesigns'];
                   print(DesignList.length);
 
-                  return DesignList.length != null
+                  return DesignList.isNotEmpty
                       ? ListView.separated(
                           shrinkWrap: true,
                           physics: ScrollPhysics(),
@@ -141,7 +141,9 @@ class ArchitectMyDesign extends StatelessWidget {
                             );
                           },
                           itemCount: DesignList.length)
-                      : SizedBox();
+                      : SizedBox(height: MediaQuery.of(context).size.height-40.w,
+                      child: const Center(child: Text("No Designs found"),)
+                  );
                 })
           ],
         ),

@@ -100,17 +100,10 @@ class UploadWorkFiles extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 const BorderRadius.all(
-                                                    Radius.circular(4)),
-                                            image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                // requirementList[index]
-
-                                                uploadWorkFilesController
-                                                    .imgurlList[index]!,
-                                              ),
+                                                    Radius.circular(40)),
+                                            color: Colors.green
                                             ),
-                                          ),
+                                          child: Icon(Icons.done,color: Colors.white,size: 35,),
                                         ),
                                       ),
                                 Positioned(
@@ -242,8 +235,7 @@ class UploadWorkFiles extends StatelessWidget {
                         documentData!['servicesSelectedModel'][serviceIndex]
                                 ['planurl']['0'] =
                             uploadWorkFilesController.imgurlList;
-                        documentData['servicesSelectedModel'][serviceIndex]
-                            ['isCompleted'] = true;
+                        documentData['servicesSelectedModel'][serviceIndex]['isCompleted'] = true;
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance

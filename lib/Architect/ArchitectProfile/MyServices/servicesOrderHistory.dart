@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/UploadWorkFiles.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/orderHistory.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/model/OrderServiceModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -133,6 +135,40 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                       ),
                                     ],
                                   ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Get.to(
+                                          OrderHistoryUser(
+                                            dateTime: orderData.orderDatetime.toDate(),
+                                            orderId: orderData.orderId,
+                                            imageUrlList: [],
+                                            architectName: orderData.architectName,
+                                            orderUid: orderData.orderUid,
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.redAccent,
+                                            borderRadius:
+                                                BorderRadius.circular(5.sp)),
+                                        height: 25.w,
+                                        width: 100.w,
+                                        child: Center(
+                                          child: Text(
+                                            'View Details',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12.sp),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                               heigh5,

@@ -1,13 +1,14 @@
 import 'dart:ffi';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UploadWorkFilesController extends GetxController {
 
-  List<XFile?> imgXfileList = List.empty(growable: true);
+  List<FilePickerResult?> imgXfileList = List.empty(growable: true);
   List<String?> imgurlList = List.empty(growable: true);
 
   uploadImagefile() async {
@@ -15,8 +16,9 @@ class UploadWorkFilesController extends GetxController {
     int buttonIndex = imgurlList.length - 1;
 
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
-    imgXfileList[buttonIndex] =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+     imgXfileList[buttonIndex] =   await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.any);
+    //imgXfileList[buttonIndex] = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirectoryImages =
@@ -31,8 +33,7 @@ class UploadWorkFilesController extends GetxController {
       return;
     }
     try {
-      await referenceImageToUpload
-          .putFile(File(imgXfileList[buttonIndex]!.path));
+      await referenceImageToUpload.putFile(File(imgXfileList[buttonIndex]!.paths[0]!));
       imgurlList[buttonIndex] = await referenceImageToUpload.getDownloadURL();
       print('imageurl ${imgurlList[buttonIndex]}');
     } catch (e) {

@@ -22,6 +22,7 @@ class OrderHistoryUser extends StatelessWidget {
   String architectName;
   String orderUid;
   List imageUrlList;
+
   OrderHistoryUser(
       {super.key,
       required this.dateTime,
@@ -311,11 +312,31 @@ class OrderHistoryUser extends StatelessWidget {
                         ],
                       ),
                       heigh10,
-                      OrderDetailsClass(
-                          orderUid: data.designUid,
-                          data: data,
-                          screenWidth: screenWidth,
-                          imageUrlList: imageUrlList),
+                      imageUrlList.length == 0
+                          ? FutureBuilder(
+                              future: FirebaseFirestore.instance
+                                  .collection('DesignDataFromAdmin')
+                                  .doc(data.designUid)
+                                  .get(),
+                              builder: (builder, snap) {
+                                if (snap.hasError) {
+                                  return const Center(child: CircularProgressIndicator());
+                                }
+                                if (!snap.hasData) {
+                                  return const Center(child: CircularProgressIndicator());
+                                }
+                                List imageUrlList = snap.data?['exteriorImageList'];
+                                return OrderDetailsClass(
+                                    orderUid: data.designUid,
+                                    data: data,
+                                    screenWidth: screenWidth,
+                                    imageUrlList: imageUrlList);
+                              })
+                          : OrderDetailsClass(
+                              orderUid: data.designUid,
+                              data: data,
+                              screenWidth: screenWidth,
+                              imageUrlList: imageUrlList),
                       heigh10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

@@ -224,6 +224,32 @@ class UploadWorkFiles extends StatelessWidget {
                     await documentReference.update({
                       'dashboardData.deliveredServices': FieldValue.increment(1)
                     });
+
+                    await FirebaseFirestore.instance
+                        .collection('ArchitectData')
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .get()
+                        .then((documentSnapshot) {
+                      if (documentSnapshot.exists) {
+
+                        Map<String, dynamic>? documentData = documentSnapshot.data();
+
+                        // Modify the desired string value
+                        documentData!['serviceOrderHistory'][serviceIndex]['isDeliverer'] = true;
+
+                        FirebaseFirestore.instance
+                            .collection('ArchitectData')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .set(documentData)
+                            .then((value) =>
+                            print('Value updated successfully.1'))
+                            .catchError((error) =>
+                            print('Error updating value: $error'));
+                      } else {
+                        print('Document does not exist.');
+                      }
+                    });
+
                     await FirebaseFirestore.instance
                         .collection('orderData')
                         .doc(orderData.orderUid)
@@ -232,10 +258,13 @@ class UploadWorkFiles extends StatelessWidget {
                       if (documentSnapshot.exists) {
                         Map<String, dynamic>? documentData =
                             documentSnapshot.data();
-                        documentData!['servicesSelectedModel'][serviceIndex]
+
+                        int serviceNameIndex =serviceListItems.indexOf(orderData.servicesname);
+
+                        documentData!['servicesSelectedModel'][serviceNameIndex]
                                 ['planurl']['0'] =
                             uploadWorkFilesController.imgurlList;
-                        documentData['servicesSelectedModel'][serviceIndex]['isCompleted'] = true;
+                        documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance
@@ -252,7 +281,7 @@ class UploadWorkFiles extends StatelessWidget {
                         print('Document does not exist.');
                       }
                     });
-
+                    uploadWorkFilesController.cleatIm();
                     Get.back();
                   } else {
                     Fluttertoast.showToast(msg: 'Loading... Please Wait');

@@ -84,13 +84,16 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                     shrinkWrap: true,
                     physics: const ScrollPhysics(),
                     itemBuilder: (context, index) {
+                      index = snapshot.data['serviceOrderHistory'].length -
+                          index -
+                          1;
                       OrderServiceModel orderData;
                       try {
                         orderData = OrderServiceModel.fromJson(
                             snapshot.data['serviceOrderHistory'][index]);
                       } catch (e) {
                         // print(e);
-                        return const Text('No service pending');
+                        return const SizedBox();
                       }
 
                       String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
@@ -145,10 +148,12 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                       onTap: () {
                                         Get.to(
                                           OrderHistoryUser(
-                                            dateTime: orderData.orderDatetime.toDate(),
+                                            dateTime: orderData.orderDatetime
+                                                .toDate(),
                                             orderId: orderData.orderId,
                                             imageUrlList: [],
-                                            architectName: orderData.architectName,
+                                            architectName:
+                                                orderData.architectName,
                                             orderUid: orderData.orderUid,
                                           ),
                                         );
@@ -259,70 +264,131 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                           textAlign: TextAlign.center,
                                         ),
                                         Text(
-                                          'Rs ${orderData.amount}',
+                                          'Rs ${orderData.amount.toStringAsFixed(2)}',
                                           style: bold16,
                                         ),
-                                        Text(
-                                          'Not Delivered',
-                                          style: TextStyle(
-                                            color: kredcolor,
-                                            fontSize: 14.sp,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        GestureDetector(
-                                          onTap: () {
-                                            showDialog<void>(
-                                              context: context,
-                                              barrierDismissible: false,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  titlePadding:
-                                                      EdgeInsets.all(0.w),
-                                                  title: Container(
-                                                    // width: screenWidth,
-                                                    // height: 180.w,
-                                                    child: Column(
-                                                      children: [
-                                                        UploadWorkFiles(
-                                                            orderData:
-                                                                orderData,
-                                                            screenWidth:
-                                                                screenWidth,
-                                                            orderUid: orderData
-                                                                .orderUid,
-                                                            requirementList:
-                                                                orderData
-                                                                    .requirementData,
-                                                            serviceIndex:
-                                                                index),
-                                                      ],
+                                        serviceListItems.indexOf(orderData
+                                                        .servicesname) !=
+                                                    9 &&
+                                                serviceListItems.indexOf(
+                                                        orderData
+                                                            .servicesname) !=
+                                                    10
+                                            ? orderData.isDeliverer == true
+                                                ? Text(
+                                                    'Delivered',
+                                                    style: TextStyle(
+                                                        color: Colors.green,
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )
+                                                : Text(
+                                                    'Not Delivered',
+                                                    style: TextStyle(
+                                                      color: kredcolor,
+                                                      fontSize: 14.sp,
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                          child: Container(
-                                              alignment: Alignment.center,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.vertical(
-                                                    bottom:
-                                                        Radius.circular(5.w),
-                                                  ),
-                                                  color: kprimarycolor),
-                                              width: 140.w,
-                                              height: 20.w,
-                                              child: Text(
-                                                'Upload Files',
-                                                style: TextStyle(
-                                                    color: kwhitecolor,
-                                                    fontSize: 12.sp,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )),
-                                        ),
+                                                  )
+                                            : const SizedBox(),
+                                        const Spacer(),
+                                        serviceListItems.indexOf(orderData
+                                                        .servicesname) !=
+                                                    9 &&
+                                                serviceListItems.indexOf(
+                                                        orderData
+                                                            .servicesname) !=
+                                                    10
+                                            ? GestureDetector(
+                                                onTap: () {
+                                                  showDialog<void>(
+                                                    context: context,
+                                                    barrierDismissible: false,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        titlePadding:
+                                                            EdgeInsets.all(0.w),
+                                                        title: Container(
+                                                          // width: screenWidth,
+                                                          // height: 180.w,
+                                                          child: Column(
+                                                            children: [
+                                                              UploadWorkFiles(
+                                                                  orderData:
+                                                                      orderData,
+                                                                  screenWidth:
+                                                                      screenWidth,
+                                                                  orderUid:
+                                                                      orderData
+                                                                          .orderUid,
+                                                                  requirementList:
+                                                                      orderData
+                                                                          .requirementData,
+                                                                  serviceIndex:
+                                                                      index),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .vertical(
+                                                          bottom:
+                                                              Radius.circular(
+                                                                  5.w),
+                                                        ),
+                                                        color: kprimarycolor),
+                                                    width: 140.w,
+                                                    height: 20.w,
+                                                    child: Text(
+                                                      'Upload Files',
+                                                      style: TextStyle(
+                                                          color: kwhitecolor,
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )))
+                                            : GestureDetector(
+                                                onTap: () {
+
+
+                                                  double destinationLatitude =
+                                                      37.7749; // Replace with the actual destination latitude.
+                                                  double destinationLongitude =
+                                                      -122.4194; // Replace with the actual destination longitude.
+                                                  openGoogleMapsApp(
+                                                      destinationLatitude,
+                                                      destinationLongitude);
+                                                },
+                                                child: Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .vertical(
+                                                          bottom:
+                                                              Radius.circular(
+                                                                  5.w),
+                                                        ),
+                                                        color: kprimarycolor),
+                                                    width: 140.w,
+                                                    height: 20.w,
+                                                    child: Text(
+                                                      'Direction',
+                                                      style: TextStyle(
+                                                          color: kwhitecolor,
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                              ),
                                         // error starts
                                       ],
                                     ),
@@ -401,5 +467,17 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
         ),
       ),
     );
+  }
+
+  void openGoogleMapsApp(
+      double destinationLatitude, double destinationLongitude) async {
+    String googleMapsUrl =
+        "https://www.google.com/maps/search/?api=1&query=$destinationLatitude,$destinationLongitude";
+
+    if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
+      await launch(googleMapsUrl);
+    } else {
+      throw 'Could not open Google Maps.';
+    }
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/model/notificationModel.dart';
 import 'package:file_picker/file_picker.dart';
@@ -10,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../../model/designDataFromAdmin.dart';
 
 class ArchitectAddDesignController extends GetxController {
@@ -136,7 +134,7 @@ class ArchitectAddDesignController extends GetxController {
       exteriorListCount--;
       // exteriorimgcount - 1;
     }
-    print(exteriorListCount);
+    // print(exteriorListCount);
     refresh();
   }
 
@@ -182,6 +180,11 @@ class ArchitectAddDesignController extends GetxController {
       source: ImageSource.gallery,
     );
 
+    if (uploadedFile == null) {
+      changeexteriorisLoading(buttonIndex);
+      return;
+    }
+
     final bytes = await uploadedFile!.length() / 1024;
 
     // print('$bytes sssssssss');
@@ -196,7 +199,7 @@ class ArchitectAddDesignController extends GetxController {
 
       // Uint8List uploadfile = result.files.single.bytes;
 
-      print('uploadimg file called');
+      // print('uploadimg file called');
       if (exteriorimgXfileList[buttonIndex] == null) {
         changeexteriorisLoading(buttonIndex);
         return;
@@ -207,13 +210,14 @@ class ArchitectAddDesignController extends GetxController {
 
         exteriorimgurlList[buttonIndex] =
             await referenceImageToUpload.getDownloadURL();
-        print('imageurl $exteriorimgurlList[buttonIndex]');
+        // print('imageurl $exteriorimgurlList[buttonIndex]');
       } catch (e) {
         // log(e.toString());F
       }
     } else {
       changeexteriorisLoading(buttonIndex);
-
+      // changeexteriorisLoading(buttonIndex);
+// print('object');
       Fluttertoast.showToast(msg: 'Please upload file less than 2 mb');
       return;
     }
@@ -228,7 +232,16 @@ class ArchitectAddDesignController extends GetxController {
       source: ImageSource.gallery,
     );
 
-    final bytes = await uploadedFile!.length() / 1024;
+    if (uploadedFile == null) {
+      changefloorisLoading(buttonindex);
+      // print('object');
+      return;
+    }
+    final bytes = await uploadedFile.length() / 1024;
+
+    // if (uploadedFile != null) {
+    //   bytes = await uploadedFile.length() / 1024;
+    // }
 
     if (bytes < 2048) {
       floorimgXFileList[buttonindex] = uploadedFile;
@@ -241,7 +254,7 @@ class ArchitectAddDesignController extends GetxController {
 
       // Uint8List uploadfile = result.files.single.bytes;
       //
-      print('uploadimg file called');
+      // print('uploadimg file called');
       if (floorimgXFileList[buttonindex] == null) {
         changefloorisLoading(buttonindex);
 
@@ -252,7 +265,7 @@ class ArchitectAddDesignController extends GetxController {
             .putFile(File(floorimgXFileList[buttonindex]!.path));
         floorimgurlList[buttonindex] =
             await referenceImageToUpload.getDownloadURL();
-        print('imageurl $floorimgurlList[buttonindex]');
+        // print('imageurl $floorimgurlList[buttonindex]');
       } catch (e) {
         // log(e.toString());F
       }
@@ -282,7 +295,7 @@ class ArchitectAddDesignController extends GetxController {
 
     // Uint8List uploadfile = result.files.single.bytes;
 
-    print('uploadimg file called');
+    // print('uploadimg file called');
     if (planningImgs[buttonIndex] == null) {
       changeworkingDetailsisLoading(buttonIndex);
       return;
@@ -295,11 +308,11 @@ class ArchitectAddDesignController extends GetxController {
 
       planingImageUrl[buttonIndex] =
           await referenceImageToUpload.getDownloadURL();
-      print('imageurl $planingImageUrl');
+      // print('imageurl $planingImageUrl');
     } catch (e) {
       // log(e.toString());F
     }
-    print('done');
+    // print('done');
     refresh();
   }
 

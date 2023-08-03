@@ -92,6 +92,7 @@ flutter:
     - asset/reasonsimage/
     - asset/placeholder.jpg
     - asset/png-clipart-google-maps-google-i-o-logo-map-icon-google-map-logo-text-sign.png
+    - asset/placeholder.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

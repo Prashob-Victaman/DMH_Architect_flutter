@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/UploadWorkFiles.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/model/OrderServiceModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -13,9 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../Constants/constants.dart';
-import '../../../controller/OrderServiceHistory/uploadWorkFiles.dart';
 import '../../../controller/ordercontroller.dart';
-import '../../../model/orderDataModel.dart';
 
 class ServicesOrderHistory extends StatefulWidget {
   const ServicesOrderHistory({Key? key}) : super(key: key);

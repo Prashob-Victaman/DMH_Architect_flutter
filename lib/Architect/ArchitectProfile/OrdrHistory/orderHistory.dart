@@ -99,7 +99,7 @@ class OrderHistoryUser extends StatelessWidget {
 
                   OrderDataModel data = OrderDataModel.fromJson(snapshot.data!);
 
-                  List selectedServicesList = data.servicesSelectedModel;
+                  var selectedServicesList = data.serviceRateamountList;
 
                   final numberOfFloors =
                       data.averageAreaDimension['noOfFloors'];
@@ -415,7 +415,7 @@ class OrderHistoryUser extends StatelessWidget {
                       ),
                       heigh5,
                       ServicesSelected(
-                          selectedServicesList: data.servicesSelectedModel,
+                          selectedServicesList: data.serviceRateamountList,
                           serviceTitle: serviceTitle,
                           aboutService: aboutService),
                       heigh10,

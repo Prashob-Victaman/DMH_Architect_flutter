@@ -61,7 +61,7 @@ class CustomerOrders extends StatelessWidget {
               String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
                   .format(orderData.orderDatetime.toDate());
 
-              List selectedServicesList = orderData.servicesSelectedModel;
+              List selectedServicesList = orderData.serviceRateamountList;
 
               return ListView(
                 children: [

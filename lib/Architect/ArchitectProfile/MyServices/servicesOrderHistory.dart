@@ -3,6 +3,7 @@ import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/UploadWorkFi
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/orderHistory.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/model/OrderServiceModel.dart';
+import 'package:dmh_architect/model/orderDataModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -353,13 +354,12 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                               FontWeight.bold),
                                                     )))
                                             : GestureDetector(
-                                                onTap: () {
+                                                onTap: () async{
+                                                  var mysnap =await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get();
+                                                  OrderDataModel order =OrderDataModel.fromJson(mysnap);
 
-
-                                                  double destinationLatitude =
-                                                      37.7749; // Replace with the actual destination latitude.
-                                                  double destinationLongitude =
-                                                      -122.4194; // Replace with the actual destination longitude.
+                                                  double destinationLatitude = order.constomerLocation.latitude;
+                                                  double destinationLongitude =  order.constomerLocation.longitude;
                                                   openGoogleMapsApp(
                                                       destinationLatitude,
                                                       destinationLongitude);

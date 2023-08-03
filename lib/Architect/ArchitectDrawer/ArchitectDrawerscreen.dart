@@ -9,6 +9,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../Constants/constants.dart';
 import '../../controller/drawercontroller.dart';
 import '../ArchitectProfile/ArchitectMyDesign.dart';
+import '../ArchitectProfile/widgets/aboutapp.dart';
 import '../notification/notification.dart';
 
 class ArchitectDrawerscreen extends StatelessWidget {
@@ -172,15 +173,20 @@ class ArchitectDrawerscreen extends StatelessWidget {
                     ),
                   ),
                   heigh20,
-                  Row(
-                    children: [
-                      Icon(Icons.info),
-                      width10,
-                      Text(
-                        'About App',
-                        style: normal16,
-                      )
-                    ],
+                  GestureDetector(
+                    onTap: () async {
+                      Get.to(() => AboutApp());
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.info),
+                        width10,
+                        Text(
+                          'About App',
+                          style: normal16,
+                        )
+                      ],
+                    ),
                   ),
                   heigh20,
                   GestureDetector(

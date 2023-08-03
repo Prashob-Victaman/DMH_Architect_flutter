@@ -48,13 +48,14 @@ class ServicesSelected extends StatelessWidget {
                           child: Text(
                             serviceTitle[index],
                             maxLines: 2,
-                            style: selectedServicesList[index]['isSelected'] ==
-                                    true
-                                ? bold15
-                                : TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.bold,
-                                    color: kgreycolor.withOpacity(0.6)),
+                            style:bold15,
+                            // selectedServicesList[index]['isSelected'] ==
+                            //         true
+                            //     ? bold15
+                            //     : TextStyle(
+                            //         fontSize: 13,
+                            //         fontWeight: FontWeight.bold,
+                            //         color: kgreycolor.withOpacity(0.6)),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -158,15 +159,16 @@ class ServicesSelected extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        selectedServicesList[index]['isSelected'] == false
-                            ? Text(
-                                'Not Selected',
-                                style: TextStyle(
-                                    fontSize: 13.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: kgreycolor),
-                              )
-                            : selectedServicesList[0]['isRejected'] == true
+                        // selectedServicesList[index]['isSelected'] == false
+                        //     ? Text(
+                        //         'Not Selected',
+                        //         style: TextStyle(
+                        //             fontSize: 13.sp,
+                        //             fontWeight: FontWeight.bold,
+                        //             color: kgreycolor),
+                        //       )
+                        //     :
+                        selectedServicesList[0]['isRejected'] == true
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -195,11 +197,11 @@ class ServicesSelected extends StatelessWidget {
                                     : selectedServicesList[index]['isPaid'] ==
                                             true
                                         ? Text(
-                                            'Processing',
+                                            'Pending',
                                             style: TextStyle(
                                                 fontSize: 13.sp,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.orange),
+                                                color: Colors.red),
                                           )
                                         : selectedServicesList[0]
                                                     ['isAproved'] ==

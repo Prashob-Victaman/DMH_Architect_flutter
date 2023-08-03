@@ -99,7 +99,7 @@ class OrderHistoryUser extends StatelessWidget {
 
                   OrderDataModel data = OrderDataModel.fromJson(snapshot.data!);
 
-                  List selectedServicesList = data.servicesSelectedModel;
+                  var selectedServicesList = data.serviceRateamountList;
 
                   final numberOfFloors =
                       data.averageAreaDimension['noOfFloors'];
@@ -415,7 +415,7 @@ class OrderHistoryUser extends StatelessWidget {
                       ),
                       heigh5,
                       ServicesSelected(
-                          selectedServicesList: data.servicesSelectedModel,
+                          selectedServicesList: data.serviceRateamountList,
                           serviceTitle: serviceTitle,
                           aboutService: aboutService),
                       heigh10,
@@ -472,35 +472,33 @@ class OrderHistoryUser extends StatelessWidget {
                             .instance
                             .collection('ArchitectData')
                             .doc(FirebaseAuth.instance.currentUser!.uid);
-
+                        print('done1');
                         await documentReference.update({
                           'dashboardData.acceptedServicesCount':
                               FieldValue.increment(1),
                         });
-
+                        print('done1');
                         await FirebaseFirestore.instance
                             .collection('orderData')
                             .doc(orderUid!)
                             .get()
                             .then((documentSnapshot) {
                           if (documentSnapshot.exists) {
-                            Map<String, dynamic>? documentData =
-                                documentSnapshot.data();
+
+                            Map<String, dynamic>? documentData = documentSnapshot.data();
 
                             // Modify the desired string value
-                            documentData!['servicesSelectedModel'][index]
-                                [field] = value;
+                            documentData!['servicesSelectedModel'][index][field] = value;
 
                             documentData['servicesSelectedModel'][index]
                                     ['deliveryDate'] =
-
                                 // Update the document with the modified array
                                 FirebaseFirestore.instance
                                     .collection('orderData')
                                     .doc(orderUid!)
                                     .set(documentData)
                                     .then((value) =>
-                                        print('Value updated successfully.'))
+                                        print('Value updated successfully.2'))
                                     .catchError((error) =>
                                         print('Error updating value: $error'));
                           } else {

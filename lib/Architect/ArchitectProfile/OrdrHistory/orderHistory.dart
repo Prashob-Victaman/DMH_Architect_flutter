@@ -13,8 +13,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OrderHistoryUser extends StatelessWidget {
   String orderId;
@@ -132,7 +134,7 @@ class OrderHistoryUser extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        width: screenWidth - 120,
+                                        width: screenWidth / 2,
                                         child: Text(
                                           'Customer - ${data.customerName}',
                                           style: bold15,
@@ -150,7 +152,61 @@ class OrderHistoryUser extends StatelessWidget {
                                       )
                                     ],
                                   ),
-                                  Spacer(),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5.w),
+                                        ),
+                                        width: 60.w,
+                                        height: 90.w,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () async {
+                                                var architectdata =
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            'UserData')
+                                                        .doc(data.customerUid)
+                                                        .get();
+
+                                                // print('${architectdata['personalDetails']} llll');
+
+                                                if (!await launchUrl(Uri.parse(
+                                                    'tel:${architectdata['ProfileDetails']['mobileNumber']}'))) {
+                                                  throw Exception(
+                                                      'Could not launch');
+                                                }
+                                              },
+                                              child: const Icon(
+                                                Icons.call,
+                                                color: Color.fromARGB(
+                                                    255, 0, 140, 255),
+                                              ),
+                                            ),
+                                            // heigh5,
+                                            GestureDetector(
+                                              onTap: () async {
+                                                openGoogleMapsApp(
+                                                    data.constomerLocation.latitude,
+                                                    data.constomerLocation.longitude);
+                                              },
+                                              child: FaIcon(
+                                                FontAwesomeIcons.mapLocationDot,
+                                                size: 24.sp,
+                                                color: kprimarycolor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   (selectedServicesList[0]['isAproved'] ==
                                               false &&
                                           selectedServicesList[0]
@@ -246,11 +302,11 @@ class OrderHistoryUser extends StatelessWidget {
                                             )
                                           ],
                                         )
-                                      : SizedBox()
+                                      : SizedBox(),
                                 ],
                               ),
                             ),
-                            const Spacer(),
+
                             // Container(
                             //   width: 100.w,
                             //   height: 45,
@@ -320,12 +376,15 @@ class OrderHistoryUser extends StatelessWidget {
                                   .get(),
                               builder: (builder, snap) {
                                 if (snap.hasError) {
-                                  return const Center(child: CircularProgressIndicator());
+                                  return const Center(
+                                      child: CircularProgressIndicator());
                                 }
                                 if (!snap.hasData) {
-                                  return const Center(child: CircularProgressIndicator());
+                                  return const Center(
+                                      child: CircularProgressIndicator());
                                 }
-                                List imageUrlList = snap.data?['exteriorImageList'];
+                                List imageUrlList =
+                                    snap.data?['exteriorImageList'];
                                 return OrderDetailsClass(
                                     orderUid: data.designUid,
                                     data: data,
@@ -484,11 +543,12 @@ class OrderHistoryUser extends StatelessWidget {
                             .get()
                             .then((documentSnapshot) {
                           if (documentSnapshot.exists) {
-
-                            Map<String, dynamic>? documentData = documentSnapshot.data();
+                            Map<String, dynamic>? documentData =
+                                documentSnapshot.data();
 
                             // Modify the desired string value
-                            documentData!['servicesSelectedModel'][index][field] = value;
+                            documentData!['servicesSelectedModel'][index]
+                                [field] = value;
 
                             documentData['servicesSelectedModel'][index]
                                     ['deliveryDate'] =
@@ -548,6 +608,17 @@ class OrderHistoryUser extends StatelessWidget {
         );
       },
     );
+  }
+  void openGoogleMapsApp(
+      double destinationLatitude, double destinationLongitude) async {
+    String googleMapsUrl =
+        "https://www.google.com/maps/search/?api=1&query=$destinationLatitude,$destinationLongitude";
+
+    if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
+      await launch(googleMapsUrl);
+    } else {
+      throw 'Could not open Google Maps.';
+    }
   }
 }
 

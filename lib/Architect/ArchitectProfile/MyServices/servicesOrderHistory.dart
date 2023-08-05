@@ -36,6 +36,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            print(snapshot.data['serviceOrderHistory'].length);
             if (snapshot.hasError) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -352,12 +353,25 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                               FontWeight.bold),
                                                     )))
                                             : GestureDetector(
-                                                onTap: () async{
-                                                  var mysnap =await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get();
-                                                  OrderDataModel order =OrderDataModel.fromJson(mysnap);
+                                                onTap: () async {
+                                                  var mysnap =
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              'orderData')
+                                                          .doc(orderData
+                                                              .orderUid)
+                                                          .get();
+                                                  OrderDataModel order =
+                                                      OrderDataModel.fromJson(
+                                                          mysnap);
 
-                                                  double destinationLatitude = order.constomerLocation.latitude;
-                                                  double destinationLongitude =  order.constomerLocation.longitude;
+                                                  double destinationLatitude =
+                                                      order.constomerLocation
+                                                          .latitude;
+                                                  double destinationLongitude =
+                                                      order.constomerLocation
+                                                          .longitude;
                                                   openGoogleMapsApp(
                                                       destinationLatitude,
                                                       destinationLongitude);

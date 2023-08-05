@@ -310,14 +310,14 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             //   ),
             // ),
             // const houserenewgridview(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
-              child: Text(
-                'Reason To Order House Designs',
-                style: bold17,
-              ),
-            ),
-            const reasontoorderhousegridview(),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
+            //   child: Text(
+            //     'Reason To Order House Designs',
+            //     style: bold17,
+            //   ),
+            // ),
+            // const reasontoorderhousegridview(),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.w),
               child: Text(

@@ -24,6 +24,12 @@ class HomepageProjectDescription extends StatelessWidget {
 
     var designDataList = DesignData[index]['floordetails'];
 
+     double constructionCost =
+        double.parse(DesignData[index]['aproximateConstructionCost']);
+
+    var arrangedconstructionCost =
+        NumberFormat("#,##,###.0#", "en_US").format(constructionCost);
+
     return Container(
       child: Column(
         children: [
@@ -78,20 +84,20 @@ class HomepageProjectDescription extends StatelessWidget {
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
             subtitle: '${DesignData[index]['estimatedConstructionCost']}',
-            title: 'Estimated Construction Cost',
+            title: 'Estimated Construction Time',
           ),
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: '${DesignData[index]['aproximateConstructionCost']}.00',
+            subtitle: '${arrangedconstructionCost}0',
             title: 'Aproximate Construction Cost',
           ),
-          heigh5,
-          ProjectDescriptiontabs(
-            screenwidth: screenwidth,
-            subtitle: '${DesignData[index]['designprice']}.00',
-            title: 'Design Price',
-          ),
+          // heigh5,
+          // ProjectDescriptiontabs(
+          //   screenwidth: screenwidth,
+          //   subtitle: '${DesignData[index]['designprice']}.00',
+          //   title: 'Design Price',
+          // ),
           // heigh5,
           // ProjectDescriptiontabs(
           //   screenwidth: screenwidth,
@@ -117,6 +123,17 @@ class HomepageProjectDescription extends StatelessWidget {
             title: 'Posted Date',
           ),
           heigh10,
+
+          Text(
+            'Floor Description',
+            style: TextStyle(
+              decoration: TextDecoration.underline,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              color: kprimarycolor,
+            ),
+          ),
+          heigh5,
           ListView.separated(
               shrinkWrap: true,
               physics: const ScrollPhysics(),

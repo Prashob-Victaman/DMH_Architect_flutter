@@ -16,13 +16,12 @@ class UploadWorkFiles extends StatelessWidget {
   List requirementList;
   OrderServiceModel orderData;
 
-  UploadWorkFiles(
-      {super.key,
-      required this.screenWidth,
-      required this.orderUid,
-      required this.requirementList,
-      required this.orderData,
-      required this.serviceIndex});
+  UploadWorkFiles({super.key,
+    required this.screenWidth,
+    required this.orderUid,
+    required this.requirementList,
+    required this.orderData,
+    required this.serviceIndex});
 
   final double screenWidth;
   int serviceIndex;
@@ -65,7 +64,7 @@ class UploadWorkFiles extends StatelessWidget {
                   height: 90.w,
                   width: 220.w,
                   child:
-                      GetBuilder<UploadWorkFilesController>(builder: (context) {
+                  GetBuilder<UploadWorkFilesController>(builder: (context) {
                     return ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -79,37 +78,37 @@ class UploadWorkFiles extends StatelessWidget {
                             child: Stack(
                               children: [
                                 uploadWorkFilesController.imgurlList[index] ==
-                                        null
+                                    null
                                     ? Container(
-                                        alignment: Alignment.centerLeft,
-                                        height: 90.w,
-                                        width: 70.w,
-                                        color: kashcolor,
-                                        child: Container(
-                                          height: 70.w,
-                                          width: 60.w,
-                                          color: kwhitecolor,
-                                        ),
-                                      )
+                                  alignment: Alignment.centerLeft,
+                                  height: 90.w,
+                                  width: 70.w,
+                                  color: kashcolor,
+                                  child: Container(
+                                    height: 70.w,
+                                    width: 60.w,
+                                    color: kwhitecolor,
+                                  ),
+                                )
                                     : Container(
-                                        alignment: Alignment.centerLeft,
-                                        height: 90.w,
-                                        width: 70.w,
-                                        child: Container(
-                                          height: 70.w,
-                                          width: 60.w,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(40)),
-                                              color: Colors.green),
-                                          child: Icon(
-                                            Icons.done,
-                                            color: Colors.white,
-                                            size: 35,
-                                          ),
-                                        ),
-                                      ),
+                                  alignment: Alignment.centerLeft,
+                                  height: 90.w,
+                                  width: 70.w,
+                                  child: Container(
+                                    height: 70.w,
+                                    width: 60.w,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        const BorderRadius.all(
+                                            Radius.circular(40)),
+                                        color: Colors.green),
+                                    child: Icon(
+                                      Icons.done,
+                                      color: Colors.white,
+                                      size: 35,
+                                    ),
+                                  ),
+                                ),
                                 Positioned(
                                   left: 35.w,
                                   bottom: 50.w,
@@ -130,9 +129,9 @@ class UploadWorkFiles extends StatelessWidget {
                           );
                         },
                         itemCount:
-                            // requirementList.length
+                        // requirementList.length
 
-                            uploadWorkFilesController.imgurlList.length);
+                        uploadWorkFilesController.imgurlList.length);
                   }),
                 ),
               ],
@@ -221,6 +220,7 @@ class UploadWorkFiles extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () async {
+                  print('tapped');
                   if (uploadWorkFilesController.imgurlList.isNotEmpty) {
                     final documentReference = await FirebaseFirestore.instance
                         .collection('ArchitectData')
@@ -235,21 +235,21 @@ class UploadWorkFiles extends StatelessWidget {
                         .get()
                         .then((documentSnapshot) {
                       if (documentSnapshot.exists) {
-                        Map<String, dynamic>? documentData =
-                            documentSnapshot.data();
+                        Map<String, dynamic>? documentData = documentSnapshot
+                            .data();
 
                         // Modify the desired string value
                         documentData!['serviceOrderHistory'][serviceIndex]
-                            ['isDeliverer'] = true;
+                        ['isDeliverer'] = true;
 
                         FirebaseFirestore.instance
                             .collection('ArchitectData')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
                             .set(documentData)
                             .then((value) =>
-                                print('Value updated successfully.1'))
+                            print('Value updated successfully.1'))
                             .catchError((error) =>
-                                print('Error updating value: $error'));
+                            print('Error updating value: $error'));
                       } else {
                         print('Document does not exist.');
                       }
@@ -262,16 +262,17 @@ class UploadWorkFiles extends StatelessWidget {
                         .then((documentSnapshot) {
                       if (documentSnapshot.exists) {
                         Map<String, dynamic>? documentData =
-                            documentSnapshot.data();
+                        documentSnapshot.data();
 
-                        int serviceNameIndex =
-                            serviceListItems.indexOf(orderData.servicesname);
+                        int serviceNameIndex = serviceListItems.indexOf(orderData.servicesname);
+                        print(serviceNameIndex.toString());
+
 
                         documentData!['servicesSelectedModel'][serviceNameIndex]
-                                ['planurl']['0'] =
+                        ['planurl']['0'] =
                             uploadWorkFilesController.imgurlList;
                         documentData['servicesSelectedModel'][serviceNameIndex]
-                            ['isCompleted'] = true;
+                        ['isCompleted'] = true;
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance
@@ -281,23 +282,29 @@ class UploadWorkFiles extends StatelessWidget {
                             .then(
                                 (value) => print('Value updated successfully.'))
                             .catchError((error) =>
-                                print('Error updating value: $error'));
+                            print('Error updating value: $error'));
                         print(orderData.orderUid);
                         // print(widget.architectUid);
                       } else {
                         print('Document does not exist.');
                       }
                     });
-                    final userData = await FirebaseFirestore.instance
+                    print(orderData.customerUid);
+                    await FirebaseFirestore.instance.collection('UserData')
                         .doc(orderData.customerUid)
-                        .get();
-                    costomerOrderUpdated(
-                      userData['ProfileDetails']['mobileNumber'],
-                      userData['ProfileDetails']['firstName'] +
-                          ' ' +
-                          userData['ProfileDetails']['lastName'],
-                      orderData.orderId
-                    );
+                        .get().then((documentSnapshot) {
+                      if (documentSnapshot.exists) {
+                        Map<String, dynamic>? documentData = documentSnapshot.data();
+                        costomerOrderUpdated(
+                            documentData!['ProfileDetails']['mobileNumber'],
+                            documentData!['ProfileDetails']['firstName'] +
+                                ' ' +
+                                documentData!['ProfileDetails']['lastName'],
+                            orderData.orderId
+                        );
+                        print('sms sent');
+                      }
+                    });
                     uploadWorkFilesController.cleatIm();
                     Get.back();
                   } else {
@@ -310,9 +317,9 @@ class UploadWorkFiles extends StatelessWidget {
                   decoration: BoxDecoration(color: kprimarycolor),
                   child: Center(
                       child: Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 13.sp, color: kwhitecolor),
-                  )),
+                        'Submit',
+                        style: TextStyle(fontSize: 13.sp, color: kwhitecolor),
+                      )),
                 ),
               ),
               GestureDetector(
@@ -328,9 +335,9 @@ class UploadWorkFiles extends StatelessWidget {
                       border: Border.all(color: kprimarycolor)),
                   child: Center(
                       child: Text(
-                    'Cancel',
-                    style: TextStyle(fontSize: 13.sp, color: kprimarycolor),
-                  )),
+                        'Cancel',
+                        style: TextStyle(fontSize: 13.sp, color: kprimarycolor),
+                      )),
                 ),
               )
             ],
@@ -340,8 +347,8 @@ class UploadWorkFiles extends StatelessWidget {
     );
   }
 
-  Future<void> cofirmationPopup(
-      BuildContext context, String field, value, int arrayLength) {
+  Future<void> cofirmationPopup(BuildContext context, String field, value,
+      int arrayLength) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -385,9 +392,10 @@ class UploadWorkFiles extends StatelessWidget {
                         decoration: BoxDecoration(color: kprimarycolor),
                         child: Center(
                             child: Text(
-                          'Yes',
-                          style: TextStyle(fontSize: 13.sp, color: kwhitecolor),
-                        )),
+                              'Yes',
+                              style: TextStyle(
+                                  fontSize: 13.sp, color: kwhitecolor),
+                            )),
                       ),
                     ),
                     GestureDetector(
@@ -400,10 +408,10 @@ class UploadWorkFiles extends StatelessWidget {
                             border: Border.all(color: kprimarycolor)),
                         child: Center(
                             child: Text(
-                          'Cancel',
-                          style:
+                              'Cancel',
+                              style:
                               TextStyle(fontSize: 13.sp, color: kprimarycolor),
-                        )),
+                            )),
                       ),
                     )
                   ],

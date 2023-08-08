@@ -65,7 +65,8 @@ class separateddesignlistview extends StatelessWidget {
                                 height: 160.w,
                                 width: screenwidth - 20.w,
                                 fit: BoxFit.fitWidth,
-                                image: const AssetImage('asset/placeholder.jpg')),
+                                image:
+                                    const AssetImage('asset/placeholder.jpg')),
                             imageUrl: CategoryData[index]['exteriorImageList']
                                 [0],
                             imageBuilder: (context, imageProvider) => Container(
@@ -88,7 +89,8 @@ class separateddesignlistview extends StatelessWidget {
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10.w),
                                         bottomRight: Radius.circular(10.w)),
-                                    color: const Color.fromARGB(255, 255, 214, 69)),
+                                    color: const Color.fromARGB(
+                                        255, 255, 214, 69)),
                                 height: 22.w,
                                 width: (screenwidth - 30) / 2.w,
                                 child: Row(
@@ -135,48 +137,20 @@ class separateddesignlistview extends StatelessWidget {
                         ],
                       ),
                       child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  '${CategoryData[index]['houseArea']['length']}In * ${CategoryData[index]['houseArea']['width']} = ${CategoryData[index]['houseArea']['area']} sqft ',
-                                  style: normal14,
-                                ),
-                                const Spacer(),
-                                Text(
-                                  '₹ ${CategoryData[index]['designprice']}.00',
-                                  style: bold18,
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  ' ${CategoryData[index]['shortdescription']}',
-                                  style: normal14,
-                                ),
-                                const Spacer(),
-                                // Container(
-                                //   child: RatingBar.builder(
-                                //     itemSize: 12.w,
-                                //     initialRating: 3.5,
-                                //     minRating: 1,
-                                //     direction: Axis.horizontal,
-                                //     allowHalfRating: true,
-                                //     itemCount: 5,
-                                //     itemBuilder: (context, _) => const Icon(
-                                //       Icons.star,
-                                //       color: Colors.amber,
-                                //     ),
-                                //     onRatingUpdate: (rating) {
-                                //       print(rating);
-                                //     },
-                                //   ),
-                                // )
-                              ],
-                            ),
-                          ]),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                '${CategoryData[index]['houseArea']['length']}Ft * ${CategoryData[index]['houseArea']['width']}Ft = ${CategoryData[index]['houseArea']['area']} sqft ',
+                                style: normal14,
+                              ),
+                              const Spacer(),
+                              Text('${CategoryData[index]['houseFacing']} Facing House'),
+                            ],
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

@@ -14,6 +14,8 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../Constants/constants.dart';
+import '../ArchitectDesignpage/designPage.dart';
+import '../ArchitectDesignpage/widgets/designlistview.dart';
 import '../ArchitectDrawer/ArchitectDrawerscreen.dart';
 import '../widgets/appbar.dart';
 import 'package:upgrader/upgrader.dart';
@@ -28,12 +30,12 @@ class ArchitecthomePage extends StatefulWidget {
 
   var location;
 
-  // int? totalDesigns = 0;
-  // int? totalOrders = 0;
-  // int? totalpendingOrders;
-  // int? rejectedOrders;
-  // int? totalEarnings;
-  // int? deliveredOrders;
+// int? totalDesigns = 0;
+// int? totalOrders = 0;
+// int? totalpendingOrders;
+// int? rejectedOrders;
+// int? totalEarnings;
+// int? deliveredOrders;
 }
 
 class _ArchitecthomePageState extends State<ArchitecthomePage> {
@@ -282,11 +284,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0.w),
               child: GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Architectbottomnavigationbar(selectedindex: 1))),
+                onTap: () => Get.to(const ArchitectDesignPage()),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.w),
@@ -376,6 +374,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
 class DashboardWidget extends StatelessWidget {
   String title;
   var subtitle;
+
   DashboardWidget({
     super.key,
     required this.screenwidth,

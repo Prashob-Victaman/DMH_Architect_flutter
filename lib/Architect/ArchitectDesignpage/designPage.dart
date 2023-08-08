@@ -16,7 +16,7 @@ class ArchitectDesignPage extends StatefulWidget {
 }
 
 class _ArchitectDesignPageState extends State<ArchitectDesignPage> {
-  late String searchKey;
+  String searchKey ='';
   Stream streamQuery = FirebaseFirestore.instance
       .collection("DesignDataFromAdmin")
       .orderBy("sortId", descending: true)

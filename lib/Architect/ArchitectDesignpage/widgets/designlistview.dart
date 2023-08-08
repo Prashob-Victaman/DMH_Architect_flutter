@@ -66,7 +66,7 @@ class _designlistviewState extends State<designlistview> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.w),
                         color: kgreycolor),
-                    height: 220.w,
+                    height: 200.w,
                     child: Column(
                       children: [
                         Container(
@@ -129,7 +129,7 @@ class _designlistviewState extends State<designlistview> {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          height: 60.w,
+                          height: 40.w,
                           decoration: BoxDecoration(
                             color: kwhitecolor,
                             borderRadius: BorderRadius.only(
@@ -150,35 +150,14 @@ class _designlistviewState extends State<designlistview> {
                                 Row(
                                   children: [
                                     Text(
-                                        '${data.houseArea['length']}In * ${data.houseArea['width']} = ${data.houseArea['area']} sqft '),
-                                    Spacer(),
-                                    Text(
-                                      '₹ ${data.designprice}.00',
-                                      style: bold18,
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('${data.houseFacing} Facing House'),
+                                      '${data.houseArea['length']}Ft * ${data.houseArea['width']}Ft = ${data.houseArea['area']} sqft ',
+                                      style: TextStyle(fontSize: 12.sp),
+                                    ),
                                     const Spacer(),
-                                    // Container(
-                                    //   child: RatingBar.builder(
-                                    //     itemSize: 12.w,
-                                    //     initialRating: 3.5,
-                                    //     minRating: 1,
-                                    //     direction: Axis.horizontal,
-                                    //     allowHalfRating: true,
-                                    //     itemCount: 5,
-                                    //     itemBuilder: (context, _) => const Icon(
-                                    //       Icons.star,
-                                    //       color: Colors.amber,
-                                    //     ),
-                                    //     onRatingUpdate: (rating) {
-                                    //       print(rating);
-                                    //     },
-                                    //   ),
-                                    // )
+                                    Text(
+                                      '${data.houseFacing} Facing House',
+                                      style: TextStyle(fontSize: 12.sp),
+                                    ),
                                   ],
                                 ),
                               ]),

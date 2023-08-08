@@ -268,8 +268,8 @@ class _FloorDetailsState extends State<FloorDetails> {
                       GetxController.createdlistofitems.add(
                           Map.from(GetxController.groupofselectedfloolist));
 
-                      print(
-                          '${GetxController.createdlistofitems}fgfffffffffffffffffffffffff');
+                      // print(
+                      //     '${GetxController.createdlistofitems}fgfffffffffffffffffffffffff');
                       // print(GetxController.createdlistofitems);
 
                       setState(() {});

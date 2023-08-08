@@ -10,9 +10,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../Constants/constants.dart';
 import '../../../controller/ordercontroller.dart';
+
 
 class ServicesOrderHistory extends StatefulWidget {
   const ServicesOrderHistory({Key? key}) : super(key: key);
@@ -36,7 +36,6 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            print(snapshot.data['serviceOrderHistory'].length);
             if (snapshot.hasError) {
               return const Center(child: CircularProgressIndicator());
             }
@@ -196,7 +195,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              '${orderData.servicesname}',
+                                              orderData.servicesname,
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontSize: 12.sp,
@@ -306,26 +305,22 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                       return AlertDialog(
                                                         titlePadding:
                                                             EdgeInsets.all(0.w),
-                                                        title: Container(
-                                                          // width: screenWidth,
-                                                          // height: 180.w,
-                                                          child: Column(
-                                                            children: [
-                                                              UploadWorkFiles(
-                                                                  orderData:
-                                                                      orderData,
-                                                                  screenWidth:
-                                                                      screenWidth,
-                                                                  orderUid:
-                                                                      orderData
-                                                                          .orderUid,
-                                                                  requirementList:
-                                                                      orderData
-                                                                          .requirementData,
-                                                                  serviceIndex:
-                                                                      index),
-                                                            ],
-                                                          ),
+                                                        title: Column(
+                                                          children: [
+                                                            UploadWorkFiles(
+                                                                orderData:
+                                                                    orderData,
+                                                                screenWidth:
+                                                                    screenWidth,
+                                                                orderUid:
+                                                                    orderData
+                                                                        .orderUid,
+                                                                requirementList:
+                                                                    orderData
+                                                                        .requirementData,
+                                                                serviceIndex:
+                                                                    index),
+                                                          ],
                                                         ),
                                                       );
                                                     },

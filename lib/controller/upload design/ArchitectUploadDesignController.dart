@@ -27,10 +27,39 @@ class ArchitectUploadDesignController extends GetxController {
   ];
 
   var roomtypeitems = [
+    // 'Rooms',
+    // 'Toilets',
+    // 'Balcony',
+    // 'Garden',
+    'Bed Room',
+    'Master Room',
     'Rooms',
-    'Toilets',
+    'Hall',
+    'Dinning Hall',
+    'Drawing Hall',
+    'Living Hall',
+    'Kitchen',
+    'Toilet',
+    'Toilet + Dressing',
+    'Bathroom',
+    'Washroom',
+    'Pooja Room',
+    'Store Room',
+    'Verandah',
+    'Stairs',
+    'Lift',
+    'Garage',
     'Balcony',
+    'Terrace',
+    'Lawn',
+    'Swimming Pool',
+    'Parking',
     'Garden',
+    'Shop',
+    'Godown',
+    'Conference Hall',
+    'Meeting Hall',
+    'Wardrobe'
   ];
 
   var roomcount = [

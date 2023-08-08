@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:photo_view/photo_view.dart';
 import '../../../Constants/constants.dart';
+import '../../../Gupshup/gupshuptemplates.dart';
 import '../../../model/OrderServiceModel.dart';
 
 class UploadWorkFiles extends StatelessWidget {
@@ -98,12 +99,15 @@ class UploadWorkFiles extends StatelessWidget {
                                           height: 70.w,
                                           width: 60.w,
                                           decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(40)),
-                                            color: Colors.green
-                                            ),
-                                          child: Icon(Icons.done,color: Colors.white,size: 35,),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(40)),
+                                              color: Colors.green),
+                                          child: Icon(
+                                            Icons.done,
+                                            color: Colors.white,
+                                            size: 35,
+                                          ),
                                         ),
                                       ),
                                 Positioned(
@@ -231,20 +235,21 @@ class UploadWorkFiles extends StatelessWidget {
                         .get()
                         .then((documentSnapshot) {
                       if (documentSnapshot.exists) {
-
-                        Map<String, dynamic>? documentData = documentSnapshot.data();
+                        Map<String, dynamic>? documentData =
+                            documentSnapshot.data();
 
                         // Modify the desired string value
-                        documentData!['serviceOrderHistory'][serviceIndex]['isDeliverer'] = true;
+                        documentData!['serviceOrderHistory'][serviceIndex]
+                            ['isDeliverer'] = true;
 
                         FirebaseFirestore.instance
                             .collection('ArchitectData')
                             .doc(FirebaseAuth.instance.currentUser!.uid)
                             .set(documentData)
                             .then((value) =>
-                            print('Value updated successfully.1'))
+                                print('Value updated successfully.1'))
                             .catchError((error) =>
-                            print('Error updating value: $error'));
+                                print('Error updating value: $error'));
                       } else {
                         print('Document does not exist.');
                       }
@@ -259,12 +264,14 @@ class UploadWorkFiles extends StatelessWidget {
                         Map<String, dynamic>? documentData =
                             documentSnapshot.data();
 
-                        int serviceNameIndex =serviceListItems.indexOf(orderData.servicesname);
+                        int serviceNameIndex =
+                            serviceListItems.indexOf(orderData.servicesname);
 
                         documentData!['servicesSelectedModel'][serviceNameIndex]
                                 ['planurl']['0'] =
                             uploadWorkFilesController.imgurlList;
-                        documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
+                        documentData['servicesSelectedModel'][serviceNameIndex]
+                            ['isCompleted'] = true;
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance
@@ -281,6 +288,16 @@ class UploadWorkFiles extends StatelessWidget {
                         print('Document does not exist.');
                       }
                     });
+                    final userData = await FirebaseFirestore.instance
+                        .doc(orderData.customerUid)
+                        .get();
+                    costomerOrderUpdated(
+                      userData['ProfileDetails']['mobileNumber'],
+                      userData['ProfileDetails']['firstName'] +
+                          ' ' +
+                          userData['ProfileDetails']['lastName'],
+                      orderData.orderId
+                    );
                     uploadWorkFilesController.cleatIm();
                     Get.back();
                   } else {

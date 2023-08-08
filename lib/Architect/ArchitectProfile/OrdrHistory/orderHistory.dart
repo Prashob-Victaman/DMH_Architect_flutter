@@ -164,90 +164,95 @@ class OrderHistoryUser extends StatelessWidget {
                                       Text(
                                         '${formatedDate}',
                                         style: normal14,
-                                      )
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5.w),
-                                        ),
-                                        width: 60.w,
-                                        height: 90.w,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () async {
-                                                var architectdata =
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('UserData')
-                                                        .doc(data.customerUid)
-                                                        .get();
-
-                                                // print('${architectdata['personalDetails']} llll');
-
-                                                if (!await launchUrl(Uri.parse(
-                                                    'tel:${architectdata['ProfileDetails']['mobileNumber']}'))) {
-                                                  throw Exception(
-                                                      'Could not launch');
-                                                }
-                                              },
-                                              child: const Icon(
-                                                Icons.call,
-                                                color: Color.fromARGB(
-                                                    255, 0, 140, 255),
-                                              ),
+                                      ),
+                                      heigh10,
+                                      Row(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5.w),
                                             ),
-                                            heigh5,
-                                            GestureDetector(
-                                              onTap: () async {
-                                                var architectdata =
-                                                    await FirebaseFirestore
-                                                        .instance
-                                                        .collection('UserData')
-                                                        .doc(data.customerUid)
-                                                        .get();
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    var architectdata =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'UserData')
+                                                            .doc(data
+                                                                .customerUid)
+                                                            .get();
 
-                                                // print('${architectdata['personalDetails']} llll');
+                                                    // print('${architectdata['personalDetails']} llll');
 
-                                                if (!await launchUrl(Uri.parse(
-                                                    'whatsapp://send?phone=+91${architectdata['ProfileDetails']['mobileNumber']}'))) {
-                                                  throw Exception(
-                                                      'Could not launch');
-                                                }
-                                              },
-                                              child: FaIcon(
-                                                FontAwesomeIcons.whatsapp,
-                                                size: 24.sp,
-                                                color: ksuccesscolor,
-                                              ),
+                                                    if (!await launchUrl(Uri.parse(
+                                                        'tel:${architectdata['ProfileDetails']['mobileNumber']}'))) {
+                                                      throw Exception(
+                                                          'Could not launch');
+                                                    }
+                                                  },
+                                                  child: const Icon(
+                                                    Icons.call,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 140, 255),
+                                                  ),
+                                                ),
+                                                width20,
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    var architectdata =
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                'UserData')
+                                                            .doc(data
+                                                                .customerUid)
+                                                            .get();
+
+                                                    // print('${architectdata['personalDetails']} llll');
+
+                                                    if (!await launchUrl(Uri.parse(
+                                                        'whatsapp://send?phone=+91${architectdata['ProfileDetails']['mobileNumber']}'))) {
+                                                      throw Exception(
+                                                          'Could not launch');
+                                                    }
+                                                  },
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.whatsapp,
+                                                    size: 24.sp,
+                                                    color: ksuccesscolor,
+                                                  ),
+                                                ),
+                                                width20,
+                                                GestureDetector(
+                                                  onTap: () async {
+                                                    openGoogleMapsApp(
+                                                        data.constomerLocation
+                                                            .latitude,
+                                                        data.constomerLocation
+                                                            .longitude);
+                                                  },
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons
+                                                        .mapLocationDot,
+                                                    size: 24.sp,
+                                                    color: kprimarycolor,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            heigh5,
-                                            GestureDetector(
-                                              onTap: () async {
-                                                openGoogleMapsApp(
-                                                    data.constomerLocation
-                                                        .latitude,
-                                                    data.constomerLocation
-                                                        .longitude);
-                                              },
-                                              child: FaIcon(
-                                                FontAwesomeIcons.mapLocationDot,
-                                                size: 24.sp,
-                                                color: kprimarycolor,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
+                                  const Spacer(),
+
                                   (selectedServicesList[0]['isAproved'] ==
                                               false &&
                                           selectedServicesList[0]

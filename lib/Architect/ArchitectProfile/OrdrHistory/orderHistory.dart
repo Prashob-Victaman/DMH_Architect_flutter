@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -142,16 +143,31 @@ class OrderHistoryUser extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
+                                      heigh5,
                                       Text(
                                         orderId,
                                         style: bold15,
                                       ),
+                                      heigh5,
+                                      FutureBuilder(
+                                          future: getAddress(
+                                              data.constomerLocation.latitude,
+                                              data.constomerLocation.longitude),
+                                          builder: (context, snap) {
+                                            return Text(
+                                              'Site address - ${snap.data}',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: normal14,
+                                            );
+                                          }),
+                                      heigh5,
                                       Text(
                                         '${formatedDate}',
                                         style: normal14,
                                       )
                                     ],
                                   ),
+                                  const Spacer(),
                                   Column(
                                     children: [
                                       Container(
@@ -170,8 +186,7 @@ class OrderHistoryUser extends StatelessWidget {
                                                 var architectdata =
                                                     await FirebaseFirestore
                                                         .instance
-                                                        .collection(
-                                                            'UserData')
+                                                        .collection('UserData')
                                                         .doc(data.customerUid)
                                                         .get();
 
@@ -189,12 +204,38 @@ class OrderHistoryUser extends StatelessWidget {
                                                     255, 0, 140, 255),
                                               ),
                                             ),
-                                            // heigh5,
+                                            heigh5,
+                                            GestureDetector(
+                                              onTap: () async {
+                                                var architectdata =
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection('UserData')
+                                                        .doc(data.customerUid)
+                                                        .get();
+
+                                                // print('${architectdata['personalDetails']} llll');
+
+                                                if (!await launchUrl(Uri.parse(
+                                                    'whatsapp://send?phone=+91${architectdata['ProfileDetails']['mobileNumber']}'))) {
+                                                  throw Exception(
+                                                      'Could not launch');
+                                                }
+                                              },
+                                              child: FaIcon(
+                                                FontAwesomeIcons.whatsapp,
+                                                size: 24.sp,
+                                                color: ksuccesscolor,
+                                              ),
+                                            ),
+                                            heigh5,
                                             GestureDetector(
                                               onTap: () async {
                                                 openGoogleMapsApp(
-                                                    data.constomerLocation.latitude,
-                                                    data.constomerLocation.longitude);
+                                                    data.constomerLocation
+                                                        .latitude,
+                                                    data.constomerLocation
+                                                        .longitude);
                                               },
                                               child: FaIcon(
                                                 FontAwesomeIcons.mapLocationDot,
@@ -302,7 +343,7 @@ class OrderHistoryUser extends StatelessWidget {
                                             )
                                           ],
                                         )
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ],
                               ),
                             ),
@@ -496,6 +537,20 @@ class OrderHistoryUser extends StatelessWidget {
     );
   }
 
+  Future<String> getAddress(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks =
+          await placemarkFromCoordinates(latitude, longitude);
+      if (placemarks != null && placemarks.isNotEmpty) {
+        Placemark placemark = placemarks.first;
+        String address =
+            '${placemark.street}, ${placemark.subLocality}, ${placemark.locality} ';
+        return address;
+      }
+    } catch (e) {}
+    return '';
+  }
+
   Future<void> orderConfirmationAcceptPopup(
     BuildContext context,
     String title,
@@ -609,6 +664,7 @@ class OrderHistoryUser extends StatelessWidget {
       },
     );
   }
+
   void openGoogleMapsApp(
       double destinationLatitude, double destinationLongitude) async {
     String googleMapsUrl =

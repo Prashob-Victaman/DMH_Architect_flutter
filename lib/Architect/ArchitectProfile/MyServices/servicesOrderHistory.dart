@@ -36,13 +36,17 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
               .doc(FirebaseAuth.instance.currentUser!.uid)
               .snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            print(snapshot.data['serviceOrderHistory'].length);
+
+
+
             if (snapshot.hasError) {
               return const Center(child: CircularProgressIndicator());
             }
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             }
+
+            //print(snapshot.data['serviceOrderHistory'].length);
             // List selectedServicesList = orderData.servicesSelectedModel;
 
             try {

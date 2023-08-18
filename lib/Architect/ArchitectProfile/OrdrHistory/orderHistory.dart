@@ -3,8 +3,6 @@ import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/Ord
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/RequestWidget.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/ServicesSelected.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/customerOrders.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
 import 'package:dmh_architect/Architect/productview/productview.dart';
 import 'package:dmh_architect/Constants/constants.dart';
 import 'package:dmh_architect/model/orderDataModel.dart';
@@ -12,7 +10,6 @@ import 'package:dmh_architect/model/uploadDesignDataModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -525,7 +522,8 @@ class OrderHistoryUser extends StatelessWidget {
                       ServicesSelected(
                           selectedServicesList: data.serviceRateamountList,
                           serviceTitle: serviceTitle,
-                          aboutService: aboutService),
+                          aboutService: aboutService,
+                          orderData: data),
                       heigh10,
                       RequestWidget(
                           screenWidth: screenWidth,

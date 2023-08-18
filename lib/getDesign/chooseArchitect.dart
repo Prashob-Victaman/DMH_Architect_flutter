@@ -1,11 +1,8 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dmh_architect/model/architectmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../Constants/constants.dart';
 import '../controller/ordercontroller.dart';
 
@@ -85,7 +82,6 @@ class ChooseArchitect extends StatelessWidget {
 
                           log(mapEntries[4].value[0]);
                         }
-
                         final price = double.parse(mapEntries[6].value[0]);
 
                         // log(mapEntries[0].value.toString());

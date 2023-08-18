@@ -1,6 +1,8 @@
 import 'package:dmh_architect/Constants/constants.dart';
+import 'package:dmh_architect/controller/servicesSelectedController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class RequestWidget extends StatelessWidget {
   Map requestList;
@@ -8,6 +10,9 @@ class RequestWidget extends StatelessWidget {
       {super.key, required this.screenWidth, required this.requestList});
 
   final double screenWidth;
+
+    final getServiceSelectedController = Get.put(ServiceSelectedController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +72,7 @@ class RequestWidget extends StatelessWidget {
                         SizedBox(
                           // width: (screenWidth / 2) ,
                           child: Text(
-                            'Rs ${requestList['superVisionAmount']} ',
+                            'Rs ${getServiceSelectedController.sitesupervisionamount.toStringAsFixed(2)} ',
                             style: TextStyle(fontSize: 13.sp),
                           ),
                         ),
@@ -131,7 +136,7 @@ class RequestWidget extends StatelessWidget {
                         SizedBox(
                           // width: (screenWidth / 2) ,
                           child: Text(
-                            'Rs ${requestList['nakshaAmount']}',
+                            'Rs ${getServiceSelectedController.nakshshaamount.toStringAsFixed(2)}',
                             style: TextStyle(fontSize: 13.sp),
                           ),
                         ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dmh_architect/Gupshup/gupshuptemplates.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -107,7 +108,7 @@ class ArchitectDrawerscreen extends StatelessWidget {
               child: Column(
                 children: [
                   GestureDetector(
-                      onTap: () => Get.to(() => ArchitectMyDesign()),
+                    onTap: () => Get.to(() => ArchitectMyDesign()),
                     child: Row(
                       children: [
                         Icon(Icons.account_circle_rounded),
@@ -132,12 +133,14 @@ class ArchitectDrawerscreen extends StatelessWidget {
                   ),
                   heigh20,
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       showDialog(
                           barrierDismissible: true,
-                          context: context, builder: (context){
-                        return Center(child: const CircularProgressIndicator());
-                      });
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                                child: const CircularProgressIndicator());
+                          });
 
                       Share.share('check out my website https://example.com');
                     },
@@ -176,6 +179,8 @@ class ArchitectDrawerscreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () async {
                       Get.to(() => AboutApp());
+
+                      // costomerOrderUpdated('8075346595', 'userName', 'orderId');
                     },
                     child: Row(
                       children: [
@@ -214,23 +219,26 @@ class ArchitectDrawerscreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     GestureDetector(
-                                      onTap: ()async{
-                                        const number = '+919008337447'; //set the number here
-                                        bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+                                      onTap: () async {
+                                        const number =
+                                            '+919008337447'; //set the number here
+                                        bool? res =
+                                            await FlutterPhoneDirectCaller
+                                                .callNumber(number);
                                         print(res);
                                       },
                                       child: Container(
                                         height: 30.w,
                                         width: 141.w,
-                                        decoration: BoxDecoration(
-                                            color: kprimarycolor),
+                                        decoration:
+                                            BoxDecoration(color: kprimarycolor),
                                         child: Center(
                                             child: Text(
-                                              'Yes',
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: kwhitecolor),
-                                            )),
+                                          'Yes',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: kwhitecolor),
+                                        )),
                                       ),
                                     ),
                                     GestureDetector(
@@ -244,11 +252,11 @@ class ArchitectDrawerscreen extends StatelessWidget {
                                                 color: kprimarycolor)),
                                         child: Center(
                                             child: Text(
-                                              'Cancel',
-                                              style: TextStyle(
-                                                  fontSize: 14.sp,
-                                                  color: kprimarycolor),
-                                            )),
+                                          'Cancel',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: kprimarycolor),
+                                        )),
                                       ),
                                     )
                                   ],

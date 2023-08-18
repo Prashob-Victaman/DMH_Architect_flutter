@@ -265,7 +265,7 @@ class UploadWorkFiles extends StatelessWidget {
                         documentSnapshot.data();
 
                         int serviceNameIndex = serviceListItems.indexOf(orderData.servicesname);
-                        print(serviceNameIndex.toString());
+                        // print(serviceNameIndex.toString());
 
 
                         documentData!['servicesSelectedModel'][serviceNameIndex]
@@ -289,7 +289,7 @@ class UploadWorkFiles extends StatelessWidget {
                         print('Document does not exist.');
                       }
                     });
-                    print(orderData.customerUid);
+                    // print(orderData.customerUid);
                     await FirebaseFirestore.instance.collection('UserData')
                         .doc(orderData.customerUid)
                         .get().then((documentSnapshot) {
@@ -302,7 +302,7 @@ class UploadWorkFiles extends StatelessWidget {
                                 documentData!['ProfileDetails']['lastName'],
                             orderData.orderId
                         );
-                        print('sms sent');
+                        // print('sms sent');
                       }
                     });
                     uploadWorkFilesController.cleatIm();

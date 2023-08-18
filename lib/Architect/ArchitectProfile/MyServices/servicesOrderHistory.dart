@@ -48,10 +48,14 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
             // List selectedServicesList = orderData.servicesSelectedModel;
 
             var orderHistoryLength;
+            print('${snapshot.data['serviceOrderHistory'].length}');
 
             try {
               if (snapshot.data['serviceOrderHistory'].length == 0) {
                 orderHistoryLength = 0;
+              } else {
+                orderHistoryLength =
+                    snapshot.data['serviceOrderHistory'].length;
               }
             } catch (e) {
               orderHistoryLength = 0;

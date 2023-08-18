@@ -53,20 +53,20 @@ SAWNA INFRABUILD PVT. LTD.''',
   try {
     var response = await http.get(uri).timeout(const Duration(seconds: 90));
     if (response.statusCode == 200) {
-      Fluttertoast.showToast(msg: 'OTP sent successfully');
+      // Fluttertoast.showToast(msg: 'OTP sent successfully');
     } else {
       Fluttertoast.showToast(msg: 'Failed to send OTP');
       print('Status Code: ${response.statusCode}');
     }
   } catch (error) {
     print(error);
-    Fluttertoast.showToast(msg: 'Failed to send OTP');
+    // Fluttertoast.showToast(msg: 'Failed to send OTP');
   }
 }
 
 costomerOrderUpdated(
     String mobileNumber, String userName, String orderId) async {
-  print('costomerOrderUpdated');
+  // print('costomerOrderUpdated');
   var url = Uri.parse('https://enterprise.smsgupshup.com/GatewayAPI/rest');
 
   var queryParams = {
@@ -87,13 +87,13 @@ SAWNA INFRABUILD PVT. LTD.''',
   try {
     var response = await http.get(uri).timeout(const Duration(seconds: 90));
     if (response.statusCode == 200) {
-      Fluttertoast.showToast(msg: 'OTP sent successfully');
+      // Fluttertoast.showToast(msg: 'OTP sent successfully');
     } else {
       Fluttertoast.showToast(msg: 'Failed to send OTP');
       print('Status Code: ${response.statusCode}');
     }
   } catch (error) {
     print(error);
-    Fluttertoast.showToast(msg: 'Failed to send OTP');
+    // Fluttertoast.showToast(msg: 'Failed to send OTP');
   }
 }

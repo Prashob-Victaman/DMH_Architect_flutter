@@ -393,14 +393,19 @@ class ServicesSelected extends StatelessWidget {
                                           : selectedServicesList[0]
                                                       ['isAproved'] ==
                                                   true
-                                              ?  amount == 0.0? Text('Not Selected', style: normal14,): Text(
-                                                  'Not paid',
-                                                  style: TextStyle(
-                                                      fontSize: 13.sp,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: kyellowcolor),
-                                                )
+                                              ? amount == 0.0
+                                                  ? Text(
+                                                      'Not Selected',
+                                                      style: normal14,
+                                                    )
+                                                  : Text(
+                                                      'Not paid',
+                                                      style: TextStyle(
+                                                          fontSize: 13.sp,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: kyellowcolor),
+                                                    )
                                               : selectedServicesList[0]
                                                           ['isAproved'] ==
                                                       false

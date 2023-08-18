@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,9 +21,16 @@ class designlistview extends StatefulWidget {
 }
 
 class _designlistviewState extends State<designlistview> {
+  // Stream streamQuery = FirebaseFirestore.instance
+  //     .collection("DesignDataFromAdmin")
+  //     .orderBy("sortId", descending: true)
+  //     .snapshots();
+
   Stream streamQuery = FirebaseFirestore.instance
-      .collection("DesignDataFromAdmin")
-      .orderBy("sortId", descending: true)
+      .collection('DesignDataFromAdmin')
+      // .orderBy("sortId", descending: true)
+      .where('uploadedUserUid',
+          isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .snapshots();
 
   @override

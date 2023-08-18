@@ -154,10 +154,14 @@ class OrderHistoryUser extends StatelessWidget {
                                               data.constomerLocation.latitude,
                                               data.constomerLocation.longitude),
                                           builder: (context, snap) {
-                                            return Text(
-                                              'Site address - ${snap.data}',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: normal14,
+                                            return SizedBox(
+                                              width: screenWidth - 125.w,
+                                              child: Text(
+                                                'Site address - ${snap.data}',
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: normal14,
+                                              ),
                                             );
                                           }),
                                       heigh5,
@@ -252,7 +256,6 @@ class OrderHistoryUser extends StatelessWidget {
                                     ],
                                   ),
                                   const Spacer(),
-
                                   (selectedServicesList[0]['isAproved'] ==
                                               false &&
                                           selectedServicesList[0]

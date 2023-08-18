@@ -97,33 +97,29 @@ class ProfileServicesUpdated extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const ScrollPhysics(),
                           itemBuilder: (context, primaryindex) {
-                            // print(
-                            //     '${serviceRateDataList[primaryindex]['classic']['isSelected']} $primaryindex classic');
-
-                            // print(
-                            //     '${serviceRateDataList[primaryindex]['modern']['isSelected']} $primaryindex modern');
+                        
 
                             getXcontroller.modernControllerList[primaryindex]
                                 .text = getXcontroller
                                     .serviceRateDataListEditing[primaryindex]
-                                ['modern']['minprice'];
+                                ['modern']['pricesqft'];
 
                             getXcontroller.classicalControllerList[primaryindex]
                                 .text = getXcontroller
                                     .serviceRateDataListEditing[primaryindex]
-                                ['classic']['minprice'];
+                                ['classic']['pricesqft'];
 
                             getXcontroller
                                 .minratemodernControllerList[primaryindex]
                                 .text = getXcontroller
                                     .serviceRateDataListEditing[primaryindex]
-                                ['modern']['pricesqft'];
+                                ['modern']['minprice'];
 
                             getXcontroller
                                 .minrateclassicalControllerList[primaryindex]
                                 .text = getXcontroller
                                     .serviceRateDataListEditing[primaryindex]
-                                ['classic']['pricesqft'];
+                                ['classic']['minprice'];
 
                             // final indexwiseData =
                             //     getXcontroller.serviceRateMainlist[primaryindex].values;

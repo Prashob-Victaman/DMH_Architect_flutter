@@ -44,16 +44,16 @@ class ArchitectnotificationScreen extends StatelessWidget {
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               if (snapshot.data == null) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               int notificationsCount = snapshot.data!.size;
 
@@ -75,7 +75,7 @@ class ArchitectnotificationScreen extends StatelessWidget {
                           'Notification',
                           style: normal16,
                         ),
-                        Spacer(),
+                        const Spacer(),
                       ],
                     ),
                   ),
@@ -104,7 +104,7 @@ class ArchitectnotificationScreen extends StatelessWidget {
                           )
                         : ListView.separated(
                             shrinkWrap: true,
-                            physics: ScrollPhysics(),
+                            physics: const ScrollPhysics(),
                             itemBuilder: (context, index) {
                               final data = notificationModel
                                   .fromJson(snapshot.data!.docs[index].data());
@@ -115,7 +115,7 @@ class ArchitectnotificationScreen extends StatelessWidget {
                               );
                             },
                             separatorBuilder: (context, index) {
-                              return Divider();
+                              return const Divider();
                             },
                             itemCount: notificationsCount),
                   ),

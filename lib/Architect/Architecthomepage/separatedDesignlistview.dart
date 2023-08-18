@@ -37,7 +37,7 @@ class separateddesignlistview extends StatelessWidget {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () async {
-                log(CategoryData[index]['uid'].toString());
+                // log(CategoryData[index]['uid'].toString());
                 await FirebaseFirestore.instance
                     .collection('DesignDataFromAdmin')
                     .doc(CategoryData[index]['uid'])

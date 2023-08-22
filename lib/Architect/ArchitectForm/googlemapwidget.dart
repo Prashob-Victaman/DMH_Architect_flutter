@@ -42,18 +42,21 @@ class GooglemapWidget extends StatelessWidget {
               onTap: () {
                 // getlocationcontroller.fetchLocationforform();
 
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      titlePadding: EdgeInsets.all(0.w),
-                      title: SizedBox(
-                          height: 600.w,
-                          width: screenwidth - 20.w,
-                          child: GoogleMapScreen()),
-                    );
-                  },
-                );
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return AlertDialog(
+                //       titlePadding: EdgeInsets.all(0.w),
+                //       title: SizedBox(
+                //           height: 600.w,
+                //           width: screenwidth - 20.w,
+                //           child: ),
+                //     );
+                //   },
+                // );
+
+                Get.to(GoogleMapScreen());
+
               },
               child: SizedBox(
                 width: 40.w,

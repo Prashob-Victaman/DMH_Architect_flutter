@@ -2,6 +2,8 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
+const mapApiKey = 'AIzaSyAmgLwURGoVlz44yEyVg3TfngRyHfYnvQw';
 const kprimarycolor = Color.fromARGB(255, 255, 90, 95);
 const kprimarycolor50 = Color.fromARGB(255, 255, 202, 204);
 

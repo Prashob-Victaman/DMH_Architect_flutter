@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/OrderDetails.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/RequestWidget.dart';
@@ -15,6 +17,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 class OrderHistoryUser extends StatelessWidget {
   String orderId;
@@ -544,15 +547,21 @@ class OrderHistoryUser extends StatelessWidget {
   }
 
   Future<String> getAddress(double latitude, double longitude) async {
+    String address;
     try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(latitude, longitude);
-      if (placemarks != null && placemarks.isNotEmpty) {
-        Placemark placemark = placemarks.first;
-        String address =
-            '${placemark.street}, ${placemark.subLocality}, ${placemark.locality} ';
-        return address;
+      final url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$mapApiKey';
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        final result = json.decode(response.body);
+        if (result['status'] == 'OK') {
+          address = result['results'][0]['formatted_address'];
+        } else {
+          address = 'Loading..';
+        }
+      } else {
+        address = '';
       }
+      return address;
     } catch (e) {}
     return '';
   }

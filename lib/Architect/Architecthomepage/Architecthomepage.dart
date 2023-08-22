@@ -181,7 +181,7 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                                       '${snapshot.data}',
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 14.sp, color: kbluecolor),
+                                          fontSize: 13.sp, color: kbluecolor),
                                     ),
                                   ],
                                 );

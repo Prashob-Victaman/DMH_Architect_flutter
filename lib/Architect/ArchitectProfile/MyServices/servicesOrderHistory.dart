@@ -245,6 +245,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                       Row(
                                                         mainAxisAlignment: MainAxisAlignment.center,
                                                         children: List.generate(5 , (changeIndex) {
+
                                                           return Padding(
                                                             padding: EdgeInsets.only(right: 2.w),
                                                             child: Container(

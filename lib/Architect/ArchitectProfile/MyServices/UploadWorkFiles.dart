@@ -220,7 +220,6 @@ class UploadWorkFiles extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () async {
-                  print('tapped');
                   if (uploadWorkFilesController.imgurlList.isNotEmpty) {
                     final documentReference = await FirebaseFirestore.instance
                         .collection('ArchitectData')
@@ -239,8 +238,8 @@ class UploadWorkFiles extends StatelessWidget {
                             .data();
 
                         // Modify the desired string value
-                        documentData!['serviceOrderHistory'][serviceIndex]
-                        ['isDeliverer'] = true;
+                        documentData!['serviceOrderHistory'][serviceIndex]['isDeliverer'] = true;
+
 
                         FirebaseFirestore.instance
                             .collection('ArchitectData')
@@ -261,18 +260,14 @@ class UploadWorkFiles extends StatelessWidget {
                         .get()
                         .then((documentSnapshot) {
                       if (documentSnapshot.exists) {
-                        Map<String, dynamic>? documentData =
-                        documentSnapshot.data();
+                        Map<String, dynamic>? documentData = documentSnapshot.data();
 
                         int serviceNameIndex = serviceListItems.indexOf(orderData.servicesname);
                         // print(serviceNameIndex.toString());
 
-
-                        documentData!['servicesSelectedModel'][serviceNameIndex]
-                        ['planurl']['0'] =
-                            uploadWorkFilesController.imgurlList;
-                        documentData['servicesSelectedModel'][serviceNameIndex]
-                        ['isCompleted'] = true;
+                        documentData!['servicesSelectedModel'][serviceNameIndex]['requestChange'] = false;
+                        documentData['servicesSelectedModel'][serviceNameIndex]['planurl']['${documentData['servicesSelectedModel'][serviceNameIndex]['numberOfchangesDone']}'] = uploadWorkFilesController.imgurlList;
+                        documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance
@@ -280,7 +275,7 @@ class UploadWorkFiles extends StatelessWidget {
                             .doc(orderData.orderUid)
                             .set(documentData)
                             .then(
-                                (value) => print('Value updated successfully.'))
+                                (value) => print('Value updated successfully.1'))
                             .catchError((error) =>
                             print('Error updating value: $error'));
                         print(orderData.orderUid);

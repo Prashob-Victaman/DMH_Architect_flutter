@@ -29,10 +29,7 @@ class ServicesSelected extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.0.w),
       child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('ArchitectData')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .snapshots(),
+          stream: FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return SizedBox(
@@ -61,8 +58,7 @@ class ServicesSelected extends StatelessWidget {
                   designType = 'modern';
                 }
 
-                final serviceRateData = ServiceListModel.fromJson(
-                    snapshot.data!['serviceRateamountList']);
+                final serviceRateData = ServiceListModel.fromJson(snapshot.data!['serviceRateamountList']);
 
                 // print(serviceRateData.)
 
@@ -124,8 +120,7 @@ class ServicesSelected extends StatelessWidget {
 
                 double areaForAmoutCalculation;
                 try {
-                  areaForAmoutCalculation = double.parse(
-                      orderData.averageAreaDimension['averageArea']);
+                  areaForAmoutCalculation = double.parse(orderData.averageAreaDimension['averageArea']);
                 } catch (e) {
                   areaForAmoutCalculation = 0;
                 }
@@ -136,13 +131,10 @@ class ServicesSelected extends StatelessWidget {
 
                 try {
                   if (architectServicepriceList[index] != '') {
-                    amountAccordingSqft =
-                        double.parse(architectServicepriceList[index]) *
-                            areaForAmoutCalculation;
-
-                    getServiceSelectedController.nakshshaamount =
-                        double.parse(architectServicepriceList[10]) *
-                            areaForAmoutCalculation;
+                    amountAccordingSqft = double.parse(architectServicepriceList[index]) * areaForAmoutCalculation;
+                    if (architectServicepriceList[10] != '') {
+                      getServiceSelectedController.nakshshaamount = double.parse(architectServicepriceList[10]) * areaForAmoutCalculation;
+                    }
                   } else {
                     amountAccordingSqft = 0;
                     getServiceSelectedController.nakshshaamount = 0;
@@ -159,42 +151,34 @@ class ServicesSelected extends StatelessWidget {
 
                 if (architectServiceMinpriceList[9] != '') {
                   if (double.parse(architectServiceMinpriceList[9]) <
-                      (double.parse(architectServicepriceList[9]) *
-                          orderData.distanceBetweenSiteandArchitectKm)) {
+                      (double.parse(architectServicepriceList[9]) * orderData.distanceBetweenSiteandArchitectKm)) {
                     getServiceSelectedController.sitesupervisionamount =
-                        (double.parse(architectServicepriceList[9]) *
-                            orderData.distanceBetweenSiteandArchitectKm);
+                        (double.parse(architectServicepriceList[9]) * orderData.distanceBetweenSiteandArchitectKm);
 
                     // print('try');
                   } else {
-                    getServiceSelectedController.sitesupervisionamount =
-                        double.parse(architectServiceMinpriceList[9]);
+                    getServiceSelectedController.sitesupervisionamount = double.parse(architectServiceMinpriceList[9]);
                   }
                 }
 
                 if (architectServiceMinpriceList[10] != '') {
                   if (double.parse(architectServiceMinpriceList[10]) <
-                      (double.parse(architectServicepriceList[10]) *
-                          orderData.distanceBetweenSiteandArchitectKm)) {
+                      (double.parse(architectServicepriceList[10]) * orderData.distanceBetweenSiteandArchitectKm)) {
                     getServiceSelectedController.nakshshaamount =
-                        (double.parse(architectServicepriceList[10]) *
-                            orderData.distanceBetweenSiteandArchitectKm);
+                        (double.parse(architectServicepriceList[10]) * orderData.distanceBetweenSiteandArchitectKm);
                     // print('try');
                   } else {
-                    getServiceSelectedController.nakshshaamount =
-                        double.parse(architectServiceMinpriceList[10]);
+                    getServiceSelectedController.nakshshaamount = double.parse(architectServiceMinpriceList[10]);
                   }
                 }
 
                 if (architectServiceMinpriceList[index] != '') {
                   try {
-                    if (double.parse(architectServiceMinpriceList[index]) <
-                        amountAccordingSqft) {
+                    if (double.parse(architectServiceMinpriceList[index]) < amountAccordingSqft) {
                       amount = amountAccordingSqft;
                       // print('try');
                     } else {
-                      amount =
-                          double.parse(architectServiceMinpriceList[index]);
+                      amount = double.parse(architectServiceMinpriceList[index]);
                     }
                   } catch (e) {
                     amount = 0;
@@ -207,10 +191,7 @@ class ServicesSelected extends StatelessWidget {
                     // padding: EdgeInsets.all(3.w),
                     height: 55.w,
                     // width: 115.w,
-                    decoration: BoxDecoration(
-                        color: kashcolor,
-                        borderRadius: BorderRadius.circular(5.w),
-                        border: Border.all(width: 0.3.w)),
+                    decoration: BoxDecoration(color: kashcolor, borderRadius: BorderRadius.circular(5.w), border: Border.all(width: 0.3.w)),
                     child: Column(
                       children: [
                         Padding(
@@ -254,25 +235,20 @@ class ServicesSelected extends StatelessWidget {
                                               height: 280.w,
                                               width: 300.w,
                                               decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
+                                                borderRadius: BorderRadius.circular(10),
                                                 color: Colors.white,
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20.0.w,
-                                                    vertical: 20.w),
+                                                padding: EdgeInsets.symmetric(horizontal: 20.0.w, vertical: 20.w),
                                                 child: Center(
                                                   child: Column(
                                                     // mainAxisAlignment:
                                                     //     MainAxisAlignment.center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
                                                     children: [
                                                       // Spacer(),
                                                       GestureDetector(
-                                                          onTap: () =>
-                                                              Get.back(),
+                                                          onTap: () => Get.back(),
                                                           child: Icon(
                                                             Icons.close,
                                                             size: 20.sp,
@@ -282,8 +258,7 @@ class ServicesSelected extends StatelessWidget {
                                                         width: 250.w,
                                                         child: Text(
                                                           aboutService[index],
-                                                          textAlign:
-                                                              TextAlign.justify,
+                                                          textAlign: TextAlign.justify,
                                                         ),
                                                       ),
                                                     ],
@@ -334,12 +309,8 @@ class ServicesSelected extends StatelessWidget {
                         Container(
                           height: 25,
                           decoration: BoxDecoration(
-                            color: selectedServicesList[index]['isSelected'] ==
-                                    true
-                                ? kwhitecolor
-                                : kwhitecolor,
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(5.w)),
+                            color: selectedServicesList[index]['isSelected'] == true ? kwhitecolor : kwhitecolor,
+                            borderRadius: BorderRadius.vertical(bottom: Radius.circular(5.w)),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -355,15 +326,11 @@ class ServicesSelected extends StatelessWidget {
                               //     :
                               selectedServicesList[0]['isRejected'] == true
                                   ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'Rejected',
-                                          style: TextStyle(
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: kredcolor),
+                                          style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: kredcolor),
                                         ),
                                         width5,
                                         Icon(
@@ -373,26 +340,14 @@ class ServicesSelected extends StatelessWidget {
                                         )
                                       ],
                                     )
-                                  : selectedServicesList[index]
-                                              ['isCompleted'] ==
-                                          true
-                                      ? Text('Completed',
-                                          style: TextStyle(
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.bold,
-                                              color: ksuccesscolor))
-                                      : selectedServicesList[index]['isPaid'] ==
-                                              true
+                                  : selectedServicesList[index]['isCompleted'] == true
+                                      ? Text('Completed', style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: ksuccesscolor))
+                                      : selectedServicesList[index]['isPaid'] == true
                                           ? Text(
                                               'Pending',
-                                              style: TextStyle(
-                                                  fontSize: 13.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.red),
+                                              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: Colors.red),
                                             )
-                                          : selectedServicesList[0]
-                                                      ['isAproved'] ==
-                                                  true
+                                          : selectedServicesList[0]['isAproved'] == true
                                               ? amount == 0.0
                                                   ? Text(
                                                       'Not Selected',
@@ -400,22 +355,12 @@ class ServicesSelected extends StatelessWidget {
                                                     )
                                                   : Text(
                                                       'Not paid',
-                                                      style: TextStyle(
-                                                          fontSize: 13.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kyellowcolor),
+                                                      style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: kyellowcolor),
                                                     )
-                                              : selectedServicesList[0]
-                                                          ['isAproved'] ==
-                                                      false
+                                              : selectedServicesList[0]['isAproved'] == false
                                                   ? Text(
                                                       'Not Accepted',
-                                                      style: TextStyle(
-                                                          fontSize: 13.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kyellowcolor),
+                                                      style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: kyellowcolor),
                                                     )
                                                   : const SizedBox(),
                             ],

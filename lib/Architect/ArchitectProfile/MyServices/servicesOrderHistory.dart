@@ -98,6 +98,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                             // print(e);
                             return const SizedBox();
                           }
+                          int serviceIndex = serviceListItems.indexOf(orderData.servicesname);
 
                           String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a").format(orderData.orderDatetime.toDate());
 
@@ -105,7 +106,17 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
 
                           // print(deliveryDate);
 
-                          return StreamBuilder(builder: (context, ordersnapshot) {
+                          return StreamBuilder(
+                              stream: FirebaseFirestore.instance.collection("orderData").doc(orderData.orderUid).snapshots(),
+                              builder: (context, ordersnapshot) {
+
+                                OrderDataModel data;
+                                try {
+                                  data = OrderDataModel.fromJson(ordersnapshot.data!);
+                                } catch (e) {
+                                  print(e);
+                                  return const SizedBox();
+                                }
                             return Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 10.0.w,
@@ -170,48 +181,55 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                       ],
                                     ),
                                     heigh5,
-                                    IgnorePointer(
-                                      ignoring: orderData.isDeliverer,
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kwhitecolor),
-                                            padding: EdgeInsets.only(left: 0.w),
-                                            width: 140.w,
-                                            height: 90.w,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      orderData.servicesname,
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: kprimarycolor),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Column(
-                                                  children: [
-                                                    Text(
-                                                      'Delivery On',
-                                                      style: normal12,
-                                                    ),
-                                                    Text(
-                                                      '${formattedDeliveryDate}',
-                                                      style: normal14,
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment: MainAxisAlignment.center,
-                                                      children: List.generate(5, (changeIndex) {
-                                                        return Padding(
-                                                          padding: EdgeInsets.only(right: 2.w),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kwhitecolor),
+                                          padding: EdgeInsets.only(left: 0.w),
+                                          width: 140.w,
+                                          height: 90.w,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    orderData.servicesname,
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: kprimarycolor),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    'Delivery On',
+                                                    style: normal12,
+                                                  ),
+                                                  Text(
+                                                    '${formattedDeliveryDate}',
+                                                    style: normal14,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: List.generate(serviceIndex == 0 ? 5 : 2, (changeIndex) {
+                                                      return Padding(
+                                                        padding: EdgeInsets.only(right: 2.w),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                          },
                                                           child: Container(
                                                             height: 20,
                                                             width: 20,
                                                             decoration: BoxDecoration(
-                                                              color: changeIndex < 2 ? Colors.green : Colors.grey.shade400,
+                                                              color: data.servicesSelectedModel[serviceIndex]['numberOfchangesDone'] == changeIndex
+                                                                  ? data.servicesSelectedModel[serviceIndex]['isCompleted'] == false
+                                                                  ? Colors.red
+                                                                  : Colors.green
+                                                                  : changeIndex < data.servicesSelectedModel[serviceIndex]['numberOfchangesDone']
+                                                                  ? Colors.green
+                                                                  : Colors.grey.shade400,
                                                               borderRadius: BorderRadius.circular(10),
                                                             ),
                                                             child: Center(
@@ -221,171 +239,171 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                               ),
                                                             ),
                                                           ),
-                                                        );
-                                                      }),
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        width5,
+                                        Container(
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kwhitecolor),
+                                          width: 140.w,
+                                          height: 90.w,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              const Spacer(),
+                                              Text(
+                                                'Recieved Amount',
+                                                style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                'Rs ${orderData.amount.toStringAsFixed(2)}',
+                                                style: bold16,
+                                              ),
+                                              serviceListItems.indexOf(orderData.servicesname) != 9 &&
+                                                      serviceListItems.indexOf(orderData.servicesname) != 10
+                                                  ? orderData.isDeliverer == true
+                                                      ? Text(
+                                                          'Delivered',
+                                                          style: TextStyle(color: Colors.green, fontSize: 14.sp, fontWeight: FontWeight.bold),
+                                                        )
+                                                      : Text(
+                                                          'Not Delivered',
+                                                          style: TextStyle(
+                                                            color: kredcolor,
+                                                            fontSize: 14.sp,
+                                                          ),
+                                                        )
+                                                  : const SizedBox(),
+                                              const Spacer(),
+                                              serviceListItems.indexOf(orderData.servicesname) != 9 &&
+                                                      serviceListItems.indexOf(orderData.servicesname) != 10
+                                                  ? orderData.isDeliverer == false
+                                                      ? GestureDetector(
+                                                          onTap: () {
+                                                            showDialog<void>(
+                                                              context: context,
+                                                              barrierDismissible: false,
+                                                              builder: (BuildContext context) {
+                                                                return AlertDialog(
+                                                                  titlePadding: EdgeInsets.all(0.w),
+                                                                  title: Column(
+                                                                    children: [
+                                                                      UploadWorkFiles(
+                                                                          orderData: orderData,
+                                                                          screenWidth: screenWidth,
+                                                                          orderUid: orderData.orderUid,
+                                                                          requirementList: orderData.requirementData,
+                                                                          serviceIndex: index),
+                                                                    ],
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                              alignment: Alignment.center,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.vertical(
+                                                                    bottom: Radius.circular(5.w),
+                                                                  ),
+                                                                  color: kprimarycolor),
+                                                              width: 140.w,
+                                                              height: 20.w,
+                                                              child: Text(
+                                                                'Upload Files',
+                                                                style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
+                                                              )))
+                                                      : Container(
+                                                          alignment: Alignment.center,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.vertical(
+                                                                bottom: Radius.circular(5.w),
+                                                              ),
+                                                              color: kgreycolor),
+                                                          width: 140.w,
+                                                          height: 20.w,
+                                                          child: Text(
+                                                            'Upload Files',
+                                                            style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
+                                                          ))
+                                                  : GestureDetector(
+                                                      onTap: () async {
+                                                        var mysnap =
+                                                            await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get();
+                                                        OrderDataModel order = OrderDataModel.fromJson(mysnap);
+
+                                                        double destinationLatitude = order.constomerLocation.latitude;
+                                                        double destinationLongitude = order.constomerLocation.longitude;
+                                                        openGoogleMapsApp(destinationLatitude, destinationLongitude);
+                                                      },
+                                                      child: Container(
+                                                          alignment: Alignment.center,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.vertical(
+                                                                bottom: Radius.circular(5.w),
+                                                              ),
+                                                              color: kprimarycolor),
+                                                          width: 140.w,
+                                                          height: 20.w,
+                                                          child: Text(
+                                                            'Direction',
+                                                            style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
+                                                          )),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                              // error starts
+                                            ],
                                           ),
-                                          width5,
-                                          Container(
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kwhitecolor),
-                                            width: 140.w,
-                                            height: 90.w,
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                const Spacer(),
-                                                Text(
-                                                  'Recieved Amount',
-                                                  style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Text(
-                                                  'Rs ${orderData.amount.toStringAsFixed(2)}',
-                                                  style: bold16,
-                                                ),
-                                                serviceListItems.indexOf(orderData.servicesname) != 9 &&
-                                                        serviceListItems.indexOf(orderData.servicesname) != 10
-                                                    ? orderData.isDeliverer == true
-                                                        ? Text(
-                                                            'Delivered',
-                                                            style: TextStyle(color: Colors.green, fontSize: 14.sp, fontWeight: FontWeight.bold),
-                                                          )
-                                                        : Text(
-                                                            'Not Delivered',
-                                                            style: TextStyle(
-                                                              color: kredcolor,
-                                                              fontSize: 14.sp,
-                                                            ),
-                                                          )
-                                                    : const SizedBox(),
-                                                const Spacer(),
-                                                serviceListItems.indexOf(orderData.servicesname) != 9 &&
-                                                        serviceListItems.indexOf(orderData.servicesname) != 10
-                                                    ? orderData.isDeliverer == false
-                                                        ? GestureDetector(
-                                                            onTap: () {
-                                                              showDialog<void>(
-                                                                context: context,
-                                                                barrierDismissible: false,
-                                                                builder: (BuildContext context) {
-                                                                  return AlertDialog(
-                                                                    titlePadding: EdgeInsets.all(0.w),
-                                                                    title: Column(
-                                                                      children: [
-                                                                        UploadWorkFiles(
-                                                                            orderData: orderData,
-                                                                            screenWidth: screenWidth,
-                                                                            orderUid: orderData.orderUid,
-                                                                            requirementList: orderData.requirementData,
-                                                                            serviceIndex: index),
-                                                                      ],
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              );
-                                                            },
-                                                            child: Container(
-                                                                alignment: Alignment.center,
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.vertical(
-                                                                      bottom: Radius.circular(5.w),
-                                                                    ),
-                                                                    color: kprimarycolor),
-                                                                width: 140.w,
-                                                                height: 20.w,
-                                                                child: Text(
-                                                                  'Upload Files',
-                                                                  style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
-                                                                )))
-                                                        : Container(
-                                                            alignment: Alignment.center,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.vertical(
-                                                                  bottom: Radius.circular(5.w),
-                                                                ),
-                                                                color: kgreycolor),
-                                                            width: 140.w,
-                                                            height: 20.w,
-                                                            child: Text(
-                                                              'Upload Files',
-                                                              style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
-                                                            ))
-                                                    : GestureDetector(
-                                                        onTap: () async {
-                                                          var mysnap =
-                                                              await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get();
-                                                          OrderDataModel order = OrderDataModel.fromJson(mysnap);
+                                        ),
+                                        const Spacer(),
+                                        Container(
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kashcolor),
+                                          width: 60.w,
+                                          height: 90.w,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  var userdata =
+                                                      await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get();
 
-                                                          double destinationLatitude = order.constomerLocation.latitude;
-                                                          double destinationLongitude = order.constomerLocation.longitude;
-                                                          openGoogleMapsApp(destinationLatitude, destinationLongitude);
-                                                        },
-                                                        child: Container(
-                                                            alignment: Alignment.center,
-                                                            decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.vertical(
-                                                                  bottom: Radius.circular(5.w),
-                                                                ),
-                                                                color: kprimarycolor),
-                                                            width: 140.w,
-                                                            height: 20.w,
-                                                            child: Text(
-                                                              'Direction',
-                                                              style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
-                                                            )),
-                                                      ),
-                                                // error starts
-                                              ],
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Container(
-                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kashcolor),
-                                            width: 60.w,
-                                            height: 90.w,
-                                            child: Column(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    var userdata =
-                                                        await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get();
-
-                                                    if (!await launchUrl(Uri.parse('tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
-                                                      throw Exception('Could not launch');
-                                                    }
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.call,
-                                                    color: Color.fromARGB(255, 0, 140, 255),
-                                                  ),
+                                                  if (!await launchUrl(Uri.parse('tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
+                                                    throw Exception('Could not launch');
+                                                  }
+                                                },
+                                                child: const Icon(
+                                                  Icons.call,
+                                                  color: Color.fromARGB(255, 0, 140, 255),
                                                 ),
-                                                // heigh5,
-                                                GestureDetector(
-                                                  onTap: () async {
-                                                    var userdata =
-                                                        await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get();
-                                                    if (!await launchUrl(
-                                                        Uri.parse('whatsapp://send?phone=+91${userdata['ProfileDetails']['mobileNumber']}'))) {
-                                                      throw Exception('Could not launch');
-                                                    }
-                                                  },
-                                                  child: FaIcon(
-                                                    FontAwesomeIcons.whatsapp,
-                                                    size: 24.sp,
-                                                    color: ksuccesscolor,
-                                                  ),
+                                              ),
+                                              // heigh5,
+                                              GestureDetector(
+                                                onTap: () async {
+                                                  var userdata =
+                                                      await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get();
+                                                  if (!await launchUrl(
+                                                      Uri.parse('whatsapp://send?phone=+91${userdata['ProfileDetails']['mobileNumber']}'))) {
+                                                    throw Exception('Could not launch');
+                                                  }
+                                                },
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.whatsapp,
+                                                  size: 24.sp,
+                                                  color: ksuccesscolor,
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),

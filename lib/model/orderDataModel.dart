@@ -7,7 +7,7 @@ class OrderDataModel {
   String houseType;
   Map houseArea;
   String houseFacing;
-  List serviceRateamountList;
+  List servicesSelectedModel;
   List requirementData;
   Map averageAreaDimension;
   Map requestList;
@@ -26,7 +26,7 @@ class OrderDataModel {
         required this.houseType,
         required this.houseArea,
         required this.houseFacing,
-        required this.serviceRateamountList,
+        required this.servicesSelectedModel,
         required this.requirementData,
         required this.requestList,
         required this.averageAreaDimension,
@@ -46,7 +46,7 @@ class OrderDataModel {
     'houseType': houseType,
     'houseArea': houseArea,
     'houseFacing': houseFacing,
-    'servicesSelectedModel': serviceRateamountList,
+    'servicesSelectedModel': servicesSelectedModel,
     'requirementData': requirementData,
     'averageAreaDimension': averageAreaDimension,
     'requestList': requestList,
@@ -67,7 +67,7 @@ class OrderDataModel {
     houseType: json['houseType'],
     houseArea: json['houseArea'],
     houseFacing: json['houseFacing'],
-    serviceRateamountList: json['servicesSelectedModel'],
+    servicesSelectedModel: json['servicesSelectedModel'],
     requirementData: json['requirementData'],
     averageAreaDimension: json['averageAreaDimension'],
     requestList: json['requestList'],

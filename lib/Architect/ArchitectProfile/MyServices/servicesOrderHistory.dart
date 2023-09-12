@@ -65,8 +65,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                   textAlign: TextAlign.center,
                 ),
                 heigh10,
-                orderHistoryLength == 0
-                    ? Container(
+                if (orderHistoryLength == 0) Container(
                         child: Center(
                           child: Column(
                             children: [
@@ -85,8 +84,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                             ],
                           ),
                         ),
-                      )
-                    : ListView.separated(
+                      ) else ListView.separated(
                         shrinkWrap: true,
                         physics: const ScrollPhysics(),
                         itemBuilder: (context, index) {
@@ -223,11 +221,11 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                             height: 20,
                                                             width: 20,
                                                             decoration: BoxDecoration(
-                                                              color: data.servicesSelectedModel[serviceIndex]['numberOfchangesDone'] == changeIndex
-                                                                  ? data.servicesSelectedModel[serviceIndex]['isCompleted'] == false
+                                                              color: orderData.numberOfchangesDone == changeIndex
+                                                                  ? orderData.isDeliverer == false
                                                                   ? Colors.red
                                                                   : Colors.green
-                                                                  : changeIndex < data.servicesSelectedModel[serviceIndex]['numberOfchangesDone']
+                                                                  : changeIndex < orderData.numberOfchangesDone
                                                                   ? Colors.green
                                                                   : Colors.grey.shade400,
                                                               borderRadius: BorderRadius.circular(10),
@@ -258,15 +256,32 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               const Spacer(),
-                                              Text(
-                                                'Recieved Amount',
-                                                style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              Text(
-                                                'Rs ${orderData.amount.toStringAsFixed(2)}',
-                                                style: bold16,
-                                              ),
+                                               orderData.numberOfchangesDone==0? Column(
+                                                children: [
+                                                  Text(
+                                                    'Recieved Amount',
+                                                    style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  Text(
+                                                    'Rs ${orderData.amount.toStringAsFixed(2)}',
+                                                    style: bold16,
+                                                  ),
+                                                ],
+                                              ):Column(
+                                                 children: [
+                                                   Text(
+                                                     'Recieved',
+                                                     style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
+                                                     textAlign: TextAlign.center,
+                                                   ),
+                                                   Text(
+                                                     'Change',
+                                                     style: bold16,
+                                                   ),
+                                                 ],
+                                               ),
+
                                               serviceListItems.indexOf(orderData.servicesname) != 9 &&
                                                       serviceListItems.indexOf(orderData.servicesname) != 10
                                                   ? orderData.isDeliverer == true

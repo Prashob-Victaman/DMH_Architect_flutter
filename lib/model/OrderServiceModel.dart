@@ -18,6 +18,9 @@ class OrderServiceModel {
   var deliveryDate;
   double amount;
   bool isDeliverer;
+  int numberOfchangesDone;
+
+
 
   OrderServiceModel(
       {required this.architectName,
@@ -38,7 +41,8 @@ class OrderServiceModel {
         required this.orderUid,
         required this.deliveryDate,
         required this.amount,
-        required this.isDeliverer
+        required this.isDeliverer,
+        required this.numberOfchangesDone
       });
 
   Map<String, dynamic> toJson() => {
@@ -60,7 +64,8 @@ class OrderServiceModel {
     'orderUid': orderUid,
     'deliveryDate': deliveryDate,
     'amount':amount,
-    'isDeliverer':isDeliverer
+    'isDeliverer':isDeliverer,
+    'numberOfchangesDone':numberOfchangesDone
   };
 
   factory OrderServiceModel.fromJson(json) => OrderServiceModel(
@@ -82,6 +87,7 @@ class OrderServiceModel {
       orderUid: json['orderUid'],
       deliveryDate: json['deliveryDate'],
       amount:json['amount'],
-      isDeliverer:json['isDeliverer']
+      isDeliverer:json['isDeliverer'],
+      numberOfchangesDone:json['numberOfchangesDone']
   );
 }

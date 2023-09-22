@@ -11,7 +11,7 @@
 // import 'package:get/get.dart';
 // import 'package:intl/intl.dart';
 // import 'package:url_launcher/url_launcher.dart';
-
+//
 // class CustomerOrders extends StatelessWidget {
 //   // OrderDataModel orderData;
 //   String orderUid;
@@ -23,20 +23,20 @@
 //     required this.orderUid,
 //     required this.customerUid,
 //   });
-
+//
 //   // List isaAproved = [true, false, true, false];
 //   // List isaCompleted = [true, false, false, false];
 //   // List selectedServiceListfiltered = [];
-
+//
 //   TextEditingController deliveryDateController = TextEditingController();
-
+//
 //   final formKeydeliveryDate = GlobalKey<FormState>();
 //   final orderController = Get.put(OrderController());
-
+//
 //   @override
 //   Widget build(BuildContext context) {
 //     // String updatedOrderUid = orderUid;
-
+//
 //     // for (var item in selectedServicesList) {
 //     //   if (item['isSelected'] == true) {
 //     //     selectedServiceListfiltered.add(item);
@@ -55,14 +55,14 @@
 //                 return const Center(child: CircularProgressIndicator());
 //               }
 //               // final DesignList = snapshot.data!['myDesigns'];
-
+//
 //               final orderData = OrderDataModel.fromJson(snapshot.data!);
-
+//
 //               String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a")
 //                   .format(orderData.orderDatetime.toDate());
-
-//               List selectedServicesList = orderData.serviceRateamount;
-
+//
+//               List selectedServicesList = orderData.servicesSelectedModel;
+//
 //               return ListView(
 //                 children: [
 //                   Row(
@@ -161,7 +161,7 @@
 //                                                                               ksuccesscolor)),
 //                                                               onPressed: () {
 //                                                                 // print(index);
-
+//
 //                                                                 if (selectedServicesList[index]
 //                                                                             [
 //                                                                             'isAproved'] ==
@@ -508,9 +508,9 @@
 //                                                         ],
 //                                                       ),
 //                                                 const Spacer(),
-
+//
 //                                                 // error starts
-
+//
 //                                                 GestureDetector(
 //                                                   onTap: () async {
 //                                                     if (selectedServicesList[
@@ -528,7 +528,7 @@
 //                                                           orderController
 //                                                               .fetchPlanningfile(
 //                                                                   index);
-
+//
 //                                                           showDialog<void>(
 //                                                             context: context,
 //                                                             builder:
@@ -566,32 +566,32 @@
 //                                                                                 () async {
 //                                                                               if (orderController.floorplanUrl[index] != null) {
 //                                                                                 final documentReference = await FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid);
-
+//
 //                                                                                 await documentReference.update({
 //                                                                                   'dashboardData.deliveredServices': FieldValue.increment(1),
 //                                                                                 });
 //                                                                                 await FirebaseFirestore.instance.collection('orderData').doc(orderUid!).get().then((documentSnapshot) {
 //                                                                                   if (documentSnapshot.exists) {
 //                                                                                     Map<String, dynamic>? documentData = documentSnapshot.data();
-
+//
 //                                                                                     // Modify the desired string value
 //                                                                                     documentData!['servicesSelectedModel'][index]['planurl'] = orderController.floorplanUrl[index];
-
+//
 //                                                                                     documentData['servicesSelectedModel'][index]['isCompleted'] = true;
-
+//
 //                                                                                     // Update the document with the modified array
 //                                                                                     FirebaseFirestore.instance.collection('orderData').doc(orderUid!).set(documentData).then((value) => print('Value updated successfully.')).catchError((error) => print('Error updating value: $error'));
-
+//
 //                                                                                     orderController.flooplan[index] = null;
 //                                                                                     orderController.floorplanUrl[index] = null;
-
+//
 //                                                                                     // print(widget.architectUid);
 //                                                                                   } else {
 //                                                                                     print('Document does not exist.');
 //                                                                                   }
 //                                                                                   orderController.floorplanUrl[index] = null;
 //                                                                                 });
-
+//
 //                                                                                 Get.back();
 //                                                                               } else {
 //                                                                                 Fluttertoast.showToast(msg: 'Loading... Please Wait');
@@ -716,7 +716,7 @@
 //                                                           ),
 //                                                   ),
 //                                                 )
-
+//
 //                                                 //error ends here
 //                                               ],
 //                                             ),
@@ -742,7 +742,7 @@
 //                                                                 'UserData')
 //                                                             .doc(customerUid)
 //                                                             .get();
-
+//
 //                                                     if (!await launchUrl(Uri.parse(
 //                                                         'tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
 //                                                       throw Exception(
@@ -803,7 +803,7 @@
 //       ),
 //     );
 //   }
-
+//
 //   Future<void> cofirmationPopup(BuildContext context, String title) {
 //     return showDialog<void>(
 //       context: context,
@@ -834,7 +834,7 @@
 //                         //     .collection("order")
 //                         //     .doc(orderId)
 //                         //     .update({field: value});
-
+//
 //                         Get.back();
 //                       },
 //                       child: Container(
@@ -873,7 +873,7 @@
 //       },
 //     );
 //   }
-
+//
 //   Future<void> orderConfirmationPopup(
 //     BuildContext context,
 //     String title,
@@ -910,12 +910,12 @@
 //                             .instance
 //                             .collection('ArchitectData')
 //                             .doc(FirebaseAuth.instance.currentUser!.uid);
-
+//
 //                         await documentReference.update({
 //                           'dashboardData.rejectedServicesCount':
 //                               FieldValue.increment(1),
 //                         });
-
+//
 //                         await FirebaseFirestore.instance
 //                             .collection('orderData')
 //                             .doc(orderUid)
@@ -924,11 +924,11 @@
 //                           if (documentSnapshot.exists) {
 //                             Map<String, dynamic>? documentData =
 //                                 documentSnapshot.data();
-
+//
 //                             // Modify the desired string value
 //                             documentData!['servicesSelectedModel'][index]
 //                                 [field] = value;
-
+//
 //                             // Update the document with the modified array
 //                             FirebaseFirestore.instance
 //                                 .collection('orderData')
@@ -942,12 +942,12 @@
 //                             print('Document does not exist.');
 //                           }
 //                         });
-
+//
 //                         // await FirebaseFirestore.instance
 //                         //     .collection("order")
 //                         //     .doc(orderUid!)
 //                         //     .update({'servicesSelectedModel': value});
-
+//
 //                         Get.back();
 //                       },
 //                       child: Container(
@@ -986,7 +986,7 @@
 //       },
 //     );
 //   }
-
+//
 //   Future<void> orderConfirmationAcceptPopup(
 //     BuildContext context,
 //     String title,
@@ -1067,18 +1067,18 @@
 //                     GestureDetector(
 //                       onTap: () async {
 //                         final form = formKeydeliveryDate.currentState;
-
+//
 //                         if (form!.validate()) {
 //                           final documentReference = await FirebaseFirestore
 //                               .instance
 //                               .collection('ArchitectData')
 //                               .doc(FirebaseAuth.instance.currentUser!.uid);
-
+//
 //                           await documentReference.update({
 //                             'dashboardData.acceptedServicesCount':
 //                                 FieldValue.increment(1),
 //                           });
-
+//
 //                           await FirebaseFirestore.instance
 //                               .collection('orderData')
 //                               .doc(orderUid!)
@@ -1087,15 +1087,15 @@
 //                             if (documentSnapshot.exists) {
 //                               Map<String, dynamic>? documentData =
 //                                   documentSnapshot.data();
-
+//
 //                               // Modify the desired string value
 //                               documentData!['servicesSelectedModel'][index]
 //                                   [field] = value;
-
+//
 //                               documentData['servicesSelectedModel'][index]
 //                                       ['deliveryDate'] =
 //                                   deliveryDateController.text;
-
+//
 //                               // Update the document with the modified array
 //                               FirebaseFirestore.instance
 //                                   .collection('orderData')
@@ -1109,12 +1109,12 @@
 //                               print('Document does not exist.');
 //                             }
 //                           });
-
+//
 //                           // await FirebaseFirestore.instance
 //                           //     .collection("order")
 //                           //     .doc(orderUid!)
 //                           //     .update({'servicesSelectedModel': value});
-
+//
 //                           Get.back();
 //                           deliveryDateController.clear();
 //                         } else

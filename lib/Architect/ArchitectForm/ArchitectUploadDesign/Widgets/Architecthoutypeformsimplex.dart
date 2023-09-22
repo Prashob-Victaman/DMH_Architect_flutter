@@ -1,15 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectForm/SubScreen/plotareadetails.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/ArchitectMyDesign.dart';
-import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/controller/upload%20design/AreaController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../../../Constants/constants.dart';
 import '../../../../controller/upload design/ArchitectAddDesignController.dart';
 import '../../../../controller/upload design/ArchitectUploadDesignController.dart';
@@ -242,9 +238,6 @@ class Architecthoutypeformsimplex extends StatelessWidget {
         //ArchitectFloorDetails(),
         FloorDetails(),
 
-        SizedBox(
-          height: 20.w,
-        ),
         // Container(
         //   child: Row(
         //     children: [
@@ -330,7 +323,7 @@ class submitContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 392.w,
+      // width: 392.w,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -340,8 +333,8 @@ class submitContainer extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.w),
                 color: kwhitecolor,
                 border: Border.all(width: 1.w, color: kprimarycolor)),
-            height: 50.w,
-            width: 161.w,
+            height: 40.w,
+            width: 170.w,
             child: Text('Cancel',
                 style: TextStyle(fontSize: 16.sp, color: kprimarycolor)),
           ),
@@ -383,7 +376,8 @@ class submitContainer extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () async {
                                       List planingImageUrl = [];
-                                      for (var element in getxcontroller.planingImageUrl) {
+                                      for (var element
+                                          in getxcontroller.planingImageUrl) {
                                         if (element != null) {
                                           planingImageUrl.add(element);
                                         }
@@ -503,21 +497,7 @@ class submitContainer extends StatelessWidget {
                                                           ? 'South'
                                                           : 'North',
                                               houseFloors: Floor,
-                                              houseType: getxcontroller.selectedHouseType == 0
-                                                  ? 'Simplex'
-                                                  : getxcontroller.selectedHouseType == 1
-                                                      ? 'Duplex'
-                                                      : getxcontroller.selectedHouseType == 2
-                                                          ? 'Triplex'
-                                                          : getxcontroller.selectedHouseType == 3
-                                                              ? 'Appartment'
-                                                              : getxcontroller.selectedHouseType == 4
-                                                                  ? 'Hotel'
-                                                                  : getxcontroller.selectedHouseType == 5
-                                                                      ? 'Restaurant'
-                                                                      : getxcontroller.selectedHouseType == 6
-                                                                          ? 'Botique'
-                                                                          : 'Shopping Mall',
+                                              houseType: housedesignname[getxcontroller.selectedHouseType],
                                               houseArea: {
                                                 'length':
                                                     houseAreaLengthController
@@ -539,9 +519,11 @@ class submitContainer extends StatelessWidget {
                                       // getxcontroller
                                       //     .exteriorisLoading[index] = false;
 
-                                      print(getxcontroller.exteriorimgurlList[1]);
+                                      print(
+                                          getxcontroller.exteriorimgurlList[1]);
 
-                                      GetUploadController.createdlistofitems.clear();
+                                      GetUploadController.createdlistofitems
+                                          .clear();
                                       planingFileNameList.clear();
                                       planingFilePriceList.clear();
                                       planingImageUrl.clear();
@@ -557,7 +539,7 @@ class submitContainer extends StatelessWidget {
                                     },
                                     child: Container(
                                       height: 30.w,
-                                      width: 121.w,
+                                      width: 141.w,
                                       decoration: const BoxDecoration(
                                           color: kprimarycolor),
                                       child: Center(
@@ -574,7 +556,7 @@ class submitContainer extends StatelessWidget {
                                     onTap: () => Get.back(),
                                     child: Container(
                                       height: 30.w,
-                                      width: 121.w,
+                                      width: 141.w,
                                       decoration: BoxDecoration(
                                           color: kwhitecolor,
                                           border:
@@ -603,8 +585,8 @@ class submitContainer extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.w),
                     color: kprimarycolor),
-                height: 50.w,
-                width: 161.w,
+                height: 40.w,
+                width: 170.w,
                 child: Text('Upload',
                     style: TextStyle(fontSize: 16.sp, color: kwhitecolor)),
               ),

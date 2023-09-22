@@ -2,7 +2,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 const mapApiKey = 'AIzaSyAmgLwURGoVlz44yEyVg3TfngRyHfYnvQw';
 const kprimarycolor = Color.fromARGB(255, 255, 90, 95);
 const kprimarycolor50 = Color.fromARGB(255, 255, 202, 204);
@@ -68,20 +67,37 @@ final normal15 = TextStyle(
   fontSize: 13.sp,
 );
 
-final housedesignname = [
-  'Simplex',
-  'Duplex',
-  'Triplex',
-  'Bunglow',
-  'Lodge/hotel',
-  'Apartment',
-  'Shoping Mall',
-  'School/College',
-  'Hospital',
-  'Hotel',
-  'Restaurent',
-  'Banquet Hall',
-];
+// final housedesignname = [
+//   'Simplex',
+//   'Duplex',
+//   'Triplex',
+//   'Bunglow',
+//   'Lodge/hotel',
+//   'Apartment',
+//   'Shoping Mall',
+//   'School/College',
+//   'Hospital',
+//   'Hotel',
+//   'Restaurent',
+//   'Banquet Hall',
+// ];
+
+   List housedesignname = [
+    'Simplex',
+    'Duplex',
+    'Triplex',
+    'Bungalow',
+    'Apartment',
+    'Shoping Mall',
+    'School',
+    'College',
+    'Hospital',
+    'Hotel',
+    'Restaurant',
+    'Banquet Hall',
+    'Lodge',
+    'Hostel',
+  ];
 
 final houserenewname = [
   'Floor Planing',
@@ -119,6 +135,8 @@ final housedesignimages = [
   'asset/houseimage/hotel.png',
   'asset/houseimage/restarant.png',
   'asset/houseimage/Banguet_Hall.png',
+  'asset/houseimage/restarant.png',
+  'asset/houseimage/Banguet_Hall.png'
 ];
 
 final houserenewimages = [

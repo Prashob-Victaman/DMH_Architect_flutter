@@ -1,5 +1,4 @@
 import 'package:dmh_architect/Architect/ArchitectForm/ArchitectUploadDesign/ArchitectUploadDesign.dart';
-import 'package:dmh_architect/Architect/ArchitectForm/servicerateUpdated.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/MyServices/servicesOrderHistory.dart';
 import 'package:flutter/material.dart';
 import '../../Constants/constants.dart';

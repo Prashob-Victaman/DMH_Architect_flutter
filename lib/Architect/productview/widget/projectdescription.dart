@@ -19,6 +19,9 @@ class ProjectDescription extends StatelessWidget {
 
     // String cdate = DateFormat("dd - MMM - yyyy").format(dateTime);
 
+    double houseArea = double.parse(DesignData.houseArea['area']);
+    int houseFloors = designDataList.length;
+
     return Container(
       child: Column(
         children: [
@@ -30,6 +33,12 @@ class ProjectDescription extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: kprimarycolor,
             ),
+          ),
+          heigh5,
+          ProjectDescriptiontabs(
+            screenwidth: screenwidth,
+            subtitle: DesignData.uid,
+            title: 'Project Id',
           ),
           heigh5,
           ProjectDescriptiontabs(
@@ -46,8 +55,16 @@ class ProjectDescription extends StatelessWidget {
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: DesignData.houseFloors,
+            subtitle: designDataList.length == 0
+                ? DesignData.houseFloors
+                : '${designDataList.length} Floor',
             title: 'House Floor',
+          ),
+          heigh5,
+          ProjectDescriptiontabs(
+            screenwidth: screenwidth,
+            subtitle: DesignData.houseFacing,
+            title: 'House Facing',
           ),
           heigh5,
           ProjectDescriptiontabs(
@@ -65,6 +82,14 @@ class ProjectDescription extends StatelessWidget {
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
             subtitle: '${DesignData.houseArea['area']} Sqft',
+            title: 'Total House Plinth area ',
+          ),
+          heigh5,
+          ProjectDescriptiontabs(
+            screenwidth: screenwidth,
+            subtitle: '${(houseArea * houseFloors).toStringAsFixed(2)} Sqft',
+
+            // subtitle: '${DesignData.houseArea['area']} Sqft',
             title: 'Total House buildup area ',
           ),
           heigh5,

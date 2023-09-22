@@ -13,19 +13,36 @@ class housedesigngridview extends StatelessWidget {
   });
 
   int count = 1;
-  List itemList = [
+  // List itemList = [
+  //   'Simplex',
+  //   'Duplex',
+  //   'Triplex',
+  //   'Bungalow',
+  //   'LodgeHotel',
+  //   'Apartment',
+  //   'ShopingMall',
+  //   'SchoolCollege',
+  //   'Hospital',
+  //   'Hotel',
+  //   'Restarent',
+  //   'BanquetHall'
+  // ];
+
+   List itemList = [
     'Simplex',
     'Duplex',
     'Triplex',
     'Bungalow',
-    'LodgeHotel',
     'Apartment',
-    'ShopingMall',
-    'SchoolCollege',
+    'Shoping Mall',
+    'School',
+    'College',
     'Hospital',
     'Hotel',
-    'Restarent',
-    'BanquetHall'
+    'Restaurant',
+    'Banquet Hall',
+    'Lodge',
+    'Hostel',
   ];
 
   // List<dynamic> SimplexList = [];
@@ -65,7 +82,7 @@ class housedesigngridview extends StatelessWidget {
               shrinkWrap: true,
               childAspectRatio: 1.2,
               crossAxisCount: 3,
-              children: List.generate(12, (index) {
+              children: List.generate(14, (index) {
                 return GestureDetector(
                   onTap: () => Get.to(() => houseDesignInnerPage(
                     CategoryData: separatedData[itemList[index]] ?? [],

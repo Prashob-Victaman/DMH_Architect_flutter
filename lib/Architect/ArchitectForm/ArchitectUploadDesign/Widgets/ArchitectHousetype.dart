@@ -19,7 +19,7 @@ class ArchitectHouseType extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.w),
           border: Border.all(width: 1.w, color: kgreycolor)),
-      child: GetBuilder<ArchitectAddDesignController>(builder: (context) {
+      child: GetBuilder<ArchitectAddDesignController>(builder: (getadata) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,119 +34,225 @@ class ArchitectHouseType extends StatelessWidget {
                 GestureDetector(
                   onTap: () => getcontroller.addDesignHouseTYpe(0),
                   child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 0
+                    backroundcolor: getadata.selectedHouseType == 0
                         ? kprimarycolor
                         : kwhitecolor,
-                    textcolor: context.selectedHouseType == 0
+                    textcolor: getadata.selectedHouseType == 0
                         ? kwhitecolor
                         : kblackcolor,
-                    title: 'Simplex',
+                    title: housedesignname[0],
                   ),
                 ),
-                SizedBox(width: 10.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
                 GestureDetector(
                   onTap: () => getcontroller.addDesignHouseTYpe(1),
                   child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 1
+                    backroundcolor: getadata.selectedHouseType == 1
                         ? kprimarycolor
                         : kwhitecolor,
-                    textcolor: context.selectedHouseType == 1
+                    textcolor: getadata.selectedHouseType == 1
                         ? kwhitecolor
                         : kblackcolor,
-                    title: 'Duplex',
+                    title: housedesignname[1],
                   ),
                 ),
-                SizedBox(width: 10.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
                 GestureDetector(
                   onTap: () => getcontroller.addDesignHouseTYpe(2),
                   child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 2
+                    backroundcolor: getadata.selectedHouseType == 2
                         ? kprimarycolor
                         : kwhitecolor,
-                    textcolor: context.selectedHouseType == 2
+                    textcolor: getadata.selectedHouseType == 2
                         ? kwhitecolor
                         : kblackcolor,
-                    title: 'Triplex',
+                    title: housedesignname[2],
                   ),
                 ),
-
               ],
             ),
-            heigh20,
-            Row(
-              mainAxisAlignment:  MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => getcontroller.addDesignHouseTYpe(4),
-                  child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 4
-                        ? kprimarycolor
-                        : kwhitecolor,
-                    textcolor: context.selectedHouseType == 4
-                        ? kwhitecolor
-                        : kblackcolor,
-                    title: 'Hotel',
-                  ),
-                ),
-                SizedBox(width: 10.w,),
-                GestureDetector(
-                  onTap: () => getcontroller.addDesignHouseTYpe(5),
-                  child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 5
-                        ? kprimarycolor
-                        : kwhitecolor,
-                    textcolor: context.selectedHouseType == 5
-                        ? kwhitecolor
-                        : kblackcolor,
-                    title: 'Restaurant',
-                  ),
-                ),
-                SizedBox(width: 10.w,),
-                GestureDetector(
-                  onTap: () => getcontroller.addDesignHouseTYpe(6),
-                  child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 6
-                        ? kprimarycolor
-                        : kwhitecolor,
-                    textcolor: context.selectedHouseType == 6
-                        ? kwhitecolor
-                        : kblackcolor,
-                    title: 'Botique',
-                  ),
-                ),
-
-              ],
-            ),
-            heigh20,
+            heigh10,
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(width: 20.w,),
                 GestureDetector(
                   onTap: () => getcontroller.addDesignHouseTYpe(3),
                   child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 3
+                    backroundcolor: getadata.selectedHouseType == 3
                         ? kprimarycolor
                         : kwhitecolor,
-                    textcolor: context.selectedHouseType == 3
+                    textcolor: getadata.selectedHouseType == 3
                         ? kwhitecolor
                         : kblackcolor,
-                    title: 'Appartment',
+                    title: housedesignname[3],
                   ),
                 ),
-                SizedBox(width: 20.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(4),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 4
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 4
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[4],
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(5),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 5
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 5
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[5],
+                  ),
+                ),
+              ],
+            ),
+                        heigh10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(6),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 6
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 6
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[6],
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
                 GestureDetector(
                   onTap: () => getcontroller.addDesignHouseTYpe(7),
                   child: housetypebutton(
-                    backroundcolor: context.selectedHouseType == 7
+                    backroundcolor: getadata.selectedHouseType == 7
                         ? kprimarycolor
                         : kwhitecolor,
-                    textcolor: context.selectedHouseType == 7
+                    textcolor: getadata.selectedHouseType == 7
                         ? kwhitecolor
                         : kblackcolor,
-                    title: 'Shoping Mall',
+                    title: housedesignname[7],
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(8),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 8
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 8
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[8],
                   ),
                 )
+              ],
+            ),
+            heigh10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(9),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 9
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 9
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[9],
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(10),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 10
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 10
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[10],
+                  ),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(11),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 11
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 11
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[11],
+                  ),
+                )
+              ],
+            ),
+            heigh10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 20.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(12),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 12
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 12
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[12],
+                  ),
+                ),
+                SizedBox(
+                  width: 20.w,
+                ),
+                GestureDetector(
+                  onTap: () => getcontroller.addDesignHouseTYpe(13),
+                  child: housetypebutton(
+                    backroundcolor: getadata.selectedHouseType == 13
+                        ? kprimarycolor
+                        : kwhitecolor,
+                    textcolor: getadata.selectedHouseType == 13
+                        ? kwhitecolor
+                        : kblackcolor,
+                    title: housedesignname[13],
+                  ),
+                ),
               ],
             )
           ],
@@ -155,8 +261,6 @@ class ArchitectHouseType extends StatelessWidget {
     );
   }
 }
-
-
 
 class housetypebutton extends StatelessWidget {
   String title;
@@ -182,7 +286,7 @@ class housetypebutton extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: TextStyle(fontSize: 13.sp, color: textcolor),
+          style: TextStyle(fontSize: 12.sp, color: textcolor),
         ),
       ),
     );

@@ -24,11 +24,14 @@ class HomepageProjectDescription extends StatelessWidget {
 
     var designDataList = DesignData[index]['floordetails'];
 
-     double constructionCost =
+    double constructionCost =
         double.parse(DesignData[index]['aproximateConstructionCost']);
 
     var arrangedconstructionCost =
         NumberFormat("#,##,###.0#", "en_US").format(constructionCost);
+
+    double houseArea = double.parse(DesignData[index]['houseArea']['area']);
+    int houseFloors = designDataList.length;
 
     return Container(
       child: Column(
@@ -45,6 +48,13 @@ class HomepageProjectDescription extends StatelessWidget {
           heigh5,
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
+            subtitle: DesignData[index]['uid'],
+            title: 'Project Id',
+          ),
+
+          heigh5,
+          ProjectDescriptiontabs(
+            screenwidth: screenwidth,
             subtitle: DesignData[index]['designType'],
             title: 'Design Type',
           ),
@@ -55,9 +65,18 @@ class HomepageProjectDescription extends StatelessWidget {
             title: 'House Type',
           ),
           heigh5,
+
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
-            subtitle: DesignData[index]['houseFloors'],
+            subtitle: DesignData[index]['houseFacing'],
+            title: 'House Facing',
+          ),
+          heigh5,
+          ProjectDescriptiontabs(
+            screenwidth: screenwidth,
+            subtitle: designDataList.length == 0
+                ? DesignData[index]['houseFloors']
+                : '${designDataList.length} Floor',
             title: 'House Floor',
           ),
 
@@ -77,8 +96,16 @@ class HomepageProjectDescription extends StatelessWidget {
           ProjectDescriptiontabs(
             screenwidth: screenwidth,
             subtitle: '${DesignData[index]['houseArea']['area']} Sqft',
+            title: 'Total House Plinth area ',
+          ),
+          heigh5,
+
+          ProjectDescriptiontabs(
+            screenwidth: screenwidth,
+            subtitle: '${(houseArea * houseFloors).toStringAsFixed(2)} Sqft',
             title: 'Total House buildup area ',
           ),
+
           heigh5,
 
           ProjectDescriptiontabs(

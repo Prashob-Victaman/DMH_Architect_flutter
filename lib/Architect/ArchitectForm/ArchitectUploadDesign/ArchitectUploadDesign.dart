@@ -290,7 +290,8 @@ class ArchitectUploadDesign extends StatelessWidget {
                                     GestureDetector(
                                       onTap: () {
                                         Getdata.uploadfloorfileimage(index);
-                                        getcontroller.changefloorisLoading(index);
+                                        getcontroller
+                                            .changefloorisLoading(index);
                                       },
                                       child: Getdata.floorimgXFileList[index] !=
                                               null
@@ -409,9 +410,78 @@ class ArchitectUploadDesign extends StatelessWidget {
                                           formKey: formKey,
                                           projectDetailsController:
                                               projectDetailsController)
-                                      : SizedBox(
-                                          height: 1000.w,
-                                        ),
+                                      : getdata.selectedHouseType == 3
+                                          ? Architecthoutypeformsimplex(
+                                              Floor: '1 Floor',
+                                              formKey: formKey,
+                                              projectDetailsController:
+                                                  projectDetailsController)
+                                          : getdata.selectedHouseType == 4
+                                              ? Architecthoutypeformsimplex(
+                                                  Floor: '1 Floor',
+                                                  formKey: formKey,
+                                                  projectDetailsController:
+                                                      projectDetailsController)
+                                              : getdata.selectedHouseType == 5
+                                                  ? Architecthoutypeformsimplex(
+                                                      Floor: '1 Floor',
+                                                      formKey: formKey,
+                                                      projectDetailsController:
+                                                          projectDetailsController)
+                                                  : getdata.selectedHouseType ==
+                                                          6
+                                                      ? Architecthoutypeformsimplex(
+                                                          Floor: '1 Floor',
+                                                          formKey: formKey,
+                                                          projectDetailsController:
+                                                              projectDetailsController)
+                                                      : getdata.selectedHouseType ==
+                                                              7
+                                                          ? Architecthoutypeformsimplex(
+                                                              Floor: '1 Floor',
+                                                              formKey: formKey,
+                                                              projectDetailsController:
+                                                                  projectDetailsController)
+                                                          : getdata.selectedHouseType ==
+                                                                  8
+                                                              ? Architecthoutypeformsimplex(
+                                                                  Floor:
+                                                                      '1 Floor',
+                                                                  formKey:
+                                                                      formKey,
+                                                                  projectDetailsController:
+                                                                      projectDetailsController)
+                                                              : getdata.selectedHouseType ==
+                                                                      9
+                                                                  ? Architecthoutypeformsimplex(
+                                                                      Floor:
+                                                                          '1 Floor',
+                                                                      formKey:
+                                                                          formKey,
+                                                                      projectDetailsController:
+                                                                          projectDetailsController)
+                                                                  : getdata.selectedHouseType ==
+                                                                          10
+                                                                      ? Architecthoutypeformsimplex(
+                                                                          Floor:
+                                                                              '1 Floor',
+                                                                          formKey:
+                                                                              formKey,
+                                                                          projectDetailsController:
+                                                                              projectDetailsController)
+                                                                      : getdata.selectedHouseType ==
+                                                                              11
+                                                                          ? Architecthoutypeformsimplex(
+                                                                              Floor: '1 Floor',
+                                                                              formKey: formKey,
+                                                                              projectDetailsController: projectDetailsController)
+                                                                          : getdata.selectedHouseType == 12
+                                                                              ? Architecthoutypeformsimplex(Floor: '1 Floor', formKey: formKey, projectDetailsController: projectDetailsController)
+                                                                              : getdata.selectedHouseType == 13
+                                                                                  ? Architecthoutypeformsimplex(Floor: '1 Floor', formKey: formKey, projectDetailsController: projectDetailsController)
+                                                                                  : SizedBox(
+                                                                                      height: 1000.w,
+                                                                                    ),
                         );
                       }),
                     ],

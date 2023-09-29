@@ -118,6 +118,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                 print(e);
                                 return const SizedBox();
                               }
+
                               return Padding(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: 10.0.w,
@@ -213,13 +214,31 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                       style: normal14,
                                                     ),
                                                     serviceIndex == 9 || serviceIndex == 10
-                                                        ? GestureDetector(
-                                                      onTap: ()async{
-                                                        confirmOtp();
-                                                       //finishDirection(index,orderData);
-                                                      },
-                                                      child: Text('Finish'),
-                                                    )
+                                                        ? orderData.isDeliverer
+                                                            ? const Text(
+                                                                'FINISHED',
+                                                                style: TextStyle(color: Colors.grey),
+                                                              )
+                                                            : GestureDetector(
+                                                                onTap: () async {
+                                                                  print(orderData.orderUid);
+                                                                  print(data.servicesSelectedModel[9]['planurl']);
+                                                                  confirmOtp(index, orderData, data.servicesSelectedModel[9]['planurl']['0'][0]);
+                                                                },
+                                                                child: Container(
+                                                                  width: 100.w,
+                                                                  height: 20.w,
+                                                                  decoration:
+                                                                      BoxDecoration(color: kprimarycolor, borderRadius: BorderRadius.circular(6.sp)),
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                      'Verify OTP',
+                                                                      style: TextStyle(color: Colors.white,
+                                                                      fontSize: 12.sp),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
                                                         : Row(
                                                             mainAxisAlignment: MainAxisAlignment.center,
                                                             children: List.generate(serviceIndex == 0 ? 5 : 2, (changeIndex) {
@@ -462,8 +481,8 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
     }
   }
 
-  confirmOtp() {
-
+  confirmOtp(index, OrderServiceModel orderData, ogotp) {
+    TextEditingController otpController = TextEditingController();
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -475,164 +494,127 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
             child: Column(
               children: [
                 Spacer(),
-
                 Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Please Enter OTP to Close this Service',
-                      style: TextStyle(
-                          fontSize: 14.sp,
-                          color: kblackcolor,
-                          fontWeight: FontWeight.bold),
-                    ),),
-                Spacer(),
-            Container(
-              width: 120,
-              height: 30,
-              alignment: Alignment.topCenter,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[300]),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10),
-                child: TextField(
-                  // controller: mobilecontroller,
-                  style: normal16,
-                  textAlignVertical: TextAlignVertical.top,
-                  // controller: mobilecontroller,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 14.w),
-                    hintText: 'Enter OTP',
-                    hintStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                    labelStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
-                    border: InputBorder.none,
-                    // border: const OutlineInputBorder(),
-                    // labelText: 'Email',
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Please Enter OTP to Close this Service',
+                    style: TextStyle(fontSize: 14.sp, color: kblackcolor, fontWeight: FontWeight.bold),
                   ),
-                  keyboardType: TextInputType.number,
                 ),
-              ),
-            ),
+                Spacer(),
+                Container(
+                  width: 120.w,
+                  height: 30.w,
+                  alignment: Alignment.topCenter,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[300]),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: TextField(
+                      controller: otpController,
+                      style: normal16,
+                      textAlignVertical: TextAlignVertical.top,
+                      // controller: mobilecontroller,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.only(bottom: 14.w),
+                        hintText: 'Enter OTP',
+                        hintStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                        border: InputBorder.none,
+                        // border: const OutlineInputBorder(),
+                        // labelText: 'Email',
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ),
                 Spacer(),
                 GestureDetector(
                   onTap: () {
+                    finishDirection(index, orderData, otpController.text, ogotp);
 
-
+                    //print(orderData.toString());
                   },
                   child: Container(
-                    height: 30,
-                    width: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.sp),
-                      color: kprimarycolor
-                    ),
-                    child: const Center(
-                      child: Text('Submit',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.white
-
-                      ),
+                    height: 30.w,
+                    width: 60.w,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.sp), color: kprimarycolor),
+                    child: Center(
+                      child: Text(
+                        'Submit',
+                        style: TextStyle(fontSize: 12.sp, color: Colors.white),
                       ),
                     ),
                   ),
                 ),
                 const Spacer(),
-
-
               ],
             ),
           ),
         );
       },
     );
-
-
-
   }
 
-  finishDirection(index,orderData)async{
+  finishDirection(index, orderData, inputOtp, ogotp) async {
+    if (ogotp == inputOtp) {
+      final documentReference = await FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid);
+      await documentReference.update({'dashboardData.deliveredServices': FieldValue.increment(1)});
 
+      await FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid).get().then((documentSnapshot) {
+        if (documentSnapshot.exists) {
+          Map<String, dynamic>? documentData = documentSnapshot.data();
 
+          // Modify the desired string value
+          documentData!['serviceOrderHistory'][index]['isDeliverer'] = true;
 
-    final documentReference = await FirebaseFirestore.instance
-        .collection('ArchitectData')
-        .doc(FirebaseAuth.instance.currentUser!.uid);
-    await documentReference.update({
-      'dashboardData.deliveredServices': FieldValue.increment(1)
-    });
+          FirebaseFirestore.instance
+              .collection('ArchitectData')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .set(documentData)
+              .then((value) => print('Value updated successfully.1'))
+              .catchError((error) => print('Error updating value: $error'));
+        } else {
+          print('Document does not exist.');
+        }
+      });
+      await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get().then((documentSnapshot) {
+        if (documentSnapshot.exists) {
+          Map<String, dynamic>? documentData = documentSnapshot.data();
 
-    await FirebaseFirestore.instance
-        .collection('ArchitectData')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get()
-        .then((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        Map<String, dynamic>? documentData = documentSnapshot
-            .data();
+          int serviceNameIndex = serviceListItems.indexOf(orderData.servicesname);
+          // print(serviceNameIndex.toString());
 
-        // Modify the desired string value
-        documentData!['serviceOrderHistory'][index]['isDeliverer'] = true;
+          documentData!['servicesSelectedModel'][serviceNameIndex]['requestChange'] = false;
+          documentData['servicesSelectedModel'][serviceNameIndex]['planurl']['0'] = [];
+          documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
+          documentData['servicesSelectedModel'][serviceNameIndex]['isPaid'] = false;
 
-
-        FirebaseFirestore.instance
-            .collection('ArchitectData')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .set(documentData)
-            .then((value) =>
-            print('Value updated successfully.1'))
-            .catchError((error) =>
-            print('Error updating value: $error'));
-      } else {
-        print('Document does not exist.');
-      }
-    });
-    await FirebaseFirestore.instance
-        .collection('orderData')
-        .doc(orderData.orderUid)
-        .get()
-        .then((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        Map<String, dynamic>? documentData = documentSnapshot.data();
-
-        int serviceNameIndex = serviceListItems.indexOf(orderData.servicesname);
-        // print(serviceNameIndex.toString());
-
-        documentData!['servicesSelectedModel'][serviceNameIndex]['requestChange'] = false;
-        documentData['servicesSelectedModel'][serviceNameIndex]['planurl']['0'] =[];
-        documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
-        documentData['servicesSelectedModel'][serviceNameIndex]['isPaid'] = false;
-
-
-        // Update the document with the modified array
-        FirebaseFirestore.instance
-            .collection('orderData')
-            .doc(orderData.orderUid)
-            .set(documentData)
-            .then(
-                (value) => print('Value updated successfully.1'))
-            .catchError((error) =>
-            print('Error updating value: $error'));
-        print(orderData.orderUid);
-        // print(widget.architectUid);
-      } else {
-        print('Document does not exist.');
-      }
-    });
-    // print(orderData.customerUid);
-    await FirebaseFirestore.instance.collection('UserData')
-        .doc(orderData.customerUid)
-        .get().then((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        Map<String, dynamic>? documentData = documentSnapshot.data();
-        costomerOrderUpdated(
-            documentData!['ProfileDetails']['mobileNumber'],
-            documentData!['ProfileDetails']['firstName'] +
-                ' ' +
-                documentData!['ProfileDetails']['lastName'],
-            orderData.orderId
-        );
-        // print('sms sent');
-      }
-    });
-
+          // Update the document with the modified array
+          FirebaseFirestore.instance
+              .collection('orderData')
+              .doc(orderData.orderUid)
+              .set(documentData)
+              .then((value) => print('Value updated successfully.1'))
+              .catchError((error) => print('Error updating value: $error'));
+          print(orderData.orderUid);
+          // print(widget.architectUid);
+        } else {
+          print('Document does not exist.');
+        }
+      });
+      // print(orderData.customerUid);
+      Fluttertoast.showToast(msg: 'OTP verified successfully');
+      Get.back();
+      await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get().then((documentSnapshot) {
+        if (documentSnapshot.exists) {
+          Map<String, dynamic>? documentData = documentSnapshot.data();
+          costomerOrderUpdated(documentData!['ProfileDetails']['mobileNumber'],
+              documentData!['ProfileDetails']['firstName'] + ' ' + documentData!['ProfileDetails']['lastName'], orderData.orderId);
+          // print('sms sent');
+        }
+      });
+    } else {
+      Fluttertoast.showToast(msg: 'Invalid OTP');
+    }
   }
 }

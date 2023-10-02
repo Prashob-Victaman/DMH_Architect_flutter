@@ -62,10 +62,6 @@ class ProfileServicesUpdated extends StatelessWidget {
 
               getXcontroller.serviceRateDataListEditing = serviceRateDataList;
 
-              // print(serviceRateDataList);
-
-              //                 List weightData =
-              // serviceRateData.entries.map( (entry) => Weight(entry.key, entry.value)).toList();
 
               return Padding(
                 padding: const EdgeInsets.all(8.0),

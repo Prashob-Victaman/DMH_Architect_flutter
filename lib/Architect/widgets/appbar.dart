@@ -32,7 +32,7 @@ class appbar extends StatelessWidget {
       title: Container(
           height: 45.w,
           width: 220.w,
-          child: Image.asset('asset/DMH- Logo 6.png')),
+          child: Image.asset('asset/headerLogo.png')),
       actions: [
         GestureDetector(
           onTap: () => Get.to(() => NotificationScreen()),

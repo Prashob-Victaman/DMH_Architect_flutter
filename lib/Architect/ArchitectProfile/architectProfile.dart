@@ -132,6 +132,7 @@ class _ArchitectProfileState extends State<ArchitectProfile> {
                           ),
                           heigh20,
                           TextField(
+                            readOnly: true,
                             controller: phoneNumberController,
                             decoration: InputDecoration(
                                 hintText: data.mobilenumber == ''

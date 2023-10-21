@@ -34,10 +34,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
     return Scaffold(
       body: SafeArea(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('ArchitectData')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .snapshots(),
+          stream: FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasError) {
               return const Center(child: CircularProgressIndicator());
@@ -54,8 +51,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
               if (snapshot.data['serviceOrderHistory'].length == 0) {
                 orderHistoryLength = 0;
               } else {
-                orderHistoryLength =
-                    snapshot.data['serviceOrderHistory'].length;
+                orderHistoryLength = snapshot.data['serviceOrderHistory'].length;
               }
             } catch (e) {
               orderHistoryLength = 0;
@@ -66,10 +62,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                 heigh10,
                 Text(
                   'My Services',
-                  style: TextStyle(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
-                      color: kprimarycolor),
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: kprimarycolor),
                   textAlign: TextAlign.center,
                 ),
                 heigh10,
@@ -102,34 +95,25 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                         index = orderHistoryLength - index - 1;
                         OrderServiceModel orderData;
                         try {
-                          orderData = OrderServiceModel.fromJson(
-                              snapshot.data['serviceOrderHistory'][index]);
+                          orderData = OrderServiceModel.fromJson(snapshot.data['serviceOrderHistory'][index]);
                         } catch (e) {
                           // print(e);
                           return const SizedBox();
                         }
-                        int serviceIndex =
-                            serviceListItems.indexOf(orderData.servicesname);
+                        int serviceIndex = serviceListItems.indexOf(orderData.servicesname);
 
-                        String formatedDate =
-                            DateFormat("dd-MMM-yyyy   hh:mm a")
-                                .format(orderData.orderDatetime.toDate());
+                        String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a").format(orderData.orderDatetime.toDate());
 
-                        String formattedDeliveryDate = DateFormat('yyyy-MM-dd')
-                            .format((orderData.deliveryDate.toDate()));
+                        String formattedDeliveryDate = DateFormat('yyyy-MM-dd').format((orderData.deliveryDate.toDate()));
 
                         // print(deliveryDate);
 
                         return StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("orderData")
-                                .doc(orderData.orderUid)
-                                .snapshots(),
+                            stream: FirebaseFirestore.instance.collection("orderData").doc(orderData.orderUid).snapshots(),
                             builder: (context, ordersnapshot) {
                               OrderDataModel data;
                               try {
-                                data = OrderDataModel.fromJson(
-                                    ordersnapshot.data!);
+                                data = OrderDataModel.fromJson(ordersnapshot.data!);
                               } catch (e) {
                                 print(e);
                                 return const SizedBox();
@@ -146,23 +130,17 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                   ),
                                   padding: EdgeInsets.all(5.w),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Order ID: DMH${orderData.orderId}',
-                                                style: TextStyle(
-                                                    fontSize: 13.sp,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: kblackcolor),
+                                                style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold, color: kblackcolor),
                                               ),
                                               Text(
                                                 '${orderData.customerName}',
@@ -181,15 +159,11 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                               onTap: () {
                                                 Get.to(
                                                   () => OrderHistoryUser(
-                                                    dateTime: orderData
-                                                        .orderDatetime
-                                                        .toDate(),
+                                                    dateTime: orderData.orderDatetime.toDate(),
                                                     orderId: orderData.orderId,
                                                     imageUrlList: [],
-                                                    architectName:
-                                                        orderData.architectName,
-                                                    orderUid:
-                                                        orderData.orderUid,
+                                                    architectName: orderData.architectName,
+                                                    orderUid: orderData.orderUid,
                                                     index: 0,
                                                     orderList: [],
                                                     userUid: '',
@@ -197,21 +171,13 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                 );
                                               },
                                               child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.redAccent,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.sp)),
+                                                decoration: BoxDecoration(color: Colors.redAccent, borderRadius: BorderRadius.circular(5.sp)),
                                                 height: 25.w,
                                                 width: 100.w,
                                                 child: Center(
                                                   child: Text(
                                                     'View Details',
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12.sp),
+                                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12.sp),
                                                   ),
                                                 ),
                                               ),
@@ -223,30 +189,20 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                       Row(
                                         children: [
                                           Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.w),
-                                                color: kwhitecolor),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kwhitecolor),
                                             padding: EdgeInsets.only(left: 0.w),
                                             width: 140.w,
                                             height: 90.w,
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Text(
                                                       orderData.servicesname,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: kprimarycolor),
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold, color: kprimarycolor),
                                                     ),
                                                   ],
                                                 ),
@@ -260,100 +216,55 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                       '${formattedDeliveryDate}',
                                                       style: normal14,
                                                     ),
-                                                    serviceIndex == 9 ||
-                                                            serviceIndex == 10
+                                                    serviceIndex == 9 || serviceIndex == 10
                                                         ? orderData.isDeliverer
                                                             ? const Text(
                                                                 'FINISHED',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .grey),
+                                                                style: TextStyle(color: Colors.grey),
                                                               )
                                                             : GestureDetector(
-                                                                onTap:
-                                                                    () async {
-                                                                  print(orderData
-                                                                      .orderUid);
-                                                                  print(data
-                                                                          .servicesSelectedModel[9]
-                                                                      [
-                                                                      'planurl']);
-                                                                  confirmOtp(
-                                                                      index,
-                                                                      orderData,
-                                                                      data.servicesSelectedModel[9]
-                                                                              [
-                                                                              'planurl']
-                                                                          [
-                                                                          '0'][0]);
+                                                                onTap: () async {
+                                                                  print(orderData.orderUid);
+                                                                  print(data.servicesSelectedModel[9]['planurl']);
+                                                                  confirmOtp(index, orderData, data.servicesSelectedModel[9]['planurl']['0'][0]);
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 100.w,
                                                                   height: 20.w,
-                                                                  decoration: BoxDecoration(
-                                                                      color:
-                                                                          kprimarycolor,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              6.sp)),
+                                                                  decoration:
+                                                                      BoxDecoration(color: kprimarycolor, borderRadius: BorderRadius.circular(6.sp)),
                                                                   child: Center(
                                                                     child: Text(
                                                                       'Verify OTP',
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              12.sp),
+                                                                      style: TextStyle(color: Colors.white, fontSize: 12.sp),
                                                                     ),
                                                                   ),
                                                                 ),
                                                               )
                                                         : Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: List.generate(
-                                                                serviceIndex ==
-                                                                        0
-                                                                    ? 5
-                                                                    : 2,
-                                                                (changeIndex) {
+                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                            children: List.generate(serviceIndex == 0 ? 5 : 2, (changeIndex) {
                                                               return Padding(
-                                                                padding: EdgeInsets
-                                                                    .only(
-                                                                        right: 2
-                                                                            .w),
-                                                                child:
-                                                                    GestureDetector(
+                                                                padding: EdgeInsets.only(right: 2.w),
+                                                                child: GestureDetector(
                                                                   onTap: () {},
-                                                                  child:
-                                                                      Container(
+                                                                  child: Container(
                                                                     height: 20,
                                                                     width: 20,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: orderData.numberOfchangesDone ==
-                                                                              changeIndex
+                                                                    decoration: BoxDecoration(
+                                                                      color: orderData.numberOfchangesDone == changeIndex
                                                                           ? orderData.isDeliverer == false
                                                                               ? Colors.red
                                                                               : Colors.green
                                                                           : changeIndex < orderData.numberOfchangesDone
                                                                               ? Colors.green
                                                                               : Colors.grey.shade400,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
+                                                                      borderRadius: BorderRadius.circular(10),
                                                                     ),
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Text(
+                                                                    child: Center(
+                                                                      child: Text(
                                                                         '${changeIndex + 1}',
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                10.sp,
-                                                                            fontWeight: FontWeight.w600),
+                                                                        style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600),
                                                                       ),
                                                                     ),
                                                                   ),
@@ -368,31 +279,21 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                           ),
                                           width5,
                                           Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.w),
-                                                color: kwhitecolor),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kwhitecolor),
                                             width: 140.w,
                                             height: 90.w,
                                             child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 const Spacer(),
-                                                orderData.numberOfchangesDone ==
-                                                        0
+                                                orderData.numberOfchangesDone == 0
                                                     ? Column(
                                                         children: [
                                                           Text(
                                                             'Recieved Amount',
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                color:
-                                                                    ksuccesscolor),
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                            style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
+                                                            textAlign: TextAlign.center,
                                                           ),
                                                           Text(
                                                             'Rs ${orderData.amount.toStringAsFixed(2)}',
@@ -404,12 +305,8 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                         children: [
                                                           Text(
                                                             'Recieved',
-                                                            style: TextStyle(
-                                                                fontSize: 14.sp,
-                                                                color:
-                                                                    ksuccesscolor),
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                            style: TextStyle(fontSize: 14.sp, color: ksuccesscolor),
+                                                            textAlign: TextAlign.center,
                                                           ),
                                                           Text(
                                                             'Change',
@@ -418,24 +315,12 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                         ],
                                                       ),
 
-                                                serviceListItems.indexOf(orderData
-                                                                .servicesname) !=
-                                                            9 &&
-                                                        serviceListItems.indexOf(
-                                                                orderData
-                                                                    .servicesname) !=
-                                                            10
-                                                    ? orderData.isDeliverer ==
-                                                            true
+                                                serviceListItems.indexOf(orderData.servicesname) != 9 &&
+                                                        serviceListItems.indexOf(orderData.servicesname) != 10
+                                                    ? orderData.isDeliverer == true
                                                         ? Text(
                                                             'Delivered',
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .green,
-                                                                fontSize: 14.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold),
+                                                            style: TextStyle(color: Colors.green, fontSize: 14.sp, fontWeight: FontWeight.bold),
                                                           )
                                                         : Text(
                                                             'Not Delivered',
@@ -446,39 +331,23 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                           )
                                                     : const SizedBox(),
                                                 const Spacer(),
-                                                serviceListItems.indexOf(orderData
-                                                                .servicesname) !=
-                                                            9 &&
-                                                        serviceListItems.indexOf(
-                                                                orderData
-                                                                    .servicesname) !=
-                                                            10
-                                                    ? orderData.isDeliverer ==
-                                                            false
+                                                serviceListItems.indexOf(orderData.servicesname) != 9 &&
+                                                        serviceListItems.indexOf(orderData.servicesname) != 10
+                                                    ? orderData.isDeliverer == false
                                                         ? GestureDetector(
                                                             onTap: () {
                                                               showDialog<void>(
-                                                                context:
-                                                                    context,
-                                                                barrierDismissible:
-                                                                    false,
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
+                                                                context: context,
+                                                                barrierDismissible: false,
+                                                                builder: (BuildContext context) {
                                                                   return AlertDialog(
-                                                                    titlePadding:
-                                                                        EdgeInsets.all(
-                                                                            0.w),
-                                                                    title:
-                                                                        Column(
+                                                                    titlePadding: EdgeInsets.all(0.w),
+                                                                    title: Column(
                                                                       children: [
                                                                         UploadWorkFiles(
-                                                                            orderData:
-                                                                                orderData,
-                                                                            screenWidth:
-                                                                                screenWidth,
-                                                                            orderUid:
-                                                                                orderData.orderUid,
+                                                                            orderData: orderData,
+                                                                            screenWidth: screenWidth,
+                                                                            orderUid: orderData.orderUid,
                                                                             requirementList: orderData.requirementData,
                                                                             serviceIndex: index),
                                                                       ],
@@ -488,114 +357,76 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                               );
                                                             },
                                                             child: Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius
-                                                                                .vertical(
-                                                                          bottom:
-                                                                              Radius.circular(5.w),
-                                                                        ),
-                                                                        color:
-                                                                            kprimarycolor),
+                                                                alignment: Alignment.center,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.vertical(
+                                                                      bottom: Radius.circular(5.w),
+                                                                    ),
+                                                                    color: kprimarycolor),
                                                                 width: 140.w,
                                                                 height: 20.w,
                                                                 child: Text(
                                                                   'Upload Files',
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                          kwhitecolor,
-                                                                      fontSize:
-                                                                          12.sp,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
+                                                                  style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
                                                                 )))
-                                                        : Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .vertical(
-                                                                      bottom: Radius
-                                                                          .circular(
-                                                                              5.w),
+                                                        : GestureDetector(
+                                                            onTap: () {
+                                                              showDialog<void>(
+                                                                context: context,
+                                                                barrierDismissible: false,
+                                                                builder: (BuildContext context) {
+                                                                  return AlertDialog(
+                                                                    titlePadding: EdgeInsets.all(0.w),
+                                                                    title: Column(
+                                                                      children: [
+                                                                        UploadWorkFiles(
+                                                                            orderData: orderData,
+                                                                            screenWidth: screenWidth,
+                                                                            orderUid: orderData.orderUid,
+                                                                            requirementList: orderData.requirementData,
+                                                                            serviceIndex: index),
+                                                                      ],
                                                                     ),
-                                                                    color:
-                                                                        kgreycolor),
-                                                            width: 140.w,
-                                                            height: 20.w,
-                                                            child: Text(
-                                                              'Upload Files',
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      kwhitecolor,
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ))
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                            child: Container(
+                                                                alignment: Alignment.center,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.vertical(
+                                                                      bottom: Radius.circular(5.w),
+                                                                    ),
+                                                                    color: Colors.lightBlue[300]),
+                                                                width: 140.w,
+                                                                height: 20.w,
+                                                                child: Text(
+                                                                  'Edit Files',
+                                                                  style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
+                                                                )),
+                                                          )
                                                     : GestureDetector(
                                                         onTap: () async {
                                                           var mysnap =
-                                                              await FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'orderData')
-                                                                  .doc(orderData
-                                                                      .orderUid)
-                                                                  .get();
-                                                          OrderDataModel order =
-                                                              OrderDataModel
-                                                                  .fromJson(
-                                                                      mysnap);
+                                                              await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get();
+                                                          OrderDataModel order = OrderDataModel.fromJson(mysnap);
 
-                                                          double
-                                                              destinationLatitude =
-                                                              order
-                                                                  .constomerLocation
-                                                                  .latitude;
-                                                          double
-                                                              destinationLongitude =
-                                                              order
-                                                                  .constomerLocation
-                                                                  .longitude;
-                                                          openGoogleMapsApp(
-                                                              destinationLatitude,
-                                                              destinationLongitude);
+                                                          double destinationLatitude = order.constomerLocation.latitude;
+                                                          double destinationLongitude = order.constomerLocation.longitude;
+                                                          openGoogleMapsApp(destinationLatitude, destinationLongitude);
                                                         },
                                                         child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .vertical(
-                                                                      bottom: Radius
-                                                                          .circular(
-                                                                              5.w),
-                                                                    ),
-                                                                    color:
-                                                                        kprimarycolor),
+                                                            alignment: Alignment.center,
+                                                            decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.vertical(
+                                                                  bottom: Radius.circular(5.w),
+                                                                ),
+                                                                color: kprimarycolor),
                                                             width: 140.w,
                                                             height: 20.w,
                                                             child: Text(
                                                               'Direction',
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      kwhitecolor,
-                                                                  fontSize:
-                                                                      12.sp,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
+                                                              style: TextStyle(color: kwhitecolor, fontSize: 12.sp, fontWeight: FontWeight.bold),
                                                             )),
                                                       ),
                                                 // error starts
@@ -604,54 +435,34 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                           ),
                                           const Spacer(),
                                           Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5.w),
-                                                color: kashcolor),
+                                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w), color: kashcolor),
                                             width: 60.w,
                                             height: 90.w,
                                             child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
                                                 GestureDetector(
                                                   onTap: () async {
                                                     var userdata =
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                'UserData')
-                                                            .doc(orderData
-                                                                .customerUid)
-                                                            .get();
+                                                        await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get();
 
-                                                    if (!await launchUrl(Uri.parse(
-                                                        'tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
-                                                      throw Exception(
-                                                          'Could not launch');
+                                                    if (!await launchUrl(Uri.parse('tel:+91${userdata['ProfileDetails']['mobileNumber']}'))) {
+                                                      throw Exception('Could not launch');
                                                     }
                                                   },
                                                   child: const Icon(
                                                     Icons.call,
-                                                    color: Color.fromARGB(
-                                                        255, 0, 140, 255),
+                                                    color: Color.fromARGB(255, 0, 140, 255),
                                                   ),
                                                 ),
                                                 // heigh5,
                                                 GestureDetector(
                                                   onTap: () async {
                                                     var userdata =
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                'UserData')
-                                                            .doc(orderData
-                                                                .customerUid)
-                                                            .get();
-                                                    if (!await launchUrl(Uri.parse(
-                                                        'whatsapp://send?phone=+91${userdata['ProfileDetails']['mobileNumber']}'))) {
-                                                      throw Exception(
-                                                          'Could not launch');
+                                                        await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get();
+                                                    if (!await launchUrl(
+                                                        Uri.parse('whatsapp://send?phone=+91${userdata['ProfileDetails']['mobileNumber']}'))) {
+                                                      throw Exception('Could not launch');
                                                     }
                                                   },
                                                   child: FaIcon(
@@ -685,10 +496,8 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
     );
   }
 
-  void openGoogleMapsApp(
-      double destinationLatitude, double destinationLongitude) async {
-    String googleMapsUrl =
-        "https://www.google.com/maps/search/?api=1&query=$destinationLatitude,$destinationLongitude";
+  void openGoogleMapsApp(double destinationLatitude, double destinationLongitude) async {
+    String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=$destinationLatitude,$destinationLongitude";
 
     if (await canLaunchUrl(Uri.parse(googleMapsUrl))) {
       await launch(googleMapsUrl);
@@ -714,10 +523,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                   alignment: Alignment.center,
                   child: Text(
                     'Please Enter OTP to Close this Service',
-                    style: TextStyle(
-                        fontSize: 14.sp,
-                        color: kblackcolor,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14.sp, color: kblackcolor, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Spacer(),
@@ -725,9 +531,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                   width: 120.w,
                   height: 30.w,
                   alignment: Alignment.topCenter,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey[300]),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[300]),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: TextField(
@@ -738,10 +542,8 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.only(bottom: 14.w),
                         hintText: 'Enter OTP',
-                        hintStyle: TextStyle(
-                            fontSize: 12.sp, fontWeight: FontWeight.bold),
-                        labelStyle: TextStyle(
-                            fontSize: 12.sp, fontWeight: FontWeight.bold),
+                        hintStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
+                        labelStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
                         border: InputBorder.none,
                         // border: const OutlineInputBorder(),
                         // labelText: 'Email',
@@ -753,17 +555,14 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    finishDirection(
-                        index, orderData, otpController.text, ogotp);
+                    finishDirection(index, orderData, otpController.text, ogotp);
 
                     //print(orderData.toString());
                   },
                   child: Container(
                     height: 30.w,
                     width: 60.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.sp),
-                        color: kprimarycolor),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.sp), color: kprimarycolor),
                     child: Center(
                       child: Text(
                         'Submit',
@@ -783,17 +582,10 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
 
   finishDirection(index, orderData, inputOtp, ogotp) async {
     if (ogotp == inputOtp) {
-      final documentReference = await FirebaseFirestore.instance
-          .collection('ArchitectData')
-          .doc(FirebaseAuth.instance.currentUser!.uid);
-      await documentReference
-          .update({'dashboardData.deliveredServices': FieldValue.increment(1)});
+      final documentReference = await FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid);
+      await documentReference.update({'dashboardData.deliveredServices': FieldValue.increment(1)});
 
-      await FirebaseFirestore.instance
-          .collection('ArchitectData')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get()
-          .then((documentSnapshot) {
+      await FirebaseFirestore.instance.collection('ArchitectData').doc(FirebaseAuth.instance.currentUser!.uid).get().then((documentSnapshot) {
         if (documentSnapshot.exists) {
           Map<String, dynamic>? documentData = documentSnapshot.data();
 
@@ -810,26 +602,17 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
           print('Document does not exist.');
         }
       });
-      await FirebaseFirestore.instance
-          .collection('orderData')
-          .doc(orderData.orderUid)
-          .get()
-          .then((documentSnapshot) {
+      await FirebaseFirestore.instance.collection('orderData').doc(orderData.orderUid).get().then((documentSnapshot) {
         if (documentSnapshot.exists) {
           Map<String, dynamic>? documentData = documentSnapshot.data();
 
-          int serviceNameIndex =
-              serviceListItems.indexOf(orderData.servicesname);
+          int serviceNameIndex = serviceListItems.indexOf(orderData.servicesname);
           // print(serviceNameIndex.toString());
 
-          documentData!['servicesSelectedModel'][serviceNameIndex]
-              ['requestChange'] = false;
-          documentData['servicesSelectedModel'][serviceNameIndex]['planurl']
-              ['0'] = [];
-          documentData['servicesSelectedModel'][serviceNameIndex]
-              ['isCompleted'] = true;
-          documentData['servicesSelectedModel'][serviceNameIndex]['isPaid'] =
-              false;
+          documentData!['servicesSelectedModel'][serviceNameIndex]['requestChange'] = false;
+          documentData['servicesSelectedModel'][serviceNameIndex]['planurl']['0'] = [];
+          documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
+          documentData['servicesSelectedModel'][serviceNameIndex]['isPaid'] = false;
 
           // Update the document with the modified array
           FirebaseFirestore.instance
@@ -847,19 +630,11 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
       // print(orderData.customerUid);
       Fluttertoast.showToast(msg: 'OTP verified successfully');
       Get.back();
-      await FirebaseFirestore.instance
-          .collection('UserData')
-          .doc(orderData.customerUid)
-          .get()
-          .then((documentSnapshot) {
+      await FirebaseFirestore.instance.collection('UserData').doc(orderData.customerUid).get().then((documentSnapshot) {
         if (documentSnapshot.exists) {
           Map<String, dynamic>? documentData = documentSnapshot.data();
-          costomerOrderUpdated(
-              documentData!['ProfileDetails']['mobileNumber'],
-              documentData!['ProfileDetails']['firstName'] +
-                  ' ' +
-                  documentData!['ProfileDetails']['lastName'],
-              orderData.orderId);
+          costomerOrderUpdated(documentData!['ProfileDetails']['mobileNumber'],
+              documentData!['ProfileDetails']['firstName'] + ' ' + documentData!['ProfileDetails']['lastName'], orderData.orderId);
           // print('sms sent');
         }
       });

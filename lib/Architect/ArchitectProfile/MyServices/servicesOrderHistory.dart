@@ -209,7 +209,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                 Column(
                                                   children: [
                                                     Text(
-                                                      'Delivery On',
+                                                      orderData.isDeliverer?"Delivered on":'Delivery by',
                                                       style: normal12,
                                                     ),
                                                     Text(

@@ -239,6 +239,8 @@ class UploadWorkFiles extends StatelessWidget {
 
                         // Modify the desired string value
                         documentData!['serviceOrderHistory'][serviceIndex]['isDeliverer'] = true;
+                        documentData!['serviceOrderHistory'][serviceIndex]['deliveryDate'] = DateTime.now();
+
 
 
                         FirebaseFirestore.instance
@@ -268,6 +270,7 @@ class UploadWorkFiles extends StatelessWidget {
                         documentData!['servicesSelectedModel'][serviceNameIndex]['requestChange'] = false;
                         documentData['servicesSelectedModel'][serviceNameIndex]['planurl']['${documentData['servicesSelectedModel'][serviceNameIndex]['numberOfchangesDone']}'] = uploadWorkFilesController.imgurlList;
                         documentData['servicesSelectedModel'][serviceNameIndex]['isCompleted'] = true;
+                        documentData['servicesSelectedModel'][serviceNameIndex]['deliveryDate'] = DateTime.now();
 
                         // Update the document with the modified array
                         FirebaseFirestore.instance

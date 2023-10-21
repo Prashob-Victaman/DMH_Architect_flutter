@@ -25,14 +25,21 @@ class OrderHistoryUser extends StatelessWidget {
   String architectName;
   String orderUid;
   List imageUrlList;
+  int index;
+  List orderList;
+  String userUid;
 
-  OrderHistoryUser(
-      {super.key,
-      required this.dateTime,
-      required this.orderId,
-      required this.imageUrlList,
-      required this.architectName,
-      required this.orderUid});
+  OrderHistoryUser({
+    super.key,
+    required this.dateTime,
+    required this.orderId,
+    required this.imageUrlList,
+    required this.architectName,
+    required this.orderUid,
+    required this.index,
+    required this.orderList,
+    required this.userUid,
+  });
 
   List serviceTitle = [
     'Floor Plan',
@@ -70,16 +77,6 @@ class OrderHistoryUser extends StatelessWidget {
         child: ListView(
           children: [
             heigh10,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                'Order History',
-                style: TextStyle(
-                    fontSize: 18.sp,
-                    fontWeight: FontWeight.bold,
-                    color: kprimarycolor),
-              ),
-            ),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5.w),
@@ -118,14 +115,46 @@ class OrderHistoryUser extends StatelessWidget {
                   return Column(
                     children: [
                       Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Order History',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: kprimarycolor),
+                            ),
+                            const Spacer(),
+                            (data.servicesSelectedModel.every(
+                                        (item) => item['isPaid'] == false) &&
+                                    orderList.isNotEmpty)
+                                ? CircleAvatar(
+                                    backgroundColor: kprimarycolor,
+                                    radius: 20.w,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        cofirmationPopup(context, 'Delete',
+                                            index, orderList, userUid);
+                                      },
+                                      icon: Icon(
+                                        Icons.delete, // delete button
+                                        color: kwhitecolor,
+                                        size: 23.sp,
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox()
+                          ],
+                        ),
+                      ),
+                      Padding(
                         padding: EdgeInsets.all(10.0.w),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: screenWidth - 25.w,
-                              // height: 100.w,
-                              // height: 60.w,
+                              width: screenWidth - 30.w,
                               child: Row(
                                 children: [
                                   Column(
@@ -166,7 +195,7 @@ class OrderHistoryUser extends StatelessWidget {
                                           }),
                                       heigh5,
                                       Text(
-                                        '${formatedDate}',
+                                        formatedDate,
                                         style: normal14,
                                       ),
                                       heigh10,
@@ -192,8 +221,6 @@ class OrderHistoryUser extends StatelessWidget {
                                                                 .customerUid)
                                                             .get();
 
-                                                    // print('${architectdata['personalDetails']} llll');
-
                                                     if (!await launchUrl(Uri.parse(
                                                         'tel:${architectdata['ProfileDetails']['mobileNumber']}'))) {
                                                       throw Exception(
@@ -217,8 +244,6 @@ class OrderHistoryUser extends StatelessWidget {
                                                             .doc(data
                                                                 .customerUid)
                                                             .get();
-
-                                                    // print('${architectdata['personalDetails']} llll');
 
                                                     if (!await launchUrl(Uri.parse(
                                                         'whatsapp://send?phone=+91${architectdata['ProfileDetails']['mobileNumber']}'))) {
@@ -355,6 +380,19 @@ class OrderHistoryUser extends StatelessWidget {
                                 ],
                               ),
                             ),
+                            // Container(
+                            //   alignment: Alignment.center,
+                            //   width: 65.w,
+                            //   height: 35.w,
+                            //   decoration: BoxDecoration(
+                            //       color: kredcolor,
+                            //       borderRadius: BorderRadius.circular(5.w)),
+                            //   child: Text(
+                            //     'Delete',
+                            //     style: TextStyle(
+                            //         color: kwhitecolor, fontSize: 14.sp),
+                            //   ),
+                            // )
 
                             // Container(
                             //   width: 100.w,
@@ -549,7 +587,8 @@ class OrderHistoryUser extends StatelessWidget {
   Future<String> getAddress(double latitude, double longitude) async {
     String address;
     try {
-      final url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$mapApiKey';
+      final url =
+          'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$mapApiKey';
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         final result = json.decode(response.body);
@@ -565,6 +604,117 @@ class OrderHistoryUser extends StatelessWidget {
     } catch (e) {}
     return '';
   }
+
+  //
+
+  // getArchitectData(architectUid) async {
+  Future<void> cofirmationPopup(BuildContext context, String title, int index,
+      List orderList, String userUid) {
+    return showDialog<void>(
+      context: context,
+      builder: (
+        BuildContext context,
+      ) {
+        return AlertDialog(
+          titlePadding: EdgeInsets.all(0.w),
+          title: SizedBox(
+            height: 114.w,
+            width: 282.w,
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  alignment: Alignment.center,
+                  height: 84.w,
+                  child: Text(
+                    'Are you sure you want to $title?',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14.sp,
+                        color: kblackcolor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        // DocumentSnapshot documentSnapshot =
+                        //     await FirebaseFirestore.instance
+                        //         .collection('UserData')
+                        //         .doc(FirebaseAuth.instance.currentUser!.uid)
+                        //         .get();
+
+                        final DocumentReference documentRef = FirebaseFirestore
+                            .instance
+                            .collection('ArchitectData')
+                            .doc(FirebaseAuth.instance.currentUser!.uid);
+
+                        final DocumentReference userDocumentReference =
+                            FirebaseFirestore.instance
+                                .collection('UserData')
+                                .doc(userUid);
+
+                        // if (documentSnapshot.exists) {
+                        //   Map<String, dynamic> data =
+                        //       documentSnapshot.data() as Map<String, dynamic>;
+                        //   List<dynamic> myOrders =
+                        //       data['myOrders'] as List<dynamic>;
+
+                        //   myOrders.removeWhere((item) => item[index] == index);
+
+                        //   await documentRef.update({'myOrders': myOrders});
+                        // }
+
+                        await userDocumentReference.update({
+                          'myOrders': FieldValue.arrayRemove([orderList[index]])
+                        });
+
+                        await documentRef.update({
+                          'orders': FieldValue.arrayRemove([orderList[index]])
+                        });
+                        Get.back();
+                        Get.back();
+                      },
+                      child: Container(
+                        height: 30.w,
+                        width: 141.w,
+                        decoration: const BoxDecoration(color: kprimarycolor),
+                        child: Center(
+                            child: Text(
+                          'Yes',
+                          style: TextStyle(fontSize: 14.sp, color: kwhitecolor),
+                        )),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        height: 30.w,
+                        width: 141.w,
+                        decoration: BoxDecoration(
+                            color: kwhitecolor,
+                            border: Border.all(color: kprimarycolor)),
+                        child: Center(
+                            child: Text(
+                          'Cancel',
+                          style:
+                              TextStyle(fontSize: 13.sp, color: kprimarycolor),
+                        )),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  //
 
   Future<void> orderConfirmationAcceptPopup(
     BuildContext context,
@@ -601,12 +751,10 @@ class OrderHistoryUser extends StatelessWidget {
                             .instance
                             .collection('ArchitectData')
                             .doc(FirebaseAuth.instance.currentUser!.uid);
-                        print('done1');
                         await documentReference.update({
                           'dashboardData.acceptedServicesCount':
                               FieldValue.increment(1),
                         });
-                        print('done1');
                         await FirebaseFirestore.instance
                             .collection('orderData')
                             .doc(orderUid!)
@@ -631,9 +779,7 @@ class OrderHistoryUser extends StatelessWidget {
                                         print('Value updated successfully.2'))
                                     .catchError((error) =>
                                         print('Error updating value: $error'));
-                          } else {
-                            print('Document does not exist.');
-                          }
+                          } else {}
                         });
 
                         // await FirebaseFirestore.instance

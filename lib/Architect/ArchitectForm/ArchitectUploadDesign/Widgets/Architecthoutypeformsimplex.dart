@@ -421,22 +421,22 @@ class submitContainer extends StatelessWidget {
                                         }
                                       });
 
-                                      List floorimgurlnList = [];
-                                      for (var element
-                                          in getxcontroller.floorimgurlList) {
-                                        if (element != null) {
-                                          floorimgurlnList.add(element);
-                                        }
-                                      }
+                                      // List floorimgurlnList = [];
+                                      // for (var element
+                                      //     in getxcontroller.floorimgurlList) {
+                                      //   if (element != null) {
+                                      //     floorimgurlnList.add(element);
+                                      //   }
+                                      // }
 
-                                      List floorFileNameList = [];
-                                      getxcontroller
-                                          .floorDesignNameControllerList
-                                          .forEach((element) {
-                                        if (element.text.isNotEmpty) {
-                                          floorFileNameList.add(element.text);
-                                        }
-                                      });
+                                      // List floorFileNameList = [];
+                                      // getxcontroller
+                                      //     .floorDesignNameControllerList
+                                      //     .forEach((element) {
+                                      //   if (element.text.isNotEmpty) {
+                                      //     floorFileNameList.add(element.text);
+                                      //   }
+                                      // });
                                       var data;
                                       await FirebaseFirestore.instance
                                           .collection('ArchitectData')
@@ -455,9 +455,8 @@ class submitContainer extends StatelessWidget {
                                                   exteriorImageList,
                                               exteriorImagetitleList:
                                                   exteriorFileNameList,
-                                              floorImageList: floorimgurlnList,
-                                              floorImagetitleList:
-                                                  floorFileNameList,
+                                              floorImageList: [],
+                                              floorImagetitleList: [],
                                               floordetails: GetUploadController
                                                   .createdlistofitems,
                                               aproximateConstructionCost:

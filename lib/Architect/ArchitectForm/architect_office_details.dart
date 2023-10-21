@@ -237,7 +237,7 @@ class _ArchitectOfficeDetailsState extends State<ArchitectOfficeDetails> {
                           children: [
                             Text('PinCode', style: normal14),
                             heigh10,
-                            Container(
+                            SizedBox(
                               width: screenwidth / 2 - 12.w,
                               child: TextFormField(
                                 controller: pincodeController,

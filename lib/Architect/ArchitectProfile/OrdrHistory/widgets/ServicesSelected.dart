@@ -140,14 +140,11 @@ class ServicesSelected extends StatelessWidget {
                     getServiceSelectedController.nakshshaamount = 0;
                   }
                 } catch (e) {
-                  // print('$e lllllllll');
 
                   amountAccordingSqft = 0;
                   getServiceSelectedController.nakshshaamount = 0;
                 }
-                // print(double.parse(architectServicepriceList[index]));
 
-                // var architectServiceMinprice;
 
                 if (architectServiceMinpriceList[9] != '') {
                   if (double.parse(architectServiceMinpriceList[9]) <
@@ -185,7 +182,6 @@ class ServicesSelected extends StatelessWidget {
                     // print(e);
                   }
                 }
-                print(amount);
                 return GestureDetector(
                   child: Container(
                     // padding: EdgeInsets.all(3.w),
@@ -279,9 +275,9 @@ class ServicesSelected extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         amount == 0.0
-                            ? Text('')
+                            ? const Text('')
                             : Text(
                                 'Rs ${amount.toStringAsFixed(2)}',
                                 style: normal14,
@@ -304,7 +300,7 @@ class ServicesSelected extends StatelessWidget {
                         //       ),
                         // // Spacer(),H
                         // heigh5,
-                        Spacer(),
+                        const Spacer(),
 
                         Container(
                           height: 25,

@@ -25,7 +25,6 @@ class ArchitectUploadDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final Screenwidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -88,7 +87,7 @@ class ArchitectUploadDesign extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5.w)),
                             child: IconButton(
                               onPressed: () {
-                                if (getcontroller.exteriorListCount > 3) {
+                                if (getcontroller.exteriorListCount > 1) {
                                   getcontroller.changetextControllercount(0);
                                   getcontroller.exteriorimgXfileList[
                                       getcontroller.exteriorListCount] = null;
@@ -202,163 +201,163 @@ class ArchitectUploadDesign extends StatelessWidget {
                               }),
                         );
                       }),
-                      Row(
-                        children: [
-                          Text(
-                            'Upload Floor Images',
-                            style: TextStyle(
-                                fontSize: 16.sp, fontWeight: FontWeight.bold),
-                          ),
-                          const Spacer(),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 50.w,
-                            height: 40.w,
-                            decoration: BoxDecoration(
-                                color: kprimarycolor.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(5.w)),
-                            child: IconButton(
-                              onPressed: () {
-                                if (getcontroller.floorListCount < 9) {
-                                  getcontroller
-                                      .changefloortextControllercount(1);
-                                }
-                              },
-                              icon: Icon(
-                                Icons.add,
-                                color: kprimarycolor,
-                                size: 25.w,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 50.w,
-                            height: 40.w,
-                            decoration: BoxDecoration(
-                                color: kprimarycolor.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(5.w)),
-                            child: IconButton(
-                              onPressed: () {
-                                if (getcontroller.floorListCount > 3) {
-                                  getcontroller
-                                      .changefloortextControllercount(0);
+                      // Row(
+                      //   children: [
+                      //     Text(
+                      //       'Upload Floor Images',
+                      //       style: TextStyle(
+                      //           fontSize: 16.sp, fontWeight: FontWeight.bold),
+                      //     ),
+                      //     const Spacer(),
+                      //     Container(
+                      //       alignment: Alignment.center,
+                      //       width: 50.w,
+                      //       height: 40.w,
+                      //       decoration: BoxDecoration(
+                      //           color: kprimarycolor.withOpacity(0.2),
+                      //           borderRadius: BorderRadius.circular(5.w)),
+                      //       child: IconButton(
+                      //         onPressed: () {
+                      //           if (getcontroller.floorListCount < 9) {
+                      //             getcontroller
+                      //                 .changefloortextControllercount(1);
+                      //           }
+                      //         },
+                      //         icon: Icon(
+                      //           Icons.add,
+                      //           color: kprimarycolor,
+                      //           size: 25.w,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: 10.w,
+                      //     ),
+                      //     Container(
+                      //       alignment: Alignment.center,
+                      //       width: 50.w,
+                      //       height: 40.w,
+                      //       decoration: BoxDecoration(
+                      //           color: kprimarycolor.withOpacity(0.2),
+                      //           borderRadius: BorderRadius.circular(5.w)),
+                      //       child: IconButton(
+                      //         onPressed: () {
+                      //           if (getcontroller.floorListCount > 3) {
+                      //             getcontroller
+                      //                 .changefloortextControllercount(0);
 
-                                  getcontroller.floorimgXFileList[
-                                      getcontroller.floorListCount] = null;
+                                  // getcontroller.floorimgXFileList[
+                                  //     getcontroller.floorListCount] = null;
 
-                                  getcontroller.floorimgurlList[
-                                      getcontroller.floorListCount] = null;
+                      //             getcontroller.floorimgurlList[
+                      //                 getcontroller.floorListCount] = null;
 
-                                  getcontroller.floorisLoading[
-                                      getcontroller.floorListCount] = false;
+                      //             getcontroller.floorisLoading[
+                      //                 getcontroller.floorListCount] = false;
 
-                                  getcontroller.floorDesignNameControllerList[
-                                          getcontroller.floorListCount]
-                                      .clear();
-                                }
-                              },
-                              icon: Icon(
-                                Icons.delete,
-                                color: kprimarycolor,
-                                size: 25.w,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10.w,
-                      ),
-                      GetBuilder<ArchitectAddDesignController>(
-                          builder: (Getdata) {
-                        return SizedBox(
-                          child: GridView.builder(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      childAspectRatio: 0.7.sp),
-                              physics: const ScrollPhysics(),
-                              itemCount: getcontroller.floorListCount,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        Getdata.uploadfloorfileimage(index);
-                                        getcontroller
-                                            .changefloorisLoading(index);
-                                      },
-                                      child: Getdata.floorimgXFileList[index] !=
-                                              null
-                                          ? Container(
-                                              height: 90.w,
-                                              width: 115.w,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      width: 1.w,
-                                                      color: kprimarycolor),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.w),
-                                                  image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: FileImage(File(
-                                                          Getdata
-                                                              .floorimgXFileList[
-                                                                  index]!
-                                                              .path)))),
-                                            )
-                                          : uploadDesign(
-                                              isLoading: getcontroller
-                                                  .floorisLoading[index],
-                                              // uploadedImage: Getdata.designDataImgOne!
-                                            ),
-                                    ),
-                                    SizedBox(
-                                      height: 10.w,
-                                    ),
-                                    SizedBox(
-                                      // height: 40.w,
-                                      width: 115.w,
-                                      child: TextFormField(
-                                        textAlignVertical:
-                                            TextAlignVertical.center,
-                                        controller: getcontroller
-                                                .floorDesignNameControllerList[
-                                            index],
-                                        decoration: InputDecoration(
-                                          hintText: 'File name',
-                                          contentPadding:
-                                              EdgeInsets.only(left: 10.w),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              width: 1.w,
-                                              color: kprimarycolor,
-                                            ),
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'Enter File Name';
-                                          }
+                      //             getcontroller.floorDesignNameControllerList[
+                      //                     getcontroller.floorListCount]
+                      //                 .clear();
+                      //           }
+                      //         },
+                      //         icon: Icon(
+                      //           Icons.delete,
+                      //           color: kprimarycolor,
+                      //           size: 25.w,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 10.w,
+                      // ),
+                      // GetBuilder<ArchitectAddDesignController>(
+                      //     builder: (Getdata) {
+                      //   return SizedBox(
+                      //     child: GridView.builder(
+                      //         shrinkWrap: true,
+                      //         gridDelegate:
+                      //             SliverGridDelegateWithFixedCrossAxisCount(
+                      //                 crossAxisCount: 3,
+                      //                 childAspectRatio: 0.7.sp),
+                      //         physics: const ScrollPhysics(),
+                      //         itemCount: getcontroller.floorListCount,
+                      //         itemBuilder: (BuildContext context, int index) {
+                      //           return Column(
+                      //             children: [
+                      //               GestureDetector(
+                      //                 onTap: () {
+                      //                   Getdata.uploadfloorfileimage(index);
+                      //                   getcontroller
+                      //                       .changefloorisLoading(index);
+                      //                 },
+                      //                 child: Getdata.floorimgXFileList[index] !=
+                      //                         null
+                      //                     ? Container(
+                      //                         height: 90.w,
+                      //                         width: 115.w,
+                      //                         decoration: BoxDecoration(
+                      //                             border: Border.all(
+                      //                                 width: 1.w,
+                      //                                 color: kprimarycolor),
+                      //                             borderRadius:
+                      //                                 BorderRadius.circular(
+                      //                                     5.w),
+                      //                             image: DecorationImage(
+                      //                                 fit: BoxFit.cover,
+                      //                                 image: FileImage(File(
+                      //                                     Getdata
+                      //                                         .floorimgXFileList[
+                      //                                             index]!
+                      //                                         .path)))),
+                      //                       )
+                      //                     : uploadDesign(
+                      //                         isLoading: getcontroller
+                      //                             .floorisLoading[index],
+                      //                         // uploadedImage: Getdata.designDataImgOne!
+                      //                       ),
+                      //               ),
+                      //               SizedBox(
+                      //                 height: 10.w,
+                      //               ),
+                      //               SizedBox(
+                      //                 // height: 40.w,
+                      //                 width: 115.w,
+                      //                 child: TextFormField(
+                      //                   textAlignVertical:
+                      //                       TextAlignVertical.center,
+                      //                   controller: getcontroller
+                      //                           .floorDesignNameControllerList[
+                      //                       index],
+                      //                   decoration: InputDecoration(
+                      //                     hintText: 'File name',
+                      //                     contentPadding:
+                      //                         EdgeInsets.only(left: 10.w),
+                      //                     border: OutlineInputBorder(
+                      //                       borderSide: BorderSide(
+                      //                         width: 1.w,
+                      //                         color: kprimarycolor,
+                      //                       ),
+                      //                     ),
+                      //                   ),
+                      //                   validator: (value) {
+                      //                     if (value!.isEmpty) {
+                      //                       return 'Enter File Name';
+                      //                     }
 
-                                          return null;
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
-                        );
-                      }),
-                      SizedBox(
-                        height: 10.w,
-                      ),
+                      //                     return null;
+                      //                   },
+                      //                 ),
+                      //               ),
+                      //             ],
+                      //           );
+                      //         }),
+                      //   );
+                      // }),
+                      // SizedBox(
+                      //   height: 10.w,
+                      // ),
                       Text(
                         'Add Project Details',
                         style: TextStyle(

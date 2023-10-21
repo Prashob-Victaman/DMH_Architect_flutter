@@ -23,9 +23,7 @@ class _ArchitectbottomnavigationbarState
     ServicesOrderHistory(),
     //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
-    // ServiceRateUpdated(),
-    // ArchitectOfficeDetails()
-    // ServiceRateUpdated()
+
     ArchitectProfilePage(),
   ];
 

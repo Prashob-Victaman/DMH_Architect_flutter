@@ -16,8 +16,8 @@ class ArchitectAddDesignController extends GetxController {
   int selectedDesignTypeCheckBox = 0;
   int selectedHouseFacingCheckbox = 0;
   int selectedHouseFloorsCheckbox = 0;
-  int exteriorListCount = 3;
-  int floorListCount = 3;
+  int exteriorListCount = 1;
+  // int floorListCount = 3;
   int planningGridCount = 1;
 
   List<bool> exteriorisLoading = List.filled(9, false);
@@ -28,9 +28,9 @@ class ArchitectAddDesignController extends GetxController {
 
   List<XFile?> exteriorimgXfileList = List<XFile?>.filled(9, null);
 
-  List<String?> floorimgurlList = List<String?>.filled(9, null);
+  // List<String?> floorimgurlList = List<String?>.filled(9, null);
 
-  List<XFile?> floorimgXFileList = List<XFile?>.filled(9, null);
+  // List<XFile?> floorimgXFileList = List<XFile?>.filled(9, null);
 
   final exteriorDesignNameControllerList =
       List.generate(9, (_) => TextEditingController());
@@ -73,9 +73,9 @@ class ArchitectAddDesignController extends GetxController {
 
       exteriorimgXfileList[i] = null;
 
-      floorimgurlList[i] = null;
+      // floorimgurlList[i] = null;
 
-      floorimgXFileList[i] = null;
+      // floorimgXFileList[i] = null;
 
       exteriorDesignNameControllerList[i].clear();
       floorDesignNameControllerList[i].clear();
@@ -138,16 +138,16 @@ class ArchitectAddDesignController extends GetxController {
     refresh();
   }
 
-  changefloortextControllercount(int value) {
-    if (value == 1) {
-      floorListCount++;
-      // floorimgcount + 1;
-    } else {
-      floorListCount--;
-      // exteriorimgcount - 1;
-    }
-    refresh();
-  }
+  // changefloortextControllercount(int value) {
+  //   if (value == 1) {
+  //     floorListCount++;
+  //     // floorimgcount + 1;
+  //   } else {
+  //     floorListCount--;
+  //     // exteriorimgcount - 1;
+  //   }
+  //   refresh();
+  // }
 
   addDesignHouseTYpe(index) {
     selectedHouseType = index;
@@ -157,19 +157,16 @@ class ArchitectAddDesignController extends GetxController {
   DesignTypeCheckbox(index) {
     selectedDesignTypeCheckBox = index;
     // print(index);
-
     refresh();
   }
 
   HouseFacingCheckbox(index) {
     selectedHouseFacingCheckbox = index;
-
     refresh();
   }
 
   HouseFloorsCheckbox(index) {
     selectedHouseFloorsCheckbox = index;
-
     refresh();
   }
 
@@ -225,58 +222,58 @@ class ArchitectAddDesignController extends GetxController {
     refresh();
   }
 
-  uploadfloorfileimage(buttonindex) async {
-    final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
+  // uploadfloorfileimage(buttonindex) async {
+  //   final uploadimgkey = DateTime.now().microsecondsSinceEpoch;
 
-    XFile? uploadedFile = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-    );
+  //   XFile? uploadedFile = await ImagePicker().pickImage(
+  //     source: ImageSource.gallery,
+  //   );
 
-    if (uploadedFile == null) {
-      changefloorisLoading(buttonindex);
-      // print('object');
-      return;
-    }
-    final bytes = await uploadedFile.length() / 1024;
+  //   if (uploadedFile == null) {
+  //     changefloorisLoading(buttonindex);
+  //     // print('object');
+  //     return;
+  //   }
+  //   final bytes = await uploadedFile.length() / 1024;
 
-    // if (uploadedFile != null) {
-    //   bytes = await uploadedFile.length() / 1024;
-    // }
+  //   // if (uploadedFile != null) {
+  //   //   bytes = await uploadedFile.length() / 1024;
+  //   // }
 
-    if (bytes < 2048) {
-      floorimgXFileList[buttonindex] = uploadedFile;
+  //   if (bytes < 2048) {
+  //     floorimgXFileList[buttonindex] = uploadedFile;
 
-      Reference referenceRoot = FirebaseStorage.instance.ref();
-      Reference referenceDirectoryImages =
-          referenceRoot.child('adminuploadDesign/');
-      Reference referenceImageToUpload =
-          referenceDirectoryImages.child(uploadimgkey.toString());
+  //     Reference referenceRoot = FirebaseStorage.instance.ref();
+  //     Reference referenceDirectoryImages =
+  //         referenceRoot.child('adminuploadDesign/');
+  //     Reference referenceImageToUpload =
+  //         referenceDirectoryImages.child(uploadimgkey.toString());
 
-      // Uint8List uploadfile = result.files.single.bytes;
-      //
-      // print('uploadimg file called');
-      if (floorimgXFileList[buttonindex] == null) {
-        changefloorisLoading(buttonindex);
+  //     // Uint8List uploadfile = result.files.single.bytes;
+  //     //
+  //     // print('uploadimg file called');
+  //     if (floorimgXFileList[buttonindex] == null) {
+  //       changefloorisLoading(buttonindex);
 
-        return;
-      }
-      try {
-        await referenceImageToUpload
-            .putFile(File(floorimgXFileList[buttonindex]!.path));
-        floorimgurlList[buttonindex] =
-            await referenceImageToUpload.getDownloadURL();
-        // print('imageurl $floorimgurlList[buttonindex]');
-      } catch (e) {
-        // log(e.toString());F
-      }
-    } else {
-      changefloorisLoading(buttonindex);
+  //       return;
+  //     }
+  //     try {
+  //       await referenceImageToUpload
+  //           .putFile(File(floorimgXFileList[buttonindex]!.path));
+  //       floorimgurlList[buttonindex] =
+  //           await referenceImageToUpload.getDownloadURL();
+  //       // print('imageurl $floorimgurlList[buttonindex]');
+  //     } catch (e) {
+  //       // log(e.toString());F
+  //     }
+  //   } else {
+  //     changefloorisLoading(buttonindex);
 
-      Fluttertoast.showToast(msg: 'Please upload file less than 2 mb');
-      return;
-    }
-    refresh();
-  }
+  //     Fluttertoast.showToast(msg: 'Please upload file less than 2 mb');
+  //     return;
+  //   }
+  //   refresh();
+  // }
 
   fetchPlanningImg(buttonIndex) async {
     final uploadimgkey = DateTime.now().microsecondsSinceEpoch;

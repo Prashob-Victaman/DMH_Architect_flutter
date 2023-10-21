@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> goto(context) async {
-    await Future.delayed(Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 4));
     Get.offAll(() => ArchitectLoginScreen());
   }
 }

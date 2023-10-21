@@ -118,6 +118,11 @@ class ordersProfile extends StatelessWidget {
                                                   orderId:
                                                       designList[reverseIndex]
                                                           ['orderId'],
+                                                  index: reverseIndex,
+                                                  orderList: designList,
+                                                  userUid:
+                                                      designList[reverseIndex]
+                                                          ['customerUid'],
                                                 )
 
                                             // individualOrder(

@@ -225,8 +225,8 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                                                             : GestureDetector(
                                                                 onTap: () async {
                                                                   print(orderData.orderUid);
-                                                                  print(data.servicesSelectedModel[9]['planurl']);
-                                                                  confirmOtp(index, orderData, data.servicesSelectedModel[9]['planurl']['0'][0]);
+                                                                  print(data.servicesSelectedModel[serviceIndex]['planurl']);
+                                                                  confirmOtp(index, orderData, data.servicesSelectedModel[serviceIndex]['planurl']['0'][0]);
                                                                 },
                                                                 child: Container(
                                                                   width: 100.w,

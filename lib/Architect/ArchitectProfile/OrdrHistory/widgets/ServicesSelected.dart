@@ -313,6 +313,7 @@ class ServicesSelected extends StatelessWidget {
                                   ),
                                   child: Center(
                                     child: Text(
+
                                       '${changeIndex + 1}',
                                       style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600),
                                     ),

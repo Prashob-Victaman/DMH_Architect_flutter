@@ -23,14 +23,13 @@ class OrderDetails extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.w), color: kgreycolor),
-        height: 200.w,
+        // height: 290.w,
         child: Column(
           children: [
             Container(
-              height: 160.w,
+              // height: 250.w,
               child: Stack(
                 children: [
-
                   CachedNetworkImage(
                     imageUrl: imageUrlList[0],
                     imageBuilder: (context, imageProvider) => Container(
@@ -39,8 +38,12 @@ class OrderDetails extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10.w),
                             topRight: Radius.circular(10.w)),
-                        image: DecorationImage(
-                            fit: BoxFit.cover, image: imageProvider),
+                        // image: DecorationImage(
+                        //     fit: BoxFit.cover, image: imageProvider),
+                      ),
+                      child: Image(
+                        image: imageProvider,
+                        fit: BoxFit.fitHeight,
                       ),
                     ),
                   ),
@@ -62,9 +65,9 @@ class OrderDetails extends StatelessWidget {
                       Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10.w),
-                                bottomRight: Radius.circular(2.w)),
-                            color: Color.fromARGB(255, 255, 214, 69)),
+                                topLeft: Radius.circular(0.w),
+                                bottomRight: Radius.circular(10.w)),
+                            color: const Color.fromARGB(255, 255, 214, 69)),
                         height: 22.w,
                         width: (screenWidth - 30) / 2.w,
                         child: Row(

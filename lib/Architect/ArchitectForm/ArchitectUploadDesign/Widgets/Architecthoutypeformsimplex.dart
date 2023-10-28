@@ -5,6 +5,7 @@ import 'package:dmh_architect/controller/upload%20design/AreaController.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import '../../../../Constants/constants.dart';
 import '../../../../controller/upload design/ArchitectAddDesignController.dart';
@@ -344,239 +345,270 @@ class submitContainer extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 final form = formKey.currentState;
+                List exteriorImageList = [];
+
+                for (var element in getxcontroller.exteriorimgurlList) {
+                  if (element != null) {
+                    exteriorImageList.add(element);
+                  }
+                }
+                print(exteriorImageList);
+
+                List exteriorFileNameList = [];
+                getxcontroller.exteriorDesignNameControllerList
+                    .forEach((element) {
+                  if (element.text.isNotEmpty) {
+                    exteriorFileNameList.add(element.text);
+                  }
+                });
 
                 if (form!.validate()) {
                   form.save();
 
-                  showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        titlePadding: EdgeInsets.all(0.w),
-                        title: Container(
-                          height: 114.w,
-                          width: 282.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                  alignment: Alignment.center,
-                                  height: 84.w,
-                                  child: Text(
-                                    'Are you sure you want to Submit',
-                                    style: TextStyle(
-                                        fontSize: 16.sp,
-                                        color: kblackcolor,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              const Spacer(),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () async {
-                                      List planingImageUrl = [];
-                                      for (var element
-                                          in getxcontroller.planingImageUrl) {
-                                        if (element != null) {
-                                          planingImageUrl.add(element);
+                  if (exteriorImageList.isNotEmpty) {
+                    showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          titlePadding: EdgeInsets.all(0.w),
+                          title: Container(
+                            height: 114.w,
+                            width: 282.w,
+                            child: Column(
+                              children: [
+                                Container(
+                                    alignment: Alignment.center,
+                                    height: 84.w,
+                                    child: Text(
+                                      'Are you sure you want to Submit?',
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: kblackcolor,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                const Spacer(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () async {
+                                        showDialog(
+                                          barrierDismissible: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                              color: kprimarycolor,
+                                            ));
+                                          },
+                                        );
+
+                                        List planingImageUrl = [];
+                                        for (var element
+                                            in getxcontroller.planingImageUrl) {
+                                          if (element != null) {
+                                            planingImageUrl.add(element);
+                                          }
                                         }
-                                      }
 
-                                      List planingFileNameList = [];
-                                      getxcontroller
-                                          .planingFileNameControllerList
-                                          .forEach((element) {
-                                        if (element.text.isNotEmpty) {
-                                          planingFileNameList.add(element.text);
-                                        }
-                                      });
+                                        List planingFileNameList = [];
+                                        getxcontroller
+                                            .planingFileNameControllerList
+                                            .forEach((element) {
+                                          if (element.text.isNotEmpty) {
+                                            planingFileNameList
+                                                .add(element.text);
+                                          }
+                                        });
 
-                                      List planingFilePriceList = [];
-                                      getxcontroller
-                                          .planingFilePriceControllerList
-                                          .forEach((element) {
-                                        if (element.text.isNotEmpty) {
-                                          planingFilePriceList
-                                              .add(element.text);
-                                        }
-                                      });
+                                        List planingFilePriceList = [];
+                                        getxcontroller
+                                            .planingFilePriceControllerList
+                                            .forEach((element) {
+                                          if (element.text.isNotEmpty) {
+                                            planingFilePriceList
+                                                .add(element.text);
+                                          }
+                                        });
 
-                                      List exteriorImageList = [];
-                                      for (var element in getxcontroller
-                                          .exteriorimgurlList) {
-                                        if (element != null) {
-                                          exteriorImageList.add(element);
-                                        }
-                                      }
-                                      print(exteriorImageList);
+                                        // List floorimgurlnList = [];
+                                        // for (var element
+                                        //     in getxcontroller.floorimgurlList) {
+                                        //   if (element != null) {
+                                        //     floorimgurlnList.add(element);
+                                        //   }
+                                        // }
 
-                                      List exteriorFileNameList = [];
-                                      getxcontroller
-                                          .exteriorDesignNameControllerList
-                                          .forEach((element) {
-                                        if (element.text.isNotEmpty) {
-                                          exteriorFileNameList
-                                              .add(element.text);
-                                        }
-                                      });
+                                        // List floorFileNameList = [];
+                                        // getxcontroller
+                                        //     .floorDesignNameControllerList
+                                        //     .forEach((element) {
+                                        //   if (element.text.isNotEmpty) {
+                                        //     floorFileNameList.add(element.text);
+                                        //   }
+                                        // });
+                                        var data;
+                                        await FirebaseFirestore.instance
+                                            .collection('ArchitectData')
+                                            .doc(FirebaseAuth
+                                                .instance.currentUser!.uid)
+                                            .get()
+                                            .then(
+                                                (snapshot) => data = snapshot);
 
-                                      // List floorimgurlnList = [];
-                                      // for (var element
-                                      //     in getxcontroller.floorimgurlList) {
-                                      //   if (element != null) {
-                                      //     floorimgurlnList.add(element);
-                                      //   }
-                                      // }
+                                        print(data['name']);
 
-                                      // List floorFileNameList = [];
-                                      // getxcontroller
-                                      //     .floorDesignNameControllerList
-                                      //     .forEach((element) {
-                                      //   if (element.text.isNotEmpty) {
-                                      //     floorFileNameList.add(element.text);
-                                      //   }
-                                      // });
-                                      var data;
-                                      await FirebaseFirestore.instance
-                                          .collection('ArchitectData')
-                                          .doc(FirebaseAuth
-                                              .instance.currentUser!.uid)
-                                          .get()
-                                          .then((snapshot) => data = snapshot);
-                                      print(data['name']);
-
-                                      await getxcontroller
-                                          .uploadDesignDataFromAdmin(
-                                              architectName: data['name'],
-                                              projectCost:
-                                                  DesignCostController.text,
-                                              exteriorImageList:
-                                                  exteriorImageList,
-                                              exteriorImagetitleList:
-                                                  exteriorFileNameList,
-                                              floorImageList: [],
-                                              floorImagetitleList: [],
-                                              floordetails: GetUploadController
-                                                  .createdlistofitems,
-                                              aproximateConstructionCost:
-                                                  aproximateConstructionCostController
-                                                      .text,
-                                              estimatedConstructionCost:
-                                                  estimatedConstructionCostController
-                                                      .text,
-                                              designprice:
-                                                  planingFilePriceList[0],
-                                              shortdescription:
-                                                  shortdescriptionController
-                                                      .text,
-                                              uploadedUserUid: FirebaseAuth
-                                                  .instance.currentUser!.uid,
-                                              adminUid: FirebaseAuth
-                                                  .instance.currentUser!.uid,
-                                              projectDetails:
-                                                  projectDetailsController.text,
-                                              designType: getxcontroller
-                                                          .selectedDesignTypeCheckBox ==
-                                                      0
-                                                  ? 'Modern'
-                                                  : getxcontroller
-                                                              .selectedDesignTypeCheckBox ==
-                                                          1
-                                                      ? 'Classical'
-                                                      : adddesignTypeController
+                                        if (exteriorImageList.isNotEmpty) {
+                                          await getxcontroller
+                                              .uploadDesignDataFromAdmin(
+                                                  architectName: data['name'],
+                                                  projectCost:
+                                                      DesignCostController.text,
+                                                  exteriorImageList:
+                                                      exteriorImageList,
+                                                  exteriorImagetitleList:
+                                                      exteriorFileNameList,
+                                                  floorImageList: [],
+                                                  floorImagetitleList: [],
+                                                  floordetails:
+                                                      GetUploadController
+                                                          .createdlistofitems,
+                                                  aproximateConstructionCost:
+                                                      aproximateConstructionCostController
                                                           .text,
-                                              houseFacing: getxcontroller
-                                                          .selectedHouseFacingCheckbox ==
-                                                      0
-                                                  ? 'East'
-                                                  : getxcontroller.selectedHouseFacingCheckbox == 1
-                                                      ? 'West'
-                                                      : getxcontroller.selectedHouseFacingCheckbox == 2
-                                                          ? 'South'
-                                                          : 'North',
-                                              houseFloors: Floor,
-                                              houseType: housedesignname[getxcontroller.selectedHouseType],
-                                              houseArea: {
-                                                'length':
-                                                    houseAreaLengthController
-                                                        .text,
-                                                'width':
-                                                    houseAreawidthController
-                                                        .text,
-                                                'area': areagecontroller.area,
-                                              },
-                                              accordingtoVastu: vastuController.text,
-                                              discount: discountController.text,
-                                              planingFileNameList: planingFileNameList,
-                                              planingFilePriceList: planingFilePriceList,
-                                              planingFileUrlList: planingImageUrl);
+                                                  estimatedConstructionCost:
+                                                      estimatedConstructionCostController
+                                                          .text,
+                                                  designprice:
+                                                      planingFilePriceList[0],
+                                                  shortdescription:
+                                                      shortdescriptionController
+                                                          .text,
+                                                  uploadedUserUid: FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid,
+                                                  adminUid: FirebaseAuth
+                                                      .instance
+                                                      .currentUser!
+                                                      .uid,
+                                                  projectDetails:
+                                                      projectDetailsController
+                                                          .text,
+                                                  designType: getxcontroller
+                                                              .selectedDesignTypeCheckBox ==
+                                                          0
+                                                      ? 'Modern'
+                                                      : getxcontroller
+                                                                  .selectedDesignTypeCheckBox ==
+                                                              1
+                                                          ? 'Classical'
+                                                          : adddesignTypeController
+                                                              .text,
+                                                  houseFacing: getxcontroller.selectedHouseFacingCheckbox == 0
+                                                      ? 'East'
+                                                      : getxcontroller.selectedHouseFacingCheckbox == 1
+                                                          ? 'West'
+                                                          : getxcontroller.selectedHouseFacingCheckbox == 2
+                                                              ? 'South'
+                                                              : 'North',
+                                                  houseFloors: Floor,
+                                                  houseType: housedesignname[getxcontroller.selectedHouseType],
+                                                  houseArea: {
+                                                    'length':
+                                                        houseAreaLengthController
+                                                            .text,
+                                                    'width':
+                                                        houseAreawidthController
+                                                            .text,
+                                                    'area':
+                                                        areagecontroller.area,
+                                                  },
+                                                  accordingtoVastu: vastuController.text,
+                                                  discount: discountController.text,
+                                                  planingFileNameList: planingFileNameList,
+                                                  planingFilePriceList: planingFilePriceList,
+                                                  planingFileUrlList: planingImageUrl);
 
-                                      // getNavigatecontroller.changeoption(1);
-                                      getxcontroller.clearingfields();
+                                          getxcontroller.clearingfields();
 
-                                      // getxcontroller
-                                      //     .exteriorisLoading[index] = false;
+                                          // getxcontroller
+                                          //     .exteriorisLoading[index] = false;
 
-                                      print(
-                                          getxcontroller.exteriorimgurlList[1]);
+                                          print(getxcontroller
+                                              .exteriorimgurlList[1]);
 
-                                      GetUploadController.createdlistofitems
-                                          .clear();
-                                      planingFileNameList.clear();
-                                      planingFilePriceList.clear();
-                                      planingImageUrl.clear();
-                                      areagecontroller.area = '';
-                                      Get.back();
+                                          GetUploadController.createdlistofitems
+                                              .clear();
+                                          planingFileNameList.clear();
+                                          planingFilePriceList.clear();
+                                          planingImageUrl.clear();
+                                          areagecontroller.area = '';
+                                          Get.back();
+                                          Get.offAll(
+                                              () => const ArchitectMyDesign());
 
-                                      // Get.off(() => ArchitectMyDesign);
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) =>
-                                            ArchitectMyDesign(),
-                                      ));
-                                    },
-                                    child: Container(
-                                      height: 30.w,
-                                      width: 141.w,
-                                      decoration: const BoxDecoration(
-                                          color: kprimarycolor),
-                                      child: Center(
-                                        child: Text(
-                                          'Yes',
-                                          style: TextStyle(
-                                              fontSize: 14.sp,
-                                              color: kwhitecolor),
+                                          // Navigator.of(context).pushReplacement(
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         const ArchitectMyDesign(),
+                                          //   ),
+                                          // );
+                                        } else {
+                                          Fluttertoast.showToast(
+                                              msg: 'Upload Image to Continue');
+                                        }
+
+                                        // getNavigatecontroller.changeoption(1);
+
+                                        // Get.off(() => ArchitectMyDesign);
+                                      },
+                                      child: Container(
+                                        height: 30.w,
+                                        width: 141.w,
+                                        decoration: const BoxDecoration(
+                                            color: kprimarycolor),
+                                        child: Center(
+                                          child: Text(
+                                            'Yes',
+                                            style: TextStyle(
+                                                fontSize: 14.sp,
+                                                color: kwhitecolor),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () => Get.back(),
-                                    child: Container(
-                                      height: 30.w,
-                                      width: 141.w,
-                                      decoration: BoxDecoration(
-                                          color: kwhitecolor,
-                                          border:
-                                              Border.all(color: kprimarycolor)),
-                                      child: Center(
-                                          child: Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: kprimarycolor),
-                                      )),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
+                                    GestureDetector(
+                                      onTap: () => Get.back(),
+                                      child: Container(
+                                        height: 30.w,
+                                        width: 141.w,
+                                        decoration: BoxDecoration(
+                                            color: kwhitecolor,
+                                            border: Border.all(
+                                                color: kprimarycolor)),
+                                        child: Center(
+                                            child: Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color: kprimarycolor),
+                                        )),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  );
+                        );
+                      },
+                    );
+                  } else {
+                    Fluttertoast.showToast(msg: 'Upload Image to Continue');
+                  }
                 }
               },
               child: Container(

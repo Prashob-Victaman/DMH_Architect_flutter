@@ -24,6 +24,13 @@ class ArchitectUploadDesignController extends GetxController {
     'First Floor',
     'Second Floor',
     'Third Floor',
+    'Fourth Floor',
+    'Fifth Floor',
+    'Sixth Floor',
+    'Seventh Floor',
+    'Eighth Floor',
+    'Ninth Floor',
+    'Tenth Floor',
   ];
 
   var roomtypeitems = [

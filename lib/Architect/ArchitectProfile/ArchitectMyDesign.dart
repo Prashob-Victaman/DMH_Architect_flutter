@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/architectProfile.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/architectprofilepage.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/ArchitectIndividualMyDesign.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../model/uploadDesignDataModel.dart';
-
 import '../../Constants/constants.dart';
 
 class ArchitectMyDesign extends StatelessWidget {

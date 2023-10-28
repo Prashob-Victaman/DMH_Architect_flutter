@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dmh_architect/controller/ordercontroller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -178,6 +179,7 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
                                 child: Center(
                                   child: TextFormField(
                                     validator: (value) {
+                                
                                       if (value!.isEmpty) {
                                         return 'Enter Estimated cost';
                                       }
@@ -194,6 +196,8 @@ class ArchitectaddWorkingDeatails extends StatelessWidget {
                                                 width: 1.w,
                                                 color: kprimarycolor))),
                                     keyboardType: TextInputType.number,
+                                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
                                   ),
                                 ),
                               )

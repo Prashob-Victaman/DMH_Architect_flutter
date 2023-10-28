@@ -11,12 +11,12 @@ class RequestWidget extends StatelessWidget {
 
   final double screenWidth;
 
-    final getServiceSelectedController = Get.put(ServiceSelectedController());
-
+  final getServiceSelectedController = Get.put(ServiceSelectedController());
 
   @override
   Widget build(BuildContext context) {
     // print(requestList['isPaidNaksha']);
+    print(requestList);
     return Padding(
       padding: EdgeInsets.all(10.0.w),
       child: Container(
@@ -70,12 +70,16 @@ class RequestWidget extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          // width: (screenWidth / 2) ,
-                          child: Text(
-                            'Rs ${getServiceSelectedController.sitesupervisionamount.toStringAsFixed(2)} ',
-                            style: TextStyle(fontSize: 13.sp),
-                          ),
-                        ),
+                            // width: (screenWidth / 2) ,
+                            child: Text(
+                                requestList['superVisionAmount'].toString(),
+                                style: TextStyle(fontSize: 13.sp))),
+
+                        // Text(
+                        //   'Rs ${getServiceSelectedController.sitesupervisionamount.toStringAsFixed(2)} ',
+                        //   style: TextStyle(fontSize: 13.sp),
+                        // ),
+                        // ),
                         Spacer(),
                         Container(
                           height: 20,
@@ -134,13 +138,15 @@ class RequestWidget extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          // width: (screenWidth / 2) ,
-                          child: Text(
+                          child:
+                              //  Text((requestList['nakshaAmount'].toString()),
+                              //     style: TextStyle(fontSize: 13.sp)),
+                              Text(
                             'Rs ${getServiceSelectedController.nakshshaamount.toStringAsFixed(2)}',
                             style: TextStyle(fontSize: 13.sp),
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Container(
                           height: 20,
                           decoration: BoxDecoration(

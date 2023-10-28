@@ -7,6 +7,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
+import 'myimageviewer.dart';
+import 'mypdfviewer.dart';
+import 'myvideoplayer.dart';
 
 class ServicesSelected extends StatelessWidget {
   List serviceTitle;
@@ -46,7 +51,7 @@ class ServicesSelected extends StatelessWidget {
             return GridView.count(
               physics: const ScrollPhysics(),
               shrinkWrap: true,
-              childAspectRatio: 1.2.w,
+              childAspectRatio: 1.0.w,
               crossAxisCount: 3,
               crossAxisSpacing: 10.w,
               mainAxisSpacing: 10.w,
@@ -282,6 +287,41 @@ class ServicesSelected extends StatelessWidget {
                                 'Rs ${amount.toStringAsFixed(2)}',
                                 style: normal14,
                               ),
+                        const Spacer(),
+
+                        selectedServicesList[index]['isPaid']?Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(index == 0 ? 5 : 2, (changeIndex) {
+                            return Padding(
+                              padding: EdgeInsets.only(right: 2.w),
+                              child: GestureDetector(
+                                onTap: () {
+                                  _openBottomSheet(context, index, changeIndex);
+                                },
+                                child: Container(
+                                  height: 18.w,
+                                  width: 18.w,
+                                  decoration: BoxDecoration(
+                                    color: orderData.servicesSelectedModel[index]['numberOfchangesDone'] == changeIndex
+                                        ? orderData.servicesSelectedModel[index]['isCompleted'] == false
+                                        ? Colors.red
+                                        : Colors.green
+                                        : changeIndex < orderData.servicesSelectedModel[index]['numberOfchangesDone']
+                                        ? Colors.green
+                                        : Colors.grey.shade400,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${changeIndex + 1}',
+                                      style: TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                        ):const SizedBox(),
 
                         // selectedServices[index] == true
                         //     ? Text(
@@ -371,4 +411,134 @@ class ServicesSelected extends StatelessWidget {
           }),
     );
   }
+
+
+  String getFileName(String url) {
+    RegExp regExp = RegExp(r'.+(\/|%2F)(.+)\?.+');
+    //This Regex won't work if you remove ?alt...token
+    var matches = regExp.allMatches(url);
+
+    var match = matches.elementAt(0);
+    // print("${Uri.decodeFull(match.group(2)!)}");
+    return Uri.decodeFull(match.group(2)!);
+  }
+
+  Future<String?> getFileTypeFromUrl(String url) async {
+    try {
+      final response = await http.head(Uri.parse(url));
+      if (response.statusCode == 200) {
+        String? contentType = response.headers['content-type'];
+        if (contentType != null) {
+          return contentType.split('/').last;
+        }
+      }
+    } catch (e) {
+      // print("Error getting file type: $e");
+    }
+    return null;
+  }
+
+  void _openBottomSheet(BuildContext context, int index, int changeIndex) async {
+    // for (int i = 0; i < widget.selectedServicesList[index]['planurl']['${changeIndex}'].length; i++) {
+    //   // print(getFileName(widget.selectedServicesList[index]
+    //   //     ['planurl']['0'][i]));
+    //
+    //   String? filetype = await getFileTypeFromUrl(widget.selectedServicesList[index]['planurl']['0'][i]);
+    //   // print(filetype);
+    //   downloadFile(DateTime.now().millisecondsSinceEpoch, widget.selectedServicesList[index]['planurl']['0'][i],
+    //       widget.selectedServicesList[index]['serviceName'] + DateTime.now().millisecondsSinceEpoch.toString() + '.$filetype');
+    //
+    // }
+    if (selectedServicesList[index]['planurl']['${changeIndex}'].length == 0) {
+      return;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          // Customize the bottom sheet content here
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0.w),
+              topRight: Radius.circular(10.0.w),
+            ),
+          ),
+          height: 140.w,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              heigh10,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      serviceListItems[index],
+                      // style: normalfont17,
+                      style: bold17,
+                    ),
+                    Text(
+                      'Change Number: ${changeIndex + 1}',
+                      // style: normalfont17,
+                      style: normal14,
+                    ),
+                  ],
+                ),
+              ),
+              heigh10,
+              SizedBox(
+                height: 90,
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: List.generate(
+                    selectedServicesList[index]['planurl']['${changeIndex}'].length,
+                        (fileIndex) => Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: GestureDetector(
+                        onTap: () async {
+                          print(selectedServicesList[index]['planurl']['${changeIndex}'][fileIndex]);
+                          String? filetype = await getFileTypeFromUrl(selectedServicesList[index]['planurl']['${changeIndex}'][fileIndex]);
+                          if (filetype == 'pdf') {
+                            Get.to(MyPdfViewer(fileUrl: selectedServicesList[index]['planurl']['${changeIndex}'][fileIndex]));
+                          } else if (filetype == 'mp4') {
+                            Get.to(ChewieVideoPlayer(videoUrl: selectedServicesList[index]['planurl']['${changeIndex}'][fileIndex]));
+                          } else {
+                            Get.to(MyImageViewer(fileUrl: selectedServicesList[index]['planurl']['${changeIndex}'][fileIndex]));
+                          }
+                        },
+                        child: Center(
+                          child: Column(
+                            children: [
+                              const Icon(
+                                Icons.file_open,
+                                size: 40,
+                              ),
+                              Text(
+                                'File ${fileIndex + 1}',
+                                style: TextStyle(
+                                  fontSize: 13.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+
 }

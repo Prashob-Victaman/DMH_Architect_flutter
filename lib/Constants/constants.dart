@@ -295,21 +295,21 @@ Country selectedCountrywh = Country(
   e164Key: "",
 );
 
-List HouseType = [
-  'Simplex',
-  'Duplex',
-  'Triplex',
-  'Apartment',
-  'Bungalow',
-  'LodgeHotel',
-  'Apartment',
-  'ShopingMall',
-  'SchoolCollege',
-  'Hospital',
-  'Hotel',
-  'Restarent',
-  'BanquetHall'
-];
+// List HouseType = [
+//   'Simplex',
+//   'Duplex',
+//   'Triplex',
+//   'Apartment',
+//   'Bungalow',
+//   'LodgeHotel',
+//   'Apartment',
+//   'ShopingMall',
+//   'SchoolCollege',
+//   'Hospital',
+//   'Hotel',
+//   'Restarent',
+//   'BanquetHall'
+// ];
 
 // final List<String> serviceType = [
 //   "Planning",

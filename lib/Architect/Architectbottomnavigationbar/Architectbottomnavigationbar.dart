@@ -19,8 +19,8 @@ class _ArchitectbottomnavigationbarState
     extends State<Architectbottomnavigationbar> {
   final List<Widget> _screens = [
     ArchitecthomePage(),
-    ordersProfile(),
-    ServicesOrderHistory(),
+    const ordersProfile(),
+    const ServicesOrderHistory(),
     //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
 

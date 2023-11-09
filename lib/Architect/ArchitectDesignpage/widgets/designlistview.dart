@@ -74,11 +74,11 @@ class _designlistviewState extends State<designlistview> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.w),
                         color: kgreycolor),
-                    height: 200.w,
+                    // height: 200.w,
                     child: Column(
                       children: [
                         Container(
-                          height: 160.w,
+                          // height: 160.w,
                           child: Stack(
                             children: [
                               CachedNetworkImage(
@@ -89,10 +89,11 @@ class _designlistviewState extends State<designlistview> {
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10.w),
                                         topRight: Radius.circular(10.w)),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: imageProvider),
+                                    // image: DecorationImage(
+                                    //     fit: BoxFit.cover,
+                                    //     image: imageProvider),
                                   ),
+                                  child: Image(image: imageProvider),
                                 ),
                               ),
                               Row(
@@ -101,7 +102,7 @@ class _designlistviewState extends State<designlistview> {
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10.w),
+                                            topLeft: Radius.circular(0.w),
                                             bottomRight: Radius.circular(10.w)),
                                         color:
                                             Color.fromARGB(255, 255, 214, 69)),
@@ -137,7 +138,7 @@ class _designlistviewState extends State<designlistview> {
                         ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 10.w),
-                          height: 40.w,
+                          // height: 40.w,
                           decoration: BoxDecoration(
                             color: kwhitecolor,
                             borderRadius: BorderRadius.only(
@@ -157,9 +158,21 @@ class _designlistviewState extends State<designlistview> {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      '${data.houseArea['length']}Ft * ${data.houseArea['width']}Ft = ${data.houseArea['area']} sqft ',
-                                      style: TextStyle(fontSize: 12.sp),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        heigh5,
+                                        Text(
+                                          'Width x Length',
+                                          style: TextStyle(fontSize: 11.sp),
+                                        ),
+                                        Text(
+                                          '${data.houseArea['length']}Ft * ${data.houseArea['width']}Ft = ${data.houseArea['area']} sqft ',
+                                          style: TextStyle(fontSize: 12.sp),
+                                        ),
+                                        heigh5,
+                                      ],
                                     ),
                                     const Spacer(),
                                     Text(

@@ -21,7 +21,7 @@ class _DesignsSoldState extends State<DesignsSold> {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(15.w),
+          padding: EdgeInsets.all(10.w),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,12 +33,12 @@ class _DesignsSoldState extends State<DesignsSold> {
                     size: 20.sp,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   'My Sold Designs',
                   style: bold18,
                 ),
-                Spacer()
+                const Spacer()
               ],
             ),
             heigh10,
@@ -49,10 +49,10 @@ class _DesignsSoldState extends State<DesignsSold> {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   var DesignsSoldList;
                   try {
@@ -63,7 +63,7 @@ class _DesignsSoldState extends State<DesignsSold> {
 
                   return ListView.separated(
                     shrinkWrap: true,
-                    physics: ScrollPhysics(),
+                    physics: const ScrollPhysics(),
                     separatorBuilder: (context, index) {
                       return SizedBox(
                         height: 15.w,
@@ -78,11 +78,12 @@ class _DesignsSoldState extends State<DesignsSold> {
                             borderRadius: BorderRadius.circular(5.w),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Row(
                               children: [
+                                width10,
                                 Container(
-                                  height: 80.w,
+                                  height: 90.w,
                                   width: 100.w,
                                   decoration: BoxDecoration(
                                       color: kgreycolor,
@@ -96,31 +97,36 @@ class _DesignsSoldState extends State<DesignsSold> {
                                 ),
                                 width10,
                                 SizedBox(
-                                  width: 240.w,
+                                  width: 230.w,
                                   child: Column(
                                     children: [
                                       Row(
                                         children: [
-                                          Text('Customer:',
+                                          Text(
+                                            'Customer:',
                                             style: bold12,
                                           ),
                                           width10,
-                                          Text(DesignsSoldList[reverseIndex]['customerName'],
-                                            style: bold16,
+                                          Text(
+                                            DesignsSoldList[reverseIndex]
+                                                ['customerName'],
+                                            style: bold15,
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('amount received:',
+                                          Text(
+                                            'amount received:',
                                             style: bold12,
                                           ),
                                           width10,
-                                          Text('${DesignsSoldList[reverseIndex]['amount']}',
-                                            style: bold16,
+                                          Text(
+                                            '${DesignsSoldList[reverseIndex]['amount']}',
+                                            style: bold15,
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                         ],
                                       ),
                                       // Row(
@@ -130,40 +136,46 @@ class _DesignsSoldState extends State<DesignsSold> {
                                       //     ),
                                       //     width10,
                                       //     Text('${DesignsSoldList[reverseIndex]['designUid']}',
-                                      //       style: bold16,
+                                      //       style: bold15,
                                       //     ),
                                       //   ],
                                       // ),
                                       Row(
                                         children: [
-                                          Text('Date:',
+                                          Text(
+                                            'Date:',
                                             style: bold12,
                                           ),
                                           width10,
-                                          Text('${DesignsSoldList[reverseIndex]['dateTime'].toString().split(' ').first}',
-                                            style: bold16,
+                                          Text(
+                                            '${DesignsSoldList[reverseIndex]['dateTime'].toString().split(' ').first}',
+                                            style: bold15,
                                           ),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Order Id:',
+                                          Text(
+                                            'Order Id:',
                                             style: bold12,
                                           ),
                                           width10,
-                                          Text('${DesignsSoldList[reverseIndex]['orderId']}',
-                                            style: bold16,
+                                          Text(
+                                            '${DesignsSoldList[reverseIndex]['orderId']}',
+                                            style: bold15,
                                           ),
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Payment ID:',
+                                          Text(
+                                            'Payment ID:',
                                             style: bold12,
                                           ),
                                           width10,
-                                          Text('${DesignsSoldList[reverseIndex]['paymentId']}',
-                                            style: bold16,
+                                          Text(
+                                            '${DesignsSoldList[reverseIndex]['merchantTransactionId']}',
+                                            style: bold15,
                                           ),
                                         ],
                                       ),

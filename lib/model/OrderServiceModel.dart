@@ -16,7 +16,7 @@ class OrderServiceModel {
   String architectUid;
   String orderUid;
   var deliveryDate;
-  double amount;
+  var amount;
   bool isDeliverer;
   int numberOfchangesDone;
 

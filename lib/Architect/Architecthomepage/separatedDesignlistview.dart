@@ -53,11 +53,11 @@ class separateddesignlistview extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.w),
                     color: kgreycolor),
-                height: 220.w,
+                // height: 220.w,
                 child: Column(
                   children: [
                     Container(
-                      height: 160.w,
+                      // height: 160.w,
                       child: Stack(
                         children: [
                           CachedNetworkImage(
@@ -74,11 +74,12 @@ class separateddesignlistview extends StatelessWidget {
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(10.w),
                                     topRight: Radius.circular(10.w)),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: imageProvider,
-                                ),
+                                // image: DecorationImage(
+                                //   fit: BoxFit.cover,
+                                //   image: imageProvider,
+                                // ),
                               ),
+                              child: Image(image: imageProvider),
                             ),
                           ),
                           Row(
@@ -87,7 +88,7 @@ class separateddesignlistview extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(10.w),
+                                        topLeft: Radius.circular(0.w),
                                         bottomRight: Radius.circular(10.w)),
                                     color: const Color.fromARGB(
                                         255, 255, 214, 69)),
@@ -121,7 +122,7 @@ class separateddesignlistview extends StatelessWidget {
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 10.w),
-                      height: 60.w,
+                      // height: 60.w,
                       decoration: BoxDecoration(
                         color: kwhitecolor,
                         borderRadius: BorderRadius.only(
@@ -141,12 +142,24 @@ class separateddesignlistview extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                '${CategoryData[index]['houseArea']['length']}Ft * ${CategoryData[index]['houseArea']['width']}Ft = ${CategoryData[index]['houseArea']['area']} sqft ',
-                                style: normal14,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  heigh5,
+                                  Text(
+                                    'Width x Length',
+                                    style: TextStyle(fontSize: 11.sp),
+                                  ),
+                                  Text(
+                                    '${CategoryData[index]['houseArea']['length']}Ft * ${CategoryData[index]['houseArea']['width']}Ft = ${CategoryData[index]['houseArea']['area']} sqft ',
+                                    style: normal14,
+                                  ),
+                                  heigh5,
+                                ],
                               ),
                               const Spacer(),
-                              Text('${CategoryData[index]['houseFacing']} Facing House'),
+                              Text(
+                                  '${CategoryData[index]['houseFacing']} Facing House'),
                             ],
                           ),
                         ],

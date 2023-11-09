@@ -338,8 +338,30 @@ class ArchitectAddDesignController extends GetxController {
       required List floorImageList,
       required List floorImagetitleList,
       required String architectName}) async {
-    final docUrl =
-        FirebaseFirestore.instance.collection('DesignDataFromAdmin').doc();
+    final date =
+        '${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}';
+    String designUid = '';
+    print('$date mjjjj');
+
+    for (var i = 0; i < 200; i++) {
+      // print('$i mjjjj');
+
+      designUid = 'DMH${date}0${i + 1}';
+      DocumentSnapshot referanceData = await FirebaseFirestore.instance
+          .collection('DesignDataFromAdmin')
+          .doc(designUid)
+          .get();
+      if (!referanceData.exists) {
+        print('$i fggg');
+
+        break;
+      }
+      // print('$i sssfggg');
+    }
+
+    final docUrl = FirebaseFirestore.instance
+        .collection('DesignDataFromAdmin')
+        .doc(designUid);
 
     final postedDate = DateTime.now();
     final sortId = DateTime.now().millisecondsSinceEpoch;

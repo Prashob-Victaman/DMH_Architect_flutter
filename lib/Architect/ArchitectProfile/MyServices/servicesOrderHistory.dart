@@ -97,7 +97,7 @@ class _ServicesOrderHistoryState extends State<ServicesOrderHistory> {
                         try {
                           orderData = OrderServiceModel.fromJson(snapshot.data['serviceOrderHistory'][index]);
                         } catch (e) {
-                          // print(e);
+                          print(e);
                           return const SizedBox();
                         }
                         int serviceIndex = serviceListItems.indexOf(orderData.servicesname);

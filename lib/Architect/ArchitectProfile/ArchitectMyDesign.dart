@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/architectprofilepage.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/ArchitectIndividualMyDesign.dart';
@@ -44,10 +45,10 @@ class ArchitectMyDesign extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   final List DesignList = snapshot.data!['myDesigns'];
                   print(DesignList.length);
@@ -55,13 +56,14 @@ class ArchitectMyDesign extends StatelessWidget {
                   return DesignList.isNotEmpty
                       ? ListView.separated(
                           shrinkWrap: true,
-                          physics: ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           itemBuilder: (context, index) {
-                            int reverseIndex = DesignList.length-index-1;
+                            int reverseIndex = DesignList.length - index - 1;
                             //final data = designDataModel.fromJson(DesignList[reverseIndex]);
                             final data = DesignList[reverseIndex];
 
-                            Timestamp timestamp = DesignList[reverseIndex]['postedDate'];
+                            Timestamp timestamp =
+                                DesignList[reverseIndex]['postedDate'];
                             DateTime dateTime = timestamp.toDate();
                             DateTime currentTime = DateTime.now();
                             Duration timeDif = currentTime.difference(dateTime);
@@ -73,21 +75,45 @@ class ArchitectMyDesign extends StatelessWidget {
                               child: Container(
                                 child: Row(
                                   children: [
-                                    Container(
-                                      height: 80.w,
+                                    // Container(
+                                    //   height: 80.w,
+                                    //   width: 100.w,
+                                    //   decoration: BoxDecoration(
+                                    //       color: kgreycolor,
+                                    //       borderRadius:
+                                    //           BorderRadius.circular(5.w),
+                                    //       image: DecorationImage(
+                                    //           fit: BoxFit.cover,
+                                    //           image: NetworkImage(DesignList[
+                                    //                           reverseIndex]
+                                    //                       ['exteriorImageList']
+                                    //                   [0] ??
+                                    //               'https://firebasestorage.googleapis.com/v0/b/designmyhouseuser.appspot.com/o/Placeholder%2Fef3-placeholder-image.jpg?alt=media&token=9e009457-de80-44b9-aa42-89b3bf2fb101&_gl=1*op8ful*_ga*MTIxMzcwMjQwOC4xNjg2MDYwMDEz*_ga_CW55HF8NVT*MTY4NjEzNTM2MS42LjEuMTY4NjEzNTkzNi4wLjAuMA..'))),
+                                    // ),
+
+                                    SizedBox(
+                                      height: 90.w,
                                       width: 100.w,
-                                      decoration: BoxDecoration(
-                                          color: kgreycolor,
-                                          borderRadius:
-                                              BorderRadius.circular(5.w),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(DesignList[
-                                                              reverseIndex]
-                                                          ['exteriorImageList']
-                                                      [0] ??
-                                                  'https://firebasestorage.googleapis.com/v0/b/designmyhouseuser.appspot.com/o/Placeholder%2Fef3-placeholder-image.jpg?alt=media&token=9e009457-de80-44b9-aa42-89b3bf2fb101&_gl=1*op8ful*_ga*MTIxMzcwMjQwOC4xNjg2MDYwMDEz*_ga_CW55HF8NVT*MTY4NjEzNTM2MS42LjEuMTY4NjEzNTkzNi4wLjAuMA..'))),
+                                      child: CachedNetworkImage(
+                                        imageUrl: DesignList[reverseIndex]
+                                            ['exteriorImageList'][0],
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          height: 90.w,
+                                          width: 100.w,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(5.w),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: imageProvider),
+                                          ),
+                                        ),
+                                      ),
                                     ),
+
+                                    //
                                     width10,
                                     SizedBox(
                                       width: 240.w,
@@ -101,7 +127,7 @@ class ArchitectMyDesign extends StatelessWidget {
                                                 data['designType'],
                                                 style: bold16,
                                               ),
-                                              Spacer(),
+                                              const Spacer(),
                                               Icon(
                                                 Icons.arrow_forward_ios,
                                                 size: 13.sp,
@@ -138,9 +164,11 @@ class ArchitectMyDesign extends StatelessWidget {
                             );
                           },
                           itemCount: DesignList.length)
-                      : SizedBox(height: MediaQuery.of(context).size.height-40.w,
-                      child: const Center(child: Text("No Designs found"),)
-                  );
+                      : SizedBox(
+                          height: MediaQuery.of(context).size.height - 40.w,
+                          child: const Center(
+                            child: Text("No Designs found"),
+                          ));
                 })
           ],
         ),

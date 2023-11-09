@@ -21,7 +21,7 @@ class ChooseArchitect extends StatelessWidget {
               onTap: () => Get.back(),
               child: Padding(
                 padding: EdgeInsets.only(left: 10.0.w, top: 10.w),
-                child: Container(
+                child: SizedBox(
                   child: Row(children: [
                     Icon(
                       Icons.arrow_back,

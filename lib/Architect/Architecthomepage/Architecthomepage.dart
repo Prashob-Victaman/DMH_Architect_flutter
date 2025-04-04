@@ -1,21 +1,15 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/corouselslider.dart';
 import 'package:dmh_architect/Architect/Architecthomepage/widgets/housedesigngridview.dart';
-import 'package:dmh_architect/Architect/Architecthomepage/widgets/houserenewgridview.dart';
-import 'package:dmh_architect/Architect/Architecthomepage/widgets/reasontoorderhousegridview.dart';
 import 'package:dmh_architect/controller/locationcontroller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../Constants/constants.dart';
 import '../ArchitectDesignpage/designPage.dart';
-import '../ArchitectDesignpage/widgets/designlistview.dart';
 import '../ArchitectDrawer/ArchitectDrawerscreen.dart';
 import '../widgets/appbar.dart';
 import 'package:upgrader/upgrader.dart';
@@ -146,128 +140,115 @@ class _ArchitecthomePageState extends State<ArchitecthomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Hi ${data['name']}..! How Have you been',
-                          style: bold13,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 0.0.w),
-                          child: FutureBuilder(
-                              future: getcontroller.fetchLocation(),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  return Text(
-                                    'Location Loading...',
-                                    style: normal14,
-                                  );
-                                }
-                                if (!snapshot.hasData) {
-                                  return Text(
-                                    'Location Loading...',
-                                    style: normal14,
-                                  );
-                                }
-                                log(snapshot.data!.toString());
-                                return Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      size: 15.sp,
-                                      color: kbluecolor,
-                                    ),
-                                    Text(
-                                      // widget.location,
+                        heigh10,
 
-                                      '${snapshot.data}',
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 13.sp, color: kbluecolor),
-                                    ),
-                                  ],
-                                );
-                              }),
-                        ),
                         Container(
-                          // padding: EdgeInsets.symmetric(horizontal: 10.w),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.w),
-                          ),
-                          width: screenwidth,
-                          // height: 280.w,
-                          child: Column(
-                            children: [
-                              // heigh10,
-                              // Container(
-                              //   width: screenwidth - 20.w,
-                              //   height: 50.w,
-                              //   decoration: BoxDecoration(
-                              //       borderRadius: BorderRadius.circular(5.w),
-                              //       color: kprimarycolor),
-                              // ),
-                              heigh10,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Total Designs',
-                                      subtitle: totalDesigns ?? 0),
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Total Orders',
-                                      subtitle: widget.totalOrders ?? 0),
-                                ],
-                              ),
-                              heigh10,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Total Services',
-                                      subtitle: totalServices ?? 0),
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Accepted Services',
-                                      subtitle: acceptedServices ?? 0),
-                                ],
-                              ),
-                              heigh10,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Rejected Services',
-                                      subtitle: rejectedServices ?? 0),
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Pending Request',
-                                      subtitle: pendingServices ?? 0),
-                                ],
-                              ),
-                              heigh10,
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Delivered Services',
-                                      subtitle: deliveredServices ?? 0),
-                                  DashboardWidget(
-                                      screenwidth: screenwidth,
-                                      title: 'Total Earnings',
-                                      subtitle: totalEarnings ?? 0),
-                                ],
-                              ),
-                              heigh10
-                            ],
-                          ),
+                              color: kprimarycolor.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(10.w)),
+                          height: 40.w,
+                          child: Center(
+                              child: Text(
+                            'Check Designing Cost',
+                            style: bold16,
+                          )),
                         ),
+                        heigh10,
+
+                        Container(
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 170, 190, 255)
+                                  .withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(10.w)),
+                          height: 40.w,
+                          child: Center(
+                              child: Text(
+                            'Check Construction Cost',
+                            style: bold16,
+                          )),
+                        )
+
+                        // Container(
+                        //   // padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(5.w),
+                        //   ),
+                        //   width: screenwidth,
+                        //   // height: 280.w,
+                        //   child: Column(
+                        //     children: [
+                        //       // heigh10,
+                        //       // Container(
+                        //       //   width: screenwidth - 20.w,
+                        //       //   height: 50.w,
+                        //       //   decoration: BoxDecoration(
+                        //       //       borderRadius: BorderRadius.circular(5.w),
+                        //       //       color: kprimarycolor),
+                        //       // ),
+                        //       heigh10,
+                        //       Row(
+                        //         mainAxisAlignment:
+                        //             MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Total Designs',
+                        //               subtitle: totalDesigns ?? 0),
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Total Orders',
+                        //               subtitle: widget.totalOrders ?? 0),
+                        //         ],
+                        //       ),
+                        //       heigh10,
+                        //       Row(
+                        //         mainAxisAlignment:
+                        //             MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Total Services',
+                        //               subtitle: totalServices ?? 0),
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Accepted Services',
+                        //               subtitle: acceptedServices ?? 0),
+                        //         ],
+                        //       ),
+                        //       heigh10,
+                        //       Row(
+                        //         mainAxisAlignment:
+                        //             MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Rejected Services',
+                        //               subtitle: rejectedServices ?? 0),
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Pending Request',
+                        //               subtitle: pendingServices ?? 0),
+                        //         ],
+                        //       ),
+                        //       heigh10,
+                        //       Row(
+                        //         mainAxisAlignment:
+                        //             MainAxisAlignment.spaceBetween,
+                        //         children: [
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Delivered Services',
+                        //               subtitle: deliveredServices ?? 0),
+                        //           DashboardWidget(
+                        //               screenwidth: screenwidth,
+                        //               title: 'Total Earnings',
+                        //               subtitle: totalEarnings ?? 0),
+                        //         ],
+                        //       ),
+                        //       heigh10
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   );

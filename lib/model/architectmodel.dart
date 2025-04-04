@@ -10,7 +10,7 @@ class ArchitectsignupData {
   String gender;
   int sortId;
   Map serviceRateamountList;
-  double totalEarnings;
+  var totalEarnings;
   ArchitectsignupData({
     required this.uid,
     required this.designation,

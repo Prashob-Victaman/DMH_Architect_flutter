@@ -8,22 +8,38 @@ class architectprofilewidgets extends StatelessWidget {
   String title;
   String subtitle;
   Icon trailing;
+  bool isLocked;
 
   architectprofilewidgets(
       {super.key,
       required this.icon,
       required this.trailing,
       required this.subtitle,
-      required this.title});
+      required this.title,
+      required this.isLocked});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-            backgroundColor: kbluecolor.withOpacity(0.05),
-            radius: 20.w,
-            child: icon),
+        Stack(
+          children: [
+            isLocked
+                ? Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Icon(
+                      Icons.lock_outline,
+                      size: 17,
+                      color: kbluecolor,
+                    ))
+                : SizedBox(),
+            CircleAvatar(
+                backgroundColor: kbluecolor.withOpacity(0.05),
+                radius: 23.w,
+                child: icon),
+          ],
+        ),
         width10,
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

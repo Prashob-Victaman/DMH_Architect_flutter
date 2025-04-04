@@ -66,7 +66,7 @@ class _ArchitectProfileState extends State<ArchitectProfile> {
                 final data = ArchitectsignupData.fromJson(snapshot.data!);
                 gender = data.gender;
 
-                // // log(data.ProfileDetails['firstName'].toString());
+
                 // if (data.ProfileDetails['firstName'] != "") {
                 //   firstNameController.text = data.ProfileDetails['firstName'];
                 // }
@@ -182,7 +182,7 @@ class _ArchitectProfileState extends State<ArchitectProfile> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   titlePadding: EdgeInsets.all(0.w),
-                                  title: Container(
+                                  title: SizedBox(
                                     height: 114.w,
                                     width: 282.w,
                                     child: Column(

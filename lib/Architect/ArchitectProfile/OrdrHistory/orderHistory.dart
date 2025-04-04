@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/OrderDetails.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/RequestWidget.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/ServicesSelected.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/OrdrHistory/widgets/UploadRequirements.dart';
 import 'package:dmh_architect/Architect/productview/productview.dart';
@@ -13,7 +12,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -70,6 +68,7 @@ class OrderHistoryUser extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     //  updatedOrderUid = orderUid;
+    print(orderUid);
 
     String formatedDate = DateFormat("dd-MMM-yyyy   hh:mm a").format(dateTime);
     return Scaffold(
@@ -89,7 +88,7 @@ class OrderHistoryUser extends StatelessWidget {
                     .doc(orderUid)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  print(orderUid);
+                  // print(orderUid);
                   if (snapshot.hasError) {
                     return const Center(child: CircularProgressIndicator());
                   }
@@ -112,7 +111,6 @@ class OrderHistoryUser extends StatelessWidget {
                           : numberOfFloors == 3
                               ? 'Three'
                               : 'Four';
-
                   return Column(
                     children: [
                       Padding(
@@ -458,11 +456,12 @@ class OrderHistoryUser extends StatelessWidget {
                       heigh10,
                       imageUrlList.length == 0
                           ? FutureBuilder(
-                              future:
-                  FirebaseFirestore.instance
-                      .collection("orderData").doc(orderUid).collection('orderDesignData')
-                      .doc(data.designUid)
-                      .get(),
+                              future: FirebaseFirestore.instance
+                                  .collection("orderData")
+                                  .doc(orderUid)
+                                  .collection('orderDesignData')
+                                  .doc(data.designUid)
+                                  .get(),
 
                               // FirebaseFirestore.instance
                               //     .collection('DesignDataFromAdmin')
@@ -480,7 +479,7 @@ class OrderHistoryUser extends StatelessWidget {
                                 List imageUrlList =
                                     snap.data?['exteriorImageList'];
                                 return OrderDetailsClass(
-                                    orderUid:orderUid,
+                                    orderUid: orderUid,
                                     data: data,
                                     screenWidth: screenWidth,
                                     imageUrlList: imageUrlList);
@@ -859,15 +858,15 @@ class OrderDetailsClass extends StatelessWidget {
   final List imageUrlList;
   final String orderUid;
 
-
-
   @override
   Widget build(BuildContext context) {
     print("orderUid:$orderUid");
     print(data.designUid);
     return StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection("orderData").doc(orderUid).collection('orderDesignData')
+            .collection("orderData")
+            .doc(orderUid)
+            .collection('orderDesignData')
             .doc(data.designUid)
             .snapshots(),
         builder: (context, snapshot) {

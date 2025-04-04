@@ -29,14 +29,20 @@ class MyImageViewer extends StatelessWidget {
         ),
         actions: [
           GestureDetector(
-            onTap: ()async{
+            onTap: () async {
               String? filetype = await getFileTypeFromUrl(fileUrl);
               // print(filetype);
-              downloadFile(DateTime.now().millisecondsSinceEpoch, fileUrl,
-                  DateTime.now().millisecondsSinceEpoch.toString() + '.$filetype');
-
+              downloadFile(
+                  DateTime.now().millisecondsSinceEpoch,
+                  fileUrl,
+                  DateTime.now().millisecondsSinceEpoch.toString() +
+                      '.$filetype');
             },
-            child: const Icon(Icons.download_for_offline_sharp,color: Colors.black,size: 30,),
+            child: const Icon(
+              Icons.download_for_offline_sharp,
+              color: Colors.black,
+              size: 30,
+            ),
           ),
           const SizedBox(
             width: 10,
@@ -48,7 +54,6 @@ class MyImageViewer extends StatelessWidget {
     );
   }
 }
-
 
 Future<String?> getFileTypeFromUrl(String url) async {
   try {
@@ -65,10 +70,7 @@ Future<String?> getFileTypeFromUrl(String url) async {
   return null;
 }
 
-
-
 Future<void> downloadFile(id, String url, String fileName) async {
-
   final saveDir = '/storage/emulated/0/Download';
   final savePath = '$saveDir/$fileName';
 
@@ -87,7 +89,8 @@ Future<void> downloadFile(id, String url, String fileName) async {
     }
 
     // Download the file
-    await dio.download(url, savePath, onReceiveProgress: (receivedBytes, totalBytes) {
+    await dio.download(url, savePath,
+        onReceiveProgress: (receivedBytes, totalBytes) {
       final progress = (receivedBytes / totalBytes * 100).toStringAsFixed(0);
       // print('Download progress: $progress%');
     }).then((value) => print(value));
@@ -105,12 +108,15 @@ Future<void> downloadFile(id, String url, String fileName) async {
   }
 }
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 Future<void> scheduleNotification(id, fileName, path) async {
-  var scheduledNotificationDateTime = DateTime.now().add(const Duration(seconds: 1));
+  var scheduledNotificationDateTime =
+      DateTime.now().add(const Duration(seconds: 1));
   Future<void> scheduleNotification(id, fileName, path) async {
-    var scheduledNotificationDateTime = DateTime.now().add(const Duration(seconds: 1));
+    var scheduledNotificationDateTime =
+        DateTime.now().add(const Duration(seconds: 1));
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
       'channel_id',
       'channel_name',
@@ -120,22 +126,25 @@ Future<void> scheduleNotification(id, fileName, path) async {
       android: androidPlatformChannelSpecifics,
     );
 
-    await flutterLocalNotificationsPlugin.schedule(
-      id,
-      '$fileName downloaded successfully',
-      'path: $path',
-      scheduledNotificationDateTime,
-      platformChannelSpecifics,
-      payload: 'Notification payload',
-    );
+//Uncomment this line after solvoing issue
+    // await flutterLocalNotificationsPlugin.schedule(
+    //   id,
+    //   '$fileName downloaded successfully',
+    //   'path: $path',
+    //   scheduledNotificationDateTime,
+    //   platformChannelSpecifics,
+    //   payload: 'Notification payload',
+    // );
   }
 }
 
 showNotification(message) async {
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
   var android = const AndroidInitializationSettings('@mipmap/ic_launcher');
   var intitial = InitializationSettings(android: android);
-  await flutterLocalNotificationsPlugin.initialize(intitial, onDidReceiveNotificationResponse: (payload) {});
+  await flutterLocalNotificationsPlugin.initialize(intitial,
+      onDidReceiveNotificationResponse: (payload) {});
 
   var channel = AndroidNotificationChannel(
     Random.secure().nextInt(100000).toString(),
@@ -152,11 +161,12 @@ showNotification(message) async {
 
   await flutterLocalNotificationsPlugin
       .show(
-      1,
-      'Downloaded Successfully',
-      message,
-      NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-      ))
-      .onError((error, stackTrace) => print("error:$error \nstack:$stackTrace"));
+          1,
+          'Downloaded Successfully',
+          message,
+          NotificationDetails(
+            android: androidPlatformChannelSpecifics,
+          ))
+      .onError(
+          (error, stackTrace) => print("error:$error \nstack:$stackTrace"));
 }

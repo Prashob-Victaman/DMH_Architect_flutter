@@ -1,24 +1,22 @@
+import 'package:dmh_architect/Architect/ArchitectProfile/ArchitectProfileNew.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/constructioncost.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/designsSold.dart';
+import 'package:dmh_architect/Architect/ArchitectProfile/myServiceCharge.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/ordersProfile.dart';
-import 'package:dmh_architect/Architect/ArchitectProfile/profileServicerates.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/profileServicesUpdated.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/aboutapp.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilename.dart';
 import 'package:dmh_architect/Architect/ArchitectProfile/widgets/architectprofilewidgets.dart';
 import 'package:dmh_architect/Architect/Architectbottomnavigationbar/Architectbottomnavigationbar.dart';
+import 'package:dmh_architect/Architect/LockScreen/lockscreen.dart';
 import 'package:dmh_architect/Architect/architerctlogin/architectlogin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
 import '../../Constants/constants.dart';
 import 'ArchitectMyDesign.dart';
-import 'architectProfile.dart';
-
-import 'package:http/http.dart' as http;
 
 class ArchitectProfilePage extends StatelessWidget {
   ArchitectProfilePage({super.key});
@@ -54,7 +52,46 @@ class ArchitectProfilePage extends StatelessWidget {
                 ),
               ),
               heigh10,
-              const architectprofilename(),
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => MyProfile());
+                  // Navigator.of(context).push(MaterialPageRoute(
+                  //   builder: (context) => MyProfile(),
+                  // ));
+                },
+                child: const architectprofilename(),
+              ),
+              heigh20,
+              Container(
+                padding: EdgeInsets.all(15.w),
+                decoration: BoxDecoration(
+                  color: kwhitecolor,
+                  borderRadius: BorderRadius.circular(5.w),
+                  boxShadow: const <BoxShadow>[
+                    BoxShadow(
+                        spreadRadius: .1,
+                        blurStyle: BlurStyle.normal,
+                        color: Color.fromARGB(137, 184, 184, 184),
+                        blurRadius: 5.0,
+                        offset: Offset(0.0, 0.0))
+                  ],
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => Myservicecharge());
+                    // showLockConfirmationDialog(
+                    //     context, Myservicecharge(), '8714');
+                  },
+                  child: architectprofilewidgets(
+                      icon: Icon(Icons.description_sharp,
+                          color: kbluecolor, size: 20.w),
+                      title: 'My Service Charge',
+                      subtitle: 'Manage your service charge',
+                      trailing: Icon(Icons.arrow_forward_ios,
+                          size: 15.w, color: kgreycolor),
+                      isLocked: false),
+                ),
+              ),
               heigh20,
               Container(
                 padding: EdgeInsets.all(15.w),
@@ -73,58 +110,121 @@ class ArchitectProfilePage extends StatelessWidget {
                 child: Column(
                   children: [
                     GestureDetector(
-                      onTap: () => Get.to(() => ArchitectProfile()),
+                      onTap: () {
+                        // showLockConfirmationDialog(context);
+
+                        showLockConfirmationDialog(
+                            context, MyProfile(), '8714');
+
+                        //my account pending
+                      },
                       child: architectprofilewidgets(
-                          icon: Icon(Icons.account_circle_outlined,
-                              color: kbluecolor, size: 20.w),
-                          title: 'My Account',
-                          subtitle: 'Make Changes to your account',
-                          trailing: Icon(Icons.arrow_forward_ios,
-                              size: 15.w, color: kgreycolor)),
+                        icon: Icon(Icons.account_circle_outlined,
+                            color: kbluecolor, size: 20.w),
+                        title: 'My Profile',
+                        subtitle: 'Make Changes to your account',
+                        trailing: Icon(Icons.arrow_forward_ios,
+                            size: 15.w, color: kgreycolor),
+                        isLocked: true,
+                      ),
                     ),
                     heigh20,
                     GestureDetector(
-                      onTap: () => Get.to(() => ArchitectMyDesign()),
+                      onTap: () {
+                        // Get.to(() => ordersProfile());
+                        showLockConfirmationDialog(
+                            context, ordersProfile(), '8714');
+                      },
                       child: architectprofilewidgets(
-                          icon: Icon(Icons.category,
+                          icon: Icon(Icons.description_sharp,
                               color: kbluecolor, size: 20.w),
-                          title: 'My Designs',
-                          subtitle: 'Manage your Designs',
+                          title: 'My Bookings',
+                          subtitle: 'Manage your Bookings',
                           trailing: Icon(Icons.arrow_forward_ios,
-                              size: 15.w, color: kgreycolor)),
+                              size: 15.w, color: kgreycolor),
+                          isLocked: true),
                     ),
                     heigh20,
                     GestureDetector(
-                      onTap: () => Get.to(() => ProfileServicesUpdated()),
+                      onTap: () {
+                        showLockConfirmationDialog(
+                            context, ArchitectMyDesign(), '8714');
+                      },
+                      child: architectprofilewidgets(
+                        icon:
+                            Icon(Icons.category, color: kbluecolor, size: 20.w),
+                        title: 'My Designs',
+                        subtitle: 'Manage your Designs',
+                        trailing: Icon(Icons.arrow_forward_ios,
+                            size: 15.w, color: kgreycolor),
+                        isLocked: true,
+                      ),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () {
+                        showLockConfirmationDialog(
+                            context, ArchitectMyDesign(), '8714');
+                      },
+                      child: architectprofilewidgets(
+                        icon: Icon(Icons.pages, color: kbluecolor, size: 20.w),
+                        title: 'My Projects',
+                        subtitle: 'Manage your Designs',
+                        trailing: Icon(Icons.arrow_forward_ios,
+                            size: 15.w, color: kgreycolor),
+                        isLocked: true,
+                      ),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () {
+                        // Get.to(() => ProfileServicesUpdated());
+
+                        showLockConfirmationDialog(
+                            context, ProfileServicesUpdated(), '8714');
+                      },
                       child: architectprofilewidgets(
                           icon: Icon(Icons.currency_rupee,
                               color: kbluecolor, size: 20.w),
-                          title: 'Service Rates',
-                          subtitle: 'Manage your Service Rates',
+                          title: 'My Jobs',
+                          subtitle: 'Manage your Jobs Rates',
                           trailing: Icon(Icons.arrow_forward_ios,
-                              size: 15.w, color: kgreycolor)),
+                              size: 15.w, color: kgreycolor),
+                          isLocked: true),
                     ),
                     heigh20,
                     GestureDetector(
-                      onTap: () => Get.to(() => ordersProfile()),
+                      onTap: () {
+                        // Get.to(() => DesignsSold());
+
+                        showLockConfirmationDialog(
+                            context, DesignsSold(), '8714');
+                      },
                       child: architectprofilewidgets(
-                          icon: Icon(Icons.description_sharp,
+                          icon: Icon(Icons.category,
                               color: kbluecolor, size: 20.w),
-                          title: 'Orders',
-                          subtitle: 'Manage your Orders',
-                          trailing: Icon(Icons.arrow_forward_ios,
-                              size: 15.w, color: kgreycolor)),
-                    ),
-                    heigh20,
-                    GestureDetector(
-                      onTap: () => Get.to(() => DesignsSold()),
-                      child: architectprofilewidgets(
-                          icon: Icon(Icons.description_sharp,
-                              color: kbluecolor, size: 20.w),
-                          title: 'Designs sold',
+                          title: 'My Sold Designs',
                           subtitle: 'Designs bought by users',
                           trailing: Icon(Icons.arrow_forward_ios,
-                              size: 15.w, color: kgreycolor)),
+                              size: 15.w, color: kgreycolor),
+                          isLocked: true),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () {
+                        // Get.to(() => DesignsSold());
+
+                        // showLockConfirmationDialog(
+                        //     context, DesignsSold(), '8714');
+                      },
+                      child: architectprofilewidgets(
+                          icon: Icon(Icons.currency_rupee,
+                              color: kbluecolor, size: 20.w),
+                          title: 'My Wallet',
+                          subtitle: 'Manage your payments',
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              size: 15.w, color: kgreycolor),
+                          isLocked: true),
                     ),
                     heigh20,
                     GestureDetector(
@@ -203,7 +303,8 @@ class ArchitectProfilePage extends StatelessWidget {
                           title: 'Log out',
                           subtitle: 'Further secure your account for safety',
                           trailing: Icon(Icons.arrow_forward_ios,
-                              size: 15.w, color: kgreycolor)),
+                              size: 15.w, color: kgreycolor),
+                          isLocked: false),
                     )
                   ],
                 ),
@@ -232,6 +333,19 @@ class ArchitectProfilePage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
+                    GestureDetector(
+                      onTap: () => Get.to(() => const AboutApp()),
+                      child: architectprofilewidgetdown(
+                          icon: Icon(Icons.contact_page,
+                              color: kbluecolor, size: 20.w),
+                          title: 'My Contacts',
+                          trailing: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15.w,
+                            color: kgreycolor,
+                          )),
+                    ),
+                    heigh20,
                     GestureDetector(
                       onTap: () => showDialog<void>(
                         context: context,
@@ -352,7 +466,7 @@ class ArchitectProfilePage extends StatelessWidget {
                           // }
                         },
                         child: architectprofilewidgetdown(
-                            icon: Icon(Icons.notifications,
+                            icon: Icon(Icons.support,
                                 color: kbluecolor, size: 20.w),
                             title: 'Help & Support',
                             trailing: Icon(
@@ -361,6 +475,19 @@ class ArchitectProfilePage extends StatelessWidget {
                               color: kgreycolor,
                             )),
                       ),
+                    ),
+                    heigh20,
+                    GestureDetector(
+                      onTap: () => Get.to(() => Constructioncost()),
+                      child: architectprofilewidgetdown(
+                          icon: Icon(Icons.settings,
+                              color: kbluecolor, size: 20.w),
+                          title: 'Settings',
+                          trailing: Icon(
+                            Icons.arrow_forward_ios,
+                            size: 15.w,
+                            color: kgreycolor,
+                          )),
                     ),
                     heigh20,
                     GestureDetector(

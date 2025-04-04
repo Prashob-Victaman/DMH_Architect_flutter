@@ -21,9 +21,7 @@ class _ArchitectbottomnavigationbarState
     ArchitecthomePage(),
     const ordersProfile(),
     const ServicesOrderHistory(),
-    //const ArchitectDesignPage(),
     ArchitectUploadDesign(),
-
     ArchitectProfilePage(),
   ];
 

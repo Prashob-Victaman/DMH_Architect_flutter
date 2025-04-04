@@ -1,4 +1,4 @@
-package com.example.dmh_architect
+package com.dmh.architect
 
 import io.flutter.embedding.android.FlutterActivity
 

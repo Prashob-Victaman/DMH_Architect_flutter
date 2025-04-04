@@ -7,9 +7,125 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:288553622852:android:2ff2780c475c0fd3180b11",
+        "android_client_info": {
+          "package_name": "com.designmyhouse.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbX2EDkrhgZtW6L7-aIomkNpgoE2MAbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288553622852:android:2b63665ff06217df180b11",
+        "android_client_info": {
+          "package_name": "com.dmh.architect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbX2EDkrhgZtW6L7-aIomkNpgoE2MAbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288553622852:android:8373574b899d6f9c180b11",
+        "android_client_info": {
+          "package_name": "com.example.design_my_house_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbX2EDkrhgZtW6L7-aIomkNpgoE2MAbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:288553622852:android:6a78cb60f20be42e180b11",
         "android_client_info": {
           "package_name": "com.victaman.DMH_Architect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbX2EDkrhgZtW6L7-aIomkNpgoE2MAbBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "288553622852-orq6kmrnbl0mq9omenofolcp64q2kq1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288553622852:android:268d9a9433ccede6180b11",
+        "android_client_info": {
+          "package_name": "com.victaman.designmyhouse"
         }
       },
       "oauth_client": [

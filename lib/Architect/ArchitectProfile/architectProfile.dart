@@ -66,7 +66,6 @@ class _ArchitectProfileState extends State<ArchitectProfile> {
                 final data = ArchitectsignupData.fromJson(snapshot.data!);
                 gender = data.gender;
 
-
                 // if (data.ProfileDetails['firstName'] != "") {
                 //   firstNameController.text = data.ProfileDetails['firstName'];
                 // }
